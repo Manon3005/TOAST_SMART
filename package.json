@@ -11,6 +11,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/csv-parse": "^1.1.12",
+    "@types/csv-parse": "^1.1.12",
     "electron": "^36.1.0"
   },
   "dependencies": {
