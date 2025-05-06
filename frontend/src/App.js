@@ -4,14 +4,18 @@ import './App.css';
 import React, { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const loadFile = async () => {
+    const path = await window.electronAPI.pickFile();
+    if (path) {
+      console.log('Fichier sélectionné :', path);
+    }
+  };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Mon App Electron + React</h1>
-      <button onClick={() => setCount(count + 1)}>
-        Clique-moi ! ({count})
-      </button>
+    <div className="app-container">
+      <h1> 🍞 TOAST 🍞</h1>
+      <p>Tous à sa table</p>
+      <button onClick={loadFile}>📁 Charger un fichier</button>
     </div>
   );
 }
