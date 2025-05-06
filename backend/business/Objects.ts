@@ -29,18 +29,20 @@ export class GraduatedStudent {
     private nbGuest: number;
     private nbNeighbour: number;
     private guests: Guest[] = [];
-    private neighbours: GraduatedStudent[] = [];
+    private neighbours: string;
 
     constructor(
         lastName: string,
         firstName: string,
         email: string,
+        neighbours: string,
         nbGuest: number = 0,
         nbNeighbour: number = 0
     ) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
+        this.neighbours = neighbours;
         this.nbGuest = nbGuest;
         this.nbNeighbour = nbNeighbour;
     }
@@ -49,16 +51,8 @@ export class GraduatedStudent {
         this.guests.push(guest);
     }
     
-    addNeighbour(neighbour: GraduatedStudent): void {
-        this.neighbours.push(neighbour);
-    }
-    
     getGuests(): Guest[] {
         return this.guests;
-    }
-    
-    getNeighbours(): GraduatedStudent[] {
-        return this.neighbours;
     }
 }
 
