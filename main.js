@@ -18,6 +18,7 @@ async function createWindow() {
         console.log(`  LastName: ${student.lastName}`);
         console.log(`  FirstName: ${student.firstName}`);
         console.log(`  Email: ${student.email}`);
+        console.log(`  Diet: ${student.diet}`);
         console.log(`  Neighbours: ${student.neighbours}`);
         if (Array.isArray(student.guests)) {
           student.guests.forEach((guest, i) => {

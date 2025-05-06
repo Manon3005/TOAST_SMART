@@ -1,14 +1,14 @@
-Pour ajouter le frontend REACT (mini app à part entière) :   
+In order to at the REACT frontend :
 $cd frontend  
 $npm install  
 $cd ..  
 $npm install  
-$npm run start (à la racine ouvre l'app, si on est dans frontend lance en mode dev (modification en direct))
+$npm run start (At the root, open the app; if we're in the frontend folder, launch in dev mode (live editing).)
 
-Pour lancer le back : 
-- Librairies
+In order to launch the backend :
+- Install the following librairies :
 $npm install csv-parse
 $npm install --save-dev @types/csv-parse
-- Aller dans le dossier backend
-$npx tsc
+
+- In order to launch it :
 $npm run start

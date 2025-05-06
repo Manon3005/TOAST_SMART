@@ -19,23 +19,24 @@ export class ParserService {
           const guestFirstName = row['Prenom'].trim();
           const graduateName = row['Nom acheteur'].trim();
           const graduateFirstName = row['Prenom acheteur'].trim();
+          const diet = row['Regime alimentaire #131474'].trim();
 
           const graduateKey = graduateFirstName + ' ' + graduateName;
 
           if (guestName !== graduateName || guestFirstName !== graduateFirstName) {
             if (!graduates.has(graduateKey)) {
               const email = row['E-mail acheteur'].trim();
-              const neighbours = row['Avec qui voulez-vous manger? (commande) #135122'];
+              const neighbours = row['Avec qui voulez-vous manger? (commande) #135122'].trim();
               graduates.set(graduateKey, new GraduatedStudent(graduateName, graduateFirstName, email, neighbours));
             }
-            const diet = row['Regime alimentaire #131474'].trim();
             graduates.get(graduateKey)!.addGuest(new Guest(guestName, guestFirstName, diet));
           } else {
             if (!graduates.has(graduateKey)) {
               const email = row['E-mail acheteur'].trim();
-              const neighbours = row['Avec qui voulez-vous manger? (commande) #135122'];
+              const neighbours = row['Avec qui voulez-vous manger? (commande) #135122'].trim();
               graduates.set(graduateKey, new GraduatedStudent(graduateName, graduateFirstName, email, neighbours));
             }
+            graduates.get(graduateKey)!.setDiet(diet);
           }
         })
         .on('end', () => {
