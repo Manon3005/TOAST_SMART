@@ -1,3 +1,5 @@
+import { DiffEntry } from "util";
+
 export class Guest {
     private lastName: string;
     private firstName: string;
@@ -30,6 +32,7 @@ export class GraduatedStudent {
     private nbNeighbour: number;
     private guests: Guest[] = [];
     private neighbours: string;
+    private diet: string;
 
     constructor(
         lastName: string,
@@ -37,7 +40,8 @@ export class GraduatedStudent {
         email: string,
         neighbours: string,
         nbGuest: number = 0,
-        nbNeighbour: number = 0
+        nbNeighbour: number = 0,
+        diet: string = ""
     ) {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -45,6 +49,11 @@ export class GraduatedStudent {
         this.neighbours = neighbours;
         this.nbGuest = nbGuest;
         this.nbNeighbour = nbNeighbour;
+        this.diet = diet;
+    }
+
+    setDiet(diet: string): void {
+        this.diet = diet;
     }
     
     addGuest(guest: Guest): void {
