@@ -18,6 +18,9 @@ type ParsedCSVRow = Record<string, string>;
 type GraduatedStudentMap = Map<string, GraduatedStudent>;
 
 export class ParserService {
+  private static guestIdCounter = 1;
+  private static studentIdCounter = 1;
+
   private static allGraduatedStudents : GraduatedStudent[] = [];
   
   private static columns: ColumnsNames;
@@ -53,14 +56,16 @@ export class ParserService {
           const guestIsGraduatedStudent = guestFirstName === gradFirstName && guestLastName === gradLastName;
 
           if (!graduatedStudents.has(gradKey)) {
+            const id = this.getNextStudentId();
             graduatedStudents.set(
               gradKey,
-              new GraduatedStudent(gradLastName, gradFirstName, gradEmail, tableMates)
+              new GraduatedStudent(id, gradLastName, gradFirstName, gradEmail, tableMates)
             );
           }
 
           if (!guestIsGraduatedStudent) {
-            const guest = new Guest(guestLastName, guestFirstName, specifiedDiet);
+            const id = this.getNextGuestId();
+            const guest = new Guest(id, guestLastName, guestFirstName, specifiedDiet);
             graduatedStudents.get(gradKey)!.addGuest(guest);
           }
           else {
@@ -90,5 +95,13 @@ export class ParserService {
 
   static setColumnsNames(columns: ColumnsNames): void {
     this.columns = columns;
+  }
+
+  private static getNextGuestId(): number {
+    return this.guestIdCounter++;
+  }
+
+  private static getNextStudentId(): number {
+    return this.studentIdCounter++;
   }
 }
