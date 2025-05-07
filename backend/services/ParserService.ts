@@ -83,7 +83,7 @@ export class ParserService {
 
   static async linkNeighboursToGraduatedStudents(): Promise<GraduatedStudent[]> {
     this.allGraduatedStudents.forEach(student => {
-      const neighbourWords = student.getNeighboursString().toLowerCase().split(/\s+/);
+      const neighbourWords = student.getNeighboursString().toLowerCase().split(/[\s,;:.!?]+/);
       neighbourWords.forEach(word => {
         const matchedStudent = this.allGraduatedStudents.find(student => student.getLastName().toLowerCase() === word);
         if (matchedStudent && !student.isNeighboursAlreadyPresent(matchedStudent)) {
