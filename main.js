@@ -24,7 +24,7 @@ async function createWindow() {
       wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
     });
     
-    const graduatedStudents = await ParserService.readFileCSV("resources/files/export_pr_plan.csv");
+    const graduatedStudents = await ParserService.readFileCSV("resources/files/export_pr_plan_virgule.csv");
 
     if (Array.isArray(graduatedStudents)) {
       graduatedStudents.forEach((student, index) => {
@@ -46,7 +46,6 @@ async function createWindow() {
     } else {
       console.error("Le résultat n'est pas un tableau :", graduatedStudents);
     }
-
   } catch (error) {
     console.error("Erreur lors du traitement du fichier CSV:", error);
   }
