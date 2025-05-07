@@ -119,6 +119,9 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   // Get the json from the front
   const maxTables = jsonData.max_number_tables;
   const maxByTables = jsonData.max_number_by_tables;
+  const invalidNeighboursStudentId = jsonData.invalid_neighbours_student_id;
+  // Call the service in order to delete the non valid neighbours
+  // await ParserService.deleteNonValidNeighbours(invalidNeighboursStudentId);
   // Create the json information for the table plan
   await ParserService.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables);
   // Launch the generation of the table plan
