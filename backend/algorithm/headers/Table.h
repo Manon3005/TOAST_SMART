@@ -1,12 +1,8 @@
-#if ! defined ( Table_H )
-#define Table_H
+#pragma once
 
 #include <iostream>
-#include <string>
-#include <fstream>
-#include <map>
 
-using namespace std;
+#include "Student.h"
 
 class Student;
 
@@ -16,11 +12,15 @@ class Table
         Table();
         virtual ~Table();
         Student* addStudent(Student* student);
+        void print();
+
+        Student** getStudentList();
+        int getNbStudent();
+        int getNbFilledSeat();
 
     protected:
         int nbFilledSeat;
         Student** studentList;
         int nbStudent;
+        int remainingStudentPreference;
 };
-
-#endif

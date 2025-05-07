@@ -22,6 +22,10 @@ int main(int argc, char* argv[])
         studentList[i]->print();
     }
 
+    SeatingArrangements* seats = new SeatingArrangements(studentList, dataParser->getNbStudent(), dataParser->getTableCapacityMax(), dataParser->getNbTableMax());
+    seats->createMatrix();
+    seats->printMatrix();
+    
     return 0;
 }
 

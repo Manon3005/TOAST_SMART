@@ -1,12 +1,11 @@
-#if ! defined ( SeatingArrangements_H )
-#define SeatingArrangements_H
+#pragma once
 
 #include <iostream>
-#include <string>
 #include <map>
-#include "Table.h"
+#include <vector>
 
-class Student;
+#include "Table.h"
+#include "Student.h"
 
 class SeatingArrangements
 {
@@ -15,13 +14,19 @@ class SeatingArrangements
         SeatingArrangements(Student** studentList, int nbStudent, int tableCapacityMax, int nbTableMax);
         virtual ~SeatingArrangements();
 
+        void createMatrix();
+        void printMatrix();
+        void addStudentToTable(Student* student, Table* table);
+
     protected:
 
         Student** studentList;
         int nbStudent;
         int tableCapacityMax;
         int nbTableMax;
+        int nbUsedTable;
         Table* tableList;
+        int** matrix;
+        int matrixSize;
+        map<Table*, int> index;
 };
-
-#endif

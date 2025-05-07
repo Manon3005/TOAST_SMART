@@ -60,3 +60,11 @@ Student** DataParser::getStudentList() {
 int DataParser::getNbStudent() {
     return nbStudent;
 }
+
+int DataParser::getTableCapacityMax() {
+    return tableCapacityMax;
+}
+        
+int DataParser::getNbTableMax() {
+    return nbTableMax;
+}
