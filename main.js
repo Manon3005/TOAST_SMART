@@ -1,22 +1,16 @@
 const { ParserService } = require("./backend/dist/backend/services/ParserService.js");
 const { GraduatedStudent } = require("./backend/dist/backend/business/Objects.js")
 const path = require('path')
-const { app, BrowserWindow, screen, screen } = require('electron/main');
+const { app, BrowserWindow, screen } = require('electron/main');
 const { Parser } = require("csv-parse");
 const { ipcMain, dialog } = require('electron');
 
 async function createWindow() {
 
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-  
 
-  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   
   const win = new BrowserWindow({
-    width: Math.floor(width * 0.6),    
-    height: Math.floor(height * 0.8),    
-    minWidth: 800,                       
-    minHeight: 600,
     width: Math.floor(width * 0.6),    
     height: Math.floor(height * 0.8),    
     minWidth: 800,                       
