@@ -11,7 +11,7 @@ SeatingArrangements::SeatingArrangements(Student** studentList, int nbStudent, i
     this->nbStudent = nbStudent;
     this->nbTableMax = nbTableMax;
     this->studentList = studentList;
-    tableList = new Table[nbTableMax];
+    tableList = new Table[500];
 }
 
 SeatingArrangements::~SeatingArrangements() {
