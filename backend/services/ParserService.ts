@@ -93,6 +93,24 @@ export class ParserService {
     return this.allGraduatedStudents;
   }
 
+  static async getJsonInformationForAlgorithm(): Promise<object> {
+    const nbMaxTables = 11
+    const nbMaxByTables = 200;
+    const graduatedStudents = this.allGraduatedStudents.map(student => ({
+      idStudent: student.getId(),
+      lastName: student.getLastName(),
+      firstName: student.getFirstName(),
+      nbOfGuests: student.getNbGuests(),
+      idNeighbour: student.getNeighboursIds()
+    }));
+    const jsonContent = {
+      nb_max_tables: nbMaxTables,
+      nb_max_by_tables: nbMaxByTables,
+      graduated_students: graduatedStudents
+    };
+    return jsonContent;
+  }
+
   static setColumnsNames(columns: ColumnsNames): void {
     this.columns = columns;
   }
