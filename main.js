@@ -1,7 +1,8 @@
 const { ParserService } = require("./backend/dist/backend/services/ParserService.js");
 const { GraduatedStudent } = require("./backend/dist/backend/business/Objects.js")
 
-const { app, BrowserWindow } = require('electron/main')
+const { app, BrowserWindow } = require('electron/main');
+const { Parser } = require("csv-parse");
 
 async function createWindow() {
   const win = new BrowserWindow({
@@ -19,22 +20,33 @@ async function createWindow() {
       wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
     });
     
-    const graduatedStudents = await ParserService.readFileCSV("resources/files/export_pr_plan_virgule.csv");
-
+    await ParserService.readFileCSV("resources/files/export_pr_plan_virgule.csv");
+    const graduatedStudents = await ParserService.linkNeighboursToGraduatedStudents();
     if (Array.isArray(graduatedStudents)) {
+      console.log(graduatedStudents);
       graduatedStudents.forEach((student, index) => {
         console.log(`Student ${index + 1}:`);
         console.log(`  LastName: ${student.lastName}`);
         console.log(`  FirstName: ${student.firstName}`);
         console.log(`  Email: ${student.email}`);
         console.log(`  Diet: ${student.diet}`);
-        console.log(`  Neighbours: ${student.neighbours}`);
+        console.log(`  Number of Guests: ${student.nbGuest}`)
         if (Array.isArray(student.guests)) {
           student.guests.forEach((guest, i) => {
             console.log(`    Guest ${i + 1}:`);
             console.log(`      LastName: ${guest.lastName}`);
             console.log(`      FirstName: ${guest.firstName}`);
             console.log(`      Diet: ${guest.diet}`);
+          });
+        }
+        console.log(`  Number of Neighbours: ${student.nbNeighbour}`)
+        console.log(`  Neighbours: ${student.neighboursString}`);
+        if (Array.isArray(student.neighbours)) {
+          student.neighbours.forEach((neighbour, i) => {
+            console.log(`    Neighbour ${i + 1}:`);
+            console.log(`      LastName: ${neighbour.lastName}`);
+            console.log(`      FirstName: ${neighbour.firstName}`);
+            console.log(`      Diet: ${neighbour.diet}`);
           });
         }
       });

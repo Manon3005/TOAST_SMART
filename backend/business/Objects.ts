@@ -31,14 +31,15 @@ export class GraduatedStudent {
     private nbGuest: number;
     private nbNeighbour: number;
     private guests: Guest[] = [];
-    private neighbours: string;
+    private neighbours: GraduatedStudent[] = [];
+    private neighboursString: string;
     private diet: string;
 
     constructor(
         lastName: string,
         firstName: string,
         email: string,
-        neighbours: string,
+        neighboursString: string,
         nbGuest: number = 0,
         nbNeighbour: number = 0,
         diet: string = ""
@@ -46,7 +47,7 @@ export class GraduatedStudent {
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
-        this.neighbours = neighbours;
+        this.neighboursString = neighboursString;
         this.nbGuest = nbGuest;
         this.nbNeighbour = nbNeighbour;
         this.diet = diet;
@@ -57,11 +58,29 @@ export class GraduatedStudent {
     }
     
     addGuest(guest: Guest): void {
+        this.nbGuest++;
         this.guests.push(guest);
+    }
+
+    addNeighbour(student: GraduatedStudent): void {
+        this.nbNeighbour++;
+        this.neighbours.push(student);
+    }
+
+    isNeighboursAlreadyPresent(potentialNeighbour: GraduatedStudent): boolean {
+        return this.neighbours.some(neighbour => neighbour.getLastName().toLowerCase() === potentialNeighbour.getLastName().toLowerCase());
     }
     
     getGuests(): Guest[] {
         return this.guests;
+    }
+
+    getNeighboursString(): string {
+        return this.neighboursString;
+    }
+
+    getLastName(): string {
+        return this.lastName;
     }
 }
 
