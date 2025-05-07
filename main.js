@@ -102,6 +102,7 @@ ipcMain.handle('dialog:openFile', async () => {
     console.log('Chemin du fichier sélectionné :', filePath);
     // Call the treatment
     await csvTreatment(filePath);
+    await ParserService.createJsonFileForAlgorithm("jsonAlgorithmInput.json");
     return filePath;
   }
 });
