@@ -96,7 +96,6 @@ app.on('window-all-closed', () => {
   }
 })
 
-
 ipcMain.handle('dialog:openFile', async () => {
   const result = await dialog.showOpenDialog({
     properties: ['openFile'], //openFile fconction Electron pour ouvrir un fichier
