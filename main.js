@@ -23,6 +23,10 @@ async function createWindow() {
   /*The call here is a test and will be deleted at the end of the project*/
   await csvTreatment("resources/files/export_pr_plan_virgule.csv");
 
+  win.setMenu(null);
+  win.center();
+  win.setResizable(true);
+
   win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
   //win.webContents.openDevTools();  // pour debogage
 }
@@ -74,13 +78,6 @@ async function csvTreatment(path) {
   } catch (error) {
     console.error("Erreur lors du traitement du fichier CSV:", error);
   }
-
-  win.setMenu(null);
-  win.center();
-  win.setResizable(true);
-
-  win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-  //win.webContents.openDevTools();  // pour debogage
 }
 
 app.whenReady().then(() => {
