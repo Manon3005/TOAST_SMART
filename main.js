@@ -2,6 +2,7 @@ const { ParserService } = require("./backend/dist/backend/services/ParserService
 const { GraduatedStudent } = require("./backend/dist/backend/business/Objects.js")
 const path = require('path')
 const { app, BrowserWindow } = require('electron/main');
+const { Parser } = require("csv-parse");;
 const { Parser } = require("csv-parse");
 const { ipcMain, dialog } = require('electron');
 
