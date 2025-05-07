@@ -42,7 +42,7 @@ async function csvTreatment(path) {
         console.log(`  FirstName: ${student.firstName}`);
         console.log(`  Email: ${student.email}`);
         console.log(`  Diet: ${student.diet}`);
-        console.log(`  Number of Guests: ${student.nbGuest}`)
+        console.log(`  Number of Guests: ${student.nbGuests}`)
         if (Array.isArray(student.guests)) {
           student.guests.forEach((guest) => {
             console.log(`    Guest ${guest.id}:`);
@@ -51,7 +51,7 @@ async function csvTreatment(path) {
             console.log(`      Diet: ${guest.diet}`);
           });
         }
-        console.log(`  Number of Neighbours: ${student.nbNeighbour}`)
+        console.log(`  Number of Neighbours: ${student.nbNeighbours}`)
         console.log(`  Neighbours: ${student.neighboursString}`);
         if (Array.isArray(student.neighbours)) {
           student.neighbours.forEach((neighbour) => {
