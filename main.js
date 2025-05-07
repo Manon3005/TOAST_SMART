@@ -75,7 +75,10 @@ app.on('window-all-closed', () => {
 
 ipcMain.handle('dialog:openFile', async () => {
   const result = await dialog.showOpenDialog({
-    properties: ['openFile'],
+    properties: ['openFile'], //openFile fconction Electron pour ouvrir un fichier
+    filters: [
+      { name: 'CSV', extensions: ['csv'] }, // filtre pour les CSV
+    ],
   });
 
   if (result.canceled) {
