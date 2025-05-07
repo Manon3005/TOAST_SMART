@@ -71,7 +71,9 @@ export class ParserService {
             const guest = new Guest(guestLastName, guestFirstName, specifiedDiet);
             graduatedStudents.get(gradKey)!.addGuest(guest);
           }
-          graduatedStudents.get(gradKey)!.setDiet(specifiedDiet);
+          else {
+            graduatedStudents.get(gradKey)!.setDiet(specifiedDiet);
+          }
         })
         .on("end", () => resolve(Array.from(graduatedStudents.values())))
         .on("error", reject);
