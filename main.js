@@ -14,18 +14,25 @@ async function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
   })
+  /*The call here is a test and will be deleted at the end of the project*/
+  await csvTreatment("resources/files/export_pr_plan_virgule.csv");
+
+  win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
+  //win.webContents.openDevTools();  // pour debogage
+}
+
+async function csvTreatment(path) {
   try {
     ParserService.setColumnsNames({
-      firstName: "Prenom",
+      firstName: "Prénom",
       lastName: "Nom",
-      buyerfirstName: "Prenom acheteur",
+      buyerfirstName: "Prénom acheteur",
       buyerlastName: "Nom acheteur",
       buyerEmail: "E-mail acheteur",
-      diet: "Regime alimentaire #131474",
+      diet: "Régime alimentaire #131474",
       wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
-    });
-    
-    await ParserService.readFileCSV("resources/files/export_pr_plan_virgule.csv");
+    }); 
+    await ParserService.readFileCSV(path);
     const graduatedStudents = await ParserService.linkNeighboursToGraduatedStudents();
     if (Array.isArray(graduatedStudents)) {
       console.log(graduatedStudents);
@@ -61,9 +68,6 @@ async function createWindow() {
   } catch (error) {
     console.error("Erreur lors du traitement du fichier CSV:", error);
   }
-
-  win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-  //win.webContents.openDevTools();  // pour debogage
 }
 
 app.whenReady().then(() => {
@@ -96,6 +100,8 @@ ipcMain.handle('dialog:openFile', async () => {
   } else {
     const filePath = result.filePaths[0];
     console.log('Chemin du fichier sélectionné :', filePath);
+    // Call the treatment
+    await csvTreatment(filePath);
     return filePath;
   }
 });
