@@ -33,8 +33,10 @@
       "lastName": "GARREL",
       "firstName": "Adrien",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        407
+      ]
     },
     {
       "idStudent": 337,
@@ -155,25 +157,32 @@
       "lastName": "SCHAMBERGER",
       "firstName": "Alexandre",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        558,
+        658
+      ]
     },
     {
       "idStudent": 350,
       "lastName": "DE LORGERIL",
       "firstName": "Alexis",
       "nbOfGuests": 6,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        348
+      ]
     },
     {
       "idStudent": 351,
       "lastName": "MARCONNET",
       "firstName": "Alexis",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 2,
+      "nbOfNeighbours": 4,
       "idNeighbour": [
+        616,
         575,
+        345,
         351
       ]
     },
@@ -220,8 +229,12 @@
       "lastName": "BOSIO",
       "firstName": "Alizé",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 3,
+      "idNeighbour": [
+        467,
+        539,
+        594
+      ]
     },
     {
       "idStudent": 356,
@@ -239,8 +252,10 @@
       "lastName": "BRIFFA",
       "firstName": "Amélia",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        455,
+        453,
         658
       ]
     },
@@ -249,9 +264,15 @@
       "lastName": "DELORME",
       "firstName": "Amélie",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 2,
+      "nbOfNeighbours": 8,
       "idNeighbour": [
         599,
+        611,
+        553,
+        503,
+        572,
+        406,
+        470,
         505
       ]
     },
@@ -426,8 +447,11 @@
       "lastName": "BAUDOUX",
       "firstName": "Aude",
       "nbOfGuests": 6,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        395,
+        525
+      ]
     },
     {
       "idStudent": 376,
@@ -444,8 +468,11 @@
       "lastName": "TILLIETTE",
       "firstName": "Axelle",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        412,
+        596
+      ]
     },
     {
       "idStudent": 378,
@@ -483,8 +510,12 @@
       "lastName": "FLOHIC",
       "firstName": "Baptiste",
       "nbOfGuests": 6,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 3,
+      "idNeighbour": [
+        454,
+        478,
+        618
+      ]
     },
     {
       "idStudent": 382,
@@ -529,8 +560,10 @@
       "lastName": "BERT",
       "firstName": "Benjamin",
       "nbOfGuests": 1,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        386,
+        592,
         598
       ]
     },
@@ -721,16 +754,22 @@
       "lastName": "AMBROSINO",
       "firstName": "Charlotte",
       "nbOfGuests": 6,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        336,
+        394
+      ]
     },
     {
       "idStudent": 405,
       "lastName": "LORIOT",
       "firstName": "Charles",
       "nbOfGuests": 1,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 4,
       "idNeighbour": [
+        646,
+        639,
+        356,
         575
       ]
     },
@@ -739,9 +778,15 @@
       "lastName": "DELEVOIE",
       "firstName": "Charlotte",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 2,
+      "nbOfNeighbours": 8,
       "idNeighbour": [
         599,
+        611,
+        358,
+        553,
+        470,
+        345,
+        572,
         505
       ]
     },
@@ -760,8 +805,11 @@
       "lastName": "LOISEL",
       "firstName": "Charlotte",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        595,
+        623
+      ]
     },
     {
       "idStudent": 409,
@@ -776,8 +824,10 @@
       "lastName": "GUISNET",
       "firstName": "Chloé",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        436
+      ]
     },
     {
       "idStudent": 411,
@@ -802,8 +852,9 @@
       "lastName": "TECK",
       "firstName": "Christelle",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        494,
         640
       ]
     },
@@ -812,16 +863,21 @@
       "lastName": "MONNIER",
       "firstName": "Christophe",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        568
+      ]
     },
     {
       "idStudent": 414,
       "lastName": "JOUBERT",
       "firstName": "Claire",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        650,
+        514
+      ]
     },
     {
       "idStudent": 415,
@@ -847,8 +903,10 @@
       "lastName": "FRANCHOMME",
       "firstName": "Claudie-Océane",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        596,
+        548,
         468
       ]
     },
@@ -865,8 +923,10 @@
       "lastName": "BADON",
       "firstName": "Clément",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        627,
+        558,
         486
       ]
     },
@@ -926,8 +986,12 @@
       "lastName": "SCARFO",
       "firstName": "Corentin",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 5,
       "idNeighbour": [
+        441,
+        479,
+        438,
+        482,
         537
       ]
     },
@@ -936,8 +1000,15 @@
       "lastName": "GROFF",
       "firstName": "Damien",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 8,
       "idNeighbour": [
+        352,
+        411,
+        508,
+        589,
+        370,
+        428,
+        629,
         364
       ]
     },
@@ -995,8 +1066,11 @@
       "lastName": "FLANDRIN.",
       "firstName": "Elisa",
       "nbOfGuests": 1,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        456,
+        491
+      ]
     },
     {
       "idStudent": 432,
@@ -1061,8 +1135,14 @@
       "lastName": "MARION",
       "firstName": "Emilien",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 5,
+      "idNeighbour": [
+        482,
+        479,
+        425,
+        658,
+        441
+      ]
     },
     {
       "idStudent": 439,
@@ -1088,24 +1168,34 @@
       "lastName": "VALENTIN",
       "firstName": "Emma",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 4,
+      "idNeighbour": [
+        425,
+        482,
+        438,
+        479
+      ]
     },
     {
       "idStudent": 442,
       "lastName": "ROUSSI",
       "firstName": "Emmanuelle",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        629
+      ]
     },
     {
       "idStudent": 443,
       "lastName": "BASHA",
       "firstName": "Emmi",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        498,
+        632
+      ]
     },
     {
       "idStudent": 444,
@@ -1159,8 +1249,9 @@
       "lastName": "LION",
       "firstName": "Fabrice",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        386,
         575
       ]
     },
@@ -1169,8 +1260,10 @@
       "lastName": "BUONOMO",
       "firstName": "Fanny",
       "nbOfGuests": 1,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        568
+      ]
     },
     {
       "idStudent": 450,
@@ -1217,16 +1310,23 @@
       "lastName": "CURVALLE",
       "firstName": "Florent",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 4,
+      "idNeighbour": [
+        478,
+        381,
+        618,
+        617
+      ]
     },
     {
       "idStudent": 455,
       "lastName": "GALVAGNO",
       "firstName": "Florian",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        357,
+        453,
         658
       ]
     },
@@ -1306,8 +1406,9 @@
       "lastName": "BLUM",
       "firstName": "Hugo",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        567,
         566
       ]
     },
@@ -1345,16 +1446,24 @@
       "lastName": "LAJOIE",
       "firstName": "Hugo",
       "nbOfGuests": 1,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 5,
+      "idNeighbour": [
+        355,
+        539,
+        594,
+        639,
+        617
+      ]
     },
     {
       "idStudent": 468,
       "lastName": "ANDRZEJEWSKI",
       "firstName": "Iris",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        596,
+        548,
         417
       ]
     },
@@ -1382,8 +1491,10 @@
       "lastName": "ARCHER",
       "firstName": "Jade",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        656,
+        563,
         394
       ]
     },
@@ -1448,16 +1559,25 @@
       "lastName": "PIGNOL",
       "firstName": "Jeanne",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 3,
+      "idNeighbour": [
+        454,
+        617,
+        381
+      ]
     },
     {
       "idStudent": 479,
       "lastName": "CHANDELIER",
       "firstName": "Jeremy",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 4,
+      "idNeighbour": [
+        425,
+        482,
+        438,
+        441
+      ]
     },
     {
       "idStudent": 480,
@@ -1472,8 +1592,9 @@
       "lastName": "GAUTIER",
       "firstName": "Juliette",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        510,
         635
       ]
     },
@@ -1482,8 +1603,14 @@
       "lastName": "FIERRI",
       "firstName": "Joanna",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 7,
       "idNeighbour": [
+        438,
+        550,
+        441,
+        479,
+        425,
+        658,
         453
       ]
     },
@@ -1492,8 +1619,11 @@
       "lastName": "AGUILAR CROSTON",
       "firstName": "Jose Andres",
       "nbOfGuests": 6,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        627,
+        419
+      ]
     },
     {
       "idStudent": 484,
@@ -1549,8 +1679,9 @@
       "lastName": "BOUVIER",
       "firstName": "Julien",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        653,
         575
       ]
     },
@@ -1640,8 +1771,10 @@
       "lastName": "IVANOVA",
       "firstName": "Kristine",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        443,
+        632,
         435
       ]
     },
@@ -1650,8 +1783,11 @@
       "lastName": "BOSSENS",
       "firstName": "Laetitia",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        641,
+        446
+      ]
     },
     {
       "idStudent": 500,
@@ -1686,9 +1822,15 @@
       "lastName": "AZOULAY",
       "firstName": "Laurie",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 7,
       "idNeighbour": [
-        599
+        599,
+        611,
+        358,
+        553,
+        572,
+        470,
+        406
       ]
     },
     {
@@ -1696,8 +1838,12 @@
       "lastName": "SIMONNET",
       "firstName": "Léa",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 5,
       "idNeighbour": [
+        630,
+        537,
+        511,
+        340,
         636
       ]
     },
@@ -1706,9 +1852,15 @@
       "lastName": "THIBERGE",
       "firstName": "Léa",
       "nbOfGuests": 1,
-      "nbOfNeighbours": 2,
+      "nbOfNeighbours": 8,
       "idNeighbour": [
         599,
+        611,
+        358,
+        553,
+        503,
+        572,
+        406,
         470
       ]
     },
@@ -1766,8 +1918,10 @@
       "lastName": "CHAMUSSY",
       "firstName": "Léonie",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        635,
+        546,
         481
       ]
     },
@@ -1806,8 +1960,9 @@
       "lastName": "RAY",
       "firstName": "Loann",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        414,
         520
       ]
     },
@@ -1836,12 +1991,14 @@
       "lastName": "LE COADIC",
       "firstName": "Louis",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 5,
+      "nbOfNeighbours": 7,
       "idNeighbour": [
         537,
         425,
         573,
+        438,
         482,
+        441,
         457
       ]
     },
@@ -1865,8 +2022,10 @@
       "lastName": "TRICOT",
       "firstName": "Louis",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        634
+      ]
     },
     {
       "idStudent": 520,
@@ -1889,8 +2048,10 @@
       "lastName": "LEHMANN",
       "firstName": "Louys-Henry",
       "nbOfGuests": 1,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        597,
+        565,
         348
       ]
     },
@@ -1917,16 +2078,21 @@
       "lastName": "DUVAL",
       "firstName": "Lucas",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        375,
+        628
+      ]
     },
     {
       "idStudent": 526,
       "lastName": "GALLET",
       "firstName": "Lucas",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        622
+      ]
     },
     {
       "idStudent": 527,
@@ -1953,8 +2119,10 @@
       "lastName": "VERRON",
       "firstName": "Lucas",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        459,
+        549,
         394
       ]
     },
@@ -1991,8 +2159,10 @@
       "lastName": "POUPENEY",
       "firstName": "Ludivine",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        533
+      ]
     },
     {
       "idStudent": 534,
@@ -2049,8 +2219,9 @@
       "lastName": "DUPERRAY",
       "firstName": "Margaux",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        355,
         481
       ]
     },
@@ -2099,8 +2270,10 @@
       "lastName": "RICHAUD",
       "firstName": "Marianne",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        491
+      ]
     },
     {
       "idStudent": 545,
@@ -2115,8 +2288,10 @@
       "lastName": "DÉCULTOT",
       "firstName": "Marie",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        635,
+        481,
         510
       ]
     },
@@ -2135,8 +2310,10 @@
       "lastName": "GUILLEVIC",
       "firstName": "Marie",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        596,
+        468,
         417
       ]
     },
@@ -2153,8 +2330,10 @@
       "lastName": "VILLEMEY-RAYET",
       "firstName": "Marilou",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        658,
+        482,
         455
       ]
     },
@@ -2181,9 +2360,16 @@
       "lastName": "FLORENCE",
       "firstName": "Marine",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 8,
       "idNeighbour": [
-        599
+        505,
+        572,
+        599,
+        611,
+        470,
+        406,
+        358,
+        503
       ]
     },
     {
@@ -2215,9 +2401,11 @@
       "lastName": "L&#039;HENAFF",
       "firstName": "Martin",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 2,
+      "nbOfNeighbours": 4,
       "idNeighbour": [
+        399,
         520,
+        395,
         367
       ]
     },
@@ -2226,8 +2414,10 @@
       "lastName": "DELAVEAU",
       "firstName": "Mateo",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        644,
+        349,
         419
       ]
     },
@@ -2236,8 +2426,11 @@
       "lastName": "DE BARROS SILVA",
       "firstName": "Matheus",
       "nbOfGuests": 5,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        601,
+        461
+      ]
     },
     {
       "idStudent": 560,
@@ -2374,9 +2567,13 @@
       "lastName": "NUGIER",
       "firstName": "Nathan",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 2,
+      "nbOfNeighbours": 6,
       "idNeighbour": [
         599,
+        611,
+        406,
+        553,
+        358,
         505
       ]
     },
@@ -2480,8 +2677,11 @@
       "lastName": "PINHO LOPES",
       "firstName": "Océane",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 4,
       "idNeighbour": [
+        573,
+        647,
+        636,
         504
       ]
     },
@@ -2490,8 +2690,9 @@
       "lastName": "DURIEZ",
       "firstName": "Odyssée",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        536,
         402
       ]
     },
@@ -2576,8 +2777,9 @@
       "lastName": "CHATRON-MICHAUD",
       "firstName": "Paul",
       "nbOfGuests": 1,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        386,
         507
       ]
     },
@@ -2618,16 +2820,22 @@
       "lastName": "BRETON",
       "firstName": "Pauline",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 3,
+      "idNeighbour": [
+        548,
+        417,
+        468
+      ]
     },
     {
       "idStudent": 597,
       "lastName": "VILPINI",
       "firstName": "Pauline",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        522,
+        348,
         565
       ]
     },
@@ -2636,8 +2844,12 @@
       "lastName": "ZUBIETA-LABORDE",
       "firstName": "Paul-Marie",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 3,
+      "idNeighbour": [
+        636,
+        573,
+        647
+      ]
     },
     {
       "idStudent": 599,
@@ -2676,8 +2888,10 @@
       "lastName": "GRANGE",
       "firstName": "Quentin",
       "nbOfGuests": 5,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        459
+      ]
     },
     {
       "idStudent": 604,
@@ -2708,8 +2922,9 @@
       "lastName": "EL RIFAI",
       "firstName": "Rami",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        373,
         563
       ]
     },
@@ -2797,9 +3012,11 @@
       "lastName": "RAMEL",
       "firstName": "Roméo",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 2,
+      "nbOfNeighbours": 4,
       "idNeighbour": [
+        616,
         575,
+        345,
         351
       ]
     },
@@ -2808,8 +3025,11 @@
       "lastName": "BOURMAUD",
       "firstName": "Milane",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 4,
       "idNeighbour": [
+        618,
+        381,
+        478,
         454
       ]
     },
@@ -2818,8 +3038,11 @@
       "lastName": "FRELAUT",
       "firstName": "Rose",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 4,
       "idNeighbour": [
+        617,
+        381,
+        478,
         454
       ]
     },
@@ -2849,8 +3072,11 @@
       "lastName": "GUINCHARD",
       "firstName": "Salomé",
       "nbOfGuests": 1,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        450,
+        580
+      ]
     },
     {
       "idStudent": 622,
@@ -2867,8 +3093,11 @@
       "lastName": "VIMONT",
       "firstName": "Sébastien",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        595,
+        408
+      ]
     },
     {
       "idStudent": 624,
@@ -2901,8 +3130,10 @@
       "lastName": "LEMUS",
       "firstName": "Sofia",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        419
+      ]
     },
     {
       "idStudent": 628,
@@ -2917,13 +3148,17 @@
       "lastName": "BOULARD",
       "firstName": "Solenn",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 5,
+      "nbOfNeighbours": 9,
       "idNeighbour": [
+        428,
+        370,
         562,
         589,
         352,
         508,
-        411
+        411,
+        364,
+        426
       ]
     },
     {
@@ -2931,8 +3166,12 @@
       "lastName": "CANJURA",
       "firstName": "Sonia",
       "nbOfGuests": 6,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 5,
       "idNeighbour": [
+        627,
+        340,
+        511,
+        504,
         537
       ]
     },
@@ -2949,8 +3188,9 @@
       "lastName": "CURILA",
       "firstName": "Stefania",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        498,
         443
       ]
     },
@@ -2959,8 +3199,10 @@
       "lastName": "CRISTOFORONI",
       "firstName": "Stella",
       "nbOfGuests": 7,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 1,
+      "idNeighbour": [
+        492
+      ]
     },
     {
       "idStudent": 634,
@@ -2977,8 +3219,10 @@
       "lastName": "MARMORAT",
       "firstName": "Tanaelle",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 3,
       "idNeighbour": [
+        546,
+        510,
         481
       ]
     },
@@ -2987,8 +3231,13 @@
       "lastName": "FLANDIN",
       "firstName": "Tanguy",
       "nbOfGuests": 3,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 4,
+      "idNeighbour": [
+        598,
+        647,
+        573,
+        504
+      ]
     },
     {
       "idStudent": 637,
@@ -3024,8 +3273,12 @@
       "lastName": "LEDRU",
       "firstName": "Tess",
       "nbOfGuests": 4,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 3,
+      "idNeighbour": [
+        595,
+        579,
+        412
+      ]
     },
     {
       "idStudent": 641,
@@ -3119,8 +3372,11 @@
       "lastName": "MENARD-BEDIANT",
       "firstName": "Timothée",
       "nbOfGuests": 0,
-      "nbOfNeighbours": 0,
-      "idNeighbour": []
+      "nbOfNeighbours": 2,
+      "idNeighbour": [
+        414,
+        514
+      ]
     },
     {
       "idStudent": 651,
@@ -3186,8 +3442,9 @@
       "lastName": "PYT",
       "firstName": "Valentine",
       "nbOfGuests": 2,
-      "nbOfNeighbours": 1,
+      "nbOfNeighbours": 2,
       "idNeighbour": [
+        567,
         566
       ]
     },
