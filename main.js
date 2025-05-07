@@ -9,11 +9,20 @@ async function createWindow() {
     height: 600
   })
   try {
-    await ParserService.readFileCSV("resources/files/export_pr_plan.csv");
-    const students = await ParserService.getGraduatedStudent();
+    ParserService.setColumnsNames({
+      firstName: "Prenom",
+      lastName: "Nom",
+      buyerfirstName: "Prenom acheteur",
+      buyerlastName: "Nom acheteur",
+      buyerEmail: "E-mail acheteur",
+      diet: "Regime alimentaire #131474",
+      wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
+    });
+    
+    const graduatedStudents = await ParserService.readFileCSV("resources/files/export_pr_plan.csv");
 
-    if (Array.isArray(students)) {
-      students.forEach((student, index) => {
+    if (Array.isArray(graduatedStudents)) {
+      graduatedStudents.forEach((student, index) => {
         console.log(`Student ${index + 1}:`);
         console.log(`  LastName: ${student.lastName}`);
         console.log(`  FirstName: ${student.firstName}`);
@@ -30,7 +39,7 @@ async function createWindow() {
         }
       });
     } else {
-      console.error("Le résultat n'est pas un tableau :", students);
+      console.error("Le résultat n'est pas un tableau :", graduatedStudents);
     }
 
   } catch (error) {
