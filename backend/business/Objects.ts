@@ -31,8 +31,8 @@ export class GraduatedStudent {
     private lastName: string;
     private firstName: string;
     private email: string;
-    private nbGuest: number;
-    private nbNeighbour: number;
+    private nbGuests: number;
+    private nbNeighbours: number;
     private guests: Guest[] = [];
     private neighbours: GraduatedStudent[] = [];
     private neighboursString: string;
@@ -44,8 +44,8 @@ export class GraduatedStudent {
         firstName: string,
         email: string,
         neighboursString: string,
-        nbGuest: number = 0,
-        nbNeighbour: number = 0,
+        nbGuests: number = 0,
+        nbNeighbours: number = 0,
         diet: string = ""
     ) {
         this.id = id;
@@ -53,8 +53,8 @@ export class GraduatedStudent {
         this.firstName = firstName;
         this.email = email;
         this.neighboursString = neighboursString;
-        this.nbGuest = nbGuest;
-        this.nbNeighbour = nbNeighbour;
+        this.nbGuests = nbGuests;
+        this.nbNeighbours = nbNeighbours;
         this.diet = diet;
     }
 
@@ -63,12 +63,12 @@ export class GraduatedStudent {
     }
     
     addGuest(guest: Guest): void {
-        this.nbGuest++;
+        this.nbGuests++;
         this.guests.push(guest);
     }
 
     addNeighbour(student: GraduatedStudent): void {
-        this.nbNeighbour++;
+        this.nbNeighbours++;
         this.neighbours.push(student);
     }
 
@@ -80,12 +80,24 @@ export class GraduatedStudent {
         return this.guests;
     }
 
+    getNeighboursIds(): number[] {
+        return this.neighbours.map(neighbour => neighbour.id);
+    }
+
     getNeighboursString(): string {
         return this.neighboursString;
     }
 
     getLastName(): string {
         return this.lastName;
+    }
+
+    getFirstName(): string {
+        return this.firstName;
+    }
+
+    getNbGuests(): number {
+        return this.nbGuests;
     }
 
     getId(): number {
