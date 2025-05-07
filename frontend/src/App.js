@@ -1,43 +1,26 @@
 
 import './App.css';
-
 import React, { useState } from 'react';
+import { HashRouter as Router, Routes, Route} from 'react-router-dom';
+import { Home } from './pages/home';
+import { Explanation } from './pages/explanation';
+import { Support } from './pages/support';
+import { NavBar } from './components/navBar';
+
 
 function App() {
-  //initialisation des varaibles à vide
-  const [filePath, setPath] = useState(''); 
-  const [nameFile, setName] = useState(''); 
-  const [error, setError] = useState('');
-  //useState retourne une paire : la valeur de l’état actuel et une fonction qui vous permet de la mettre à jour (similaire à this.setState)
-
-  //fonction pour charger un fichier et récupérer son chemin
-  const loadFile = async () => {
-    try {
-      const filePath = await window.electronAPI.pickFile();
-      if (!filePath.endsWith('.csv')) {
-        setError('Veuillez sélectionner un fichier .csv');
-        return;
-      }
-      const nameFile = filePath.split('\\').pop();
-      setName(nameFile);
-      setPath(filePath);
-      setError('');
-    } catch (err) {
-      setError('Erreur chargement du fichier');
-      setPath('');
-    }
-  };
 
   return React.createElement(
-    'div',
-    { className: 'app-container', style: { padding: '20px', fontFamily: 'sans-serif' } },
-    React.createElement('h1', null, '🍞 TOAST 🍞'),
-    React.createElement('p', null, 'Tous à sa table'),
-    React.createElement('button',{ onClick: loadFile },'📁 Charger un fichier' ),
-    error && React.createElement('p',null,error),
-    nameFile && React.createElement('p',null,'📄 ' + nameFile)
+    Router, null, 
+      React.createElement(NavBar, null),
+      React.createElement(Routes, null,
+        React.createElement(Route, { path: '/', element: React.createElement(Home) }),
+        React.createElement(Route, { path: '/explanation', element: React.createElement(Explanation) }),
+        React.createElement(Route, { path: '/support', element: React.createElement(Support) }),
+    )
   );
 }
+
 
 export default App;
 
