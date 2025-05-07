@@ -1,6 +1,7 @@
 In order to at the REACT frontend :
 $cd frontend  
 $npm install  
+$npm install react-router-dom@6
 $cd ..  
 $npm install  
 $npm run start (At the root, open the app; if we're in the frontend folder, launch in dev mode (live editing).)
