@@ -1,6 +1,6 @@
 const { ParserService } = require("./backend/dist/backend/services/ParserService.js");
 const { GraduatedStudent } = require("./backend/dist/backend/business/Objects.js")
-
+const path = require('path')
 const { app, BrowserWindow } = require('electron/main')
 const { ipcMain, dialog } = require('electron');
 
@@ -70,7 +70,6 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
 
 
 ipcMain.handle('dialog:openFile', async () => {
