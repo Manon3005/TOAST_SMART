@@ -67,12 +67,24 @@ export class ParserService {
             graduatedStudents.get(gradKey)!.setDiet(specifiedDiet);
           }
         })
-        .on("end", () => resolve(Array.from(graduatedStudents.values())))
+        .on("end", () => {
+          this.allGraduatedStudents = Array.from(graduatedStudents.values());
+          resolve(this.allGraduatedStudents);
+        })
         .on("error", reject);
     });
   }
 
   static async linkNeighboursToGraduatedStudents(): Promise<GraduatedStudent[]> {
+    this.allGraduatedStudents.forEach(student => {
+      const neighbourWords = student.getNeighboursString().toLowerCase().split(/\s+/);
+      neighbourWords.forEach(word => {
+        const matchedStudent = this.allGraduatedStudents.find(student => student.getLastName().toLowerCase() === word);
+        if (matchedStudent && !student.isNeighboursAlreadyPresent(matchedStudent)) {
+          student.addNeighbour(matchedStudent);
+        }
+      })
+    })
     return this.allGraduatedStudents;
   }
 
