@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "csv-parse": "^5.6.0",
+    "react-router-dom": "^7.5.3",
     "typescript": "^5.8.3"
   },
   "type": "commonjs"
