@@ -22,16 +22,7 @@ async function createWindow() {
 }
 
 async function csvTreatment(path) {
-  try {
-    ParserService.setColumnsNames({
-      firstName: "Prénom",
-      lastName: "Nom",
-      buyerfirstName: "Prénom acheteur",
-      buyerlastName: "Nom acheteur",
-      buyerEmail: "E-mail acheteur",
-      diet: "Régime alimentaire #131474",
-      wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
-    }); 
+  try { 
     await ParserService.readFileCSV(path);
     const graduatedStudents = await ParserService.linkNeighboursToGraduatedStudents();
     if (Array.isArray(graduatedStudents)) {
@@ -99,11 +90,34 @@ ipcMain.handle('dialog:openFile', async () => {
   } else {
     const filePath = result.filePaths[0];
     console.log('Chemin du fichier sélectionné :', filePath);
-    // Call the treatment
-    await csvTreatment(filePath);
     return filePath;
   }
 });
+
+ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
+  // Set the column names
+  /*ParserService.setColumnsNames({
+    firstName: jsonColumnNames.firstName,
+    lastName: jsonColumnNames.lastName,
+    buyerfirstName: jsonColumnNames.buyerFirstName,
+    buyerlastName: jsonColumnNames.buyerLastName,
+    buyerEmail: jsonColumnNames.buyerEmail,
+    diet: jsonColumnNames.diet,
+    wantedTableMates: jsonColumnNames.wantedTableMates,
+  });*/
+  ParserService.setColumnsNames({
+    firstName: "Prénom",
+    lastName: "Nom",
+    buyerfirstName: "Prénom acheteur",
+    buyerlastName: "Nom acheteur",
+    buyerEmail: "E-mail acheteur",
+    diet: "Régime alimentaire #131474",
+    wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
+  });  
+  // Call the csv treatment
+  await csvTreatment(filePath);
+  // Return the problems
+}); 
 
 ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   // Get the json from the front
