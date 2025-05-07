@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../App.css';
 
 
 
@@ -27,4 +28,14 @@ export function FileButton() {
         setPath('');
     }
   };
+
+  return React.createElement(
+    'div',
+    null,
+    React.createElement(
+        'button',
+        { onClick: loadFile, className: 'file-button' },'📁 Charger un fichier' ),
+    error && React.createElement('p', { style: { color: 'red' } }, error),
+    nameFile && React.createElement('p', null, '📄 ' + nameFile)
+);
 }

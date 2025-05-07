@@ -5,9 +5,6 @@ import { HashRouter as Router, Routes, Route} from 'react-router-dom';
 import { Home } from './pages/home';
 import { Explanation } from './pages/explanation';
 
-
-//import { Button } from './components/Button';
-
 function App() {
 
   return React.createElement(
