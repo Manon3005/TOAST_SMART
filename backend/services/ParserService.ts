@@ -20,15 +20,7 @@ type GraduatedStudentMap = Map<string, GraduatedStudent>;
 export class ParserService {
   private static allGraduatedStudents : GraduatedStudent[] = [];
   
-  private static columns: ColumnsNames = {
-    firstName: "Prenom",
-    lastName: "Nom",
-    buyerfirstName: "Prenom acheteur",
-    buyerlastName: "Nom acheteur",
-    buyerEmail: "E-mail acheteur",
-    diet: "Regime alimentaire #131474",
-    wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
-  };
+  private static columns: ColumnsNames;
 
   static async readFileCSV(csvFilePath: string): Promise<GraduatedStudent[]> {
     const absolutePath = path.resolve(csvFilePath);
