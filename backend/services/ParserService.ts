@@ -18,6 +18,8 @@ type ParsedCSVRow = Record<string, string>;
 type GraduatedStudentMap = Map<string, GraduatedStudent>;
 
 export class ParserService {
+  private static allGraduatedStudents : GraduatedStudent[] = [];
+  
   private static columns: ColumnsNames = {
     firstName: "Prenom",
     lastName: "Nom",
