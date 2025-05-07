@@ -85,6 +85,20 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #b7b7ee;
+  border-radius: 15px;
+  z-index: -1;
 }
 
 .navbar-left,
@@ -94,17 +108,23 @@ p {
 }
 
 .navbar-right {
-  gap: 20px;
+  gap: 30px;
 }
 
 .nav-link {
   color: white;
   text-decoration: none;
   font-size: 18px;
+  font-weight: normal;
+  display: inline-block;
+  text-align: center;
+  min-width: 69px;
+  max-width: 188px;
+  transition: transform 0.1s ease, font-weight 0.1s ease; 
 }
 
 .nav-link:hover {
-  font-weight: bold;
+  font-weight: bold;  
   text-decoration: none;
 }
 
