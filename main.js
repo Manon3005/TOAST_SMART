@@ -1,14 +1,20 @@
 const { ParserService } = require("./backend/dist/backend/services/ParserService.js");
 const { GraduatedStudent } = require("./backend/dist/backend/business/Objects.js")
 const path = require('path')
-const { app, BrowserWindow } = require('electron/main');
+const { app, BrowserWindow, screen } = require('electron/main');
 const { Parser } = require("csv-parse");
 const { ipcMain, dialog } = require('electron');
 
 async function createWindow() {
+
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+
+  
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: Math.floor(width * 0.6),    
+    height: Math.floor(height * 0.8),    
+    minWidth: 800,                       
+    minHeight: 600,
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
@@ -16,6 +22,10 @@ async function createWindow() {
   })
   /*The call here is a test and will be deleted at the end of the project*/
   await csvTreatment("resources/files/export_pr_plan_virgule.csv");
+
+  win.setMenu(null);
+  win.center();
+  win.setResizable(true);
 
   win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
   //win.webContents.openDevTools();  // pour debogage

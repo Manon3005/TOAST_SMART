@@ -42,7 +42,7 @@
   text-align: center;
   padding: 50px;
   font-family: 'Segoe UI', sans-serif;
-  background: #8d8db6;
+  background: #b7b7ee;
   color: white;
   height: 100vh;
 }
@@ -58,17 +58,52 @@ p {
   margin-bottom: 30px;
 }
 
-button {
+.file-button {
   padding: 12px 24px;
   font-size: 1rem;
   border: none;
-  background: #f74141;
-  color: white;
+  background-color: #ffffff;
+  color: #000000;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  outline: 2px solid #000000;
 }
 
-button:hover {
-  background: #138d44;
+.file-button:hover {
+  background-color: #000000;
+  color: #ffffff;
+  outline: 2px solid #ffffff;
+  transform: translateY(-2px);
+}
+
+.navbar {
+  background-color: #333;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-right {
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.nav-link:hover {
+  font-weight: bold;
+  text-decoration: none;
 }
