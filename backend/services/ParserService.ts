@@ -94,9 +94,7 @@ export class ParserService {
     return this.allGraduatedStudents;
   }
 
-  static async createJsonFileForAlgorithm(fileName: string): Promise<void> {
-    const nbMaxTables = 200
-    const nbMaxByTables = 11;
+  static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number): Promise<void> {
     const graduatedStudents = this.allGraduatedStudents.map(student => ({
       idStudent: student.getId(),
       lastName: student.getLastName(),
@@ -111,7 +109,7 @@ export class ParserService {
       graduated_students: graduatedStudents
     };
     const jsonString = JSON.stringify(jsonContent, null, 2);
-    await writeFile('backend/resources/'+fileName, jsonString, 'utf-8');
+    await writeFile(filepath, jsonString, 'utf-8');
   }
 
   static setColumnsNames(columns: ColumnsNames): void {
