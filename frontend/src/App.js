@@ -3,6 +3,8 @@ import './App.css';
 
 import React, { useState } from 'react';
 
+//import { Button } from './components/Button';
+
 function App() {
   //initialisation des varaibles à vide
   const [filePath, setPath] = useState(''); 
