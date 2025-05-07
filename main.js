@@ -9,6 +9,16 @@ async function createWindow() {
     height: 600
   })
   try {
+    ParserService.setColumnsNames({
+      firstName: "Prenom",
+      lastName: "Nom",
+      buyerfirstName: "Prenom acheteur",
+      buyerlastName: "Nom acheteur",
+      buyerEmail: "E-mail acheteur",
+      diet: "Regime alimentaire #131474",
+      wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
+    });
+    
     const graduatedStudents = await ParserService.readFileCSV("resources/files/export_pr_plan.csv");
 
     if (Array.isArray(graduatedStudents)) {
