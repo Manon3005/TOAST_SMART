@@ -31,3 +31,31 @@ void Student::addNeighbour(Student* neighbour) {
         nbNeighbour++;
     }
 }
+
+string Student::getFirstName() {
+    return firstName;
+}
+
+string Student::getLastName() {
+    return lastName;
+}
+
+int Student::getNbGuest() {
+    return nbGuest;
+}
+
+int Student::getNbNeighbour(){
+    return nbNeighbour;
+}
+
+Student** Student::getNeighbours() {
+    return neighbours;
+}
+
+void Student::setTable(Table* table) {
+    this->table = table;
+}
+
+Table* Student::getTable() {
+    return table;
+}

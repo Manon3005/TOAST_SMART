@@ -1,22 +1,32 @@
-#if ! defined ( Student_H )
-#define Student_H
+#pragma once
 
 #include <iostream>
 #include <string>
+
+#include "Table.h"
+
 using namespace std;
 
+class Table;
 
 class Student
 {
     public:
-
-        friend class DataParser;
-
         Student(int id, string firstName, string lastName, int nbGuest);
         virtual ~Student();
 
         void addNeighbour(Student* neighbour);
         void print();
+
+        string getFirstName();
+        string getLastName();
+        int getNbGuest();
+        int getNbNeighbour();
+        Student** getNeighbours();
+        Table* getTable();
+
+        void setTable(Table* table);
+
 
     protected:
 
@@ -26,7 +36,5 @@ class Student
         int nbGuest;
         int nbNeighbour;
         Student** neighbours;
+        Table* table;
 };
-
-
-#endif

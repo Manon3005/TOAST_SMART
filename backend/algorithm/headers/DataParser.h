@@ -1,9 +1,6 @@
-#if ! defined ( DataParser_H )
-#define DataParser_H
+#pragma once
 
 #include <iostream>
-#include <string>
-#include <fstream>
 #include <map>
 
 #include "Student.h"
@@ -12,14 +9,14 @@ using namespace std;
 
 class DataParser
 {
-    friend class Student;
-
     public:
 
         DataParser(string jsonFile);
         virtual ~DataParser();
         Student** getStudentList();
         int getNbStudent();
+        int getTableCapacityMax();
+        int getNbTableMax();
 
     protected:
 
@@ -30,4 +27,3 @@ class DataParser
         int nbTableMax;
 };
 
-#endif
