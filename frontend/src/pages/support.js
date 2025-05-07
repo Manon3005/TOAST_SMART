@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-export function Explanation() {
+export function Support() {
     return React.createElement(
-        'h1', null, "Page d'explication"
+        'h1', null, "Page de support"
     );
 }
