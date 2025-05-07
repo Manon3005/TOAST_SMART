@@ -6,7 +6,6 @@ import { Home } from './pages/home';
 import { Explanation } from './pages/explanation';
 import { NavBar } from './components/navBar';
 
-//import { Button } from './components/Button';
 
 function App() {
 
