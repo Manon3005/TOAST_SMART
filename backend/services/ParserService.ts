@@ -39,7 +39,7 @@ export class ParserService {
             diet,
             wantedTableMates,
           } = ParserService.columns;
-
+          
           const guestFirstName = row[firstName]?.trim();
           const guestLastName = row[lastName]?.trim();
           const gradFirstName = row[buyerfirstName]?.trim();
