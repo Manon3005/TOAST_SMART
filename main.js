@@ -36,8 +36,8 @@ async function csvTreatment(path) {
     const graduatedStudents = await ParserService.linkNeighboursToGraduatedStudents();
     if (Array.isArray(graduatedStudents)) {
       console.log(graduatedStudents);
-      graduatedStudents.forEach((student, index) => {
-        console.log(`Student ${index + 1}:`);
+      graduatedStudents.forEach((student) => {
+        console.log(`Student ${student.id}:`);
         console.log(`  LastName: ${student.lastName}`);
         console.log(`  FirstName: ${student.firstName}`);
         console.log(`  Email: ${student.email}`);
