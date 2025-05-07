@@ -10,7 +10,5 @@ export function Home() {
         React.createElement('h1', null, '🍞 TOAST 🍞'),
         React.createElement('p', null, 'Tous à sa table'),
         React.createElement(FileButton, {className: 'file-button'},'📁 Charger un fichier' ),
-        //error && React.createElement('p',null,error),
-        //nameFile && React.createElement('p',null,'📄 ' + nameFile)
     );
 }
