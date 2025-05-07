@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 function App() {
   //initialisation des varaibles à vide
   const [filePath, setPath] = useState(''); 
+  const [nameFile, setName] = useState(''); 
   const [error, setError] = useState('');
   //useState retourne une paire : la valeur de l’état actuel et une fonction qui vous permet de la mettre à jour (similaire à this.setState)
 
@@ -17,6 +18,8 @@ function App() {
         setError('Veuillez sélectionner un fichier .csv');
         return;
       }
+      const nameFile = filePath.split('\\').pop();
+      setName(nameFile);
       setPath(filePath);
       setError('');
     } catch (err) {
@@ -32,7 +35,7 @@ function App() {
     React.createElement('p', null, 'Tous à sa table'),
     React.createElement('button',{ onClick: loadFile },'📁 Charger un fichier' ),
     error && React.createElement('p',null,error),
-    filePath && React.createElement('p',null,'📄 ' + filePath)
+    nameFile && React.createElement('p',null,'📄 ' + nameFile)
   );
 }
 
