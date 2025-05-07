@@ -1,12 +1,17 @@
 const { ParserService } = require("./backend/dist/backend/services/ParserService.js");
 const { GraduatedStudent } = require("./backend/dist/backend/business/Objects.js")
-
+const path = require('path')
 const { app, BrowserWindow } = require('electron/main')
+const { ipcMain, dialog } = require('electron');
 
 async function createWindow() {
   const win = new BrowserWindow({
     width: 800,
-    height: 600
+    height: 600,
+    webPreferences: {
+      contextIsolation: true,
+      preload: path.join(__dirname, 'preload.js'),
+    },
   })
   try {
     ParserService.setColumnsNames({
@@ -45,7 +50,9 @@ async function createWindow() {
   } catch (error) {
     console.error("Erreur lors du traitement du fichier CSV:", error);
   }
-  win.loadFile('index.html')
+
+  win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
+  //win.webContents.openDevTools();  // pour debogage
 }
 
 app.whenReady().then(() => {
@@ -63,3 +70,22 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+
+ipcMain.handle('dialog:openFile', async () => {
+  const result = await dialog.showOpenDialog({
+    properties: ['openFile'], //openFile fconction Electron pour ouvrir un fichier
+    filters: [
+      { name: 'CSV', extensions: ['csv'] }, // filtre pour les CSV
+    ],
+  });
+
+  if (result.canceled) {
+    return null;
+  } else {
+    const filePath = result.filePaths[0];
+    console.log('Chemin du fichier sélectionné :', filePath);
+    return filePath;
+  }
+});
+
