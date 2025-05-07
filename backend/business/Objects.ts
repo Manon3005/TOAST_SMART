@@ -100,6 +100,10 @@ export class GraduatedStudent {
         return this.nbGuests;
     }
 
+    getNbNeighbours(): number {
+        return this.nbNeighbours;
+    }
+
     getId(): number {
         return this.id;
     }

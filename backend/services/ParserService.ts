@@ -2,6 +2,7 @@ import { GraduatedStudent, Guest } from "../business/Objects";
 import * as fs from "fs";
 import * as path from "path";
 import { parse } from "csv-parse";
+import { writeFile } from 'fs/promises';
 
 export type ColumnsNames = {
   firstName: string;
@@ -93,14 +94,15 @@ export class ParserService {
     return this.allGraduatedStudents;
   }
 
-  static async getJsonInformationForAlgorithm(): Promise<object> {
-    const nbMaxTables = 11
-    const nbMaxByTables = 200;
+  static async createJsonFileForAlgorithm(fileName: string): Promise<void> {
+    const nbMaxTables = 200
+    const nbMaxByTables = 11;
     const graduatedStudents = this.allGraduatedStudents.map(student => ({
       idStudent: student.getId(),
       lastName: student.getLastName(),
       firstName: student.getFirstName(),
       nbOfGuests: student.getNbGuests(),
+      nbOfNeighbours: student.getNbNeighbours(),
       idNeighbour: student.getNeighboursIds()
     }));
     const jsonContent = {
@@ -108,7 +110,8 @@ export class ParserService {
       nb_max_by_tables: nbMaxByTables,
       graduated_students: graduatedStudents
     };
-    return jsonContent;
+    const jsonString = JSON.stringify(jsonContent, null, 2);
+    await writeFile('backend/resources/'+fileName, jsonString, 'utf-8');
   }
 
   static setColumnsNames(columns: ColumnsNames): void {
