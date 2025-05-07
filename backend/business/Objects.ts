@@ -1,11 +1,13 @@
 import { DiffEntry } from "util";
 
 export class Guest {
+    private id: number;
     private lastName: string;
     private firstName: string;
     private diet: string;
 
-    constructor(lastName: string, firstName: string, diet: string) {
+    constructor(id: number, lastName: string, firstName: string, diet: string) {
+        this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
         this.diet = diet;
@@ -25,6 +27,7 @@ export class Guest {
 }
 
 export class GraduatedStudent {
+    private id: number;
     private lastName: string;
     private firstName: string;
     private email: string;
@@ -36,6 +39,7 @@ export class GraduatedStudent {
     private diet: string;
 
     constructor(
+        id: number,
         lastName: string,
         firstName: string,
         email: string,
@@ -44,6 +48,7 @@ export class GraduatedStudent {
         nbNeighbour: number = 0,
         diet: string = ""
     ) {
+        this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
@@ -68,7 +73,7 @@ export class GraduatedStudent {
     }
 
     isNeighboursAlreadyPresent(potentialNeighbour: GraduatedStudent): boolean {
-        return this.neighbours.some(neighbour => neighbour.getLastName().toLowerCase() === potentialNeighbour.getLastName().toLowerCase());
+        return this.neighbours.some(neighbour => neighbour.getId() == potentialNeighbour.getId());
     }
     
     getGuests(): Guest[] {
@@ -81,6 +86,10 @@ export class GraduatedStudent {
 
     getLastName(): string {
         return this.lastName;
+    }
+
+    getId(): number {
+        return this.id;
     }
 }
 
