@@ -112,8 +112,17 @@ ipcMain.handle('dialog:openFile', async () => {
     console.log('Chemin du fichier sélectionné :', filePath);
     // Call the treatment
     await csvTreatment(filePath);
-    await ParserService.createJsonFileForAlgorithm("jsonAlgorithmInput.json");
     return filePath;
   }
 });
 
+ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
+  // Get the json from the front
+  const maxTables = jsonData.max_number_tables;
+  const maxByTables = jsonData.max_number_by_tables;
+  // Create the json information for the table plan
+  await ParserService.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables);
+  // Launch the generation of the table plan
+
+  // Return the address of the generated csv
+});
