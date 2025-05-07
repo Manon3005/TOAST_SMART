@@ -72,6 +72,10 @@ export class ParserService {
     });
   }
 
+  static async linkNeighboursToGraduatedStudents(): Promise<GraduatedStudent[]> {
+    return this.allGraduatedStudents;
+  }
+
   static setColumnsNames(columns: ColumnsNames): void {
     this.columns = columns;
   }
