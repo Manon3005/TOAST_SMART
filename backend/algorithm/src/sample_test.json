@@ -1,0 +1,71 @@
+{
+    "nb_max_tables": 3,
+    "nb_max_by_tables": 11,
+    "graduated_students":
+    [
+        {
+            "idStudent": 1,
+            "lastName": "A",
+            "firstName": "a",
+            "nbOfGuests": 5,
+            "nbOfNeighbours": 1,
+            "idNeighbour": [
+                2
+            ]
+        },
+        {
+            "idStudent": 2,
+            "lastName": "B",
+            "firstName": "b",
+            "nbOfGuests": 6,
+            "nbOfNeighbours": 1,
+            "idNeighbour": [
+                1
+            ]
+        },
+        {
+            "idStudent": 3,
+            "lastName": "C",
+            "firstName": "c",
+            "nbOfGuests": 8,
+            "nbOfNeighbours": 3,
+            "idNeighbour": [
+                4,
+                5,
+                6
+            ]
+        },
+        {
+            "idStudent": 4,
+            "lastName": "D",
+            "firstName": "d",
+            "nbOfGuests": 6,
+            "nbOfNeighbours": 2,
+            "idNeighbour": [
+                3,
+                5
+            ]
+        },
+        {
+            "idStudent": 5,
+            "lastName": "E",
+            "firstName": "e",
+            "nbOfGuests": 2,
+            "nbOfNeighbours": 2,
+            "idNeighbour": [
+                3,
+                4
+            ]
+        },
+        {
+            "idStudent": 6,
+            "lastName": "F",
+            "firstName": "f",
+            "nbOfGuests": 1,
+            "nbOfNeighbours": 1,
+            "idNeighbour": [
+                3
+            ]
+        }
+    ]
+}
