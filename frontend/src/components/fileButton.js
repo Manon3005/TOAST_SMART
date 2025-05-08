@@ -19,7 +19,7 @@ export function FileButton() {
             setError('Veuillez sélectionner un fichier .csv');
             return;
         }
-        const nameFile = filePath.split('\\').pop();
+        const nameFile = filePath.split(/[/\\]/).pop();
         setName(nameFile);
         setPath(filePath);
         setError('');
