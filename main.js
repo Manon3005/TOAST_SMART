@@ -115,7 +115,7 @@ ipcMain.handle('dialog:openFile', async () => {
 
 ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   // Set the column names
-  /*ParserService.setColumnsNames({
+  ParserService.setColumnsNames({
     firstName: jsonColumnNames.firstName,
     lastName: jsonColumnNames.lastName,
     buyerfirstName: jsonColumnNames.buyerFirstName,
@@ -123,16 +123,7 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
     buyerEmail: jsonColumnNames.buyerEmail,
     diet: jsonColumnNames.diet,
     wantedTableMates: jsonColumnNames.wantedTableMates,
-  });*/
-  ParserService.setColumnsNames({
-    firstName: "Prénom",
-    lastName: "Nom",
-    buyerfirstName: "Prénom acheteur",
-    buyerlastName: "Nom acheteur",
-    buyerEmail: "E-mail acheteur",
-    diet: "Régime alimentaire #131474",
-    wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
-  });  
+  });
   // Call the csv treatment
   await csvTreatment(filePath);
   // Return the problems
@@ -144,7 +135,7 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   const maxByTables = jsonData.max_number_by_tables;
   const invalidNeighboursStudentId = jsonData.invalid_neighbours_student_id;
   // Call the service in order to delete the non valid neighbours
-  // await ParserService.deleteNonValidNeighbours(invalidNeighboursStudentId);
+  await ParserService.deleteNonValidNeighbours(invalidNeighboursStudentId);
   // Create the json information for the table plan
   await ParserService.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables);
   // Launch the generation of the table plan
