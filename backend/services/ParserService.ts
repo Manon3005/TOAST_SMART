@@ -122,6 +122,28 @@ export class ParserService {
     return JSON.stringify({ graduated_students: graduatedStudents }, null, 2);
   }
 
+  private static findBestMatchingGraduatedStudent(normalizedWord: string): GraduatedStudent | undefined {
+    //Normalization and fuzzy matching for neighbour names
+    const threshold = 1;
+    const candidates = this.allGraduatedStudents
+      .map(student => {
+        const normalizedLastName = ParserService.normalizeString(student.getLastName());
+        const distance = levenshtein(normalizedLastName,normalizedWord);
+        return { student, distance };
+      })
+      .filter(({ distance }) => distance <= threshold);
+    // Prioritize exact matches (distance 0) even if multiple exist
+    const exactMatch = candidates.find(candidate => candidate.distance === 0);
+    if(exactMatch) {
+      return exactMatch.student;
+    }
+    // Ignore matches when multiple similar candidates are found (distance ≤ 1)
+    if (candidates.length === 1) {
+      return candidates[0].student;
+    }
+    return undefined;
+  }
+
   static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number): Promise<void> {
     const graduatedStudents = this.allGraduatedStudents.map(student => ({
       idStudent: student.getId(),
