@@ -52,7 +52,7 @@ async function csvTreatment(path) {
         console.log(`  FirstName: ${student.firstName}`);
         console.log(`  Email: ${student.email}`);
         console.log(`  Diet: ${student.diet}`);
-        console.log(`  Number of Guests: ${student.nbGuest}`)
+        console.log(`  Number of Guests: ${student.nbGuests}`)
         if (Array.isArray(student.guests)) {
           student.guests.forEach((guest) => {
             console.log(`    Guest ${guest.id}:`);
@@ -61,11 +61,11 @@ async function csvTreatment(path) {
             console.log(`      Diet: ${guest.diet}`);
           });
         }
-        console.log(`  Number of Neighbours: ${student.nbNeighbour}`)
+        console.log(`  Number of Neighbours: ${student.nbNeighbours}`)
         console.log(`  Neighbours: ${student.neighboursString}`);
         if (Array.isArray(student.neighbours)) {
-          student.neighbours.forEach((neighbour, i) => {
-            console.log(`    Neighbour ${i + 1}:`);
+          student.neighbours.forEach((neighbour) => {
+            console.log(`    Neighbour ${neighbour.id}:`);
             console.log(`      LastName: ${neighbour.lastName}`);
             console.log(`      FirstName: ${neighbour.firstName}`);
             console.log(`      Diet: ${neighbour.diet}`);
@@ -112,6 +112,7 @@ ipcMain.handle('dialog:openFile', async () => {
     console.log('Chemin du fichier sélectionné :', filePath);
     // Call the treatment
     await csvTreatment(filePath);
+    await ParserService.createJsonFileForAlgorithm("jsonAlgorithmInput.json");
     return filePath;
   }
 });
