@@ -4,6 +4,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { parse } from "csv-parse";
 import { writeFile } from 'fs/promises';
+import { get as levenshtein } from 'fast-levenshtein';
 
 export type ColumnsNames = {
   firstName: string;
@@ -95,7 +96,8 @@ export class ParserService {
     this.allGraduatedStudents.forEach(student => {
       const neighbourWords = student.getNeighboursString().toLowerCase().split(/[\s,;:.!?]+/);
       neighbourWords.forEach(word => {
-        const matchedStudent = this.allGraduatedStudents.find(student => student.getLastName().toLowerCase() === word);
+        const normalizedWord = ParserService.normalizeString(word);
+        const matchedStudent = ParserService.findBestMatchingGraduatedStudent(normalizedWord);
         if (matchedStudent && !student.isNeighboursAlreadyPresent(matchedStudent)) {
           student.addNeighbour(matchedStudent);
         }
@@ -151,10 +153,15 @@ export class ParserService {
   }
 
   private static removeAccents(str: string): string {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
 
   private static normalizeString(str: string): string {
-    return ParserService.removeAccents(str).toLowerCase(); 
-}
+    return ParserService
+      .removeAccents(str)
+      .replace(/[^a-zA-Z0-9]/g, "")
+      .toLowerCase(); 
+  }
 }
