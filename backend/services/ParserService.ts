@@ -80,6 +80,12 @@ export class ParserService {
     });
   }
 
+  static async deleteNonValidNeighbours(invalidNeighboursStudentId: number[]): Promise<void>{
+    invalidNeighboursStudentId.forEach(id => {
+      this.allGraduatedStudents.find(student => student.getId() == id)!.deleteNeighbours();      
+    })
+  }
+
   static async linkNeighboursToGraduatedStudents(): Promise<GraduatedStudent[]> {
     this.allGraduatedStudents.forEach(student => {
       const neighbourWords = student.getNeighboursString().toLowerCase().split(/\s+/);
