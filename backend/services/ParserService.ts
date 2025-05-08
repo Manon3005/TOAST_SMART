@@ -4,6 +4,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { parse } from "csv-parse";
 import { writeFile } from 'fs/promises';
+import { get as levenshtein } from 'fast-levenshtein';
 
 export type ColumnsNames = {
   firstName: string;
@@ -95,13 +96,36 @@ export class ParserService {
     this.allGraduatedStudents.forEach(student => {
       const neighbourWords = student.getNeighboursString().toLowerCase().split(/[\s,;:.!?]+/);
       neighbourWords.forEach(word => {
-        const matchedStudent = this.allGraduatedStudents.find(student => student.getLastName().toLowerCase() === word);
+        const normalizedWord = ParserService.normalizeString(word);
+        const matchedStudent = ParserService.findBestMatchingGraduatedStudent(normalizedWord);
         if (matchedStudent && !student.isNeighboursAlreadyPresent(matchedStudent)) {
           student.addNeighbour(matchedStudent);
         }
       })
     })
     return this.allGraduatedStudents;
+  }
+
+  private static findBestMatchingGraduatedStudent(normalizedWord: string): GraduatedStudent | undefined {
+    //Normalization and fuzzy matching for neighbour names
+    const threshold = 1;
+    const candidates = this.allGraduatedStudents
+      .map(student => {
+        const normalizedLastName = ParserService.normalizeString(student.getLastName());
+        const distance = levenshtein(normalizedLastName,normalizedWord);
+        return { student, distance };
+      })
+      .filter(({ distance }) => distance <= threshold);
+    // Prioritize exact matches (distance 0) even if multiple exist
+    const exactMatch = candidates.find(candidate => candidate.distance === 0);
+    if(exactMatch) {
+      return exactMatch.student;
+    }
+    // Ignore matches when multiple similar candidates are found (distance ≤ 1)
+    if (candidates.length === 1) {
+      return candidates[0].student;
+    }
+    return undefined;
   }
 
   static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number): Promise<void> {
@@ -135,10 +159,15 @@ export class ParserService {
   }
 
   private static removeAccents(str: string): string {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
 
   private static normalizeString(str: string): string {
-    return ParserService.removeAccents(str).toLowerCase(); 
-}
+    return ParserService
+      .removeAccents(str)
+      .replace(/[^a-zA-Z0-9]/g, "")
+      .toLowerCase(); 
+  }
 }
