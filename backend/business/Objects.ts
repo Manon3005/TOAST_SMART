@@ -74,7 +74,7 @@ export class GraduatedStudent {
 
     deleteNeighbours(): void {
         this.neighbours = [];
-        this.nbNeighbour = 0;
+        this.nbNeighbours = 0;
     }
 
     isNeighboursAlreadyPresent(potentialNeighbour: GraduatedStudent): boolean {
