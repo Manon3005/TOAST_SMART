@@ -1,4 +1,5 @@
-import { GraduatedStudent, Guest } from "../business/Objects";
+import { GraduatedStudent } from "../business/GraduatedStudent";
+import { Guest } from "../business/Guest";
 import * as fs from "fs";
 import * as path from "path";
 import { parse } from "csv-parse";
@@ -54,7 +55,10 @@ export class ParserService {
 
           const gradKey = `${gradFirstName} ${gradLastName}`;
 
-          const guestIsGraduatedStudent = guestFirstName === gradFirstName && guestLastName === gradLastName;
+          // Need to take accents and capital letters off for the comparison 
+          const guestIsGraduatedStudent = 
+            ParserService.normalizeString(guestFirstName) === ParserService.normalizeString(gradFirstName) && 
+            ParserService.normalizeString(guestLastName) === ParserService.normalizeString(gradLastName);
 
           if (!graduatedStudents.has(gradKey)) {
             const id = this.getNextStudentId();
@@ -129,4 +133,12 @@ export class ParserService {
   private static getNextStudentId(): number {
     return this.studentIdCounter++;
   }
+
+  private static removeAccents(str: string): string {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+  private static normalizeString(str: string): string {
+    return ParserService.removeAccents(str).toLowerCase(); 
+}
 }
