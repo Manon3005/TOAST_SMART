@@ -1,16 +1,37 @@
 import { DiffEntry } from "util";
 
+export enum Diet {
+    NoSpecificDiet = "pas de régime spécifique-",
+    NoPork = "sans porc-",
+    Vegetarian = "végétarien-",
+    GlutenFree = "sans gluten-",
+    Unrecognized = "non reconnu-"
+}
+
+export namespace Diet {
+    const dietMap: Record<string, Diet> = {
+        "pas de régime spécifique-": Diet.NoSpecificDiet,
+        "sans porc-": Diet.NoPork,
+        "végétarien-": Diet.Vegetarian,
+        "sans gluten-": Diet.GlutenFree
+    };
+
+    export function mapDietaryPreference(diet: string): Diet {
+        return dietMap[diet] || Diet.Unrecognized;
+    }
+}
+
 export class Guest {
     private id: number;
     private lastName: string;
     private firstName: string;
-    private diet: string;
+    private diet: Diet;
 
     constructor(id: number, lastName: string, firstName: string, diet: string) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
-        this.diet = diet;
+        this.diet = Diet.mapDietaryPreference(diet);
     }
 
     getLastName(): string {
@@ -36,7 +57,7 @@ export class GraduatedStudent {
     private guests: Guest[] = [];
     private neighbours: GraduatedStudent[] = [];
     private neighboursString: string;
-    private diet: string;
+    private diet: Diet;
 
     constructor(
         id: number,
@@ -55,11 +76,11 @@ export class GraduatedStudent {
         this.neighboursString = neighboursString;
         this.nbGuests = nbGuests;
         this.nbNeighbours = nbNeighbours;
-        this.diet = diet;
+        this.diet = Diet.mapDietaryPreference(diet);;
     }
 
     setDiet(diet: string): void {
-        this.diet = diet;
+        this.diet = Diet.mapDietaryPreference(diet);;
     }
     
     addGuest(guest: Guest): void {
