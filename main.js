@@ -109,6 +109,7 @@ ipcMain.handle('dialog:openFile', async () => {
   } else {
     const filePath = result.filePaths[0];
     console.log('Chemin du fichier sélectionné :', filePath);
+    await ParserService.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", 200, 11);
     return filePath;
   }
 });
