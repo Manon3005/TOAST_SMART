@@ -1,4 +1,5 @@
-import { GraduatedStudent, Guest } from "../business/Objects";
+import { GraduatedStudent } from "../business/GraduatedStudent";
+import { Guest } from "../business/Guest";
 import * as fs from "fs";
 import * as path from "path";
 import { parse } from "csv-parse";
