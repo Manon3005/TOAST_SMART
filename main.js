@@ -21,6 +21,15 @@ async function createWindow() {
     },
   })
   /*The call here is a test and will be deleted at the end of the project*/
+  ParserService.setColumnsNames({
+    firstName: "Prénom",
+    lastName: "Nom",
+    buyerfirstName: "Prénom acheteur",
+    buyerlastName: "Nom acheteur",
+    buyerEmail: "E-mail acheteur",
+    diet: "Régime alimentaire #131474",
+    wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
+  }); 
   await csvTreatment("resources/files/export_pr_plan_virgule.csv");
 
   win.setMenu(null);
@@ -32,16 +41,7 @@ async function createWindow() {
 }
 
 async function csvTreatment(path) {
-  try {
-    ParserService.setColumnsNames({
-      firstName: "Prénom",
-      lastName: "Nom",
-      buyerfirstName: "Prénom acheteur",
-      buyerlastName: "Nom acheteur",
-      buyerEmail: "E-mail acheteur",
-      diet: "Régime alimentaire #131474",
-      wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
-    }); 
+  try { 
     await ParserService.readFileCSV(path);
     const graduatedStudents = await ParserService.linkNeighboursToGraduatedStudents();
     if (Array.isArray(graduatedStudents)) {
@@ -96,7 +96,6 @@ app.on('window-all-closed', () => {
   }
 })
 
-
 ipcMain.handle('dialog:openFile', async () => {
   const result = await dialog.showOpenDialog({
     properties: ['openFile'], //openFile fconction Electron pour ouvrir un fichier
@@ -110,10 +109,36 @@ ipcMain.handle('dialog:openFile', async () => {
   } else {
     const filePath = result.filePaths[0];
     console.log('Chemin du fichier sélectionné :', filePath);
-    // Call the treatment
-    await csvTreatment(filePath);
-    await ParserService.createJsonFileForAlgorithm("jsonAlgorithmInput.json");
     return filePath;
   }
 });
 
+ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
+  // Set the column names
+  ParserService.setColumnsNames({
+    firstName: jsonColumnNames.firstName,
+    lastName: jsonColumnNames.lastName,
+    buyerfirstName: jsonColumnNames.buyerFirstName,
+    buyerlastName: jsonColumnNames.buyerLastName,
+    buyerEmail: jsonColumnNames.buyerEmail,
+    diet: jsonColumnNames.diet,
+    wantedTableMates: jsonColumnNames.wantedTableMates,
+  });
+  // Call the csv treatment
+  await csvTreatment(filePath);
+  // Return the problems
+}); 
+
+ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
+  // Get the json from the front
+  const maxTables = jsonData.max_number_tables;
+  const maxByTables = jsonData.max_number_by_tables;
+  const invalidNeighboursStudentId = jsonData.invalid_neighbours_student_id;
+  // Call the service in order to delete the non valid neighbours
+  await ParserService.deleteNonValidNeighbours(invalidNeighboursStudentId);
+  // Create the json information for the table plan
+  await ParserService.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables);
+  // Launch the generation of the table plan
+
+  // Return the address of the generated csv
+});
