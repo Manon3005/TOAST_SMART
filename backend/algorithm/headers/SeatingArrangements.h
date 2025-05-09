@@ -21,6 +21,9 @@ class SeatingArrangements
         int nbPossibleDemand();
         int nbSatisfiedDemand();
         int absoluteScore();
+        void moveStudentToTable(Student* student, Table* table);
+        void mergeTables(Table* tableSource, Table* tableDestination);
+        void attributeTableToStudent();
 
     protected:
 
