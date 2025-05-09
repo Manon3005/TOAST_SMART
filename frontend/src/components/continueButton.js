@@ -10,6 +10,6 @@ export function ContinueButton({onClick}) {
     null,
     React.createElement(
         'button',
-        { onClick : onClick, className: 'file-button' },'Valider' )
+        { onClick : onClick, className: 'continue-button' },'Continuer' )
 );
 }
