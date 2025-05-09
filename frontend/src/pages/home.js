@@ -2,11 +2,15 @@ import { FileButton } from "../components/fileButton";
 import { InputNumber } from "../components/inputNumber";
 import { ResetButton } from "../components/resetButton";
 import { ContinueButton } from "../components/continueButton";
+import { TableColumn } from "../components/tableColumn";
 import React, { useState } from 'react';
 import '../App.css';
 
 
 export function Home() {
+    
+    const [tableData, setTableData] = useState(Array(7).fill(''));
+
     const [maxTables, setMaxTables] = useState(1);
     const [maxGuests, setMaxGuests] = useState(1);
     const [nameFile, setName] = useState('');
@@ -39,6 +43,7 @@ export function Home() {
             React.createElement(ResetButton, {
               onClick: actionReset
             })
-          )
+          ),
+        React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData}) //disabled : disabled
         );
 }

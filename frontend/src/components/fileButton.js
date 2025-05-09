@@ -16,7 +16,7 @@ export function FileButton({disabled, nameFile, setName, errorFile, setErrorFile
                 return;
             }
             
-            const name = filePath.split('\\').pop();
+            const name = filePath.split(/[/\\]/).pop();
             setName(name);
             setPath(filePath);
             setErrorFile('');
