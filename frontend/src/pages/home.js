@@ -11,8 +11,8 @@ import { GenerateButton } from "../components/generateButton";
 
 export function Home() {
     
-    const [tableData, setTableData] = useState(Array(7).fill(''));
-    const headers = ['lastName', 'firstName', 'buyerLastName', 'buyerFirstName', 'buyerEmail', 'diet', 'wantedTableMates'];
+    const [tableData, setTableData] = useState(Array(8).fill(''));
+    const headers = ['ticket','lastName', 'firstName', 'buyerLastName', 'buyerFirstName', 'buyerEmail', 'diet', 'wantedTableMates'];
 
     const [maxTables, setMaxTables] = useState(1);
     const [maxGuests, setMaxGuests] = useState(1);
@@ -20,7 +20,7 @@ export function Home() {
     const [errorFile, setErrorFile] = useState('');
     const [lockedContinue, setLockedContinue] = useState(false);
     const [lockedGenerer, setLockedGenerer] = useState(false);
-    const [headersCSV, setHeadersCSV] = useState(['','','','','','','']);
+    const [headersCSV, setHeadersCSV] = useState(['','','','','','','','']);
     
 
     const [filePath, setPath] = useState(''); 
