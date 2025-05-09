@@ -52,6 +52,10 @@ export class GraduatedStudent {
         this.nbNeighbours = 0;
     }
 
+    getNeighbours(): GraduatedStudent[] {
+        return this.neighbours;
+    }
+
     isNeighboursAlreadyPresent(potentialNeighbour: GraduatedStudent): boolean {
         return this.neighbours.some(neighbour => neighbour.getId() == potentialNeighbour.getId());
     }
