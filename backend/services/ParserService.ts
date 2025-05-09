@@ -6,8 +6,10 @@ import * as path from "path";
 import { parse, Parser } from "csv-parse";
 import { writeFile } from 'fs/promises';
 import { NeighboursLinker } from "../utils/NeighboursLinker";
+import { CsvExporter } from "../utils/CsvExporter";
 
 export type ColumnsNames = {
+  ticket: string;
   firstName: string;
   lastName: string;
   buyerfirstName: string;
@@ -37,6 +39,7 @@ export class ParserService {
         .pipe(parse({ delimiter: ";", columns: true, trim: true, bom: true }))
         .on("data", (row: ParsedCSVRow) => {
           const {
+            ticket,
             firstName,
             lastName,
             buyerfirstName,
@@ -46,6 +49,7 @@ export class ParserService {
             wantedTableMates,
           } = ParserService.columns;
           
+          const ticketNumber = row[ticket]?.trim();
           const guestFirstName = row[firstName]?.trim();
           const guestLastName = row[lastName]?.trim();
           const gradFirstName = row[buyerfirstName]?.trim();
@@ -71,16 +75,18 @@ export class ParserService {
 
           if (!guestIsGraduatedStudent) {
             const id = this.getNextGuestId();
-            const guest = new Guest(id, guestLastName, guestFirstName, specifiedDiet);
+            const guest = new Guest(id, ticketNumber, guestLastName, guestFirstName, specifiedDiet);
             graduatedStudents.get(gradKey)!.addGuest(guest);
           }
           else {
             graduatedStudents.get(gradKey)!.setDiet(specifiedDiet);
+            graduatedStudents.get(gradKey)!.setTicket(ticketNumber);
           }
         })
         .on("end", () => {
           this.allGraduatedStudents = Array.from(graduatedStudents.values());
           this.allGraduatedStudents = NeighboursLinker.linkNeighboursToGraduatedStudents(this.allGraduatedStudents);
+          CsvExporter.exportCsv(ParserService.columns, this.allGraduatedStudents, "./backend/resources/parsing_export.csv")
           resolve(this.allGraduatedStudents);
         })
         .on("error", reject);
