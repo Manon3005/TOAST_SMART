@@ -128,6 +128,31 @@ export class ParserService {
     await writeFile(filepath, jsonString, 'utf-8');
   }
 
+  static async getColumnNamesFromCsvFile(filepath: string): Promise<string> {
+    const absolutePath = path.resolve(filepath);
+    const columnNames: string[] = [];
+
+    return new Promise((resolve, reject) => {
+      fs.createReadStream(absolutePath)
+        .pipe(parse({ delimiter: ";", columns: true, trim: true, bom: true }))
+        .on("data", (row: any) => {
+          if (columnNames.length === 0) {
+            columnNames.push(...Object.keys(row));
+          }
+        })
+        .on("end", () => {
+          const result = {
+            filepath,
+            columnNames
+          };
+          resolve(JSON.stringify({ result }, null, 2));
+        })
+        .on("error", (err) => {
+          reject(err);
+        });
+    });
+  }
+
   static setColumnsNames(columns: ColumnsNames): void {
     this.columns = columns;
   }
