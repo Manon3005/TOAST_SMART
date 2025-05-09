@@ -14,14 +14,15 @@ async function createWindow() {
 
   
   const win = new BrowserWindow({
-    width: Math.floor(width * 0.6),    
+    width: Math.floor(width * 0.7),    
     height: Math.floor(height * 0.8),    
-    minWidth: 800,                       
-    minHeight: 600,
+    minWidth: Math.floor(width * 0.7),                       
+    minHeight: Math.floor(height * 0.8),
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
     },
+    
   })
   /*The call here is a test and will be deleted at the end of the project*/
   ParserService.setColumnsNames({
@@ -38,7 +39,6 @@ async function createWindow() {
   win.setMenu(null);
   win.center();
   win.setResizable(true);
-
   win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
   //win.webContents.openDevTools();  // pour debogage
 }
