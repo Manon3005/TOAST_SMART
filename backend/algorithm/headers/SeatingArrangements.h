@@ -16,7 +16,9 @@ class SeatingArrangements
 
         void createMatrix();
         void printMatrix();
-        void addStudentToTable(Student* student, Table* table);
+        void moveStudentToTable(Student* student, Table* table);
+        void mergeTables(Table* tableSource, Table* tableDestination);
+        void attributeTableToStudent();
 
     protected:
 
