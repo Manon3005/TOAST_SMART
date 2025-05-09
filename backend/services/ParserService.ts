@@ -94,7 +94,7 @@ export class ParserService {
     })
   }
 
-  static async getNeighboursPairing(): Promise<string> {
+  static async getNeighboursPairing(): Promise<any> {
     const graduatedStudents = this.allGraduatedStudents.map(student => ({
       idStudent: student.getId(),
       lastName: student.getLastName(),
@@ -107,7 +107,7 @@ export class ParserService {
       }))
     }));
 
-    return JSON.stringify({ graduated_students: graduatedStudents }, null, 2);
+    return { graduated_students: graduatedStudents };
   }
 
   static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number): Promise<void> {
@@ -126,6 +126,27 @@ export class ParserService {
     };
     const jsonString = JSON.stringify(jsonContent, null, 2);
     await writeFile(filepath, jsonString, 'utf-8');
+  }
+
+  static async getColumnNamesFromCsvFile(filePath: string): Promise<any> {
+    const absolutePath = path.resolve(filePath);
+    const headersCSV: string[] = [];
+
+    return new Promise((resolve, reject) => {
+      fs.createReadStream(absolutePath)
+        .pipe(parse({ delimiter: ";", columns: true, trim: true, bom: true }))
+        .on("data", (row: any) => {
+          if (headersCSV.length === 0) {
+            headersCSV.push(...Object.keys(row));
+          }
+        })
+        .on("end", () => {
+          resolve({ filePath, headersCSV });
+        })
+        .on("error", (err) => {
+          reject(err);
+        });
+    });
   }
 
   static setColumnsNames(columns: ColumnsNames): void {
