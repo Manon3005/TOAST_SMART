@@ -37,7 +37,7 @@ export class CsvExporter {
                 student.getDiet(),
                 student.getNeighbours().map(neighbour => `${neighbour.getLastName()} ${neighbour.getFirstName()}`).join(', '),
             ];
-            csvRows.push(row.join(';'));
+            csvRows.push(row.map(CsvExporter.escapeCsvField).join(';'));
             for (const guest of student.getGuests()) {
                 const rowGuest = [
                     guest.getTicket(),
@@ -49,10 +49,19 @@ export class CsvExporter {
                     guest.getDiet(),
                     '',
                 ];
-                csvRows.push(rowGuest.join(';'));
+                csvRows.push(rowGuest.map(CsvExporter.escapeCsvField).join(';'));
             }
         }
         const csvContent = csvRows.join('\n');
         fs.writeFileSync(filePath, csvContent, { encoding: 'utf8' });
+    }
+
+    private static escapeCsvField(field: string | number | null | undefined): string {
+        if (field === null || field === undefined) return '';
+        const str = String(field);
+        if (str.includes(';') || str.includes('"') || str.includes('\n')) {
+            return `"${str.replace(/"/g, '""')}"`; // double les guillemets internes
+        }
+        return str;
     }
 }
