@@ -104,6 +104,22 @@ export class ParserService {
     return this.allGraduatedStudents;
   }
 
+  static async getNeighboursPairing(): Promise<string> {
+    const graduatedStudents = this.allGraduatedStudents.map(student => ({
+      idStudent: student.getId(),
+      lastName: student.getLastName(),
+      firstName: student.getFirstName(),
+      preferedNeighbours: student.getNeighboursString(),
+      processedNeighbours: student.getNeighbours().map(neighbour => ({
+        neighbourId: neighbour.getId(),
+        neighbourFirstName: neighbour.getFirstName(),
+        neighbourLastName: neighbour.getLastName()
+      }))
+    }));
+
+    return JSON.stringify({ graduated_students: graduatedStudents }, null, 2);
+  }
+
   static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number): Promise<void> {
     const graduatedStudents = this.allGraduatedStudents.map(student => ({
       idStudent: student.getId(),
