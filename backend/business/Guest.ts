@@ -2,12 +2,14 @@ import { Diet } from "./Diet";
 
 export class Guest {
     private id: number;
+    private ticket: string;
     private lastName: string;
     private firstName: string;
     private diet: Diet;
 
-    constructor(id: number, lastName: string, firstName: string, diet: string) {
+    constructor(id: number, ticket: string, lastName: string, firstName: string, diet: string) {
         this.id = id;
+        this.ticket = ticket;
         this.lastName = lastName;
         this.firstName = firstName;
         this.diet = Diet.mapDietaryPreference(diet);
@@ -23,5 +25,9 @@ export class Guest {
 
     getDiet(): string {
         return this.diet;
+    }
+
+    getTicket(): string {
+        return this.ticket;
     }
 }
