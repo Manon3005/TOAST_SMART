@@ -41,37 +41,37 @@ async function createWindow() {
 async function csvTreatment(path) {
   try { 
     const graduatedStudents = await ParserService.readFileCSV(path);
-    if (Array.isArray(graduatedStudents)) {
-      console.log(graduatedStudents);
-      graduatedStudents.forEach((student) => {
-        console.log(`Student ${student.id}:`);
-        console.log(`  LastName: ${student.lastName}`);
-        console.log(`  FirstName: ${student.firstName}`);
-        console.log(`  Email: ${student.email}`);
-        console.log(`  Diet: ${student.diet}`);
-        console.log(`  Number of Guests: ${student.nbGuests}`)
-        if (Array.isArray(student.guests)) {
-          student.guests.forEach((guest) => {
-            console.log(`    Guest ${guest.id}:`);
-            console.log(`      LastName: ${guest.lastName}`);
-            console.log(`      FirstName: ${guest.firstName}`);
-            console.log(`      Diet: ${guest.diet}`);
-          });
-        }
-        console.log(`  Number of Neighbours: ${student.nbNeighbours}`)
-        console.log(`  Neighbours: ${student.neighboursString}`);
-        if (Array.isArray(student.neighbours)) {
-          student.neighbours.forEach((neighbour) => {
-            console.log(`    Neighbour ${neighbour.id}:`);
-            console.log(`      LastName: ${neighbour.lastName}`);
-            console.log(`      FirstName: ${neighbour.firstName}`);
-            console.log(`      Diet: ${neighbour.diet}`);
-          });
-        }
-      });
-    } else {
-      console.error("Le résultat n'est pas un tableau :", graduatedStudents);
-    }
+    // if (Array.isArray(graduatedStudents)) {
+    //   console.log(graduatedStudents);
+    //   graduatedStudents.forEach((student) => {
+    //     console.log(`Student ${student.id}:`);
+    //     console.log(`  LastName: ${student.lastName}`);
+    //     console.log(`  FirstName: ${student.firstName}`);
+    //     console.log(`  Email: ${student.email}`);
+    //     console.log(`  Diet: ${student.diet}`);
+    //     console.log(`  Number of Guests: ${student.nbGuests}`)
+    //     if (Array.isArray(student.guests)) {
+    //       student.guests.forEach((guest) => {
+    //         console.log(`    Guest ${guest.id}:`);
+    //         console.log(`      LastName: ${guest.lastName}`);
+    //         console.log(`      FirstName: ${guest.firstName}`);
+    //         console.log(`      Diet: ${guest.diet}`);
+    //       });
+    //     }
+    //     console.log(`  Number of Neighbours: ${student.nbNeighbours}`)
+    //     console.log(`  Neighbours: ${student.neighboursString}`);
+    //     if (Array.isArray(student.neighbours)) {
+    //       student.neighbours.forEach((neighbour) => {
+    //         console.log(`    Neighbour ${neighbour.id}:`);
+    //         console.log(`      LastName: ${neighbour.lastName}`);
+    //         console.log(`      FirstName: ${neighbour.firstName}`);
+    //         console.log(`      Diet: ${neighbour.diet}`);
+    //       });
+    //     }
+    //   });
+    // } else {
+    //   console.error("Le résultat n'est pas un tableau :", graduatedStudents);
+    // }
   } catch (error) {
     console.error("Erreur lors du traitement du fichier CSV:", error);
   }
@@ -123,6 +123,7 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
     diet: jsonColumnNames.diet,
     wantedTableMates: jsonColumnNames.wantedTableMates,
   });
+  console.log(jsonColumnNames);
   // Call the csv treatment
   await csvTreatment(globalFilePath);
   // Return the problems
