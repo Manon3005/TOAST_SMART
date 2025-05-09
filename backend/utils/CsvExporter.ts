@@ -6,6 +6,7 @@ import * as path from 'path';
 export class CsvExporter {
     static exportCsv(columnNames: ColumnsNames, graduatedStudents: GraduatedStudent[], filePath: string): void{
         const {
+            ticket,
             firstName,
             lastName,
             buyerfirstName,
@@ -15,6 +16,7 @@ export class CsvExporter {
             wantedTableMates,
         } = columnNames;
         const headers = [
+            ticket,
             lastName,
             firstName,
             buyerlastName,
@@ -25,8 +27,8 @@ export class CsvExporter {
         ];
         const csvRows = [headers.join(';')];
         for (const student of graduatedStudents) {
-            // Student
             const row = [
+                student.getTicket(),
                 student.getLastName(),
                 student.getFirstName(),
                 student.getLastName(),
@@ -38,6 +40,7 @@ export class CsvExporter {
             csvRows.push(row.join(';'));
             for (const guest of student.getGuests()) {
                 const rowGuest = [
+                    guest.getTicket(),
                     guest.getLastName(),
                     guest.getFirstName(),
                     student.getLastName(),
