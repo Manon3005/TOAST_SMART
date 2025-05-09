@@ -242,3 +242,54 @@ p {
   gap: 20px; /* Espace entre les deux boutons */
   margin-top: 20px;
 }
+
+img {
+  width: 150px;
+  height: 130px;
+  border-radius: 12px;
+}
+
+.explanation-header {
+  justify-content: center;
+  display: flex;
+  margin-top: 20px;
+}
+
+.explanation-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0px;
+  margin-top: 20px;
+}
+
+.explanation-step {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px; 
+}
+
+.image-container {
+  position: relative; 
+  width: 30%;  
+  height: 100%; 
+  background-color: #ff0000; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.step-image {
+  z-index: 1; 
+}
+
+.step-text{
+  width: 70%; 
+  margin: 0;
+  text-align: left;
+}
+
