@@ -79,8 +79,8 @@ export class ParserService {
           }
         })
         .on("end", () => {
-          ParserService.linkNeighboursToGraduatedStudents();
           this.allGraduatedStudents = Array.from(graduatedStudents.values());
+          ParserService.linkNeighboursToGraduatedStudents();
           resolve(this.allGraduatedStudents);
         })
         .on("error", reject);
