@@ -20,10 +20,10 @@ async function createWindow() {
 
   
   const win = new BrowserWindow({
-    width: Math.floor(width * 0.7),    
-    height: Math.floor(height * 0.8),    
-    minWidth: Math.floor(width * 0.7),                       
-    minHeight: Math.floor(height * 0.8),
+    width: Math.floor(width),    
+    height: Math.floor(height),    
+    minWidth: Math.floor(width),                       
+    minHeight: Math.floor(height),
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
@@ -32,7 +32,7 @@ async function createWindow() {
   })
 
   win.setMenu(null);
-  win.center();
+  win.maximize();
   win.setResizable(true);
   win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
   //win.webContents.openDevTools();  // pour debogage
