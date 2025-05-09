@@ -23,17 +23,6 @@ async function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
   })
-  /*The call here is a test and will be deleted at the end of the project*/
-  ParserService.setColumnsNames({
-    firstName: "Prénom",
-    lastName: "Nom",
-    buyerfirstName: "Prénom acheteur",
-    buyerlastName: "Nom acheteur",
-    buyerEmail: "E-mail acheteur",
-    diet: "Régime alimentaire #131474",
-    wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
-  }); 
-  await csvTreatment("resources/files/export_pr_plan_virgule.csv");
 
   win.setMenu(null);
   win.center();
@@ -45,8 +34,7 @@ async function createWindow() {
 
 async function csvTreatment(path) {
   try { 
-    await ParserService.readFileCSV(path);
-    const graduatedStudents = await ParserService.linkNeighboursToGraduatedStudents();
+    const graduatedStudents = await ParserService.readFileCSV(path);
     if (Array.isArray(graduatedStudents)) {
       console.log(graduatedStudents);
       graduatedStudents.forEach((student) => {
@@ -113,7 +101,7 @@ ipcMain.handle('dialog:openFile', async () => {
     const filePath = result.filePaths[0];
     console.log('Chemin du fichier sélectionné :', filePath);
     globalFilePath = filePath
-    return ParserService.getColumnNamesFromCsvFile(ParserService.getColumnNamesFromCsvFile(ParserService.getColumnNamesFromCsvFile(ParserService.getColumnNamesFromCsvFile(filePath))));
+    return await ParserService.getColumnNamesFromCsvFile(filePath);
   }
 });
 

@@ -78,7 +78,7 @@ export function Home() {
         { className: 'app-container', style: { padding: '20px', fontFamily: 'sans-serif' } },
         React.createElement('h1', null, '🍞 TOAST 🍞'),
         React.createElement('p', null, 'Tous à sa table'),
-        //React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled : lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
+        React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled : lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
         React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' ),
         React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables'),
 
@@ -91,7 +91,7 @@ export function Home() {
               onClick: actionReset
             })
           ),
-        React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
+        React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV, setHeadersCSV : setHeadersCSV}),
         React.createElement(ConflictCenter,{disabled : lockedGenerer}),
         React.createElement(GenerateButton, {className: 'file-button', onClick: actionGenerer, disabled: !lockedContinue,}),
     );
