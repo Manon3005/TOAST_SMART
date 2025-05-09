@@ -79,6 +79,7 @@ export class ParserService {
           }
         })
         .on("end", () => {
+          ParserService.linkNeighboursToGraduatedStudents();
           this.allGraduatedStudents = Array.from(graduatedStudents.values());
           resolve(this.allGraduatedStudents);
         })
@@ -92,7 +93,7 @@ export class ParserService {
     })
   }
 
-  static async linkNeighboursToGraduatedStudents(): Promise<GraduatedStudent[]> {
+  private static linkNeighboursToGraduatedStudents(): void {
     this.allGraduatedStudents.forEach(student => {
       const neighbourWords = student.getNeighboursString().toLowerCase().split(/[\s,;:.!?]+/);
       neighbourWords.forEach(word => {
@@ -103,7 +104,6 @@ export class ParserService {
         }
       })
     })
-    return this.allGraduatedStudents;
   }
 
   private static findBestMatchingGraduatedStudent(normalizedWord: string): GraduatedStudent | undefined {
