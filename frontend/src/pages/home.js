@@ -20,12 +20,33 @@ export function Home() {
     const [errorFile, setErrorFile] = useState('');
     const [lockedContinue, setLockedContinue] = useState(false);
     const [lockedGenerer, setLockedGenerer] = useState(false);
+    const [headersCSV, setHeadersCSV] = useState(['','','','','','','']);
     
+
+    const [filePath, setPath] = useState(''); 
+    
+    const loadFile = async () => {
+        try {
+            const jsonFile = await window.electronAPI.pickFile();
+            if (!jsonFile.filePath.endsWith('.csv')) {
+                setErrorFile('Veuillez sélectionner un fichier .csv');
+                return;
+            }
+            setHeadersCSV(jsonFile.headersCSV);
+            const name = jsonFile.filePath.split(/[/\\]/).pop();
+            setName(name);
+            setPath(jsonFile.filePath);
+            setErrorFile('');
+        } catch (err) {
+            setErrorFile('Erreur chargement du fichier');
+            setPath('');
+    }
+  };
 
 
     const actionContinue = () => {
         setLockedContinue(true);
-        setLockedGenerer(true);
+        setLockedGenerer(false);
         generateCSVColumn();
     };
 
@@ -57,9 +78,9 @@ export function Home() {
         { className: 'app-container', style: { padding: '20px', fontFamily: 'sans-serif' } },
         React.createElement('h1', null, '🍞 TOAST 🍞'),
         React.createElement('p', null, 'Tous à sa table'),
-        React.createElement(FileButton, {className: 'file-button', disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
-        React.createElement(InputNumber, {value: maxGuests, disabled: lockedContinue, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' ),
-        React.createElement(InputNumber, {value: maxTables, disabled: lockedContinue, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables'),
+        //React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled : lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
+        React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' ),
+        React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables'),
 
         React.createElement('div', { style: { marginTop: '20px' } },
             React.createElement(ContinueButton, {
@@ -70,7 +91,7 @@ export function Home() {
               onClick: actionReset
             })
           ),
-        React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue}),
+        React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
         React.createElement(ConflictCenter,{disabled : lockedGenerer}),
         React.createElement(GenerateButton, {className: 'file-button', onClick: actionGenerer, disabled: !lockedContinue,}),
     );
