@@ -3,6 +3,7 @@ import { Diet } from "./Diet";
 
 export class GraduatedStudent {
     private id: number;
+    private ticket: string;
     private lastName: string;
     private firstName: string;
     private email: string;
@@ -21,7 +22,8 @@ export class GraduatedStudent {
         neighboursString: string,
         nbGuests: number = 0,
         nbNeighbours: number = 0,
-        diet: string = ""
+        diet: string = "",
+        ticket: string = ""
     ) {
         this.id = id;
         this.lastName = lastName;
@@ -30,11 +32,16 @@ export class GraduatedStudent {
         this.neighboursString = neighboursString;
         this.nbGuests = nbGuests;
         this.nbNeighbours = nbNeighbours;
-        this.diet = Diet.mapDietaryPreference(diet);;
+        this.diet = Diet.mapDietaryPreference(diet);
+        this.ticket = ticket;
     }
 
     setDiet(diet: string): void {
         this.diet = Diet.mapDietaryPreference(diet);;
+    }
+
+    setTicket(ticket: string): void {
+        this.ticket = ticket;
     }
     
     addGuest(guest: Guest): void {
@@ -89,5 +96,17 @@ export class GraduatedStudent {
 
     getId(): number {
         return this.id;
+    }
+
+    getEmail(): string {
+        return this.email;
+    }
+
+    getDiet(): string {
+        return this.diet;
+    }
+
+    getTicket(): string {
+        return this.ticket;
     }
 }

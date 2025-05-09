@@ -26,14 +26,15 @@ export function TableColumn({ tableData, setTableData, disabled, headersCSV, set
                   setTableData(newData);
                 }
               },
-                headersCSV.map((opt, j) =>
-                  opt && React.createElement('option', { key: j, value: opt }, opt)
-                )
+              React.createElement('option', { value: '' }, '-- sélectionnez --'),
+              headersCSV.map((opt, j) =>
+                opt && React.createElement('option', { key: j, value: opt }, opt)
               )
             )
           )
         )
       )
-    );
-  }
+    )
+  );
+}
   
