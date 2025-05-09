@@ -86,7 +86,7 @@ export function Home() {
             
             //React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData}), //disabled : disabled
 
-            React.createElement(FileButton, {className: 'file-button', disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
+            React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
             
             React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
             React.createElement(ConflictCenter,{disabled : lockedGenerer}),
