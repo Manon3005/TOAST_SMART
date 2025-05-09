@@ -24,6 +24,10 @@ async function createWindow() {
     height: Math.floor(height),    
     minWidth: Math.floor(width),                       
     minHeight: Math.floor(height),
+    width: Math.floor(width),    
+    height: Math.floor(height),    
+    minWidth: Math.floor(width),                       
+    minHeight: Math.floor(height),
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
