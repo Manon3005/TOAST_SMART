@@ -202,11 +202,14 @@ p {
 .app-content {
   display: flex;
   justify-content: space-between;
-  gap: 40px; /* Espace entre les deux rectangles */
+  gap: 40px;
+  height: 65%;
 }
 
-.left-part {
+.left-part,
+.right-part {
   width: 48%;
+  height: 100%;
   background-color: #80fd9f;
   padding: 20px;
   border-radius: 12px;
@@ -229,15 +232,6 @@ p {
   width: 300px; 
   margin: 0;
   text-align: left; /* ou left selon le rendu voulu */
-}
-
-.right-part {
-  width: 48%;
-  background-color: #80fd9f;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  align-self: flex-start;
 }
 
 .continue-reset-buttons {
