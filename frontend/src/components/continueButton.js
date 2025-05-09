@@ -11,6 +11,6 @@ export function ContinueButton({onClick, disabled}) {
     null,
     React.createElement(
         'button',
-        { onClick : onClick, className: 'file-button', disabled : disabled },'Valider' )
+        { onClick : onClick, className: 'continue-button', disabled : disabled },'Valider' )
   );
 }
