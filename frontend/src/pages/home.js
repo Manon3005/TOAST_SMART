@@ -3,7 +3,6 @@ import { InputNumber } from "../components/inputNumber";
 import { ResetButton } from "../components/resetButton";
 import { ContinueButton } from "../components/continueButton";
 import { TableColumn } from "../components/tableColumn";
-import { TableColumn } from "../components/tableColumn";
 import React, { useState } from 'react';
 import '../App.css';
 
