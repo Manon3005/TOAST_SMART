@@ -112,7 +112,7 @@ ipcMain.handle('dialog:openFile', async () => {
     const filePath = result.filePaths[0];
     console.log('Chemin du fichier sélectionné :', filePath);
     globalFilePath = filePath
-    return filePath;
+    return ParserService.getColumnNamesFromCsvFile(filePath);
   }
 });
 
