@@ -6,6 +6,10 @@ html, body {
   overflow: hidden;
 }
 
+body {
+  padding-bottom: 40px; /* ou plus si nécessaire */
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -242,3 +246,62 @@ p {
   gap: 20px; /* Espace entre les deux boutons */
   margin-top: 20px;
 }
+
+img {
+  width: 150px;
+  height: 150px;
+  border-radius: 12px;
+}
+
+.explanation-header {
+  justify-content: center;
+  display: flex;
+  margin-top: 20px;
+}
+
+.explanation-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.explanation-step {
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px; 
+}
+
+.image-container {
+  position: relative; 
+  width: 40%;  
+  height: 100%; 
+  background-color: #ffffff; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.step-image1 {
+  position: relative; 
+  z-index: 1; 
+  filter : drop-shadow(15px 15px 0 #80fd9f);
+}
+
+.step-image2 {
+  position: absolute; 
+  z-index: 1; 
+  filter : drop-shadow(-15px 15px 0 #80fd9f);
+}
+
+.step-text{
+  width: 70%; 
+  margin: 0;
+  text-align: left;
+}
+
