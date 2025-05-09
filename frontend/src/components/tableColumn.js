@@ -26,7 +26,7 @@ export function TableColumn({ tableData, setTableData, disabled, headersCSV }) {
               setTableData(newData);
             }
           },
-          React.createElement('option', { value: '' }, '-- sélectionnez --'),
+          React.createElement('option', { value: '' }, '-- Sélectionnez --'),
           ...headersCSV.map((opt, j) =>
             opt && React.createElement('option', { key: j, value: opt }, opt)
           )
