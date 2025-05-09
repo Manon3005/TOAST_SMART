@@ -23,8 +23,14 @@ int main(int argc, char* argv[])
     }
 
     SeatingArrangements* seats = new SeatingArrangements(studentList, dataParser->getNbStudent(), dataParser->getTableCapacityMax(), dataParser->getNbTableMax());
+    cout << "Before createMatrix()" << endl;
     seats->createMatrix();
     seats->printMatrix();
+
+    cout << "Number of demands : "<< seats->nbDemand() << endl;
+    cout << "Number of possible demands : "<< seats->nbPossibleDemand() << endl;
+    cout << "Number of satisfied demands : "<< seats->nbSatisfiedDemand() << endl;
+    cout << "Absolute score : "<< seats->absoluteScore() << endl;
     
     return 0;
 }
