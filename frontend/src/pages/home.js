@@ -75,24 +75,38 @@ export function Home() {
 
     return React.createElement(
         'div',
-        { className: 'app-container', style: { padding: '20px', fontFamily: 'sans-serif' } },
-        React.createElement('h1', null, '🍞 TOAST 🍞'),
-        React.createElement('p', null, 'Tous à sa table'),
-        //React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled : lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
-        React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' ),
-        React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables'),
+        { className: 'app-container'},
+        React.createElement('div', { className: 'app-header' },
+          React.createElement('h1', null, '🍞 TOus A Sa Table 🍞'),
+          React.createElement('h3', null, 'Réalisez votre plan de table en quelques clics !')
+        ),
+        React.createElement('div', { className: 'app-content' },
+          React.createElement('div', { className: 'left-part' },
+            React.createElement('h2', null, 'Prétraitement des données'), 
+            
+            //React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData}), //disabled : disabled
 
-        React.createElement('div', { style: { marginTop: '20px' } },
-            React.createElement(ContinueButton, {
-              onClick: actionContinue,
-              style: { marginRight: '10px' }
-            }),
-            React.createElement(ResetButton, {
-              onClick: actionReset
-            })
+            React.createElement(FileButton, {className: 'file-button', disabled: locked, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
+            React.createElement('div', {className: 'continue-reset-buttons'},
+                React.createElement(ContinueButton, {
+                  onClick: actionContinue
+                }),
+                React.createElement(ResetButton, {
+                  onClick: actionReset
+                })
+              ),
+            
           ),
-        React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
-        React.createElement(ConflictCenter,{disabled : lockedGenerer}),
-        React.createElement(GenerateButton, {className: 'file-button', onClick: actionGenerer, disabled: !lockedContinue,}),
-    );
+          React.createElement('div', { className: 'right-part' },
+            React.createElement('div', { className: 'nb-table' },
+              React.createElement('p', null, 'Nombre de tables maximum:'),
+              React.createElement(InputNumber, {value: maxTables, disabled: locked, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
+            ),
+            React.createElement('div', { className: 'nb-guest' },
+              React.createElement('p', null, 'Nombre de convives maximum/table :'),
+              React.createElement(InputNumber, {value: maxGuests, disabled: locked, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
+            ),
+            )
+          )
+        )
 }
