@@ -7,6 +7,7 @@ const { ipcMain, dialog } = require('electron');
 
 // Create the express server in order to use the static files in the frontend public folder
 const express = require('express');
+const { json } = require("stream/consumers");
 const appServer = express();
 appServer.use(express.static(path.join(__dirname, 'frontend', 'public')));
 
@@ -113,6 +114,7 @@ ipcMain.handle('dialog:openFile', async () => {
 ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   // Set the column names
   ParserService.setColumnsNames({
+    ticket: jsonColumnNames.ticket,
     firstName: jsonColumnNames.firstName,
     lastName: jsonColumnNames.lastName,
     buyerfirstName: jsonColumnNames.buyerFirstName,
