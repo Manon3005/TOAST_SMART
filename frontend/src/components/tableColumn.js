@@ -20,7 +20,7 @@ export function TableColumn({ tableData, setTableData, disabled }) {
               React.createElement('input', {
                 type: 'text',
                 value: val,
-                //disabled: disabled,
+                disabled: disabled,
                 onChange: (e) => {
                   const newData = [...tableData];
                   newData[i] = e.target.value;

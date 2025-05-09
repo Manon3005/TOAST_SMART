@@ -12,6 +12,7 @@ import { GenerateButton } from "../components/generateButton";
 export function Home() {
     
     const [tableData, setTableData] = useState(Array(7).fill(''));
+    const headers = ['lastName', 'firstName', 'buyerLastName', 'buyerFirstName', 'buyerEmail', 'diet', 'wantedTableMates'];
 
     const [maxTables, setMaxTables] = useState(1);
     const [maxGuests, setMaxGuests] = useState(1);
@@ -19,12 +20,24 @@ export function Home() {
     const [errorFile, setErrorFile] = useState('');
     const [lockedContinue, setLockedContinue] = useState(false);
     const [lockedGenerer, setLockedGenerer] = useState(false);
+    
 
 
     const actionContinue = () => {
         setLockedContinue(true);
         setLockedGenerer(true);
+        generateCSVColumn();
     };
+
+    const generateCSVColumn = () => {
+        const jsonColumnNames = headers.reduce((acc, name, index) => {
+            acc[name] = tableData[index];
+            return acc;
+        }, {});
+    
+        window.electronAPI.parseCsvFile(jsonColumnNames)
+    }
+    
 
     const actionGenerer = () => {
         setLockedGenerer(true);
