@@ -42,8 +42,7 @@ async function createWindow() {
 
 async function csvTreatment(path) {
   try { 
-    await ParserService.readFileCSV(path);
-    const graduatedStudents = await ParserService.linkNeighboursToGraduatedStudents();
+    const graduatedStudents = await ParserService.readFileCSV(path);
     if (Array.isArray(graduatedStudents)) {
       console.log(graduatedStudents);
       graduatedStudents.forEach((student) => {

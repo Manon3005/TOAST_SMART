@@ -1,9 +1,11 @@
 import { GraduatedStudent } from "../business/GraduatedStudent";
 import { Guest } from "../business/Guest";
+import { StringNormalizer } from "../utils/StringNormalizer";
 import * as fs from "fs";
 import * as path from "path";
-import { parse } from "csv-parse";
+import { parse, Parser } from "csv-parse";
 import { writeFile } from 'fs/promises';
+import { NeighboursLinker } from "../utils/NeighboursLinker";
 
 export type ColumnsNames = {
   firstName: string;
@@ -57,8 +59,8 @@ export class ParserService {
 
           // Need to take accents and capital letters off for the comparison 
           const guestIsGraduatedStudent = 
-            ParserService.normalizeString(guestFirstName) === ParserService.normalizeString(gradFirstName) && 
-            ParserService.normalizeString(guestLastName) === ParserService.normalizeString(gradLastName);
+            StringNormalizer.normalizeString(guestFirstName) === StringNormalizer.normalizeString(gradFirstName) && 
+            StringNormalizer.normalizeString(guestLastName) === StringNormalizer.normalizeString(gradLastName);
 
           if (!graduatedStudents.has(gradKey)) {
             const id = this.getNextStudentId();
@@ -79,6 +81,7 @@ export class ParserService {
         })
         .on("end", () => {
           this.allGraduatedStudents = Array.from(graduatedStudents.values());
+          this.allGraduatedStudents = NeighboursLinker.linkNeighboursToGraduatedStudents(this.allGraduatedStudents);
           resolve(this.allGraduatedStudents);
         })
         .on("error", reject);
@@ -89,19 +92,6 @@ export class ParserService {
     invalidNeighboursStudentId.forEach(id => {
       this.allGraduatedStudents.find(student => student.getId() == id)!.deleteNeighbours();      
     })
-  }
-
-  static async linkNeighboursToGraduatedStudents(): Promise<GraduatedStudent[]> {
-    this.allGraduatedStudents.forEach(student => {
-      const neighbourWords = student.getNeighboursString().toLowerCase().split(/[\s,;:.!?]+/);
-      neighbourWords.forEach(word => {
-        const matchedStudent = this.allGraduatedStudents.find(student => student.getLastName().toLowerCase() === word);
-        if (matchedStudent && !student.isNeighboursAlreadyPresent(matchedStudent)) {
-          student.addNeighbour(matchedStudent);
-        }
-      })
-    })
-    return this.allGraduatedStudents;
   }
 
   static async getNeighboursPairing(): Promise<string> {
@@ -149,12 +139,4 @@ export class ParserService {
   private static getNextStudentId(): number {
     return this.studentIdCounter++;
   }
-
-  private static removeAccents(str: string): string {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
-  private static normalizeString(str: string): string {
-    return ParserService.removeAccents(str).toLowerCase(); 
-}
 }
