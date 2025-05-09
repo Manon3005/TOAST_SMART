@@ -20,7 +20,6 @@ export type ColumnsNames = {
 type ParsedCSVRow = Record<string, string>;
 
 type GraduatedStudentMap = Map<string, GraduatedStudent>;
-
 export class ParserService {
   private static guestIdCounter = 1;
   private static studentIdCounter = 1;
@@ -88,10 +87,18 @@ export class ParserService {
     });
   }
 
-  static async deleteNonValidNeighbours(invalidNeighboursStudentId: number[]): Promise<void>{
-    invalidNeighboursStudentId.forEach(id => {
-      this.allGraduatedStudents.find(student => student.getId() == id)!.deleteNeighbours();      
-    })
+  static async deleteNonValidNeighbours(graduatedStudents: { list_id: { [studentId: number]: number[] }[] }): Promise<void> {
+    graduatedStudents.list_id.forEach(entry => {
+      const [studentIdStr, neighboursToRemove] = Object.entries(entry)[0];
+      const studentId = parseInt(studentIdStr, 10);
+  
+      const student = this.allGraduatedStudents.find(student => student.getId() === studentId);
+      if (student) {
+        neighboursToRemove.forEach(neighbourId => {
+          student.deleteNeighbour(neighbourId);
+        });
+      }
+    });
   }
 
   static async getNeighboursPairing(): Promise<any> {
