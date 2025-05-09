@@ -3,18 +3,8 @@ import '../App.css';
 
 
 
-export function TableColumn({ tableData, setTableData, disabled, headersCSV }) {
+export function TableColumn({ tableData, setTableData, disabled, headersCSV, setHeadersCSV}) {
     const headers = ['Nom', 'Prénom', 'Nom acheteur', 'Prénom Acheteur', 'Mail acheteur', 'Regime alimentaire', 'Voisins souhaités'];
-  
-    // const options = [
-    //   '', // Valeur vide par défaut
-    //   'Option 1',
-    //   'Option 2',
-    //   'Option 3',
-    //   'Option 4'
-    // ];
-
-    const options = headersCSV;
   
     return React.createElement(
       'table', null,
@@ -36,7 +26,7 @@ export function TableColumn({ tableData, setTableData, disabled, headersCSV }) {
                   setTableData(newData);
                 }
               },
-                options.map((opt, j) =>
+                headersCSV.map((opt, j) =>
                   React.createElement('option', { key: j, value: opt }, opt)
                 )
               )

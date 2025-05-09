@@ -24,17 +24,6 @@ async function createWindow() {
     },
     
   })
-  /*The call here is a test and will be deleted at the end of the project*/
-  ParserService.setColumnsNames({
-    firstName: "Prénom",
-    lastName: "Nom",
-    buyerfirstName: "Prénom acheteur",
-    buyerlastName: "Nom acheteur",
-    buyerEmail: "E-mail acheteur",
-    diet: "Régime alimentaire #131474",
-    wantedTableMates: "Avec qui voulez-vous manger? (commande) #135122",
-  }); 
-  await csvTreatment("resources/files/export_pr_plan_virgule.csv");
 
   win.setMenu(null);
   win.center();
@@ -112,7 +101,7 @@ ipcMain.handle('dialog:openFile', async () => {
     const filePath = result.filePaths[0];
     console.log('Chemin du fichier sélectionné :', filePath);
     globalFilePath = filePath
-    return filePath;
+    return await ParserService.getColumnNamesFromCsvFile(filePath);
   }
 });
 
@@ -130,6 +119,7 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   // Call the csv treatment
   await csvTreatment(globalFilePath);
   // Return the problems
+  return await ParserService.getNeighboursPairing();
 }); 
 
 ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
@@ -137,8 +127,6 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   const maxTables = jsonData.max_number_tables;
   const maxByTables = jsonData.max_number_by_tables;
   const invalidNeighboursStudentId = jsonData.invalid_neighbours_student_id;
-  // Receive pairing results from parsing for validation
-  await ParserService.getNeighboursPairing();
   // Call the service in order to delete the non valid neighbours
   await ParserService.deleteNonValidNeighbours(invalidNeighboursStudentId);
   // Create the json information for the table plan
