@@ -14,7 +14,7 @@ export function Explanation() {
         React.createElement('div', { className: 'explanation-content' },
             React.createElement('div', { className: 'explanation-step' },
                 React.createElement('div', {className: 'image-container'},
-                    React.createElement('img', {src: 'img/explanation.png', className: 'step-image'})
+                    React.createElement('img', {src: 'img/explanation.png', className: 'step-image1'})
                 ),
                 React.createElement('div', { className: 'step-text' },
                     React.createElement('p', null, 'Description de la première étape. Description de la première étape. Description de la première étape. Description de la première étape. Description de la première étape. Description de la première étape. Description de la première étape. Description de la première étape.')
@@ -22,14 +22,18 @@ export function Explanation() {
             ),
             React.createElement('div', { className: 'explanation-step' },
                 React.createElement('div', { className: 'step-text' },
-                    React.createElement('p', null, 'Description de la deuxième étape.')
+                    React.createElement('p', null, 'Description de la deuxième étape. Description de la deuxième étape. Description de la deuxième étape. Description de la deuxième étape. Description de la deuxième étape. Description de la deuxième étape. Description de la deuxième étape. Description de la deuxième étape.')
                 ),
-                React.createElement('img', {src: 'img/explanation.png', className: 'step-image'})
+                React.createElement('div', {className: 'image-container'},
+                    React.createElement('img', {src: 'img/explanation.png', className: 'step-image2'})
+                ),
             ),
             React.createElement('div', { className: 'explanation-step' },
-                React.createElement('img', {src: 'img/explanation.png', className: 'step-image'}),
+                React.createElement('div', {className: 'image-container'},
+                    React.createElement('img', {src: 'img/explanation.png', className: 'step-image1'})
+                ),
                 React.createElement('div', { className: 'step-text' },
-                    React.createElement('p', null, 'Description de la troisième étape.')
+                    React.createElement('p', null, 'Description de la troisième étape. Description de la troisième étape. Description de la troisième étape. Description de la troisième étape. Description de la troisième étape. Description de la troisième étape. Description de la troisième étape. Description de la troisième étape.')
                 )
             ),
         )
