@@ -10,6 +10,6 @@ export function ResetButton({onClick}) {
     null,
     React.createElement(
         'button',
-        { onClick : onClick, className: 'file-button' },'Annuler' )
+        { onClick : onClick, className: 'reset-button' },'Annuler' )
 );
 }
