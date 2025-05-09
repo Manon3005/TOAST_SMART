@@ -3,7 +3,7 @@
 }
 
 html, body {
-  overflow: hidden;
+  overflow:visible;
 }
 
 body {
@@ -131,6 +131,24 @@ p {
   transform: scale(1.05); 
 }
 
+.file-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap : 20px;
+  height: 100%;
+}
+
+.file-message-text {
+  min-height: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
 .file-button,
 .continue-button,
 .reset-button {
@@ -202,11 +220,14 @@ p {
 .app-content {
   display: flex;
   justify-content: space-between;
-  gap: 40px; /* Espace entre les deux rectangles */
+  gap: 40px;
+  height: 65%;
 }
 
-.left-part {
+.left-part,
+.right-part {
   width: 48%;
+  height: 100%;
   background-color: #80fd9f;
   padding: 20px;
   border-radius: 12px;
@@ -228,28 +249,47 @@ p {
 .nb-guest p {
   width: 300px; 
   margin: 0;
-  text-align: left; /* ou left selon le rendu voulu */
-}
-
-.right-part {
-  width: 48%;
-  background-color: #80fd9f;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  align-self: flex-start;
+  text-align: left; 
 }
 
 .continue-reset-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px; /* Espace entre les deux boutons */
+  gap: 50px; 
   margin-top: 20px;
 }
 
+.two-column-select {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 5px;
+  column-gap: 100px;
+  margin: 0 auto; 
+  padding: 15px;
+}
+
+.select-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.select-row label {
+  color: black;
+}
+
+.select-row select {
+  width: 100%;         
+  white-space: nowrap;  
+  overflow: hidden;     
+  text-overflow: ellipsis; 
+}
+
+/* Explanation section styles */
+
 img {
-  width: 150px;
-  height: 150px;
+  width: 190px;
+  height: 190px;
   border-radius: 12px;
 }
 
@@ -264,7 +304,7 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 35px;
   margin-top: 20px;
 }
 
@@ -304,4 +344,3 @@ img {
   margin: 0;
   text-align: left;
 }
-
