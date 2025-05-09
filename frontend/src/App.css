@@ -6,6 +6,10 @@ html, body {
   overflow: hidden;
 }
 
+body {
+  padding-bottom: 40px; /* ou plus si nécessaire */
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -245,7 +249,7 @@ p {
 
 img {
   width: 150px;
-  height: 130px;
+  height: 150px;
   border-radius: 12px;
 }
 
@@ -260,7 +264,7 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0px;
+  gap: 10px;
   margin-top: 20px;
 }
 
@@ -275,16 +279,24 @@ img {
 
 .image-container {
   position: relative; 
-  width: 30%;  
+  width: 40%;  
   height: 100%; 
-  background-color: #ff0000; 
+  background-color: #ffffff; 
   display: flex;
   justify-content: center; 
   align-items: center; 
 }
 
-.step-image {
+.step-image1 {
+  position: relative; 
   z-index: 1; 
+  filter : drop-shadow(15px 15px 0 #80fd9f);
+}
+
+.step-image2 {
+  position: absolute; 
+  z-index: 1; 
+  filter : drop-shadow(-15px 15px 0 #80fd9f);
 }
 
 .step-text{
