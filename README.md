@@ -8,9 +8,9 @@ $npm run start (At the root, open the app; if we're in the frontend folder, laun
 
 In order to launch the backend :
 - Install the following librairies :
-$npm install csv-parse
-$npm install --save-dev @types/csv-parse
-$npm install fast-levenshtein
+$npm install csv-parse  
+$npm install --save-dev @types/csv-parse  
+$npm install fast-levenshtein  
 
 - In order to launch it :
 $npm run start
