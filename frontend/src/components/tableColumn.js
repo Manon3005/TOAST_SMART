@@ -4,7 +4,7 @@ import '../App.css';
 
 
 export function TableColumn({ tableData, setTableData, disabled, headersCSV, setHeadersCSV}) {
-    const headers = ['Nom', 'Prénom', 'Nom acheteur', 'Prénom Acheteur', 'Mail acheteur', 'Regime alimentaire', 'Voisins souhaités'];
+    const headers = ['Numéro billet', 'Nom', 'Prénom', 'Nom acheteur', 'Prénom Acheteur', 'Mail acheteur', 'Regime alimentaire', 'Voisins souhaités'];
   
     return React.createElement(
       'table', null,
@@ -27,7 +27,7 @@ export function TableColumn({ tableData, setTableData, disabled, headersCSV, set
                 }
               },
                 headersCSV.map((opt, j) =>
-                  React.createElement('option', { key: j, value: opt }, opt)
+                  opt && React.createElement('option', { key: j, value: opt }, opt)
                 )
               )
             )
