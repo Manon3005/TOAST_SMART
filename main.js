@@ -5,6 +5,11 @@ const { app, BrowserWindow, screen } = require('electron/main');
 const { Parser } = require("csv-parse");
 const { ipcMain, dialog } = require('electron');
 
+// Create the express server in order to use the static files in the frontend public folder
+const express = require('express');
+const appServer = express();
+appServer.use(express.static(path.join(__dirname, 'frontend', 'public')));
+
 async function createWindow() {
 
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
