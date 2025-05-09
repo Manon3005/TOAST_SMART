@@ -91,4 +91,12 @@ export class GraduatedStudent {
     getId(): number {
         return this.id;
     }
+
+    getEmail(): string {
+        return this.email;
+    }
+
+    getDiet(): string {
+        return this.diet;
+    }
 }
