@@ -2,7 +2,7 @@ import { GraduatedStudent } from "../business/GraduatedStudent";
 import { Guest } from "../business/Guest";
 import * as fs from "fs";
 import * as path from "path";
-import { parse } from "csv-parse";
+import { parse, Parser } from "csv-parse";
 import { writeFile } from 'fs/promises';
 import { get as levenshtein } from 'fast-levenshtein';
 
@@ -23,6 +23,8 @@ type GraduatedStudentMap = Map<string, GraduatedStudent>;
 export class ParserService {
   private static guestIdCounter = 1;
   private static studentIdCounter = 1;
+  private static levenshteinThresholdFullName = 2;
+  private static levenshteinThresholdLastName = 1;
 
   private static allGraduatedStudents : GraduatedStudent[] = [];
   
@@ -96,14 +98,53 @@ export class ParserService {
   private static linkNeighboursToGraduatedStudents(): void {
     this.allGraduatedStudents.forEach(student => {
       const neighbourWords = student.getNeighboursString().toLowerCase().split(/[\s,;:.!?]+/);
-      neighbourWords.forEach(word => {
-        const normalizedWord = ParserService.normalizeString(word);
-        const matchedStudent = ParserService.findBestMatchingGraduatedStudent(normalizedWord);
-        if (matchedStudent && !student.isNeighboursAlreadyPresent(matchedStudent)) {
-          student.addNeighbour(matchedStudent);
+      const normalizedNeighbourWords = neighbourWords
+        .map(word => ParserService.normalizeString(word));
+      
+      // Case 1 : Matching on fullname with max 2 errors in the combination
+      type firstCaseCandidateWithDistance = { candidate: GraduatedStudent; distance: number };
+      let firstCaseCandidates: firstCaseCandidateWithDistance[] = [];
+      let firstCaseBestDistance = Infinity;
+      for (let i = 0; i < normalizedNeighbourWords.length - 1; i++) {
+        const combinedNormalizedWords = ParserService.normalizeString(normalizedNeighbourWords[i] + ' ' + normalizedNeighbourWords[i+1]);
+        for (const candidate of this.allGraduatedStudents) {
+          const firstNameLastName = ParserService.normalizeString(candidate.getFirstName() + ' ' + candidate.getLastName());
+          const lastNameFirstName = ParserService.normalizeString(candidate.getLastName() + ' ' + candidate.getFirstName());
+          const distance1 = levenshtein(firstNameLastName, combinedNormalizedWords);
+          const distance2 = levenshtein(lastNameFirstName, combinedNormalizedWords);
+          const currentDistance = Math.min(distance1, distance2);
+          if (currentDistance <= ParserService.levenshteinThresholdFullName && currentDistance <= firstCaseBestDistance) {
+            firstCaseBestDistance = currentDistance;
+            firstCaseCandidates.push({ candidate, distance: currentDistance });
+          }
         }
-      })
-    })
+      }
+      for (const { candidate, distance } of firstCaseCandidates) {
+        if (distance === firstCaseBestDistance && !student.isNeighboursAlreadyPresent(candidate)) {
+          student.addNeighbour(candidate);
+        }
+      }
+
+      // Case 2 : Matching on name with max 1 error
+      type secondCaseCandidateWithDistance = { candidate: GraduatedStudent; distance: number };
+      let secondCaseCandidates: secondCaseCandidateWithDistance[] = [];
+      let secondCaseBestDistance = Infinity;
+      for (let i = 0; i < normalizedNeighbourWords.length; i++) {
+        for (const candidate of this.allGraduatedStudents) {
+          const lastName = ParserService.normalizeString(candidate.getLastName());
+          const distance = levenshtein(lastName, normalizedNeighbourWords[i]);
+          if (distance <= ParserService.levenshteinThresholdLastName && distance <= secondCaseBestDistance) {
+            secondCaseBestDistance = distance;
+            secondCaseCandidates.push({ candidate, distance: distance });
+          }
+        }
+      }
+      for (const { candidate, distance } of secondCaseCandidates) {
+        if (distance === secondCaseBestDistance && !student.isNeighboursAlreadyPresent(candidate)) {
+          student.addNeighbour(candidate);
+        }
+      }
+    });
   }
 
   private static findBestMatchingGraduatedStudent(normalizedWord: string): GraduatedStudent | undefined {
