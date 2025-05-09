@@ -10,6 +10,7 @@ Student::Student(int id, string firstName, string lastName, int nbGuest) {
     this->nbGuest = nbGuest;
     nbNeighbour = 0;
     neighbours = new Student*[15];
+    table = nullptr;
 }
 
 Student::~Student() {

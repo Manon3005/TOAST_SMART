@@ -12,6 +12,7 @@ class Table
         Table();
         virtual ~Table();
         Student* addStudent(Student* student);
+        void removeStudent(Student* student);
         void print();
 
         Student** getStudentList();
