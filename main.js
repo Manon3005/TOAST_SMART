@@ -5,6 +5,9 @@ const { app, BrowserWindow, screen } = require('electron/main');
 const { Parser } = require("csv-parse");
 const { ipcMain, dialog } = require('electron');
 
+
+let globalFilePath = "";
+
 async function createWindow() {
 
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
@@ -108,6 +111,7 @@ ipcMain.handle('dialog:openFile', async () => {
   } else {
     const filePath = result.filePaths[0];
     console.log('Chemin du fichier sélectionné :', filePath);
+    globalFilePath = filePath
     return filePath;
   }
 });
@@ -124,7 +128,7 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
     wantedTableMates: jsonColumnNames.wantedTableMates,
   });
   // Call the csv treatment
-  await csvTreatment(filePath);
+  await csvTreatment(globalFilePath);
   // Return the problems
 }); 
 
