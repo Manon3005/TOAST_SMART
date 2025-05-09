@@ -1,12 +1,13 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <cstring>
 
 #include "../headers/Table.h"
 
 using namespace std;
 
-Table::Table() { 
+Table::Table() {
     nbFilledSeat = 0;
     nbStudent = 0;
     remainingStudentPreference = 0;
@@ -51,4 +52,21 @@ int Table::getNbStudent() {
 
 int Table::getNbFilledSeat() {
     return nbFilledSeat;
+}
+
+void Table::removeStudent(Student* student)
+{
+    int to_remove = -1;
+    for (int i = 0 ; i < nbStudent ; i++) {
+        if (studentList[i] == student) {
+            to_remove = i;
+        }
+    }
+    if (to_remove != -1) {
+        memmove(studentList + to_remove, studentList + to_remove + 1, (nbStudent - to_remove - 1) * sizeof(studentList));
+        nbFilledSeat -= student->getNbGuest() + 1;
+        nbStudent--;
+    } else {
+        cout << "Student not in table" << endl;
+    }
 }

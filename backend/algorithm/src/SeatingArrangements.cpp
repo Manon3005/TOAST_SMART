@@ -13,10 +13,10 @@ SeatingArrangements::SeatingArrangements(Student** studentList, int nbStudent, i
     this->studentList = studentList;
     this->matrix = nullptr;
 
-    nbUsedTable = 0;
-    tableList = new Table[nbStudent];
+    nbUsedTable = nbStudent;
+    tableList = new Table[nbUsedTable];
 
-    for(int i = 0 ; i < nbStudent ; i++) {
+    for(int i = 0 ; i < nbUsedTable ; i++) {
         index[&(tableList[i])] = i;
     }
 
@@ -71,14 +71,42 @@ void SeatingArrangements::printMatrix() {
     } 
 }
 
-void SeatingArrangements::addStudentToTable(Student* student, Table* table) {
-    if (table->getNbStudent() == 0) {
-        nbUsedTable++;
+void SeatingArrangements::moveStudentToTable(Student* student, Table* table) {
+    if (student && table) {
+        /*cout << "Moving :" << endl;
+        student->print();
+        cout << "To :" << endl;
+        table->print();*/
+        table->addStudent(student);
+        Table* previousTable = student->getTable();
+        if (previousTable) {
+            previousTable->removeStudent(student);
+        }
+        student->setTable(table);
+    } else {
+        cout << "Error table or student pointer undefined" << endl;
     }
-    table->addStudent(student);
-    student->setTable(table);
 }
 
+
+void SeatingArrangements::mergeTables(Table* tableSource, Table* tableDestination) {
+    if (tableSource && tableDestination) {
+        int nbStudent = tableSource->getNbStudent();
+        for (int i = 0 ; i < nbStudent ; i++) {
+            Student* student = tableSource->getStudentList()[0];
+            moveStudentToTable(student, tableDestination);
+        }
+    } else {
+        cout << "Error table pointer undefined" << endl;
+    }
+}
+        
+
+
+void SeatingArrangements::attributeTableToStudent() {
+
+
+}
 int SeatingArrangements::nbSatisfiedDemand(){
     int cmp = 0;
     for(int i = 0; i < nbStudent; i++){
