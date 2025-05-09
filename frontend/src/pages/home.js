@@ -86,7 +86,11 @@ export function Home() {
             
             //React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData}), //disabled : disabled
 
-            React.createElement(FileButton, {className: 'file-button', disabled: locked, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
+            React.createElement(FileButton, {className: 'file-button', disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
+            
+            React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
+            React.createElement(ConflictCenter,{disabled : lockedGenerer}),
+            
             React.createElement('div', {className: 'continue-reset-buttons'},
                 React.createElement(ContinueButton, {
                   onClick: actionContinue
@@ -100,12 +104,13 @@ export function Home() {
           React.createElement('div', { className: 'right-part' },
             React.createElement('div', { className: 'nb-table' },
               React.createElement('p', null, 'Nombre de tables maximum:'),
-              React.createElement(InputNumber, {value: maxTables, disabled: locked, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
+              React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
             ),
             React.createElement('div', { className: 'nb-guest' },
               React.createElement('p', null, 'Nombre de convives maximum/table :'),
-              React.createElement(InputNumber, {value: maxGuests, disabled: locked, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
+              React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
             ),
+            React.createElement(GenerateButton, {className: 'file-button', onClick: actionGenerer, disabled: !lockedContinue,}),
             )
           )
         )
