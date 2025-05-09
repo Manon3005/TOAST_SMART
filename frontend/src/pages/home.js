@@ -87,16 +87,17 @@ export function Home() {
             React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
             
             React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
-            React.createElement(ConflictCenter,{disabled : lockedGenerer}),
             
             React.createElement('div', {className: 'continue-reset-buttons'},
-                React.createElement(ContinueButton, {
-                  onClick: actionContinue
-                }),
-                React.createElement(ResetButton, {
-                  onClick: actionReset
-                })
-              ),
+              React.createElement(ContinueButton, {
+                onClick: actionContinue
+              }),
+              React.createElement(ResetButton, {
+                onClick: actionReset
+              })
+            ),
+            
+            React.createElement(ConflictCenter,{disabled : lockedGenerer}),
             
           ),
           React.createElement('div', { className: 'right-part' },
