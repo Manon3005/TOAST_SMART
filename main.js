@@ -123,7 +123,7 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   });
   // Call the csv treatment
   await csvTreatment(globalFilePath);
-  // Return the problems
+  // Receive pairing results from parsing for validation
   return await ParserService.getNeighboursPairing();
 }); 
 

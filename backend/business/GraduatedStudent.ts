@@ -47,9 +47,8 @@ export class GraduatedStudent {
         this.neighbours.push(student);
     }
 
-    deleteNeighbours(): void {
-        this.neighbours = [];
-        this.nbNeighbours = 0;
+    deleteNeighbour(id: number): void {
+        this.neighbours = this.neighbours.filter(neighbour => neighbour.id !== id);
     }
 
     getNeighbours(): GraduatedStudent[] {
