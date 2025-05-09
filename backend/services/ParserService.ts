@@ -94,7 +94,7 @@ export class ParserService {
     })
   }
 
-  static async getNeighboursPairing(): Promise<string> {
+  static async getNeighboursPairing(): Promise<any> {
     const graduatedStudents = this.allGraduatedStudents.map(student => ({
       idStudent: student.getId(),
       lastName: student.getLastName(),
@@ -107,7 +107,7 @@ export class ParserService {
       }))
     }));
 
-    return JSON.stringify({ graduated_students: graduatedStudents }, null, 2);
+    return { graduated_students: graduatedStudents };
   }
 
   static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number): Promise<void> {
