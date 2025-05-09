@@ -3,13 +3,13 @@ import '../App.css';
 
 
 
-export function ContinueButton({onClick, disabled}) {
+export function AcceptConflictButton() {
 
   return React.createElement(
     'div',
     null,
     React.createElement(
         'button',
-        { onClick : onClick, className: 'file-button', disabled : disabled },'Valider' )
+        {className: 'file-button' },'✗' )
 );
 }
