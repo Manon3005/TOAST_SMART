@@ -6,6 +6,7 @@ import * as path from "path";
 import { parse, Parser } from "csv-parse";
 import { writeFile } from 'fs/promises';
 import { NeighboursLinker } from "../utils/NeighboursLinker";
+import { CsvExporter } from "../utils/CsvExporter";
 
 export type ColumnsNames = {
   firstName: string;
@@ -82,6 +83,7 @@ export class ParserService {
         .on("end", () => {
           this.allGraduatedStudents = Array.from(graduatedStudents.values());
           this.allGraduatedStudents = NeighboursLinker.linkNeighboursToGraduatedStudents(this.allGraduatedStudents);
+          CsvExporter.exportCsv(ParserService.columns, this.allGraduatedStudents, "./backend/resources/parsing_export.csv")
           resolve(this.allGraduatedStudents);
         })
         .on("error", reject);
