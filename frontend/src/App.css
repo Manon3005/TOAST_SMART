@@ -137,6 +137,16 @@ p {
   align-items: center;
   margin-top: 20px;
   gap : 20px;
+  height: 100%;
+}
+
+.file-message-text {
+  min-height: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .file-button,
