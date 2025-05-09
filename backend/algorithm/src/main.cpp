@@ -21,9 +21,8 @@ int main(int argc, char* argv[])
     for (int i = 0 ; i < dataParser->getNbStudent() ; i++) {
         studentList[i]->print();
     }
-    SeatingArrangements* seats = new SeatingArrangements(studentList, dataParser->getNbStudent(), dataParser->getTableCapacityMax(), dataParser->getNbTableMax());
-    
-    Table* table = new Table();
+
+    /*Table* table = new Table();
     table->addStudent(studentList[0]);
     table->addStudent(studentList[1]);
     table->addStudent(studentList[2]);
@@ -39,13 +38,14 @@ int main(int argc, char* argv[])
     
     studentList[3]->setTable(table2);
     
-    seats->mergeTables(table, table2);
     table->print();
-    table2->print();
+    table2->print();*/
 
-    //SeatingArrangements* seats = new SeatingArrangements(studentList, dataParser->getNbStudent(), dataParser->getTableCapacityMax(), dataParser->getNbTableMax());
-    //seats->createMatrix();
-    //seats->printMatrix();
+    SeatingArrangements* seats = new SeatingArrangements(studentList, dataParser->getNbStudent(), dataParser->getTableCapacityMax(), dataParser->getNbTableMax());
+    seats->attributeTableToStudent();
+    seats->print();
+    seats->completeExistingTable();
+    seats->print();
     
     return 0;
 }

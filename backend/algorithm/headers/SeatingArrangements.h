@@ -19,6 +19,10 @@ class SeatingArrangements
         void moveStudentToTable(Student* student, Table* table);
         void mergeTables(Table* tableSource, Table* tableDestination);
         void attributeTableToStudent();
+        void removeTable(int to_remove);
+        void completeExistingTable();
+        void print();
+        void clearTable();
 
     protected:
 
