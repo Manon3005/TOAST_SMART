@@ -125,6 +125,7 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
     diet: jsonColumnNames.diet,
     wantedTableMates: jsonColumnNames.wantedTableMates,
   });
+  console.log(jsonColumnNames);
   // Call the csv treatment
   await csvTreatment(globalFilePath);
   // Receive pairing results from parsing for validation
