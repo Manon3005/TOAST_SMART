@@ -198,7 +198,9 @@ void SeatingArrangements::print() {
         cout << endl;
     }
     cout << "Table number : " << nbUsedTable << endl;
-}int SeatingArrangements::nbSatisfiedDemand(){
+}
+
+int SeatingArrangements::nbSatisfiedDemand(){
     int cmp = 0;
     for(int i = 0; i < nbStudent; i++){
         for(int j = 0; j < studentList[i]->getNbNeighbour(); j++){
