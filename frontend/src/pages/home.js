@@ -71,6 +71,8 @@ export function Home() {
         setName('');
         setErrorFile('');
         setLockedGenerer(true);
+        setHeadersCSV(['','','','','','','','']);
+        setTableData(Array(8).fill(''));
     };
 
     return React.createElement(
