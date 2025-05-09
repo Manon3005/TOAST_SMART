@@ -10,6 +10,7 @@ In order to launch the backend :
 - Install the following librairies :
 $npm install csv-parse
 $npm install --save-dev @types/csv-parse
+$npm install express
 
 - In order to launch it :
 $npm run start
