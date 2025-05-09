@@ -198,4 +198,54 @@ void SeatingArrangements::print() {
         cout << endl;
     }
     cout << "Table number : " << nbUsedTable << endl;
+}int SeatingArrangements::nbSatisfiedDemand(){
+    int cmp = 0;
+    for(int i = 0; i < nbStudent; i++){
+        for(int j = 0; j < studentList[i]->getNbNeighbour(); j++){
+            if(studentList[i]->getTable() == studentList[i]->getNeighbours()[j]->getTable()){
+                cmp += 1;
+            }
+        }
+    }
+    return cmp;
+}
+
+int SeatingArrangements::nbPossibleDemand(){
+    int cmp = 0;
+    for(int i = 0; i < nbStudent; i++){
+        for(int j = 0; j < studentList[i]->getNbNeighbour(); j++){
+            if(studentList[i]->getNbGuest() + studentList[j]->getNbGuest() <= tableCapacityMax){
+                cmp += 1;
+            }
+        }
+    }
+    return cmp;
+}
+
+int SeatingArrangements::nbDemand(){
+    int cmp = 0;
+    for(int i = 0; i < nbStudent; i++){
+        cmp += studentList[i]->getNbNeighbour();
+    }
+    return cmp;
+}
+
+int SeatingArrangements::absoluteScore(){
+    int score = 0;
+    for(int i = 0; i < nbStudent; i++){
+        bool firstSatisfied = false; //Becomes true when a preference is satisfied for a student
+        for(int j = 0; j < studentList[i]->getNbNeighbour(); j++){
+            if(studentList[i]->getNbGuest() + studentList[j]->getNbGuest() <= tableCapacityMax){
+                if(!firstSatisfied)
+                    score += 50;
+                else{
+                    score += 5;
+                }
+            }
+            if(!firstSatisfied){
+                score += -100;
+            }
+        }
+    }
+    return score;
 }
