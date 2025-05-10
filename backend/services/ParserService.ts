@@ -72,22 +72,16 @@ export class ParserService {
               new GraduatedStudent(id, gradLastName, gradFirstName, gradEmail, tableMates)
             );
           }
-
-          if (!guestIsGraduatedStudent) {
+          // If it is a guest OR
+          // If 'has all information' => it's the case when the student's names is put also for the guest's names so it is a guest
+          if (!guestIsGraduatedStudent || graduatedStudents.get(gradKey)!.hasAllInformation()) {
             const id = this.getNextGuestId();
             const guest = new Guest(id, ticketNumber, guestLastName, guestFirstName, specifiedDiet);
             graduatedStudents.get(gradKey)!.addGuest(guest);
           }
           else {
-            // If 'has all information' => it's the case when the student's names is put also for the guest's names
-            if (graduatedStudents.get(gradKey)!.hasAllInformation()) {
-              const id = this.getNextGuestId();
-              const guest = new Guest(id, ticketNumber, guestLastName, guestFirstName, specifiedDiet);
-              graduatedStudents.get(gradKey)!.addGuest(guest);
-            } else {
-              graduatedStudents.get(gradKey)!.setDiet(specifiedDiet);
-              graduatedStudents.get(gradKey)!.setTicket(ticketNumber);
-            }
+            graduatedStudents.get(gradKey)!.setDiet(specifiedDiet);
+            graduatedStudents.get(gradKey)!.setTicket(ticketNumber);
           }
         })
         .on("end", () => {
