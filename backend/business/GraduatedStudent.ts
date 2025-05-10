@@ -36,6 +36,14 @@ export class GraduatedStudent {
         this.ticket = ticket;
     }
 
+    hasAllInformation(): boolean {
+        // Check if the adding information of a student has been set
+        if(!this.ticket || !this.diet) {
+            return false;
+        }
+        return true;
+    }
+
     setDiet(diet: string): void {
         this.diet = Diet.mapDietaryPreference(diet);;
     }
