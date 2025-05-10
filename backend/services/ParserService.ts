@@ -58,7 +58,7 @@ export class ParserService {
           const tableMates = row[wantedTableMates];
           const specifiedDiet = row[diet]?.trim();
 
-          const gradKey = `${gradFirstName} ${gradLastName}`;
+          const gradKey = `${StringNormalizer.normalizeString(gradFirstName)} ${StringNormalizer.normalizeString(gradLastName)}`;
 
           // Need to take accents and capital letters off for the comparison 
           const guestIsGraduatedStudent = 
