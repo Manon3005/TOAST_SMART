@@ -4,7 +4,7 @@ import { ResetButton } from "../components/resetButton";
 import { ContinueButton } from "../components/continueButton";
 import { TableColumn } from "../components/tableColumn";
 import { ConflictCenter } from "../components/conflictCenter";
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import '../App.css';
 import { GenerateButton } from "../components/generateButton";
 
@@ -21,6 +21,19 @@ export function Home() {
     const [lockedContinue, setLockedContinue] = useState(false);
     const [lockedGenerer, setLockedGenerer] = useState(false);
     const [headersCSV, setHeadersCSV] = useState(['','','','','','','','']);
+
+    const [tableConflicts, setTableConflicts] = useState([])
+    const [currentStudentIndex, setCurrentStudentIndex] = useState(0);
+    const [currentNeighbourIndex, setCurrentNeighbourIndex] = useState(0);
+    const [refusedNeighbours, setRefusedNeighbours] = useState([]);
+
+    React.useEffect(() => {
+      if (tableConflicts.length > 0) {
+        setCurrentStudentIndex(0);
+        setCurrentNeighbourIndex(0);
+        console.log(tableConflicts[currentStudentIndex])
+      }
+    }, [tableConflicts]);
     
 
     const [filePath, setPath] = useState(''); 
@@ -50,13 +63,15 @@ export function Home() {
         generateCSVColumn();
     };
 
-    const generateCSVColumn = () => {
+    const generateCSVColumn = async () => {
         const jsonColumnNames = headers.reduce((acc, name, index) => {
             acc[name] = tableData[index];
             return acc;
         }, {});
     
-        window.electronAPI.parseCsvFile(jsonColumnNames)
+        const jsonConflicts = await window.electronAPI.parseCsvFile(jsonColumnNames);
+        console.log(jsonConflicts);
+        setTableConflicts(jsonConflicts.graduated_students);
     }
     
 
@@ -73,12 +88,52 @@ export function Home() {
         setLockedGenerer(true);
     };
 
+    const nextConflict = () => {
+      const student = tableConflicts[currentStudentIndex];
+    
+      if (currentNeighbourIndex + 1 < student.processedNeighbours.length) {
+        setCurrentNeighbourIndex(prev => prev + 1);
+      } else if (currentStudentIndex + 1 < tableConflicts.length) {
+        setCurrentStudentIndex(prev => prev + 1);
+        setCurrentNeighbourIndex(0);
+      } else {
+        console.log("Terminé");
+        console.log(refusedNeighbours);
+      }
+    };
+    
+    const acceptConflict = () => {
+      nextConflict();
+    };
+    
+    const refuseConflict = () => {
+      const student = tableConflicts[currentStudentIndex];
+      const neighbour = student.processedNeighbours[currentNeighbourIndex];
+    
+      setRefusedNeighbours(prev => {
+        const existing = prev.find(r => r.idStudent === student.idStudent);
+        if (existing) {
+          return prev.map(r => r.idStudent === student.idStudent
+            ? { ...r, refusedNeighbours: [...r.refusedNeighbours, neighbour.neighbourId] }
+            : r
+          );
+        } else {
+          return [...prev, {
+            idStudent: student.idStudent,
+            refusedNeighbours: [neighbour.neighbourId]
+          }];
+        }
+      });
+    
+      nextConflict();
+    };
+
     return React.createElement(
         'div',
         { className: 'app-container'},
         React.createElement('div', { className: 'app-header' },
           React.createElement('h1', null, '🍞 TOus A Sa Table 🍞'),
-          React.createElement('h3', null, 'Réalisez votre plan de table en quelques clics !')
+          React.createElement('h3', null, 'Réalisez votre plan de table en quelques clics !'),
         ),
         React.createElement('div', { className: 'app-content' },
           React.createElement('div', { className: 'left-part' },
@@ -89,7 +144,14 @@ export function Home() {
             React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
             
             React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
-            React.createElement(ConflictCenter,{disabled : lockedGenerer}),
+            React.createElement(ConflictCenter,{
+              disabled: lockedGenerer,
+              students: tableConflicts,
+              currentStudentIndex: currentStudentIndex,
+              currentNeighbourIndex: currentNeighbourIndex,
+              onAccept: acceptConflict,
+              onRefuse: refuseConflict
+            }),
             
             React.createElement('div', {className: 'continue-reset-buttons'},
                 React.createElement(ContinueButton, {
