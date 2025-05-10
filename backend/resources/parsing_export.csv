@@ -65,7 +65,7 @@ T383-2709-E961076;TETU;Antoine;BRANDENER;Alexandre;alexandre.brandener@insa-lyon
 T337-4951-E961076;BRANDENER;Eloi;BRANDENER;Alexandre;alexandre.brandener@insa-lyon.fr;pas de régime spécifique-;
 T306-8584-E961076;BRANDENER;Marie;BRANDENER;Alexandre;alexandre.brandener@insa-lyon.fr;pas de régime spécifique-;
 T201-8404-E961076;COLOMBO;Clarisse;BRANDENER;Alexandre;alexandre.brandener@insa-lyon.fr;pas de régime spécifique-;
-T623-5423-E961076;COQUILLAUD;Alexandre;COQUILLAUD;Alexandre;alexandre.coquillaud@insa-lyon.fr;pas de régime spécifique-;MARTINS-SALGADO Lucas Martins-Salgado
+T623-5423-E961076;COQUILLAUD;Alexandre;COQUILLAUD;Alexandre;alexandre.coquillaud@insa-lyon.fr;pas de régime spécifique-;MARTINS-SALGADO Lucas
 T642-9903-E961076;FOUREL;Alexandre;FOUREL;Alexandre;alexandre.fourel@insa-lyon.fr;végétarien-;SMOLDERS Matthieu, VILPINI Pauline, LEHMANN Louys-Henry
 T990-8869-E961076;FOUREL;Géraldine;FOUREL;Alexandre;alexandre.fourel@insa-lyon.fr;pas de régime spécifique-;
 T678-9214-E961076;LUCILE;Ferrand;FOUREL;Alexandre;alexandre.fourel@insa-lyon.fr;pas de régime spécifique-;
@@ -758,10 +758,9 @@ T429-7077-E961076;GALLET;Lucas;GALLET;Lucas;lucas.gallet@insa-lyon.fr;pas de ré
 T639-3988-E961076;GALLET;Thomas;GALLET;Lucas;lucas.gallet@insa-lyon.fr;pas de régime spécifique-;
 T551-7529-E961076;GALLET;Christine;GALLET;Lucas;lucas.gallet@insa-lyon.fr;pas de régime spécifique-;
 T531-1307-E961076;GALLET;Emmanuel;GALLET;Lucas;lucas.gallet@insa-lyon.fr;pas de régime spécifique-;
-;MARTINS-SALGADO;Lucas Martins-Salgado;MARTINS-SALGADO;Lucas Martins-Salgado;lucas.martins-salgado@insa-lyon.fr;non reconnu-;COQUILLAUD Alexandre
-T864-5052-E961076;SAINT-LÈBES;Chloé;MARTINS-SALGADO;Lucas Martins-Salgado;lucas.martins-salgado@insa-lyon.fr;pas de régime spécifique-;
-T347-4192-E961076;MARTINS-SALGADO;Lucas;MARTINS-SALGADO;Lucas Martins-Salgado;lucas.martins-salgado@insa-lyon.fr;pas de régime spécifique-;
-T179-7049-E961076;ROBIN;Camille;MARTINS-SALGADO;Lucas Martins-Salgado;lucas.martins-salgado@insa-lyon.fr;pas de régime spécifique-;
+T347-4192-E961076;MARTINS-SALGADO;Lucas;MARTINS-SALGADO;Lucas;lucas.martins-salgado@insa-lyon.fr;pas de régime spécifique-;COQUILLAUD Alexandre
+T864-5052-E961076;SAINT-LÈBES;Chloé;MARTINS-SALGADO;Lucas;lucas.martins-salgado@insa-lyon.fr;pas de régime spécifique-;
+T179-7049-E961076;ROBIN;Camille;MARTINS-SALGADO;Lucas;lucas.martins-salgado@insa-lyon.fr;pas de régime spécifique-;
 T655-6930-E961076;VACHEROT;Lucas;VACHEROT;Lucas;lucas.vacherot@insa-lyon.fr;pas de régime spécifique-;SIMONET Léo
 T843-9415-E961076;VACHEROT;Francis;VACHEROT;Lucas;lucas.vacherot@insa-lyon.fr;pas de régime spécifique-;
 T640-5844-E961076;VACHEROT;Anabela;VACHEROT;Lucas;lucas.vacherot@insa-lyon.fr;pas de régime spécifique-;
@@ -1082,11 +1081,10 @@ T836-9628-E961076;BUIN;Alexis;DEROCHE;Robin;robin.deroche@insa-lyon.fr;pas de r�
 T523-2471-E961076;DEROCHE;Jean Claude;DEROCHE;Robin;robin.deroche@insa-lyon.fr;pas de régime spécifique-;
 T443-7336-E961076;DEROCHE;Cécile;DEROCHE;Robin;robin.deroche@insa-lyon.fr;pas de régime spécifique-;
 T635-5798-E961076;DUTARTE;Robin;DUTARTE;Robin;robin.dutarte@insa-lyon.fr;pas de régime spécifique-;DELORME Amélie, FLORENCE Marine, AZOULAY Laurie, NUGIER Nathan, DELEVOIE Charlotte, BROUSSE Jules, THIBERGE Léa
-;LEFRANC;Robin;LEFRANC;Robin;robin.lefranc@insa-lyon.fr;non reconnu-;MORELLON Tanguy
+T242-4156-E961076;LEFRANC;Robin;LEFRANC;Robin;robin.lefranc@insa-lyon.fr;pas de régime spécifique-;MORELLON Tanguy
 T954-4424-E961076;LEFRANC;Florence;LEFRANC;Robin;robin.lefranc@insa-lyon.fr;pas de régime spécifique-;
 T874-7986-E961076;LEFRANC;Patrick;LEFRANC;Robin;robin.lefranc@insa-lyon.fr;pas de régime spécifique-;
 T535-4260-E961076;CARO;Elise;LEFRANC;Robin;robin.lefranc@insa-lyon.fr;pas de régime spécifique-;
-T242-4156-E961076;LEFRA;Robin;LEFRANC;Robin;robin.lefranc@insa-lyon.fr;pas de régime spécifique-;
 T487-9195-E961076;DUCROS;Roland;DUCROS;Roland;roland.ducros@insa-lyon.fr;pas de régime spécifique-;SCHANG Kim, JACINTHO Firmin
 T414-6199-E961076;DUCROS;Roland;DUCROS;Roland;roland.ducros@insa-lyon.fr;pas de régime spécifique-;
 T111-3893-E961076;DUCROS;Roland;DUCROS;Roland;roland.ducros@insa-lyon.fr;pas de régime spécifique-;
@@ -1292,9 +1290,8 @@ T543-4077-E961076;TOURBILLON;Erwan;PARDIEU;Zélie;zelie.pardieu@insa-lyon.fr;pas
 T498-8991-E961076;PARDIEU;Etienne;PARDIEU;Zélie;zelie.pardieu@insa-lyon.fr;pas de régime spécifique-;
 T355-9357-E961076;PARDIEU;Mathilde;PARDIEU;Zélie;zelie.pardieu@insa-lyon.fr;pas de régime spécifique-;
 T323-5790-E961076;PARDIEU;Arthur;PARDIEU;Zélie;zelie.pardieu@insa-lyon.fr;pas de régime spécifique-;
-;ALBADRA;Yara;ALBADRA;Yara;zoe.battello@insa-lyon.fr;non reconnu-;BATTELLO Zoé
+T203-8925-E961076;ALBADRA;Yara;ALBADRA;Yara;zoe.battello@insa-lyon.fr;végétarien-;BATTELLO Zoé
 T996-5635-E961076;ALBADRA;Ram;ALBADRA;Yara;zoe.battello@insa-lyon.fr;pas de régime spécifique-;
-T203-8925-E961076;ALBADRA;Khuzama;ALBADRA;Yara;zoe.battello@insa-lyon.fr;végétarien-;
 T108-8076-E961076;ALBADRA;Khuzama;ALBADRA;Yara;zoe.battello@insa-lyon.fr;sans porc-;
 T302-1993-E961076;BATTELLO;Zoé;BATTELLO;Zoé;zoe.battello@insa-lyon.fr;végétarien-;ALBADRA Yara
 T973-9548-E961076;FOLLIET;Jérôme;BATTELLO;Zoé;zoe.battello@insa-lyon.fr;pas de régime spécifique-;
