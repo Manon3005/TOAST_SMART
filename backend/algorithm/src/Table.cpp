@@ -5,15 +5,16 @@
 
 #include "../headers/Table.h"
 
-#define MAX_STUDENT_NB 15
-
 using namespace std;
 
-Table::Table() {
+Table::Table(string id, int nbMaxStudent) {
     nbFilledSeat = 0;
     nbStudent = 0;
     remainingStudentPreference = 0;
-    studentList = new Student*[MAX_STUDENT_NB];
+
+    this->nbMaxStudent = nbMaxStudent;
+    this->id = id;
+    studentList = new Student*[nbMaxStudent];
 }
 
 Table::~Table() {
@@ -21,7 +22,7 @@ Table::~Table() {
 }
 
 Student* Table::addStudent(Student* student) {
-    if (nbStudent == MAX_STUDENT_NB) {
+    if (nbStudent == nbMaxStudent) {
         return nullptr;
     }
     for (int i = 0 ; i < nbStudent ; i++) {
@@ -37,7 +38,7 @@ Student* Table::addStudent(Student* student) {
 }
 
 void Table::print() {
-    cout << "Table :" << endl;
+    cout << "Table " << id << " :" << endl;
     cout << "Filled seat number : " << nbFilledSeat << endl;
     cout << "Students (" << nbStudent << ")" << endl;
     for (int i = 0 ; i < nbStudent ; i++) {

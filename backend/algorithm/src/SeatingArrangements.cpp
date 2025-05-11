@@ -18,14 +18,15 @@ SeatingArrangements::SeatingArrangements(Student** studentList, int nbStudent, i
     matrix = nullptr;
 
     nbUsedTable = nbStudent;
-    tableList = new Table[nbUsedTable];
+    tableList = new Table*[nbUsedTable];
 
     for(int i = 0 ; i < nbUsedTable ; i++) {
-        index[&(tableList[i])] = i;
+        tableList[i] = new Table(to_string(i), tableCapacityMax);
+        index[tableList[i]] = i;
     }
 
     for (int i = 0 ; i < nbUsedTable ; i++) {
-        moveStudentToTable(studentList[i], &(tableList[i]));
+        moveStudentToTable(studentList[i], tableList[i]);
     }
 }
 
@@ -51,12 +52,12 @@ void SeatingArrangements::createMatrix() {
 
     for (int i = 0 ; i < nbUsedTable ; i++) {
         int* line = matrix[i];
-        for (int j = 0 ; j < tableList[i].getNbStudent(); j++) {
-            Student* student = tableList[i].getStudentList()[j];
+        for (int j = 0 ; j < tableList[i]->getNbStudent(); j++) {
+            Student* student = tableList[i]->getStudentList()[j];
             for (int k = 0 ; k < student->getNbNeighbour() ; k++) {
                 Student* neighbour = student->getNeighbours()[k];
-                if (neighbour->getTable() != &(tableList[i]))
-                line[index[neighbour->getTable()]] = tableList[i].getNbFilledSeat() + neighbour->getTable()->getNbFilledSeat();
+                if (neighbour->getTable() != tableList[i])
+                line[index[neighbour->getTable()]] = tableList[i]->getNbFilledSeat() + neighbour->getTable()->getNbFilledSeat();
             }
         }
     }
@@ -139,7 +140,7 @@ void SeatingArrangements::attributeTableToStudent(bool order) {
                 }
                 if (table_to_merge != -1) {
                     change = true;
-                    mergeTables(&(tableList[i]), &(tableList[table_to_merge]));
+                    mergeTables(tableList[i], tableList[table_to_merge]);
                     ignored_index.push_back(i);
                     ignored_index.push_back(table_to_merge);
                 }
@@ -161,7 +162,7 @@ void SeatingArrangements::removeTable(int to_remove)
 void SeatingArrangements::clearTable() {
     vector<int> to_remove;
     for (int i = 0 ; i < nbUsedTable ; i++) {
-        if (tableList[i].getNbFilledSeat() == 0) {
+        if (tableList[i]->getNbFilledSeat() == 0) {
             to_remove.push_back(i);
         }
     }
@@ -181,19 +182,19 @@ void SeatingArrangements::completeExistingTable() {
     while (nbUsedTable > nbTableMax && change) { //on cherche à minimiser le remplissage des tables ici, pas le nombre de tables
         change = false;
         while (i < nbUsedTable && !change) {
-            Table* table = &(tableList[i]);
+            Table* table = tableList[i];
             j = i + 1;
             table_to_merge = -1;
             min_seat_amount = tableCapacityMax;
             for (int j = i + 1 ; j < nbUsedTable ; j++) {
-                if (tableList[j].getNbFilledSeat() != 0 && table->getNbFilledSeat() + tableList[j].getNbFilledSeat() <= min_seat_amount) {
+                if (tableList[j]->getNbFilledSeat() != 0 && table->getNbFilledSeat() + tableList[j]->getNbFilledSeat() <= min_seat_amount) {
                     table_to_merge = j;
-                    min_seat_amount = table->getNbFilledSeat() + tableList[j].getNbFilledSeat();
+                    min_seat_amount = table->getNbFilledSeat() + tableList[j]->getNbFilledSeat();
                 }
             }
              if (table_to_merge != -1) {
                 change = true;
-                mergeTables(table, &(tableList[table_to_merge]));
+                mergeTables(table, tableList[table_to_merge]);
             }
             i++;
         }
@@ -206,7 +207,7 @@ void SeatingArrangements::completeExistingTable() {
 
 void SeatingArrangements::print() {
     for (int i = 0 ; i < nbUsedTable ; i++) {
-        tableList[i].print();
+        tableList[i]->print();
         cout << endl;
     }
     cout << "Table number : " << nbUsedTable << endl;
@@ -313,8 +314,8 @@ void SeatingArrangements::orderTableByIncreasingNbOfDemand(vector<int>& order) {
         min_value = INT32_MAX;
         for (int j = 0 ; j < nbUsedTable ; j++) {
             if (find(order.begin(), order.end(), j) == order.end()) {
-                if (tableList[j].getRemainingStudentPreference() < min_value) {
-                    min_value = tableList[j].getRemainingStudentPreference();
+                if (tableList[j]->getRemainingStudentPreference() < min_value) {
+                    min_value = tableList[j]->getRemainingStudentPreference();
                     min = j;
                 }
             }
