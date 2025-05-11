@@ -67,7 +67,9 @@ void Table::removeStudent(Student* student)
         }
     }
     if (to_remove != -1) {
-        memmove(studentList + to_remove, studentList + to_remove + 1, (nbStudent - to_remove - 1) * sizeof(studentList));
+        if (to_remove < nbStudent - 1) {
+            memmove(studentList + to_remove, studentList + to_remove + 1, (nbStudent - to_remove - 1) * sizeof(studentList));
+        }
         nbFilledSeat -= student->getNbGuest() + 1;
         nbStudent--;
     } else {

@@ -3,13 +3,15 @@ using namespace std;
 #include <string>
 #include "../headers/Student.h"
 
+#define MAX_NB_NEIGHBOURS 15
+
 Student::Student(int id, string firstName, string lastName, int nbGuest) { 
     this->id = id;
     this->firstName = firstName;
     this->lastName = lastName;
     this->nbGuest = nbGuest;
     nbNeighbour = 0;
-    neighbours = new Student*[15];
+    neighbours = new Student*[MAX_NB_NEIGHBOURS]();
     table = nullptr;
 }
 
@@ -27,7 +29,7 @@ void Student::print() {
 }
 
 void Student::addNeighbour(Student* neighbour) {
-    if (neighbour->id != id) {
+    if (neighbour->id != id && nbNeighbour < MAX_NB_NEIGHBOURS) {
         neighbours[nbNeighbour] = neighbour;
         nbNeighbour++;
     }
