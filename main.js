@@ -91,9 +91,7 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   try {
     await ParserService.readFileCSV(globalFilePath);
   } catch (error) {
-    const result = {error : error.message};
-    console.log(result);
-    return result;
+    return {error : error.message};
   }
   // Return pairing results from parsing for validation
   return await ParserService.getNeighboursPairing();
