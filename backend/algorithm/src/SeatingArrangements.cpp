@@ -104,17 +104,29 @@ void SeatingArrangements::mergeTables(Table* tableSource, Table* tableDestinatio
         
 
 
-void SeatingArrangements::attributeTableToStudent() {
+void SeatingArrangements::attributeTableToStudent(bool order) {
     bool change = true;
     vector<int> ignored_index;
     int table_to_merge;
     int max_seat_amount;
+    int i;
     // gathering of student with seating preferences
     while (change) {
         change = false;
         ignored_index.clear();
         createMatrix();
-        for (int i = 0 ; i < matrixSize ; i++) {
+        
+        vector<int> ordered_i;
+        if (order) {
+            orderTableByIncreasingNbOfDemand(ordered_i);
+        } else {
+            for (int j = 0 ; j < matrixSize ; j++) {
+                ordered_i.push_back(j);
+            }
+        }
+
+        for (int k = 0 ; k < ordered_i.size() ; k++) {
+            i = ordered_i[k];
             if (find(ignored_index.begin(), ignored_index.end(),i) == ignored_index.end()) {
                 table_to_merge = -1;
                 max_seat_amount = 0;
@@ -200,7 +212,7 @@ void SeatingArrangements::print() {
     cout << "Table number : " << nbUsedTable << endl;
 }
 
-int SeatingArrangements::nbSatisfiedDemand(){
+int SeatingArrangements::nbSatisfiedDemand() {
     int cmp = 0;
     for(int i = 0; i < nbStudent; i++){
         for(int j = 0; j < studentList[i]->getNbNeighbour(); j++){
@@ -234,20 +246,79 @@ int SeatingArrangements::nbDemand(){
 
 int SeatingArrangements::absoluteScore(){
     int score = 0;
-    for(int i = 0; i < nbStudent; i++){
+    for (int i = 0; i < nbStudent; i++) {
         bool firstSatisfied = false; //Becomes true when a preference is satisfied for a student
-        for(int j = 0; j < studentList[i]->getNbNeighbour(); j++){
-            if(studentList[i]->getNbGuest() + studentList[j]->getNbGuest() <= tableCapacityMax){
-                if(!firstSatisfied)
+        for (int j = 0; j < studentList[i]->getNbNeighbour(); j++) {
+            if (studentList[i]->getTable() == studentList[i]->getNeighbours()[j]->getTable()) {
+                if (!firstSatisfied) {
                     score += 50;
-                else{
+                    firstSatisfied = true;
+                }
+                else {
                     score += 5;
                 }
             }
-            if(!firstSatisfied){
-                score += -100;
-            }
+        }
+        if (!firstSatisfied && studentList[i]->getNbNeighbour() > 0){
+            score += -100;
         }
     }
     return score;
+}
+
+int SeatingArrangements::nbStudentWithAtLeastOnePossibleDemand() {
+    int cmp = 0;
+    bool oneDemandPossible;
+    int j;
+    for (int i = 0; i < nbStudent; i++) {
+        j = 0;
+        oneDemandPossible = false;
+        while (j < studentList[i]->getNbNeighbour() && !oneDemandPossible) {
+            if (studentList[i]->getNbGuest() + studentList[j]->getNbGuest() <= tableCapacityMax){
+                    oneDemandPossible = true;
+            }
+            j++;
+        }
+        if (oneDemandPossible) {
+            cmp++;
+        }
+    }
+    return cmp;
+}
+
+int SeatingArrangements::nbStudentWithAtLeastOneDemandSatisfied(){
+    int cmp = 0;
+    bool oneDemandSatisfied;
+    int j;
+    for (int i = 0; i < nbStudent; i++) {
+        oneDemandSatisfied = false;
+        j = 0;
+        while (j < studentList[i]->getNbNeighbour() && !oneDemandSatisfied) {
+            if (studentList[i]->getTable() == studentList[i]->getNeighbours()[j]->getTable()){
+                oneDemandSatisfied = true;
+            }
+            j++;
+        }
+        if (oneDemandSatisfied) {
+            cmp++;
+        }
+    }
+    return cmp;
+}
+
+void SeatingArrangements::orderTableByIncreasingNbOfDemand(vector<int>& order) {
+    int min = -1;
+    int min_value;
+    for (int i = 0 ; i < nbUsedTable ; i++) {
+        min_value = INT32_MAX;
+        for (int j = 0 ; j < nbUsedTable ; j++) {
+            if (find(order.begin(), order.end(), j) == order.end()) {
+                if (tableList[j].getRemainingStudentPreference() < min_value) {
+                    min_value = tableList[j].getRemainingStudentPreference();
+                    min = j;
+                }
+            }
+        }
+        order.push_back(min);
+    }
 }

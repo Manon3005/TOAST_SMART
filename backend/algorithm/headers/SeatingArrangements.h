@@ -17,17 +17,21 @@ class SeatingArrangements
         void createMatrix();
         void printMatrix();
         void addStudentToTable(Student* student, Table* table);
-        int nbDemand();
-        int nbPossibleDemand();
-        int nbSatisfiedDemand();
-        int absoluteScore();
         void moveStudentToTable(Student* student, Table* table);
         void mergeTables(Table* tableSource, Table* tableDestination);
-        void attributeTableToStudent();
+        void attributeTableToStudent(bool order);
         void removeTable(int to_remove);
         void completeExistingTable();
         void print();
         void clearTable();
+        void orderTableByIncreasingNbOfDemand(vector<int>& order);
+
+        int nbDemand();
+        int nbPossibleDemand();
+        int nbSatisfiedDemand();
+        int absoluteScore();
+        int nbStudentWithAtLeastOnePossibleDemand();
+        int nbStudentWithAtLeastOneDemandSatisfied();
 
     protected:
 

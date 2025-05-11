@@ -18,10 +18,13 @@ class Table
         Student** getStudentList();
         int getNbStudent();
         int getNbFilledSeat();
+        int getRemainingStudentPreference();
 
     protected:
         int nbFilledSeat;
         Student** studentList;
         int nbStudent;
         int remainingStudentPreference;
+
+        void updateNbRemainingStudentPreference();
 };
