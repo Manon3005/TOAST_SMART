@@ -40,7 +40,7 @@ class SeatingArrangements
         int tableCapacityMax;
         int nbTableMax;
         int nbUsedTable;
-        Table* tableList;
+        Table** tableList;
         int** matrix;
         int matrixSize;
         map<Table*, int> index;

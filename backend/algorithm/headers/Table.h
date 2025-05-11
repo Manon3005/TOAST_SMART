@@ -1,15 +1,18 @@
 #pragma once
 
 #include <iostream>
+#include <string>
 
 #include "Student.h"
+
+using namespace std;
 
 class Student;
 
 class Table
 {
     public:
-        Table();
+        Table(string id, int nbMaxStudent);
         virtual ~Table();
         Student* addStudent(Student* student);
         void removeStudent(Student* student);
@@ -21,9 +24,11 @@ class Table
         int getRemainingStudentPreference();
 
     protected:
+        string id;
         int nbFilledSeat;
         Student** studentList;
         int nbStudent;
+        int nbMaxStudent;
         int remainingStudentPreference;
 
         void updateNbRemainingStudentPreference();
