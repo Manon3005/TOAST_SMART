@@ -86,8 +86,18 @@ export class ParserService {
         })
         .on("end", () => {
           this.allGraduatedStudents = Array.from(graduatedStudents.values());
+          // Check if there are missing information = failing of finding during the parsing a student for a group
+          const incompleteStudents = this.allGraduatedStudents.filter(student => !student.hasAllInformation());
+          if(incompleteStudents.length > 0) {
+            const fullNames = incompleteStudents.map(s => `${s.getLastName()} ${s.getFirstName()}`).join(", ");
+            return reject(
+              new Error(`Les étudiants suivants ne sont pas identifiés correctement (probablement une erreur dans le remplissage des noms et prénoms : ` +
+                `jamais un billet avec le même nom et/ou prénom pour le détenteur du billet et l'acheteur) : ${fullNames}`)
+            );
+          }
+          // If no missing information
           this.allGraduatedStudents = NeighboursLinker.linkNeighboursToGraduatedStudents(this.allGraduatedStudents);
-          CsvExporter.exportCsv(ParserService.columns, this.allGraduatedStudents, "./backend/resources/parsing_export.csv")
+          CsvExporter.exportCsv(ParserService.columns, this.allGraduatedStudents, "./backend/resources/parsing_export.csv");          
           resolve(this.allGraduatedStudents);
         })
         .on("error", reject);
