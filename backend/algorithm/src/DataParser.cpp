@@ -50,6 +50,9 @@ DataParser::DataParser(string jsonFile) {
 }
 
 DataParser::~DataParser() {
+    for (int i = 0; i < nbStudent; ++i) {
+        delete studentList[i];
+    }
     delete[] studentList;
 }
 

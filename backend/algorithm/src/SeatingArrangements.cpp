@@ -31,7 +31,17 @@ SeatingArrangements::SeatingArrangements(Student** studentList, int nbStudent, i
 }
 
 SeatingArrangements::~SeatingArrangements() {
+    for (int i = 0; i < nbUsedTable; ++i) {
+        delete tableList[i];
+    }
     delete[] tableList;
+
+    if (matrix) {
+        for (int i = 0; i < matrixSize; i++) {
+            delete[] matrix[i];
+        }
+        delete[] matrix;
+    }    
 }
 
 void SeatingArrangements::createMatrix() {
@@ -152,7 +162,12 @@ void SeatingArrangements::attributeTableToStudent(bool order) {
 void SeatingArrangements::removeTable(int to_remove)
 {
     if (to_remove > -1 && to_remove < nbUsedTable) {
-        memmove(tableList + to_remove, tableList + to_remove + 1, (nbUsedTable - to_remove - 1) * sizeof(Table));
+        Table* table = tableList[to_remove];
+        index.erase(table);
+        delete table;
+        if (to_remove < nbUsedTable - 1) {
+            memmove(tableList + to_remove, tableList + to_remove + 1, (nbUsedTable - to_remove - 1) * sizeof(Table*));        
+        }
         nbUsedTable--;
     } else {
         cout << "Table not in list" << endl;
