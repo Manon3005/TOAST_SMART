@@ -18,35 +18,18 @@ int main(int argc, char* argv[])
     DataParser* dataParser = new DataParser(jsonFilePath);
     Student** studentList = dataParser->getStudentList();
 
-    for (int i = 0 ; i < dataParser->getNbStudent() ; i++) {
-        studentList[i]->print();
-    }
-
-    /*Table* table = new Table();
-    table->addStudent(studentList[0]);
-    table->addStudent(studentList[1]);
-    table->addStudent(studentList[2]);
-    table->print();
-
-    studentList[0]->setTable(table);
-    studentList[1]->setTable(table);
-    studentList[2]->setTable(table);
-
-    Table* table2 = new Table();
-    table2->addStudent(studentList[3]);
-    table2->print();
-    
-    studentList[3]->setTable(table2);
-    
-    table->print();
-    table2->print();*/
-
     SeatingArrangements* seats = new SeatingArrangements(studentList, dataParser->getNbStudent(), dataParser->getTableCapacityMax(), dataParser->getNbTableMax());
-    seats->attributeTableToStudent();
-    seats->print();
+    seats->attributeTableToStudent(true);
     seats->completeExistingTable();
-    seats->print();
-    
+
+    cout << "Total number of demand : " << seats->nbDemand() << endl;
+    cout << "Total number of possible demand : " << seats->nbPossibleDemand() << endl;
+    cout << "Total number of satisfied demand : " << seats->nbSatisfiedDemand() << endl;
+    cout << "Total number of possible first demand : " << seats->nbStudentWithAtLeastOnePossibleDemand() << endl;
+    cout << "Total number of satisfied first demand : " << seats->nbStudentWithAtLeastOneDemandSatisfied() << endl;
+
+    cout << "Absolute score : " << seats->absoluteScore() << endl;
+
     return 0;
 }
 

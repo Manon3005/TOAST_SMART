@@ -5,13 +5,15 @@
 
 #include "../headers/Table.h"
 
+#define MAX_STUDENT_NB 15
+
 using namespace std;
 
 Table::Table() {
     nbFilledSeat = 0;
     nbStudent = 0;
     remainingStudentPreference = 0;
-    studentList = new Student*[11];
+    studentList = new Student*[MAX_STUDENT_NB];
 }
 
 Table::~Table() {
@@ -19,7 +21,7 @@ Table::~Table() {
 }
 
 Student* Table::addStudent(Student* student) {
-    if (nbStudent == 11) {
+    if (nbStudent == MAX_STUDENT_NB) {
         return nullptr;
     }
     for (int i = 0 ; i < nbStudent ; i++) {
@@ -30,6 +32,7 @@ Student* Table::addStudent(Student* student) {
     studentList[nbStudent] = student;
     ++nbStudent;
     nbFilledSeat += student->getNbGuest() + 1;
+    updateNbRemainingStudentPreference();
     return student;
 }
 
@@ -69,4 +72,21 @@ void Table::removeStudent(Student* student)
     } else {
         cout << "Student not in table" << endl;
     }
+}
+
+void Table::updateNbRemainingStudentPreference() {
+    remainingStudentPreference = 0;
+    for (int i = 0 ; i < nbStudent ; i++) {
+        Student* student = studentList[i];
+        for (int j = 0 ; j < student->getNbNeighbour() ; j++) {
+            Student* neighbour = student->getNeighbours()[j];
+            if (neighbour->getTable() != this) {
+                remainingStudentPreference++;
+            }
+        }
+    }
+}
+
+int Table::getRemainingStudentPreference() {
+    return remainingStudentPreference;
 }
