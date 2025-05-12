@@ -97,8 +97,6 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   // Launch the generation of the table plan
   const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
   const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
-  console.log(executablePath)
-  console.log(inputPath)
   execFile(executablePath, [inputPath], (error, stdout, stderr) => {
     if (error) {
       console.error(`Erreur : ${error.message}`);
