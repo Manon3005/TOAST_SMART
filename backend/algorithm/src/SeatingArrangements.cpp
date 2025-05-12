@@ -185,6 +185,11 @@ void SeatingArrangements::clearTable() {
     for (int i = 0; i < to_remove.size(); i++) {
         removeTable(to_remove[i]-j++);
     }
+    // reset table id
+    for(int i = 0 ; i < nbUsedTable ; i++) {
+        tableList[i]->setId(to_string(i + 1));
+    }
+
 }
 
 
