@@ -5,6 +5,7 @@ import { ContinueButton } from "../components/continueButton";
 import { TableColumn } from "../components/tableColumn";
 import { ConflictCenter } from "../components/conflictCenter";
 import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect  } from 'react';
 import '../App.css';
 import { GenerateButton } from "../components/generateButton";
 
