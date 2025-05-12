@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
     seatingArrangements.completeExistingTable();
 
     ofstream outputFile;
-    string fileName = "../resources/seatingArrangement.csv";
+    string fileName = "../resources/seatingArrangements.csv";
     outputFile.open(fileName);
     outputFile << seatingArrangements;
 
