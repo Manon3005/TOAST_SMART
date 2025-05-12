@@ -71,7 +71,12 @@ export function Home() {
     
         const jsonConflicts = await window.electronAPI.parseCsvFile(jsonColumnNames);
         console.log(jsonConflicts);
-        setTableConflicts(jsonConflicts.graduated_students);
+        if (jsonConflicts.error){
+          actionReset(true);
+        }
+        else {
+          setTableConflicts(jsonConflicts.graduated_students);
+        } 
     }
     
 
@@ -79,13 +84,15 @@ export function Home() {
         setLockedGenerer(true);
     };
 
-    const actionReset = () => {
-        setMaxTables(1);
-        setMaxGuests(1);
-        setLockedContinue(false);
-        setName('');
-        setErrorFile('');
+    const actionReset = (erreur=false) => {
+        if (!erreur){
+          setName('');
+          setErrorFile('');
+          setMaxTables(1);
+          setMaxGuests(1);
+        }
         setLockedGenerer(true);
+        setLockedContinue(false);
     };
 
     const nextConflict = () => {
@@ -139,8 +146,6 @@ export function Home() {
           React.createElement('div', { className: 'left-part' },
             React.createElement('h2', null, 'Prétraitement des données'), 
             
-            //React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData}), //disabled : disabled
-
             React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
             
             React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
@@ -155,10 +160,12 @@ export function Home() {
             
             React.createElement('div', {className: 'continue-reset-buttons'},
                 React.createElement(ContinueButton, {
-                  onClick: actionContinue
+                  onClick: actionContinue,
+                  disabled : lockedContinue
                 }),
                 React.createElement(ResetButton, {
-                  onClick: actionReset
+                  onClick: () => actionReset(),
+                  disabled : false
                 })
               ),
             
