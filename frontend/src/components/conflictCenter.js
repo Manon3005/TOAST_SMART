@@ -21,11 +21,12 @@ export function ConflictCenter({ students = [], currentStudentIndex = 0, current
 
     return React.createElement('div', null,
     React.createElement('p', null, `🎓 Diplômé.e : ${student.firstName} ${student.lastName}`),
+    React.createElement('p', null, `Préférences initiales : ${student.preferedNeighbours}`),
     React.createElement('p', null, `👤 Voisin.e proposé.e : ${neighbour.neighbourFirstName} ${neighbour.neighbourLastName}`),
     React.createElement('div', null,
         React.createElement('button', { onClick: onAccept, disabled }, 'Accepter'),
         React.createElement('button', { onClick: onRefuse, disabled }, 'Refuser')
     ),
-    React.createElement('p', null, `Cas ${currentStudentIndex + 1}/${students.length} - Voisin ${currentNeighbourIndex + 1}/${student.processedNeighbours.length}`)
+    React.createElement('p', null, `Cas ${currentStudentIndex + 1}/${students.length} - Voisin.e ${currentNeighbourIndex + 1}/${student.processedNeighbours.length}`)
     );
 }

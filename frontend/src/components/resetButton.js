@@ -3,13 +3,13 @@ import '../App.css';
 
 
 
-export function ResetButton({onClick}) {
+export function ResetButton({onClick, disabled}) {
 
   return React.createElement(
     'div',
     null,
     React.createElement(
         'button',
-        { onClick : onClick, className: 'reset-button' },'Annuler' )
+        { onClick : onClick, className: 'reset-button', disabled : disabled },'Annuler' )
 );
 }
