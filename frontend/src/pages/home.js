@@ -76,7 +76,7 @@ export function Home() {
         }
         else {
           setTableConflicts(jsonConflicts.graduated_students);
-        }
+        } 
     }
     
 
