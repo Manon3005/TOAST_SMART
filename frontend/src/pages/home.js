@@ -79,9 +79,39 @@ export function Home() {
         } 
     }
     
+    const genererPlan = async () => {
+      const refused = refusedNeighbours.reduce((acc, entry) => {
+        acc[entry.idStudent] = entry.refusedNeighbours;
+        return acc;
+      }, {});
+
+      const exportJson = {
+        max_number_tables: maxTables,
+        max_number_by_tables: maxGuests,
+        invalid_neighbours_student_id: refused
+      };
+
+      const jsonGenerate = JSON.stringify(exportJson);
+      try {
+        const result = await window.electronAPI.generateTablePlan(jsonGenerate);
+        console.log(result);
+        if (result.error){
+          actionReset(result.error);
+        }
+        else {
+          alert('Plan de table généré avec succès !');
+        }
+      }
+      catch (error) {
+        console.error('Erreur lors de la génération du plan de table :', error);
+        alert('Erreur lors de la génération du plan de table');
+      }
+      
+    }
 
     const actionGenerer = () => {
         setLockedGenerer(true);
+        genererPlan();
     };
 
     const actionReset = (error='') => {
