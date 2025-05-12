@@ -161,15 +161,15 @@ export function Home() {
             }),
             
             React.createElement('div', {className: 'continue-reset-buttons'},
-              React.createElement(ContinueButton, {
-                onClick: actionContinue,
-                disabled : lockedContinue
-              }),
-              React.createElement(ResetButton, {
-                onClick: actionReset,
-                disabled : false
-              })
-            ),
+                React.createElement(ContinueButton, {
+                  onClick: actionContinue,
+                  disabled : lockedContinue
+                }),
+                React.createElement(ResetButton, {
+                  onClick: () => actionReset(),
+                  disabled : false
+                })
+              ),
             
             React.createElement(ConflictCenter,{disabled : lockedGenerer}),
             
