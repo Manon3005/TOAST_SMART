@@ -118,10 +118,10 @@ export class ParserService {
 
   static async deleteNonValidNeighbours(invalidNeighbours: { [studentId: string]: number[] }): Promise<void> {
     Object.entries(invalidNeighbours).forEach(([studentId, neighboursToRemove]) => {
-      const student = this.allGraduatedStudents.find(student => student.getId() === parseInt(studentId,10));
-      if (student && Array.isArray(neighboursToRemove)) {
+      const graduatedStudent = this.allGraduatedStudents.find(student => student.getId() === parseInt(studentId,10));
+      if (graduatedStudent) {
         neighboursToRemove.forEach(neighbourId => {
-          student.deleteNeighbour(neighbourId);
+          graduatedStudent.deleteNeighbour(neighbourId);
         });
       }
     });

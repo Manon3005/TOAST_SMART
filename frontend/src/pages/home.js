@@ -86,7 +86,7 @@ export function Home() {
     
     const genererPlan = async () => {
       const refused = refusedNeighbours.reduce((acc, entry) => {
-        acc[entry.idStudent] = parseInt(entry.refusedNeighbours, 10);
+        acc[entry.idStudent] = entry.refusedNeighbours.map(id => parseInt(id, 10));
         return acc;
       }, {});
 
