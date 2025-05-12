@@ -1,21 +1,30 @@
 import { AcceptConflictButton } from "./acceptConflictButton";
 import { RefuseConflictButton } from "./refuseConflictButton";
 import React, { useState } from 'react';
+import { GenerateButton } from "../components/generateButton";
 import '../App.css';
 
 
 
-export function ConflictCenter({ students = [], currentStudentIndex = 0, currentNeighbourIndex = 0, onAccept, onRefuse,disabled }) { 
+export function ConflictCenter({ students = [], currentStudentIndex = 0, currentNeighbourIndex = 0, onAccept, onRefuse, disabled, fin, onGenerate }) { 
     const student = students[currentStudentIndex];
     const neighbour = student?.processedNeighbours?.[currentNeighbourIndex];
 
-    if (!student) {
+    if (fin) {
+        return React.createElement('div',null,
+            React.createElement('p', null, 'Traitement terminé'),
+            React.createElement(GenerateButton, {className: 'file-button', onClick: onGenerate}),
+        );
+        
+    }
+    if (!student || disabled) {
         return React.createElement('p', null, 'Aucun conflit à traiter');
     }
     if (!neighbour){
         return React.createElement('div',null,
             React.createElement('p', null, 'Pas de voisin.e pour ce diplomé.e'),
             React.createElement('button', { onClick: onAccept, disabled }, 'Suivant'),
+            React.createElement('p', null, `Cas ${currentStudentIndex + 1}/${students.length}`)
         );
     }
 
