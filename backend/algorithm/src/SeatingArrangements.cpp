@@ -350,7 +350,7 @@ ostream& operator<< (ostream& os,const SeatingArrangements& sA)
             std::cerr << "Null pointer at studentList[" << i << "]" << std::endl;
             continue;
         }
-        //cout << *(sA.studentList[i]) << endl;
+        cout << *(sA.studentList[i]) << endl;
         //os << *(sA.studentList[i]) << endl;
     }
     return os;
