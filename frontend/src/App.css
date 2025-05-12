@@ -413,6 +413,45 @@ img {
   margin-top: 5%;
 }
 
+/* Start section styles */
+
+.start-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh; /* Prend toute la hauteur de la fenêtre */
+}
+
+.start-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.start-button {
+  padding: 50px 100px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+  background-color: #ffffff;
+  color: #000000;
+  outline: 2px solid #000000;
+  margin-top: 100px;
+}
+
+.start-button:hover {
+  background-color: #000000;
+  color: #ffffff;
+  outline: 2px solid #ffffff;
+  transform: translateY(-10px);
+}
+
 /* Style pour la modale */
 .modal-overlay {
   position: fixed;
