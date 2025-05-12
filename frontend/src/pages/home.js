@@ -6,7 +6,6 @@ import { TableColumn } from "../components/tableColumn";
 import { ConflictCenter } from "../components/conflictCenter";
 import React, { useState, useEffect  } from 'react';
 import '../App.css';
-import { GenerateButton } from "../components/generateButton";
 
 
 export function Home() {
@@ -26,6 +25,10 @@ export function Home() {
     const [currentStudentIndex, setCurrentStudentIndex] = useState(0);
     const [currentNeighbourIndex, setCurrentNeighbourIndex] = useState(0);
     const [refusedNeighbours, setRefusedNeighbours] = useState([]);
+    const [conflictManagment, setConflictManagment] = useState(false);
+
+    const [finalAddress, setFinalAdress] = useState('');
+
 
     const [isVisible, setIsVisible] = useState(false); 
 
@@ -81,9 +84,40 @@ export function Home() {
         } 
     }
     
+    const genererPlan = async () => {
+      const refused = refusedNeighbours.reduce((acc, entry) => {
+        acc[entry.idStudent] = entry.refusedNeighbours.map(id => parseInt(id, 10));
+        return acc;
+      }, {});
+
+      const exportJson = {
+        max_number_tables: maxTables,
+        max_number_by_tables: maxGuests,
+        invalid_neighbours_student_id: refused
+      };
+
+      const jsonGenerate = JSON.stringify(exportJson);
+      console.log(jsonGenerate);
+      try {
+        const address = await window.electronAPI.generateTablePlan(jsonGenerate);
+        setFinalAdress(address);
+        if (address.error){
+          actionReset(address.error);
+        }
+        else {
+          alert('Plan de table généré avec succès !');
+        }
+      }
+      catch (error) {
+        console.error('Erreur lors de la génération du plan de table :', error);
+        alert('Erreur lors de la génération du plan de table');
+      }
+      
+    }
 
     const actionGenerer = () => {
         setLockedGenerer(true);
+        genererPlan();
     };
 
     const actionReset = (error='') => {
@@ -113,6 +147,7 @@ export function Home() {
       } else {
         console.log("Terminé");
         console.log(refusedNeighbours);
+        setConflictManagment(true);
       }
     };
     
@@ -160,7 +195,18 @@ export function Home() {
             React.createElement('h2', null, 'Prétraitement des données'), 
             React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
             React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
-
+            !finalAddress && React.createElement(ConflictCenter,{
+              disabled: lockedGenerer,
+              students: tableConflicts,
+              currentStudentIndex: currentStudentIndex,
+              currentNeighbourIndex: currentNeighbourIndex,
+              fin : conflictManagment,
+              onGenerate: actionGenerer,
+              onAccept: acceptConflict,
+              onRefuse: refuseConflict
+            }),
+            finalAddress && React.createElement('p', null, finalAddress),
+            
             React.createElement('div', {className: 'continue-reset-buttons'},
               React.createElement(ContinueButton, {
                 onClick: actionContinue,
@@ -197,9 +243,7 @@ export function Home() {
               React.createElement('div', { className: 'nb-guest' },
                 React.createElement('p', null, 'Nombre de convives maximum/table :'),
                 React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
-              ),
-              React.createElement(GenerateButton, {className: 'file-button', onClick: actionGenerer, disabled: !lockedContinue,}),
-          )
+              ),          )
 
         )
         );
