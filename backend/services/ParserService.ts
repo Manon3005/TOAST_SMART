@@ -127,27 +127,6 @@ export class ParserService {
     });
   }
 
-  static async fetchGraduatedStudentsList(): Promise<any> {
-    const graduatedStudents = this.allGraduatedStudents.map(student => ({
-      idStudent: student.getId(),
-      lastName: student.getLastName(),
-      firstName: student.getFirstName(),
-      guests: student.getGuests().map(guest => ({
-        guestId: guest.getId(),
-        guestFirstName: guest.getFirstName(),
-        guestLastName: guest.getLastName()
-      })),
-      preferedNeighbours: student.getNeighboursString(),
-      processedNeighbours: student.getNeighbours().map(neighbour => ({
-        neighbourId: neighbour.getId(),
-        neighbourFirstName: neighbour.getFirstName(),
-        neighbourLastName: neighbour.getLastName()
-      }))
-    }));
-
-    return { graduated_students: graduatedStudents };
-  }
-
   static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number): Promise<void> {
     const graduatedStudents = this.allGraduatedStudents.map(student => ({
       idStudent: student.getId(),
