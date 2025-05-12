@@ -339,6 +339,119 @@ void SeatingArrangements::orderTableByIncreasingNbOfDemand(vector<int>& order) {
     }
 }
 
+// 테이블 관계 행렬 생성
+void SeatingArrangements::createTableRelationshipMatrix() {
+    // 기존 행렬 초기화
+    if (matrix) {
+        for (int i = 0; i < matrixSize; i++) {
+            delete[] matrix[i];
+        }
+        delete[] matrix;
+    }
+
+    // 새로운 행렬 생성
+    matrix = new int*[nbUsedTable];
+    for (int i = 0; i < nbUsedTable; i++) {
+        matrix[i] = new int[nbUsedTable];
+        for (int j = 0; j < nbUsedTable; j++) {
+            matrix[i][j] = 0; // 초기화
+        }
+    }
+    matrixSize = nbUsedTable;
+
+    // 테이블 간 관계 계산
+    for (int i = 0; i < nbUsedTable; i++) {
+        for (int j = i + 1; j < nbUsedTable; j++) {
+            int relationScore = 0;
+            
+            // 테이블 i의 모든 학생에 대해
+            for (int k = 0; k < tableList[i]->getNbStudent(); k++) {
+                Student* student = tableList[i]->getStudentList()[k];
+                
+                // 학생의 모든 이웃에 대해
+                for (int l = 0; l < student->getNbNeighbour(); l++) {
+                    Student* neighbour = student->getNeighbours()[l];
+                    
+                    // 이웃이 테이블 j에 있으면 관계 점수 증가
+                    if (neighbour->getTable() == tableList[j]) {
+                        relationScore++;
+                    }
+                }
+            }
+            
+            // 관계 점수 저장 (대칭 행렬)
+            matrix[i][j] = relationScore;
+            matrix[j][i] = relationScore;
+        }
+    }
+}
+
+// 테이블 그룹화 (DFS 사용)
+vector<vector<int>> SeatingArrangements::groupCloseTables() {
+    createTableRelationshipMatrix(); // 먼저 관계 행렬 생성
+    
+    vector<vector<int>> groups;
+    vector<bool> visited(nbUsedTable, false);
+    
+    for (int i = 0; i < nbUsedTable; i++) {
+        if (!visited[i]) {
+            vector<int> group;
+            dfsGroupTables(i, visited, group);
+            
+            if (!group.empty()) {
+                groups.push_back(group);
+            }
+        }
+    }
+    
+    return groups;
+}
+
+// DFS로 테이블 그룹화
+void SeatingArrangements::dfsGroupTables(int tableIndex, vector<bool>& visited, vector<int>& group) {
+    visited[tableIndex] = true;
+    group.push_back(tableIndex);
+    
+    for (int j = 0; j < nbUsedTable; j++) {
+        // 방문하지 않은 테이블이고, 관계가 있는 경우
+        if (!visited[j] && matrix[tableIndex][j] > 0) {
+            dfsGroupTables(j, visited, group);
+        }
+    }
+}
+
+// 테이블 그룹 출력
+void SeatingArrangements::printTableGroups() {
+    vector<vector<int>> groups = groupCloseTables();
+    
+    cout << "Close Table Groups:" << endl;
+    for (size_t i = 0; i < groups.size(); i++) {
+        cout << "Group " << i + 1 << ": ";
+        for (size_t j = 0; j < groups[i].size(); j++) {
+            int tableIndex = groups[i][j];
+            cout << "Table " << tableList[tableIndex]->getId();
+            
+            // 그룹 내 테이블에 있는 학생들 출력
+            cout << " (";
+            for (int k = 0; k < tableList[tableIndex]->getNbStudent(); k++) {
+                if (k > 0) cout << ", ";
+                Student* student = tableList[tableIndex]->getStudentList()[k];
+                cout << student->getFirstName() << " " << student->getLastName();
+                if (k >= 2) {
+                    cout << "...";
+                    break;
+                }
+            }
+            cout << ")";
+            
+            if (j < groups[i].size() - 1) {
+                cout << " - ";
+            }
+        }
+        cout << endl;
+    }
+}
+
 ostream& operator<< (ostream& os,const SeatingArrangements& sA)
 {
     os << "Table" << ';' << "Last Name Buyer" << ';' << "First Name Buyer" << ';' << "Number of Guests (buyer included)" << ';' << "Seating preferences" << endl;
