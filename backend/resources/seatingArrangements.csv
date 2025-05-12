@@ -1,0 +1,333 @@
+Table;Last Name Buyer;First Name Buyer;Number of Guests (buyer included);Seating preferences
+132;HMISSI;Abderrahman;8;
+2;BARGUES;Adèle;6;BARGUES Anna (4)
+39;BOST;Adélie;1;DU Karina (3)
+71;GARREL;Adrien;3;LIÈVRE Charlotte (3)
+122;JAILLET;Adrien;8;
+107;SARTORI;Adrien;3;SANCHEZ Romain (4)
+70;TABOURET;Adrien;7;DELSERT Marine (3)
+104;GARZON;Alan;5;CAUX Léontine (8)
+90;BORNUAT;Albane;5;
+27;DE DIANOUS;Albane;3;
+132;IGLICKI;Alexandra;1;BEUGNON Thomas (1)
+139;BACH;Alexandre;7;
+108;BAROUX;Alexandre;1;NICOLAS Jacquot (1),RAMEL Roméo (4),MARCONNET Alexis (5)
+100;BRANDENER;Alexandre;8;
+128;COQUILLAUD;Alexandre;1;MARTINS-SALGADO Lucas Martins-Salgado (4)
+1;FOUREL;Alexandre;4;SMOLDERS Matthieu (5),VILPINI Pauline (4),LEHMANN Louys-Henry (2)
+140;SCHAMBERGER;Alexandre;3;DELAVEAU Mateo (4),TRITTO Vincent (8)
+1;DE LORGERIL;Alexis;7;FOUREL Alexandre (4)
+108;MARCONNET;Alexis;5;RAMEL Roméo (4),BAROUX Alexandre (1),NICOLAS Jacquot (1)
+75;GANGNEUX;Alice;1;VIDLER Chloé (1),GROFF Damien (1),PYLA Leo (1),GUEGUEN Mathilde (1),ROUX-AYMARD Paco (1),DESCLAUX Ariane (1),DOITRAND Eléa (1),BOULARD Solenn (1),CHARDON Antoine (1)
+89;GAROCHE;Alix;7;ROBLIN Tom (5)
+25;TOULEMONDE;Alix;5;FÉVRIER Jeanne (4)
+21;BOSIO;Alizé;4;LAJOIE Hugo (2),DUPERRAY Margaux (3),GRIEUMARD Paul (4)
+73;BATAILLOU;Amandine;1;GUILLIN Thomas (2),LORIOT Charles (2)
+41;BRIFFA;Amélia;1;GALVAGNO Florian (1),JACINTHO Firmin (5),TRITTO Vincent (8)
+45;DELORME;Amélie;1;DUTARTE Robin (1),FLORENCE Marine (1),AZOULAY Laurie (1),NUGIER Nathan (1),DELEVOIE Charlotte (1),BROUSSE Jules (1),THIBERGE Léa (2),ROBIN Pierre (4)
+42;ROMAN;Anaëlle;6;
+30;KOLB;Anaïs;6;NEDJAR Nina (6)
+2;BARGUES;Anna;4;BARGUES Adèle (6)
+85;TOMASINI;Anna;3;GAUTHIER Ninon (4)
+27;JIOKAP NONO;Anthony;2;
+47;CHARDON;Antoine;1;GROFF Damien (1),GANGNEUX Alice (1),VIDLER Chloé (1),PYLA Leo (1),GUEGUEN Mathilde (1),ROUX-AYMARD Paco (1),DESCLAUX Ariane (1),DOITRAND Eléa (1),BOULARD Solenn (1)
+4;DE ROOVER;Antoine;7;TRUBERT Thomas (8)
+112;KISTERMAN;Antoine;3;GRANET Salomé (3)
+137;MERLE;Antoine;3;SAMPIC Tom (4)
+135;ROBERT;Antoine;4;
+10;CANAL;Antonin;6;MALBRANQUE Clément (5)
+23;DESCLAUX;Ariane;1;GANGNEUX Alice (1),VIDLER Chloé (1),GROFF Damien (1),PYLA Leo (1),GUEGUEN Mathilde (1),ROUX-AYMARD Paco (1),DOITRAND Eléa (1),BOULARD Solenn (1),CHARDON Antoine (1),BLANCHARD Eloïse (6)
+91;BOITEUX;Arthur;6;GREVAUD Paul (2)
+39;DUMOULIN;Arthur;6;DU Karina (3)
+3;ROSSELLO-POULET;Arthur;4;
+4;FIDAN;Ata;3;
+5;BAUDOUX;Aude;7;PIGNET Cannelle (2),DUVAL Lucas (4)
+36;DUMONT-GOMEZ;Aurore;2;FLANDRIN. Elisa (2),RICHAUD Marianne (1)
+93;TILLIETTE;Axelle;1;TECK Christelle (3),BRETON Pauline (3)
+6;FÉREY;Aziliz;6;BORDIGNON Quentin (1),LEDRU Tess (5)
+80;DE RUFFRAY;Baptiste;2;ARCHER Jade (1)
+36;FAYET;Baptiste;4;DUMONT Julien (4)
+110;FLOHIC;Baptiste;7;CURVALLE Florent (4),PIGNOL Jeanne (3),FRELAUT Rose (1)
+131;ISIDORO;Baptiste;3;BERTRAND Thomas (6)
+117;DUROY;Barbara;2;HAOUES Sofia (6)
+23;MASSON;Barbara;4;GALLAND Isaure (5)
+20;GOUTTEGATAT;Bastien;4;CHEVALLIER Hugo (6)
+95;BERT;Benjamin;2;ZUBIETA-LABORDE Paul-Marie (3),CHATRON-MICHAUD Paul (2)
+7;ALGOURDIN;Benoit;8;
+3;DELÉGLISE;Benoit;5;ROSSELLO-POULET Arthur (4)
+23;PLUVINET;Berenice;1;GANGNEUX Alice (1),VIDLER Chloé (1),GROFF Damien (1),PYLA Leo (1),GUEGUEN Mathilde (1),ROUX-AYMARD Paco (1),DESCLAUX Ariane (1),DOITRAND Eléa (1),BOULARD Solenn (1),GALLAND Isaure (5)
+16;CARVALHO;Bernardo;8;CHARREAU Jules (8),BOSSENS Laetitia (4),JOSSE Théliau (2),OLLIVIER Etienne (3),MAVIER Louis (8)
+24;TASSIN;Bertille;4;SALA Eva (3)
+12;RICHIER;Bleuenn;6;CARRERE Colin (1),BLOCH Fiona (4),CHAMUSSY Léonie (3)
+115;AMOURETTE;Camille;5;FRITZ Simon (5)
+80;MARTIN;Camille;5;BOTTET Nathan (1)
+5;PIGNET;Cannelle;2;BAUDOUX Aude (7)
+96;ALARY;Capucine;7;ROBIN Pierre (4)
+79;BOIS;Capucine;5;BROYER Maya (5),BELIAZI Léna (7)
+121;COLOMBOT;Carole;5;
+105;LUCQUIN;Carole;2;
+101;HUA;Cécilia;4;
+26;LESAGE MORRONE;Cédric;3;FIERRI Joanna (5),SCARFO Corentin (5),MARION Emilien (4),CHANDELIER Jeremy (4),VALENTIN Emma (3)
+64;TALICHET;Celia;5;BOURRET Mariane (5)
+44;ROLAND;Céline;4;SPECHT Laurent (5)
+93;AMBROSINO;Charlotte;7;LIÈVRE Charlotte (3),GARREL Adrien (3),MARTIN Camille (5)
+73;LORIOT;Charles;2;GUILLIN Thomas (2),HENRION Téo (2),BATAILLOU Amandine (1),NICOLAS Jacquot (1)
+45;DELEVOIE;Charlotte;1;DUTARTE Robin (1),DELORME Amélie (1),FLORENCE Marine (1),BROUSSE Jules (1),BAROUX Alexandre (1),NUGIER Nathan (1),THIBERGE Léa (2),ROBIN Pierre (4)
+71;LIÈVRE;Charlotte;3;GARREL Adrien (3)
+114;LOISEL;Charlotte;5;LEGRAND Paul (5),VIMONT Sébastien (4)
+8;PONCET;Charlotte;6;LE CLEI Clara (3)
+15;GUISNET;Chloé;5;TEODORI Emilie (4)
+47;VIDLER;Chloé;1;GANGNEUX Alice (1),GROFF Damien (1),PYLA Leo (1),GUEGUEN Mathilde (1),ROUX-AYMARD Paco (1),DESCLAUX Ariane (1),DOITRAND Eléa (1),BOULARD Solenn (1),CHARDON Antoine (1)
+127;TECK;Christelle;3;DU Karina (3),LEDRU Tess (5)
+78;MONNIER;Christophe;3;CORNET Maxime (5)
+134;JOUBERT;Claire;3;MENARD-BEDIANT Timothée (1),RAY Loann (1)
+8;LE CLEI;Clara;3;
+86;LE MOUËL;Clara;1;MOULIN Nolwenn (3),JOUANNARD Eloïse (6)
+67;FRANCHOMME;Claudie-Océane;4;BRETON Pauline (3),GUILLEVIC Marie (4),ANDRZEJEWSKI Iris (4)
+57;JAILLARD;Clémence;3;
+9;BADON;Clément;5;LEMUS Sofia (4),DELAVEAU Mateo (4),FALISE Julie (1)
+10;MALBRANQUE;Clément;5;CANAL Antonin (6)
+11;MARAIS;Clement;8;JACOB Tanya (4)
+38;MALO;Clémentine;6;ICHANSON Justine (4)
+12;CARRERE;Colin;1;RICHIER Bleuenn (6),BLOCH Fiona (4),CHAMUSSY Léonie (3)
+56;DUTHY;Corentin;4;
+65;SCARFO;Corentin;5;VALENTIN Emma (3),CHANDELIER Jeremy (4),MARION Emilien (4),FIERRI Joanna (5),BEUGIN Maëva (3)
+75;GROFF;Damien;1;GANGNEUX Alice (1),VIDLER Chloé (1),PYLA Leo (1),ROUX-AYMARD Paco (1),DESCLAUX Ariane (1),DOITRAND Eléa (1),BOULARD Solenn (1),CHARDON Antoine (1)
+54;DANESH;Damon;5;GUISNET Chloé (5)
+47;DOITRAND;Eléa;1;GANGNEUX Alice (1),VIDLER Chloé (1),GROFF Damien (1),PYLA Leo (1),GUEGUEN Mathilde (1),ROUX-AYMARD Paco (1),DESCLAUX Ariane (1),BOULARD Solenn (1),CHARDON Antoine (1)
+143;MBEROU;Elias;4;PARDIEU Zélie (6)
+37;GUILLON;Elio;2;BOUVARD Hugo (4)
+13;FLANDRIN.;Elisa;2;HENRY Florian (3),DUMONT Julien (4)
+142;ORUEZABAL-NAIMGLOU;Ellyn;5;FRANGVILLE Yvann (2)
+32;BLANCHARD;Eloïse;6;FALISE Julie (1)
+86;JOUANNARD;Eloïse;6;MOULIN Nolwenn (3)
+14;FERRARA;Emanuela;5;
+15;TEODORI;Emilie;4;GUISNET Chloé (5)
+33;COUSTENOBLE;Emilien;3;MERCIER Julie (4)
+43;MARION;Emilien;4;FIERRI Joanna (5),CHANDELIER Jeremy (4),SCARFO Corentin (5),TRITTO Vincent (8),VALENTIN Emma (3)
+22;MUET;Emilien;1;CAFRAN Lukas (4),ANDRZEJEWSKI Iris (4)
+47;PASQUIER;Emma;6;
+43;VALENTIN;Emma;3;SCARFO Corentin (5),FIERRI Joanna (5),MARION Emilien (4),CHANDELIER Jeremy (4),LESAGE MORRONE Cédric (3)
+75;ROUSSI;Emmanuelle;4;BOULARD Solenn (1)
+121;BASHA;Emmi;1;IVANOVA Kristine (3),CURILA Stefania (3)
+40;MONIER;Estelle;4;
+56;JURÉ;Ethan;3;COUSTENOBLE Emilien (3),CECCHI Mathilde (5),TOMASINI Anna (3),DUTHY Corentin (4),SANCHEZ Romain (4)
+16;OLLIVIER;Etienne;3;CHARREAU Jules (8),BOSSENS Laetitia (4),JOSSE Théliau (2),CARVALHO Bernardo (8),MAVIER Louis (8)
+24;SALA;Eva;3;TASSIN Bertille (4)
+95;LION;Fabrice;1;BERT Benjamin (2),NICOLAS Jacquot (1)
+78;BUONOMO;Fanny;2;CORNET Maxime (5)
+58;CLOUARD;Fanny;3;GERECKE Lucile (4)
+141;GERMAIN;Fanny;6;
+12;BLOCH;Fiona;4;RICHIER Bleuenn (6)
+41;JACINTHO;Firmin;5;TRITTO Vincent (8),GALVAGNO Florian (1),SCHANG Kim (1)
+17;CURVALLE;Florent;4;PIGNOL Jeanne (3),FLOHIC Baptiste (7),FRELAUT Rose (1),BOURMAUD Milane (5)
+41;GALVAGNO;Florian;1;BRIFFA Amélia (1),JACINTHO Firmin (5),TRITTO Vincent (8)
+13;HENRY;Florian;3;FLANDRIN. Elisa (2)
+134;MEILHON;Florian;5;
+75;DE LAMBERTYE;Grégoire;1;GANGNEUX Alice (1),VIDLER Chloé (1),GROFF Damien (1),PYLA Leo (1),GUEGUEN Mathilde (1),ROUX-AYMARD Paco (1),DESCLAUX Ariane (1),DOITRAND Eléa (1),BOULARD Solenn (1),CHARDON Antoine (1)
+18;BAILLARD;Grégory;3;BAILLARD Gregory (4)
+18;BAILLARD;Gregory;4;VERRON Lucas (4)
+19;BERTOLDI;Gustavo;5;
+35;DRUT;Hassania;5;DELCUZE Julien (5)
+77;BLUM;Hugo;3;MILLESCAMPS Maxence (4),MOUTOT Matthieu (3)
+37;BOUVARD;Hugo;4;DEPUYDT Justine (4),CRISTOFORONI Stella (8)
+20;CHEVALLIER;Hugo;6;GOUTTEGATAT Bastien (4)
+120;DESINDE;Hugo;6;
+21;LAJOIE;Hugo;2;BOSIO Alizé (4),DUPERRAY Margaux (3),GRIEUMARD Paul (4),HENRION Téo (2),BOURMAUD Milane (5)
+22;ANDRZEJEWSKI;Iris;4;BRETON Pauline (3),GUILLEVIC Marie (4),FRANCHOMME Claudie-Océane (4)
+23;GALLAND;Isaure;5;
+45;BROUSSE;Jules;1;NUGIER Nathan (1),THIBERGE Léa (2),DUTARTE Robin (1),FLORENCE Marine (1),DELEVOIE Charlotte (1),AZOULAY Laurie (1),DELORME Amélie (1),ROBIN Pierre (4)
+80;ARCHER;Jade;1;ETEGAN Valentina (3),LOUAZE Mathis (3),MARTIN Camille (5)
+24;PRÉVÔT;Jade;4;
+106;RIBAL;Jade;6;GREVAUD Paul (2)
+74;LEIGNEL;Jean-Loup;5;CECCHI Mathilde (5)
+66;DUCRUIX;Jeanne;5;GAILLARD Marie (4)
+25;FÉVRIER;Jeanne;4;TOULEMONDE Alix (5)
+92;GRANGE;Jeanne;5;
+109;PIGNOL;Jeanne;3;CURVALLE Florent (4),BOURMAUD Milane (5),FLOHIC Baptiste (7)
+26;CHANDELIER;Jeremy;4;LESAGE MORRONE Cédric (3),SCARFO Corentin (5),FIERRI Joanna (5),MARION Emilien (4),VALENTIN Emma (3)
+27;CRUZ RODRIGUEZ;Jesus Armando;3;
+72;GAUTIER;Juliette;3;DÉCULTOT Marie (4),CHAMUSSY Léonie (3),MARMORAT Tanaelle (3)
+28;FIERRI;Joanna;5;MARION Emilien (4),VILLEMEY-RAYET Marilou (5),VALENTIN Emma (3),CHANDELIER Jeremy (4),SCARFO Corentin (5),TRITTO Vincent (8),JACINTHO Firmin (5)
+29;AGUILAR CROSTON;Jose Andres;7;LEMUS Sofia (4),BADON Clément (5)
+30;GINDRE;Josephine;3;
+31;CHARREAU;Jules;8;BOSSENS Laetitia (4),JOSSE Théliau (2),OLLIVIER Etienne (3),CARVALHO Bernardo (8),MAVIER Louis (8)
+32;FALISE;Julie;1;BLANCHARD Eloïse (6)
+33;MERCIER;Julie;4;BADON Clément (5)
+69;REPELLIN;Julie;6;
+34;BOUVIER;Julien;5;NUÉ Tom (6),NICOLAS Jacquot (1)
+35;DELCUZE;Julien;5;DRUT Hassania (5)
+36;DUMONT;Julien;4;FAYET Baptiste (4)
+37;DEPUYDT;Justine;4;BOUVARD Hugo (4),CRISTOFORONI Stella (8)
+38;ICHANSON;Justine;4;MALO Clémentine (6)
+39;DU;Karina;3;TECK Christelle (3)
+40;MAYEUX;Kevin;4;DU Karina (3)
+41;SCHANG;Kim;1;DUCROS Roland (1),JACINTHO Firmin (5),ROLAND Céline (4)
+42;KPODAR;Kini;3;
+14;IVANOVA;Kristine;3;BASHA Emmi (1),CURILA Stefania (3),FERRARA Emanuela (5)
+128;BOSSENS;Laetitia;4;JOSSE Théliau (2),OLLIVIER Etienne (3)
+57;DARNÉ CLAVARON;Laia;4;JAILLARD Clémence (3)
+43;DEL RIO RODRIGUEZ;Laura;4;
+44;SPECHT;Laurent;5;ROLAND Céline (4)
+45;AZOULAY;Laurie;1;DUTARTE Robin (1),DELORME Amélie (1),FLORENCE Marine (1),NUGIER Nathan (1),BROUSSE Jules (1),DELEVOIE Charlotte (1),ROBIN Pierre (4)
+119;SIMONNET;Léa;4;CANJURA Sonia (7),BEUGIN Maëva (3),CAUX Léontine (8),GARZON Alan (5),FLANDIN Tanguy (4)
+45;THIBERGE;Léa;2;DUTARTE Robin (1),DELORME Amélie (1),FLORENCE Marine (1),AZOULAY Laurie (1),NUGIER Nathan (1),DELEVOIE Charlotte (1),BROUSSE Jules (1),ROBIN Pierre (4)
+46;BELIAZI;Léna;7;BROYER Maya (5),BOIS Capucine (5),BELATECHE Rahim (6)
+95;BOUFFET;Léo;1;BERT Benjamin (2)
+47;PYLA;Leo;1;GANGNEUX Alice (1),VIDLER Chloé (1),GROFF Damien (1),GUEGUEN Mathilde (1),ROUX-AYMARD Paco (1),DESCLAUX Ariane (1),DOITRAND Eléa (1),BOULARD Solenn (1),CHARDON Antoine (1)
+48;SIMONET;Léo;6;
+49;CHAMUSSY;Léonie;3;MARMORAT Tanaelle (3),DÉCULTOT Marie (4),GAUTIER Juliette (3)
+50;CAUX;Léontine;8;GARZON Alan (5)
+13;BONNET;Lisa;4;HENRY Florian (3)
+49;MANTILERI;Lisa;5;CHAMUSSY Léonie (3)
+134;RAY;Loann;1;JOUBERT Claire (3),MENARD-BEDIANT Timothée (1),MATHIEU Louise (6)
+55;BOURGEAT;Lou-Ann;5;AUDRAS Lucas (5)
+80;BERTHOUX;Louis;2;MARTIN Camille (5)
+134;LE COADIC;Louis;1;BEUGIN Maëva (3),SCARFO Corentin (5),PRESNEAU Nathan (5),MARION Emilien (4),FIERRI Joanna (5),VALENTIN Emma (3),MEILHON Florian (5)
+51;MAVIER;Louis;8;CHARREAU Jules (8),JOSSE Théliau (2),CARVALHO Bernardo (8),BLANCHARD Eloïse (6),TALICHET Celia (5),RIERA Nathan (5)
+122;TRICOT;Louis;1;CHARRAT Stéphane (1)
+52;MATHIEU;Louise;6;
+53;BARAKAT ROUET;Lounes;8;
+94;LEHMANN;Louys-Henry;2;VILPINI Pauline (4),SMOLDERS Matthieu (5),FOUREL Alexandre (4)
+54;DI RUSSO;Luca;4;
+55;AUDRAS;Lucas;5;BOURGEAT Lou-Ann (5)
+56;DUVAL;Lucas;4;BAUDOUX Aude (7),FAVIER Solène (8)
+113;GALLET;Lucas;4;DERUE Sébastien (4)
+128;MARTINS-SALGADO;Lucas Martins-Salgado;4;COQUILLAUD Alexandre (1)
+48;VACHEROT;Lucas;4;SIMONET Léo (6)
+68;VERRON;Lucas;4;BAILLARD Grégory (3),BAILLARD Gregory (4),AMOUDRUZ Marie-Gabrielle (2),MARTIN Camille (5)
+57;SCHWOERTZIG;Lucie;4;
+111;BELDENT;Lucile;5;VIALA Roxane (5)
+58;GERECKE;Lucile;4;CLOUARD Fanny (3)
+59;POUPENEY;Ludivine;5;
+22;CAFRAN;Lukas;4;MUET Emilien (1)
+60;BOURSEUL;Madeleine;6;
+87;SILVANO;Maëlle;4;DURIEZ Odyssée (5)
+65;BEUGIN;Maëva;3;CANJURA Sonia (7),CHARBONNEL Marie (2),CAUX Léontine (8),DUFEU Marion (4),MARION Emilien (4)
+61;SYLVESTRE BARON;Magali;3;
+72;DUPERRAY;Margaux;3;BOSIO Alizé (4),GAUTIER Juliette (3)
+62;ZEN LEMES;Maria;6;
+63;LIVORATI OLIVA GARBELINI OLIVEIRA;Maria Luisa;6;
+64;BOURRET;Mariane;5;TALICHET Celia (5)
+17;D&#039;AUZAC;Marianne;4;CURVALLE Florent (4),PIGNOL Jeanne (3),FRELAUT Rose (1),FLOHIC Baptiste (7),BOURMAUD Milane (5)
+36;RICHAUD;Marianne;1;FLANDRIN. Elisa (2),DUMONT Julien (4)
+65;CHARBONNEL;Marie;2;
+123;DÉCULTOT;Marie;4;MARMORAT Tanaelle (3),GAUTIER Juliette (3),CHAMUSSY Léonie (3)
+66;GAILLARD;Marie;4;DUCRUIX Jeanne (5)
+67;GUILLEVIC;Marie;4;BRETON Pauline (3),ANDRZEJEWSKI Iris (4),FRANCHOMME Claudie-Océane (4)
+68;AMOUDRUZ;Marie-Gabrielle;2;
+28;VILLEMEY-RAYET;Marilou;5;TRITTO Vincent (8),FIERRI Joanna (5),GALVAGNO Florian (1)
+69;AURRAND;Marine;5;
+70;DELSERT;Marine;3;TABOURET Adrien (7)
+45;FLORENCE;Marine;1;THIBERGE Léa (2),NUGIER Nathan (1),DUTARTE Robin (1),BROUSSE Jules (1),DELEVOIE Charlotte (1),DELORME Amélie (1),AZOULAY Laurie (1),ROBIN Pierre (4)
+76;PLAZA;Marine;1;BOURZIER Matthias (4)
+71;DUFEU;Marion;4;
+72;ROSELIER;Marion;5;
+105;L&#039;HENAFF;Martin;4;LUCQUIN Carole (2),MERLE Antoine (3),MATHIEU Louise (6),PIGNET Cannelle (2)
+73;DELAVEAU;Mateo;4;BERTRAND Thomas (6),SCHAMBERGER Alexandre (3),BADON Clément (5)
+19;DE BARROS SILVA;Matheus;6;LAZARINI Priscila (5),BERTOLDI Gustavo (5)
+126;BEAUDOUIN;Mathias;4;JACOB Tanya (4)
+74;CECCHI;Mathilde;5;LEIGNEL Jean-Loup (5)
+75;GUEGUEN;Mathilde;1;GANGNEUX Alice (1),VIDLER Chloé (1),GROFF Damien (1),PYLA Leo (1),ROUX-AYMARD Paco (1),DESCLAUX Ariane (1),DOITRAND Eléa (1),BOULARD Solenn (1),CHARDON Antoine (1)
+138;LOUAZE;Mathis;3;ETEGAN Valentina (3)
+76;BOURZIER;Matthias;4;
+94;SMOLDERS;Matthieu;5;LEHMANN Louys-Henry (2),FOUREL Alexandre (4),VILPINI Pauline (4)
+77;MOUTOT;Matthieu;3;MILLESCAMPS Maxence (4)
+77;MILLESCAMPS;Maxence;4;MOUTOT Matthieu (3),PYT Valentine (3)
+78;CORNET;Maxime;5;ROSELIER Marion (5),RICHIER Bleuenn (6),MARION Emilien (4)
+130;SCHWARTZ;Maxime;7;LOCQUEVILLE Thibault (1)
+79;BROYER;Maya;5;
+80;BOTTET;Nathan;1;MARTIN Camille (5)
+45;NUGIER;Nathan;1;DUTARTE Robin (1),DELEVOIE Charlotte (1),FLORENCE Marine (1),DELORME Amélie (1),THIBERGE Léa (2),ROBIN Pierre (4)
+81;PRESNEAU;Nathan;5;FLANDIN Tanguy (4),SERPOL Thomas (6)
+82;RIERA;Nathan;5;MAVIER Louis (8),TALICHET Celia (5),BLANCHARD Eloïse (6)
+95;NICOLAS;Jacquot;1;
+83;PERRAULT;Nicolas;6;
+84;NEDJAR;Nina;6;KOLB Anaïs (6)
+85;GAUTHIER;Ninon;4;TOMASINI Anna (3)
+6;CONCINA;Noélie;4;FÉREY Aziliz (6)
+76;MAURIN;Noëlie;1;BOURZIER Matthias (4)
+86;MOULIN;Nolwenn;3;JOUANNARD Eloïse (6)
+59;REVEL;Nolwenn;2;POUPENEY Ludivine (5)
+81;PINHO LOPES;Océane;3;PRESNEAU Nathan (5),SERPOL Thomas (6),FLANDIN Tanguy (4),SIMONNET Léa (4)
+87;DURIEZ;Odyssée;5;SILVANO Maëlle (4),TALICHET Celia (5)
+98;CRABBE;Olivier;1;LAZARINI Priscila (5)
+32;ROMERO VERDEIL;Ona;1;BLANCHARD Eloïse (6)
+88;BRAUD;Oriane;7;
+89;BLALI;Oumaima;3;
+75;ROUX-AYMARD;Paco;1;GANGNEUX Alice (1),VIDLER Chloé (1),GROFF Damien (1),PYLA Leo (1),GUEGUEN Mathilde (1),DESCLAUX Ariane (1),DOITRAND Eléa (1),BOULARD Solenn (1),CHARDON Antoine (1)
+136;VERNET;Pacôme;2;ROBLIN Tom (5)
+82;BONNARIC;Paul;3;DUMOULIN Arthur (6),RIERA Nathan (5)
+90;CHATRON-MICHAUD;Paul;2;BERT Benjamin (2),BOUFFET Léo (1)
+91;GREVAUD;Paul;2;BOITEUX Arthur (6),RIBAL Jade (6)
+21;GRIEUMARD;Paul;4;
+92;LEGRAND;Paul;5;LEDRU Tess (5),CONCINA Noélie (4),VIMONT Sébastien (4),LEIGNEL Jean-Loup (5)
+93;BRETON;Pauline;3;GUILLEVIC Marie (4),ANDRZEJEWSKI Iris (4),FRANCHOMME Claudie-Océane (4)
+94;VILPINI;Pauline;4;LEHMANN Louys-Henry (2),FOUREL Alexandre (4),SMOLDERS Matthieu (5)
+95;ZUBIETA-LABORDE;Paul-Marie;3;FLANDIN Tanguy (4),PRESNEAU Nathan (5),SERPOL Thomas (6)
+96;ROBIN;Pierre;4;ALARY Capucine (7)
+97;SOLA;Pierre;7;
+98;LAZARINI;Priscila;5;CRABBE Olivier (1)
+6;BORDIGNON;Quentin;1;FÉREY Aziliz (6)
+99;GRANGE;Quentin;6;BAILLARD Grégory (3),BAILLARD Gregory (4)
+100;MICHEL;Quentin;3;
+101;BELINA;Rafael;4;
+102;BELATECHE;Rahim;6;
+138;EL RIFAI;Rami;4;ROSSELLO-POULET Arthur (4),LOUAZE Mathis (3)
+103;GRENIER;Raphaelle;7;
+104;KECO;Reinold;2;
+105;DEROCHE;Robin;4;
+45;DUTARTE;Robin;1;DELORME Amélie (1),FLORENCE Marine (1),AZOULAY Laurie (1),NUGIER Nathan (1),DELEVOIE Charlotte (1),BROUSSE Jules (1),THIBERGE Léa (2)
+125;LEFRANC;Robin;5;MORELLON Tanguy (3)
+41;DUCROS;Roland;1;SCHANG Kim (1),JACINTHO Firmin (5)
+106;GILLE;Romain;5;DU Karina (3)
+107;SANCHEZ;Romain;4;SARTORI Adrien (3)
+108;RAMEL;Roméo;4;BAROUX Alexandre (1),MARCONNET Alexis (5),NICOLAS Jacquot (1)
+109;BOURMAUD;Milane;5;FRELAUT Rose (1),FLOHIC Baptiste (7),PIGNOL Jeanne (3),CURVALLE Florent (4)
+110;FRELAUT;Rose;1;BOURMAUD Milane (5),FLOHIC Baptiste (7),PIGNOL Jeanne (3),CURVALLE Florent (4)
+111;VIALA;Roxane;5;BELDENT Lucile (5)
+112;GRANET;Salomé;3;KISTERMAN Antoine (3)
+76;GUINCHARD;Salomé;2;CLOUARD Fanny (3),MAURIN Noëlie (1)
+113;DERUE;Sébastien;4;
+114;VIMONT;Sébastien;4;LEGRAND Paul (5),LOISEL Charlotte (5)
+115;FRITZ;Simon;5;AMOURETTE Camille (5)
+116;LANGLOIS;Simone;7;
+117;HAOUES;Sofia;6;
+9;LEMUS;Sofia;4;BADON Clément (5)
+118;FAVIER;Solène;8;
+75;BOULARD;Solenn;1;DOITRAND Eléa (1),DESCLAUX Ariane (1),GUEGUEN Mathilde (1),ROUX-AYMARD Paco (1),GANGNEUX Alice (1),PYLA Leo (1),VIDLER Chloé (1),CHARDON Antoine (1),GROFF Damien (1)
+119;CANJURA;Sonia;7;LEMUS Sofia (4),GARZON Alan (5),CAUX Léontine (8),SIMONNET Léa (4),BEUGIN Maëva (3)
+120;MARCHAND;Sophie;5;
+121;CURILA;Stefania;3;IVANOVA Kristine (3),BASHA Emmi (1)
+61;CRISTOFORONI;Stella;8;DEPUYDT Justine (4),SYLVESTRE BARON Magali (3)
+122;CHARRAT;Stéphane;1;TRICOT Louis (1)
+123;MARMORAT;Tanaelle;3;DÉCULTOT Marie (4),CHAMUSSY Léonie (3),GAUTIER Juliette (3)
+124;FLANDIN;Tanguy;4;ZUBIETA-LABORDE Paul-Marie (3),SERPOL Thomas (6),PRESNEAU Nathan (5),SIMONNET Léa (4)
+125;MORELLON;Tanguy;3;
+126;JACOB;Tanya;4;BEAUDOUIN Mathias (4)
+73;HENRION;Téo;2;LORIOT Charles (2),GUILLIN Thomas (2),BATAILLOU Amandine (1)
+127;LEDRU;Tess;5;LEGRAND Paul (5),CONCINA Noélie (4),TECK Christelle (3),FÉREY Aziliz (6)
+128;JOSSE;Théliau;2;CHARREAU Jules (8),BOSSENS Laetitia (4),OLLIVIER Etienne (3),CARVALHO Bernardo (8),MAVIER Louis (8)
+129;LE MAGUERESSE;Théo;8;
+130;LOCQUEVILLE;Thibault;1;SCHWARTZ Maxime (7)
+131;BERTRAND;Thomas;6;
+132;BEUGNON;Thomas;1;IGLICKI Alexandra (1)
+73;GUILLIN;Thomas;2;
+124;SERPOL;Thomas;6;FLANDIN Tanguy (4)
+124;BOULAIS;Anne-Claire;1;SERPOL Thomas (6)
+133;TRUBERT;Thomas;8;
+134;MENARD-BEDIANT;Timothée;1;JOUBERT Claire (3),RAY Loann (1)
+95;MICHON;Titouan;2;ZUBIETA-LABORDE Paul-Marie (3)
+135;LUCENA;Tom;4;JACOB Tanya (4)
+34;NUÉ;Tom;6;BOUVIER Julien (5)
+136;ROBLIN;Tom;5;VERNET Pacôme (2),GAROCHE Alix (7)
+137;SAMPIC;Tom;4;MERLE Antoine (3)
+138;ETEGAN;Valentina;3;LOUAZE Mathis (3)
+139;PYT;Valentine;3;MILLESCAMPS Maxence (4),MOUTOT Matthieu (3)
+140;TRITTO;Vincent;8;JACINTHO Firmin (5)
+141;JUMIN;Virgile;5;
+52;UZZAN;Yohan;5;MATHIEU Louise (6)
+142;FRANGVILLE;Yvann;2;ORUEZABAL-NAIMGLOU Ellyn (5)
+143;PARDIEU;Zélie;6;MBEROU Elias (4)
+144;ALBADRA;Yara;4;BATTELLO Zoé (6)
+144;BATTELLO;Zoé;6;ALBADRA Yara (4)
