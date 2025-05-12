@@ -94,20 +94,6 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   } catch (error) {
     return {error : error.message};
   }
-  // Launch the generation of the table plan
-  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
-  const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
-  execFile(executablePath, [inputPath], (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Erreur : ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.error(`Stderr : ${stderr}`);
-      return;
-    }
-    console.log(`Sortie : ${stdout}`);
-  });
   return await ParserService.getNeighboursPairing();
 }); 
 
@@ -122,7 +108,9 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
   // Create the json information for the table plan
   await ParserService.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables);
   // Launch the generation of the table plan
-  execFile("./algorithm/main", ["../resources/jsonAlgorithmInput.json"], (error, stdout, stderr) => {
+  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
+  const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
+  execFile(executablePath, [inputPath], (error, stdout, stderr) => {
     if (error) {
       console.error(`Erreur : ${error.message}`);
       return;
@@ -134,5 +122,5 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
     console.log(`Sortie : ${stdout}`);
   });
   // Return the address of the generated csv
-  return "";
+  return path.resolve(__dirname, 'backend', 'resources', 'seatingArrangements.csv');
 });
