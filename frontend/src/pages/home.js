@@ -27,6 +27,8 @@ export function Home() {
     const [currentNeighbourIndex, setCurrentNeighbourIndex] = useState(0);
     const [refusedNeighbours, setRefusedNeighbours] = useState([]);
 
+    const [isVisible, setIsVisible] = useState(false); 
+
     React.useEffect(() => {
       if (tableConflicts.length > 0) {
         setCurrentStudentIndex(0);
@@ -154,44 +156,51 @@ export function Home() {
           React.createElement('h3', null, 'Réalisez votre plan de table en quelques clics !'),
         ),
         React.createElement('div', { className: 'app-content' },
-          React.createElement('div', { className: 'left-part' },
+          React.createElement('div', { className: 'preprocessing step' },
             React.createElement('h2', null, 'Prétraitement des données'), 
-            
             React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
-            
             React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
-            React.createElement(ConflictCenter,{
-              disabled: lockedGenerer,
-              students: tableConflicts,
-              currentStudentIndex: currentStudentIndex,
-              currentNeighbourIndex: currentNeighbourIndex,
-              onAccept: acceptConflict,
-              onRefuse: refuseConflict
-            }),
-            
+
             React.createElement('div', {className: 'continue-reset-buttons'},
-                React.createElement(ContinueButton, {
-                  onClick: actionContinue,
-                  disabled : lockedContinue
-                }),
-                React.createElement(ResetButton, {
-                  onClick: () => actionReset(),
-                  disabled : false
-                })
-              ),
-                        
+              React.createElement(ContinueButton, {
+                onClick: actionContinue,
+                disabled : lockedContinue
+              }),
+              React.createElement(ResetButton, {
+                onClick: () => actionReset(),
+                disabled : false
+              })
+            ),
           ),
-          React.createElement('div', { className: 'right-part' },
+          isVisible && React.createElement('div', { className: 'conflicts step' },
+            React.createElement('div', { className: 'left-part' },
+              
+              React.createElement(ConflictCenter,{
+                disabled: lockedGenerer,
+                students: tableConflicts,
+                currentStudentIndex: currentStudentIndex,
+                currentNeighbourIndex: currentNeighbourIndex,
+                onAccept: acceptConflict,
+                onRefuse: refuseConflict
+              }),
+                          
+            ),
+            React.createElement('div', { className: 'right-part' },
+              
+              )
+          ),
+          isVisible && React.createElement('div', { className: 'table-plan step' },
             React.createElement('div', { className: 'nb-table' },
-              React.createElement('p', null, 'Nombre de tables maximum:'),
-              React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
-            ),
-            React.createElement('div', { className: 'nb-guest' },
-              React.createElement('p', null, 'Nombre de convives maximum/table :'),
-              React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
-            ),
-            React.createElement(GenerateButton, {className: 'file-button', onClick: actionGenerer, disabled: !lockedContinue,}),
-            )
+                React.createElement('p', null, 'Nombre de tables maximum:'),
+                React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
+              ),
+              React.createElement('div', { className: 'nb-guest' },
+                React.createElement('p', null, 'Nombre de convives maximum/table :'),
+                React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
+              ),
+              React.createElement(GenerateButton, {className: 'file-button', onClick: actionGenerer, disabled: !lockedContinue,}),
           )
+
         )
+        );
 }
