@@ -22,6 +22,10 @@ export type ColumnsNames = {
 type ParsedCSVRow = Record<string, string>;
 
 type GraduatedStudentMap = Map<string, GraduatedStudent>;
+
+type Warning = {
+  message: string;
+}
 export class ParserService {
   private static guestIdCounter = 1;
   private static studentIdCounter = 1;
@@ -29,6 +33,8 @@ export class ParserService {
   private static allGraduatedStudents : GraduatedStudent[] = [];
   
   private static columns: ColumnsNames;
+
+  private static warnings : Warning[] = [];
 
   static async readFileCSV(csvFilePath: string): Promise<GraduatedStudent[]> {
     const absolutePath = path.resolve(csvFilePath);
@@ -74,14 +80,20 @@ export class ParserService {
           }
           // If it is a guest OR
           // If 'has all information' => it's the case when the student's names is put also for the guest's names so it is a guest
-          if (!guestIsGraduatedStudent || graduatedStudents.get(gradKey)!.hasAllInformation()) {
+          const currentStudent = graduatedStudents.get(gradKey)
+          if (!guestIsGraduatedStudent || currentStudent!.hasAllInformation()) {
             const id = this.getNextGuestId();
             const guest = new Guest(id, ticketNumber, guestLastName, guestFirstName, specifiedDiet);
             graduatedStudents.get(gradKey)!.addGuest(guest);
+            if (currentStudent?.hasDifferentEmail(gradEmail) && !currentStudent?.catchedDoubleEmail()){
+              currentStudent.catchDoubleEmail();
+              this.warnings.push({message: currentStudent.getLastName() + " " +
+                currentStudent.getFirstName() + " a utilisé deux adresses mail pour s'inscrire."})
+            }
           }
           else {
-            graduatedStudents.get(gradKey)!.setDiet(specifiedDiet);
-            graduatedStudents.get(gradKey)!.setTicket(ticketNumber);
+            currentStudent!.setDiet(specifiedDiet);
+            currentStudent!.setTicket(ticketNumber);
           }
         })
         .on("end", () => {
@@ -123,6 +135,31 @@ export class ParserService {
       idStudent: student.getId(),
       lastName: student.getLastName(),
       firstName: student.getFirstName(),
+      preferedNeighbours: student.getNeighboursString(),
+      processedNeighbours: student.getNeighbours().map(neighbour => ({
+        neighbourId: neighbour.getId(),
+        neighbourFirstName: neighbour.getFirstName(),
+        neighbourLastName: neighbour.getLastName()
+      }))
+    }));
+    const jsonContent = {
+      warnings: this.warnings,
+      graduated_students: graduatedStudents
+    };
+
+    return jsonContent;
+  }
+
+  static async fetchGraduatedStudentsList(): Promise<any> {
+    const graduatedStudents = this.allGraduatedStudents.map(student => ({
+      idStudent: student.getId(),
+      lastName: student.getLastName(),
+      firstName: student.getFirstName(),
+      guests: student.getGuests().map(guest => ({
+        guestId: guest.getId(),
+        guestFirstName: guest.getFirstName(),
+        guestLastName: guest.getLastName()
+      })),
       preferedNeighbours: student.getNeighboursString(),
       processedNeighbours: student.getNeighbours().map(neighbour => ({
         neighbourId: neighbour.getId(),
