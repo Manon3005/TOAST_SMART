@@ -28,9 +28,9 @@ int main(int argc, char* argv[])
     //cout << seatingArrangements; // ICI NON PLUS
 
     ofstream outputFile;
+    cout << seatingArrangements; // ICI CA POSE PROBLEME
     string fileName = "../resources/seatingArrangements.csv";
     outputFile.open(fileName);
-    cout << seatingArrangements; // ICI OUIIIII
     outputFile << seatingArrangements;
     return 0;
 }
