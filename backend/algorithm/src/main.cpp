@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <ctime>
 
 #include "../headers/DataParser.h"
 #include "../headers/SeatingArrangements.h"
@@ -9,12 +10,14 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    if (argc < 2) {
-        cout << "Link to the JSON file missing" << endl;
+    if (argc < 3) {
+        cout << "Link to the JSON file or file path of the generated .csv missing" << endl;
         return 1;
     }
     string jsonFilePath = argv[1];
-    cout << "Path : " << jsonFilePath << endl;
+    string outputFilePath = argv[2];
+    cout << "JSON Path : " << jsonFilePath << endl;
+    cout << "CSV Path : " << outputFilePath << endl;
 
     DataParser dataParser = DataParser(jsonFilePath);
 
@@ -25,8 +28,7 @@ int main(int argc, char* argv[])
     seatingArrangements.completeExistingTable();
 
     ofstream outputFile;
-    string fileName = "../resources/seatingArrangements.csv";
-    outputFile.open(fileName);
+    outputFile.open(outputFilePath);
     outputFile << seatingArrangements;
 
     return 0;
