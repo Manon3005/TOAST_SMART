@@ -86,7 +86,7 @@ export function Home() {
     
     const genererPlan = async () => {
       const refused = refusedNeighbours.reduce((acc, entry) => {
-        acc[entry.idStudent] = entry.refusedNeighbours;
+        acc[entry.idStudent] = parseInt(entry.refusedNeighbours, 10);
         return acc;
       }, {});
 
@@ -97,11 +97,12 @@ export function Home() {
       };
 
       const jsonGenerate = JSON.stringify(exportJson);
+      console.log(jsonGenerate);
       try {
-        const result = await window.electronAPI.generateTablePlan(jsonGenerate);
-        console.log(result);
-        if (result.error){
-          actionReset(result.error);
+        const address = await window.electronAPI.generateTablePlan(jsonGenerate);
+        setFinalAdress(address);
+        if (address.error){
+          actionReset(address.error);
         }
         else {
           alert('Plan de table généré avec succès !');
