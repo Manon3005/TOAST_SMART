@@ -156,7 +156,7 @@ export function Home() {
           React.createElement('h3', null, 'Réalisez votre plan de table en quelques clics !'),
         ),
         React.createElement('div', { className: 'app-content' },
-          React.createElement('div', { className: 'preprocessing step' },
+          React.createElement('div', { className: 'preprocessing-step' },
             React.createElement('h2', null, 'Prétraitement des données'), 
             React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
             React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
@@ -172,7 +172,7 @@ export function Home() {
               })
             ),
           ),
-          isVisible && React.createElement('div', { className: 'conflicts step' },
+          isVisible && React.createElement('div', { className: 'conflicts-step' },
             React.createElement('div', { className: 'left-part' },
               
               React.createElement(ConflictCenter,{
@@ -189,7 +189,7 @@ export function Home() {
               
               )
           ),
-          isVisible && React.createElement('div', { className: 'table-plan step' },
+          isVisible && React.createElement('div', { className: 'table-plan-step' },
             React.createElement('div', { className: 'nb-table' },
                 React.createElement('p', null, 'Nombre de tables maximum:'),
                 React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
