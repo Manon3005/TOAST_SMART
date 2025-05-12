@@ -50,7 +50,7 @@ body {
   text-align: center;
   padding: 20px;
   font-family: 'Segoe UI', sans-serif;
-  background: #ffffff;
+  background: #e9e9e9;
   color: white;
   height: 100vh;
 }
@@ -66,7 +66,7 @@ h2 {
   font-size: 18px;
   margin-top: -10px;
   margin-bottom: 10px;
-  color: #043100;
+  color: #000000;
 }
 
 h3 {
@@ -82,7 +82,7 @@ p {
 }
 
 .navbar {
-  background-color: #043100;
+  background-color: #000000;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -98,7 +98,7 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ffffff;
+  background-color: #e9e9e9;
   border-radius: 15px;
   z-index: -1;
 }
@@ -233,10 +233,10 @@ p {
 .right-part {
   width: 48%;
   height: 100%;
-  background-color: #80fd9f;
+  background-color: white;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   align-self: flex-start;
 }
 
@@ -363,7 +363,8 @@ img {
   display: flex;
   flex-direction: column;
   margin-top: 50px;
-  background-color: #80fd9f;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   border-radius: 12px;
 } 
 
