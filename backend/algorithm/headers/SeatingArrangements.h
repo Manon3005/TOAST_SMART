@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <cstdint>
 
 #include "Table.h"
 #include "Student.h"

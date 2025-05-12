@@ -4,6 +4,7 @@ const path = require('path')
 const { app, BrowserWindow, screen } = require('electron/main');
 const { Parser } = require("csv-parse");
 const { ipcMain, dialog } = require('electron');
+const { execFile } = require('child_process');
 
 // Create the express server in order to use the static files in the frontend public folder
 const express = require('express');
@@ -39,7 +40,7 @@ async function createWindow() {
   win.maximize();
   win.setResizable(true);
   win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-  win.webContents.openDevTools();  // pour debogage
+  //win.webContents.openDevTools();  // pour debogage
 }
 
 app.whenReady().then(() => {
@@ -93,7 +94,6 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   } catch (error) {
     return {error : error.message};
   }
-  // Return pairing results from parsing for validation
   return await ParserService.getNeighboursPairing();
 }); 
 
@@ -108,6 +108,19 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
   // Create the json information for the table plan
   await ParserService.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables);
   // Launch the generation of the table plan
-  return('aaaaaaa');
+  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
+  const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
+  execFile(executablePath, [inputPath], (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Erreur : ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.error(`Stderr : ${stderr}`);
+      return;
+    }
+    console.log(`Sortie : ${stdout}`);
+  });
   // Return the address of the generated csv
+  return path.resolve(__dirname, 'backend', 'resources', 'seatingArrangements.csv');
 });
