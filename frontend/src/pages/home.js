@@ -144,7 +144,13 @@ export function Home() {
         'div',
         { className: 'app-container'},
         React.createElement('div', { className: 'app-header' },
-          React.createElement('h1', null, '🍞 TOus A Sa Table 🍞'),
+          React.createElement(
+              'h1',
+              { className: 'page-title' },
+              React.createElement('img', { src: 'img/Logo TOAST.png', alt: 'Logo', className: 'logo-inline' }),
+              ' TOus A Sa Table ',
+              React.createElement('img', { src: 'img/Logo TOAST.png', alt: 'Logo', className: 'logo-inline' })
+          ),  
           React.createElement('h3', null, 'Réalisez votre plan de table en quelques clics !'),
         ),
         React.createElement('div', { className: 'app-content' },
