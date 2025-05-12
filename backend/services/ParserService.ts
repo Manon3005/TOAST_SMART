@@ -127,27 +127,6 @@ export class ParserService {
     });
   }
 
-
-  static async getNeighboursPairing(): Promise<any> {
-    const graduatedStudents = this.allGraduatedStudents.map(student => ({
-      idStudent: student.getId(),
-      lastName: student.getLastName(),
-      firstName: student.getFirstName(),
-      preferedNeighbours: student.getNeighboursString(),
-      processedNeighbours: student.getNeighbours().map(neighbour => ({
-        neighbourId: neighbour.getId(),
-        neighbourFirstName: neighbour.getFirstName(),
-        neighbourLastName: neighbour.getLastName()
-      }))
-    }));
-    const jsonContent = {
-      warnings: this.warnings,
-      graduated_students: graduatedStudents
-    };
-
-    return jsonContent;
-  }
-
   static async fetchGraduatedStudentsList(): Promise<any> {
     const graduatedStudents = this.allGraduatedStudents.map(student => ({
       idStudent: student.getId(),

@@ -14,6 +14,7 @@ appServer.use(express.static(path.join(__dirname, 'frontend', 'public')));
 
 
 let globalFilePath = "";
+let allGraduatedStudents;
 
 async function createWindow() {
 
@@ -90,21 +91,27 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   });
   // Call the csv treatment
   try {
-    await ParserService.readFileCSV(globalFilePath);
+    allGraduatedStudents = await ParserService.readFileCSV(globalFilePath);
   } catch (error) {
     return {error : error.message};
   }
-  return await ParserService.getNeighboursPairing();
+  // Return the first conflict
+  return await ConflictHandler.getNextConflict(allGraduatedStudents);
 }); 
+
+ipcMain.handle('dialog:getNextConflict', async (event, jsonSolution) => {
+  const id_student = jsonSolution.id_student;
+  const id_neighbour = jsonSolution.id_neighbour;
+  const result = jsonSolution.result;
+  await ConflictHandler.resolveConflict(id_student, id_neighbour, result, allGraduatedStudents);
+  return await ConflictHandler.getNextConflict(allGraduatedStudents);
+});
 
 ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
   const jsonData = JSON.parse(jsonDataBrut);
   // Get the json from the front
   const maxTables = jsonData.max_number_tables;
   const maxByTables = jsonData.max_number_by_tables;
-  const invalidNeighboursStudentId = jsonData.invalid_neighbours_student_id;
-  // Call the service in order to delete the non valid neighbours
-  await ParserService.deleteNonValidNeighbours(invalidNeighboursStudentId);
   // Create the json information for the table plan
   await ParserService.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables);
   // Launch the generation of the table plan
