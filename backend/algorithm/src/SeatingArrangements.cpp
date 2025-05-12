@@ -338,3 +338,13 @@ void SeatingArrangements::orderTableByIncreasingNbOfDemand(vector<int>& order) {
         order.push_back(min);
     }
 }
+
+ostream& operator<< (ostream& os,const SeatingArrangements& sA)
+{
+    os << "Table" << ';' << "Last Name Buyer" << ';' << "First Name Buyer" << ';' << "Number of Guests (buyer included)" << ';' << "Seating preferences" << endl;
+    int i;
+    for (i = 0 ; i < sA.nbStudent ; i++) {
+        os << *(sA.studentList[i]) << endl;
+    }
+    return os;
+}

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 #include "../headers/DataParser.h"
 #include "../headers/SeatingArrangements.h"
@@ -16,18 +17,17 @@ int main(int argc, char* argv[])
     cout << "Path : " << jsonFilePath << endl;
 
     DataParser dataParser = DataParser(jsonFilePath);
+
     Student** studentList = dataParser.getStudentList();
 
-    SeatingArrangements seats = SeatingArrangements(studentList, dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
-    seats.attributeTableToStudent(true);
-    seats.completeExistingTable();
+    SeatingArrangements seatingArrangements = SeatingArrangements(studentList, dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
+    seatingArrangements.attributeTableToStudent(true);
+    seatingArrangements.completeExistingTable();
 
-    cout << "Total number of demand : " << seats.nbDemand() << endl;
-    cout << "Total number of possible demand : " << seats.nbPossibleDemand() << endl;
-    cout << "Total number of satisfied demand : " << seats.nbSatisfiedDemand() << endl;
-    cout << "Total number of possible first demand : " << seats.nbStudentWithAtLeastOnePossibleDemand() << endl;
-    cout << "Total number of satisfied first demand : " << seats.nbStudentWithAtLeastOneDemandSatisfied() << endl;
-    cout << "Absolute score : " << seats.absoluteScore() << endl;
+    ofstream outputFile;
+    string fileName = "../resources/seatingArrangement.csv";
+    outputFile.open(fileName);
+    outputFile << seatingArrangements;
 
     return 0;
 }

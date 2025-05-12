@@ -58,6 +58,10 @@ int Table::getNbFilledSeat() {
     return nbFilledSeat;
 }
 
+string Table::getId() {
+    return id;
+}
+
 void Table::removeStudent(Student* student)
 {
     int to_remove = -1;

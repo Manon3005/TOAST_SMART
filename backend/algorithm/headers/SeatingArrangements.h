@@ -25,6 +25,7 @@ class SeatingArrangements
         void print();
         void clearTable();
         void orderTableByIncreasingNbOfDemand(vector<int>& order);
+        friend ostream& operator<< (ostream& os, const SeatingArrangements& sA);
 
         int nbDemand();
         int nbPossibleDemand();
