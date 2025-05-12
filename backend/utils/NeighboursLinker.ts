@@ -28,10 +28,21 @@ export class NeighboursLinker {
                 firstCaseBestDistance = currentDistance;
                 firstCaseCandidates.push({ candidate, distance: currentDistance });
               }
+              for (const guest of candidate.getGuests()) {
+                const firstNameLastName = StringNormalizer.normalizeString(guest.getFirstName() + ' ' + guest.getLastName());
+                const lastNameFirstName = StringNormalizer.normalizeString(guest.getLastName() + ' ' + guest.getFirstName());
+                const distance1 = levenshtein(firstNameLastName, combinedNormalizedWords);
+                const distance2 = levenshtein(lastNameFirstName, combinedNormalizedWords);
+                const currentDistance = Math.min(distance1, distance2);
+                if (currentDistance <= this.levenshteinThresholdFullName && currentDistance <= firstCaseBestDistance) {
+                  firstCaseBestDistance = currentDistance;
+                  firstCaseCandidates.push({ candidate, distance: currentDistance });
+                }
+              }
             }
           }
           for (const { candidate, distance } of firstCaseCandidates) {
-            if (distance === firstCaseBestDistance && !student.isNeighboursAlreadyPresent(candidate)) {
+            if (distance === firstCaseBestDistance && !student.isNeighboursAlreadyPresent(candidate) && !student.isSameStudent(candidate)) {
               student.addNeighbour(candidate);
             }
           }
@@ -48,10 +59,18 @@ export class NeighboursLinker {
                 secondCaseBestDistance = distance;
                 secondCaseCandidates.push({ candidate, distance: distance });
               }
+              for (const guest of candidate.getGuests()) {
+                const lastName = StringNormalizer.normalizeString(guest.getLastName());
+                const distance = levenshtein(lastName, normalizedNeighbourWords[i]);
+                if (distance <= this.levenshteinThresholdLastName && distance <= secondCaseBestDistance) {
+                  secondCaseBestDistance = distance;
+                  secondCaseCandidates.push({ candidate, distance: distance });
+                }
+              }
             }
           }
           for (const { candidate, distance } of secondCaseCandidates) {
-            if (distance === secondCaseBestDistance && !student.isNeighboursAlreadyPresent(candidate)) {
+            if (distance === secondCaseBestDistance && !student.isNeighboursAlreadyPresent(candidate) && !student.isSameStudent(candidate)) {
               student.addNeighbour(candidate);
             }
           }
