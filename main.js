@@ -110,7 +110,21 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
   // Launch the generation of the table plan
   const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
   const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
-  execFile(executablePath, [inputPath], (error, stdout, stderr) => {
+
+  // Generate the output path
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+  const dateStr = year + "-" + month + "-" + day + "_" + hour + "H" + minute + "m" + second + "s";
+  
+  // "2023-09-11T02:41:56
+  const outputPath = globalFilePath.slice(0, globalFilePath.length - 4) + "_planTable_" + dateStr + ".csv";
+
+  execFile(executablePath, [inputPath, outputPath], (error, stdout, stderr) => {
     if (error) {
       console.error(`Erreur : ${error.message}`);
       return;

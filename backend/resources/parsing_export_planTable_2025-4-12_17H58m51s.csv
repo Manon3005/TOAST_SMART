@@ -1,0 +1,23 @@
+Table;Last Name Buyer;First Name Buyer;Number of Guests (buyer included);Seating preferences
+1;HMISSI;Abderrahman;8;
+2;BARGUES;Adèle;6;
+3;BOST;Adélie;1;
+4;GARREL;Adrien;3;
+5;JAILLET;Adrien;8;
+6;SARTORI;Adrien;3;
+7;TABOURET;Adrien;7;
+8;GARZON;Alan;5;
+9;BORNUAT;Albane;5;
+10;DE DIANOUS;Albane;3;
+11;IGLICKI;Alexandra;1;
+12;BACH;Alexandre;7;
+17;BAROUX;Alexandre;1;MARCONNET Alexis (5)
+13;BRANDENER;Alexandre;8;
+14;COQUILLAUD;Alexandre;1;
+15;FOUREL;Alexandre;4;
+16;SCHAMBERGER;Alexandre;3;
+15;DE LORGERIL;Alexis;7;FOUREL Alexandre (4)
+17;MARCONNET;Alexis;5;BAROUX Alexandre (1)
+18;GANGNEUX;Alice;1;
+19;GAROCHE;Alix;7;
+20;TOULEMONDE;Alix;5;
