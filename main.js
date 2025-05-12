@@ -97,7 +97,8 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   return await ParserService.getNeighboursPairing();
 }); 
 
-ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
+ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
+  const jsonData = JSON.parse(jsonDataBrut);
   // Get the json from the front
   const maxTables = jsonData.max_number_tables;
   const maxByTables = jsonData.max_number_by_tables;
@@ -107,6 +108,6 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   // Create the json information for the table plan
   await ParserService.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables);
   // Launch the generation of the table plan
-
+  return('aaaaaaa');
   // Return the address of the generated csv
 });
