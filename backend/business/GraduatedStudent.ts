@@ -73,6 +73,13 @@ export class GraduatedStudent {
     isNeighboursAlreadyPresent(potentialNeighbour: GraduatedStudent): boolean {
         return this.neighbours.some(neighbour => neighbour.getId() == potentialNeighbour.getId());
     }
+
+    isSameStudent(student: GraduatedStudent): boolean {
+        if(this.firstName === student.getFirstName() && this.lastName === student.getLastName()) {
+            return true;
+        }
+        return false;
+    }
     
     getGuests(): Guest[] {
         return this.guests;
