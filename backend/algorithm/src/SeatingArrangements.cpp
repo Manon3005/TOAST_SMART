@@ -348,15 +348,8 @@ ostream& operator<< (ostream& os,const SeatingArrangements& sA)
 {
     os << "Table" << ';' << "Last Name Buyer" << ';' << "First Name Buyer" << ';' << "Number of Guests (buyer included)" << ';' << "Seating preferences" << endl;
     int i;
-    cout << sA.nbStudent << endl;
     for (i = 0 ; i < sA.nbStudent ; i++) {
-        std::cout << "Student #" << i << " : " << sA.studentList[i] << std::endl;
-        if (sA.studentList[i] == nullptr) {
-            std::cerr << "Null pointer at studentList[" << i << "]" << std::endl;
-            continue;
-        }
-        cout << *(sA.studentList[i]) << endl;
-        //os << *(sA.studentList[i]) << endl;
+        os << *(sA.studentList[i]) << endl;
     }
     return os;
 }
