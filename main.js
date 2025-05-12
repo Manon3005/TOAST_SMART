@@ -5,6 +5,7 @@ const { app, BrowserWindow, screen } = require('electron/main');
 const { Parser } = require("csv-parse");
 const { ipcMain, dialog } = require('electron');
 const { execFile } = require('child_process');
+const { execFile } = require('child_process');
 
 // Create the express server in order to use the static files in the frontend public folder
 const express = require('express');
@@ -40,6 +41,7 @@ async function createWindow() {
   win.maximize();
   win.setResizable(true);
   win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
+  //win.webContents.openDevTools();  // pour debogage
   //win.webContents.openDevTools();  // pour debogage
 }
 
