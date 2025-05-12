@@ -21,12 +21,16 @@ int main(int argc, char* argv[])
     Student** studentList = dataParser.getStudentList();
 
     SeatingArrangements seatingArrangements = SeatingArrangements(studentList, dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
+    //cout << seatingArrangements; // ICI PAS DE NULL POINTER
     seatingArrangements.attributeTableToStudent(true);
+    //cout << seatingArrangements; // ICI PAS DE NULL POINTER
     seatingArrangements.completeExistingTable();
+    //cout << seatingArrangements; // ICI NON PLUS
 
     ofstream outputFile;
     string fileName = "../resources/seatingArrangements.csv";
     outputFile.open(fileName);
+    cout << seatingArrangements; // ICI OUIIIII
     outputFile << seatingArrangements;
 
     return 0;
