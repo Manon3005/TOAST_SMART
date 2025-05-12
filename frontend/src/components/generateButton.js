@@ -3,7 +3,7 @@ import '../App.css';
 
 
 
-export function GenerateButton({onClick}) {
+export function GenerateButton({onClick, disabled = false}) {
 
   return React.createElement(
     'div',

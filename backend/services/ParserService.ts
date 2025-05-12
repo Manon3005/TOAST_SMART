@@ -116,19 +116,17 @@ export class ParserService {
     });
   }
 
-  static async deleteNonValidNeighbours(graduatedStudents: { list_id: { [studentId: number]: number[] }[] }): Promise<void> {
-    graduatedStudents.list_id.forEach(entry => {
-      const [studentIdStr, neighboursToRemove] = Object.entries(entry)[0];
-      const studentId = parseInt(studentIdStr, 10);
-  
-      const student = this.allGraduatedStudents.find(student => student.getId() === studentId);
-      if (student) {
+  static async deleteNonValidNeighbours(invalidNeighbours: { [studentId: string]: number[] }): Promise<void> {
+    Object.entries(invalidNeighbours).forEach(([studentId, neighboursToRemove]) => {
+      const student = this.allGraduatedStudents.find(student => student.getId() === parseInt(studentId,10));
+      if (student && Array.isArray(neighboursToRemove)) {
         neighboursToRemove.forEach(neighbourId => {
           student.deleteNeighbour(neighbourId);
         });
       }
     });
   }
+
 
   static async getNeighboursPairing(): Promise<any> {
     const graduatedStudents = this.allGraduatedStudents.map(student => ({
