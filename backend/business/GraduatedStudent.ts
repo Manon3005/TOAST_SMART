@@ -13,6 +13,7 @@ export class GraduatedStudent {
     private neighbours: GraduatedStudent[] = [];
     private neighboursString: string;
     private diet: Diet;
+    private doubleEmailCatched: boolean;
 
     constructor(
         id: number,
@@ -34,6 +35,7 @@ export class GraduatedStudent {
         this.nbNeighbours = nbNeighbours;
         this.diet = Diet.mapDietaryPreference(diet);
         this.ticket = ticket;
+        this.doubleEmailCatched = false;
     }
 
     hasAllInformation(): boolean {
@@ -81,6 +83,18 @@ export class GraduatedStudent {
         return false;
     }
     
+    hasDifferentEmail(email: string): boolean {
+        return this.email !== email;
+    }
+
+    catchDoubleEmail(): void {
+        this.doubleEmailCatched = true;
+    }
+
+    catchedDoubleEmail(): boolean {
+        return this.doubleEmailCatched;
+    }
+
     getGuests(): Guest[] {
         return this.guests;
     }
