@@ -111,6 +111,9 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
   const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
   const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
   execFile(executablePath, [inputPath], (error, stdout, stderr) => {
+  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
+  const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
+  execFile(executablePath, [inputPath], (error, stdout, stderr) => {
     if (error) {
       console.error(`Erreur : ${error.message}`);
       return;
