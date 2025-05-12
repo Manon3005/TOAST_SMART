@@ -243,9 +243,7 @@ export function Home() {
               React.createElement('div', { className: 'nb-guest' },
                 React.createElement('p', null, 'Nombre de convives maximum/table :'),
                 React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
-              ),
-              React.createElement(GenerateButton, {className: 'file-button', onClick: actionGenerer, disabled: !lockedContinue,}),
-          )
+              ),          )
 
         )
         );
