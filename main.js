@@ -42,47 +42,6 @@ async function createWindow() {
   //win.webContents.openDevTools();  // pour debogage
 }
 
-async function csvTreatment(path) {
-  try { 
-    const graduatedStudents = await ParserService.readFileCSV(path);
-    if (Array.isArray(graduatedStudents)) {
-      console.log(graduatedStudents);
-      graduatedStudents.forEach((student) => {
-        console.log(`Student ${student.id}:`);
-        console.log(`  Ticket Number: ${student.ticket}`);
-        console.log(`  LastName: ${student.lastName}`);
-        console.log(`  FirstName: ${student.firstName}`);
-        console.log(`  Email: ${student.email}`);
-        console.log(`  Diet: ${student.diet}`);
-        console.log(`  Number of Guests: ${student.nbGuests}`)
-        if (Array.isArray(student.guests)) {
-          student.guests.forEach((guest) => {
-            console.log(`    Guest ${guest.id}:`);
-            console.log(`      Ticket Number: ${guest.ticket}`);
-            console.log(`      LastName: ${guest.lastName}`);
-            console.log(`      FirstName: ${guest.firstName}`);
-            console.log(`      Diet: ${guest.diet}`);
-          });
-        }
-        console.log(`  Number of Neighbours: ${student.nbNeighbours}`)
-        console.log(`  Neighbours: ${student.neighboursString}`);
-        if (Array.isArray(student.neighbours)) {
-          student.neighbours.forEach((neighbour) => {
-            console.log(`    Neighbour ${neighbour.id}:`);
-            console.log(`      LastName: ${neighbour.lastName}`);
-            console.log(`      FirstName: ${neighbour.firstName}`);
-            console.log(`      Diet: ${neighbour.diet}`);
-          });
-        }
-      });
-    } else {
-      console.error("Le résultat n'est pas un tableau :", graduatedStudents);
-    }
-  } catch (error) {
-    console.error("Erreur lors du traitement du fichier CSV:", error);
-  }
-}
-
 app.whenReady().then(() => {
   createWindow()
   
@@ -111,7 +70,6 @@ ipcMain.handle('dialog:openFile', async () => {
     return null;
   } else {
     const filePath = result.filePaths[0];
-    console.log('Chemin du fichier sélectionné :', filePath);
     globalFilePath = filePath
     return await ParserService.getColumnNamesFromCsvFile(filePath);
   }
@@ -129,10 +87,13 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
     diet: jsonColumnNames.diet,
     wantedTableMates: jsonColumnNames.wantedTableMates,
   });
-  console.log(jsonColumnNames);
   // Call the csv treatment
-  await csvTreatment(globalFilePath);
-  // Receive pairing results from parsing for validation
+  try {
+    await ParserService.readFileCSV(globalFilePath);
+  } catch (error) {
+    return {error : error.message};
+  }
+  // Return pairing results from parsing for validation
   return await ParserService.getNeighboursPairing();
 }); 
 
