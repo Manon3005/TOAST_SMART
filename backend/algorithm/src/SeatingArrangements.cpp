@@ -445,8 +445,7 @@ void SeatingArrangements::printTableGroups() {
     // limit the maximum group size to 5
     int maxGroupSize = 5;
     vector<vector<int>> groups = groupCloseTables(maxGroupSize);
-    
-    cout << "Close Table Groups:" << endl;
+
     int groupCount = 0;
     
     for (size_t i = 0; i < groups.size(); i++) {
