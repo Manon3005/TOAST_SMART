@@ -24,6 +24,13 @@ int main(int argc, char* argv[])
     seatingArrangements.attributeTableToStudent(true);
     seatingArrangements.completeExistingTable();
 
+    // cout << "Seating arrangements : " << endl;
+    // cout << seatingArrangements << endl;
+
+    // 테이블 그룹 출력 (가까이 있어야 할 테이블 리스트)
+    cout << "\nClose Table Groups:" << endl;
+    seatingArrangements.printTableGroups();
+
     ofstream outputFile;
     string fileName = "../resources/seatingArrangements.csv";
     outputFile.open(fileName);

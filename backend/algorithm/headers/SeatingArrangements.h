@@ -34,7 +34,17 @@ class SeatingArrangements
         int nbStudentWithAtLeastOnePossibleDemand();
         int nbStudentWithAtLeastOneDemandSatisfied();
 
+
+        // 새로 추가된 메서드
+        void createTableRelationshipMatrix();
+        vector<vector<int>> groupCloseTables();
+        void printTableGroups();
+
     protected:
+
+        // 새로 추가된 헬퍼 메서드
+        void dfsGroupTables(int tableIndex, vector<bool>& visited, vector<int>& group);
+
 
         Student** studentList;
         int nbStudent;
