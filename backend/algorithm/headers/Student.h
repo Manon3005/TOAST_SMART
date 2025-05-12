@@ -17,6 +17,7 @@ class Student
 
         void addNeighbour(Student* neighbour);
         void print();
+        friend ostream& operator <<(ostream& os, const Student& s);
 
         string getFirstName();
         string getLastName();

@@ -22,6 +22,7 @@ class Table
         int getNbStudent();
         int getNbFilledSeat();
         int getRemainingStudentPreference();
+        string getId();
 
     protected:
         string id;
