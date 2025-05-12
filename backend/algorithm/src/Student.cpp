@@ -65,14 +65,19 @@ Table* Student::getTable() {
 
 ostream& operator <<(ostream& os, const Student& s)
 {
-    os << s.table->getId() << ';' << s.lastName << ';' << s.firstName << ';' << s.nbGuest + 1 << ';';
+    if (s.table) {
+        os << s.table->getId();
+    } else {
+        os << "no table";
+    }
+    os << ';' << s.lastName << ';' << s.firstName << ';' << s.nbGuest + 1 << ';';
     int i;
     for (i = 0 ; i < s.nbNeighbour ; i++)
     {
         if (i > 0) {
             os << ',';
         }
-        os << s.neighbours[i]->getLastName() << ' ' << s.neighbours[i]->getFirstName() << " (" << s.neighbours[i]->getNbGuest() << ')';
+        os << s.neighbours[i]->getLastName() << ' ' << s.neighbours[i]->getFirstName() << " (" << s.neighbours[i]->getNbGuest() + 1 << ')';
     }
     return os;
 }
