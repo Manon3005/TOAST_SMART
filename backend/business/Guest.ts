@@ -15,6 +15,10 @@ export class Guest {
         this.diet = Diet.mapDietaryPreference(diet);
     }
 
+    getId(): number {
+        return this.id;
+    }
+
     getLastName(): string {
         return this.lastName;
     }
