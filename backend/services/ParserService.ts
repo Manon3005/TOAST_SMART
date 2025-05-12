@@ -58,7 +58,7 @@ export class ParserService {
           const tableMates = row[wantedTableMates];
           const specifiedDiet = row[diet]?.trim();
 
-          const gradKey = `${gradFirstName} ${gradLastName}`;
+          const gradKey = `${StringNormalizer.normalizeString(gradFirstName)} ${StringNormalizer.normalizeString(gradLastName)}`;
 
           // Need to take accents and capital letters off for the comparison 
           const guestIsGraduatedStudent = 
@@ -72,8 +72,9 @@ export class ParserService {
               new GraduatedStudent(id, gradLastName, gradFirstName, gradEmail, tableMates)
             );
           }
-
-          if (!guestIsGraduatedStudent) {
+          // If it is a guest OR
+          // If 'has all information' => it's the case when the student's names is put also for the guest's names so it is a guest
+          if (!guestIsGraduatedStudent || graduatedStudents.get(gradKey)!.hasAllInformation()) {
             const id = this.getNextGuestId();
             const guest = new Guest(id, ticketNumber, guestLastName, guestFirstName, specifiedDiet);
             graduatedStudents.get(gradKey)!.addGuest(guest);
