@@ -72,7 +72,7 @@ export function Home() {
         const jsonConflicts = await window.electronAPI.parseCsvFile(jsonColumnNames);
         console.log(jsonConflicts);
         if (jsonConflicts.error){
-          actionReset(true);
+          actionReset(jsonConflicts.error);
         }
         else {
           setTableConflicts(jsonConflicts.graduated_students);
@@ -84,7 +84,7 @@ export function Home() {
         setLockedGenerer(true);
     };
 
-    const actionReset = (error=false) => {
+    const actionReset = (error='') => {
         if (!error){
           setMaxTables(1);
           setMaxGuests(1);      
@@ -92,6 +92,9 @@ export function Home() {
           setErrorFile('');
           setHeadersCSV(['','','','','','','','']);
           setTableData(Array(8).fill(''));
+        }
+        else if (error){
+          alert(error);
         }
         setLockedGenerer(true);
         setLockedContinue(false);
@@ -170,9 +173,7 @@ export function Home() {
                   disabled : false
                 })
               ),
-            
-            React.createElement(ConflictCenter,{disabled : lockedGenerer}),
-            
+                        
           ),
           React.createElement('div', { className: 'right-part' },
             React.createElement('div', { className: 'nb-table' },
