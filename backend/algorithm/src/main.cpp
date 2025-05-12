@@ -28,7 +28,6 @@ int main(int argc, char* argv[])
     string fileName = "../resources/seatingArrangements.csv";
     outputFile.open(fileName);
     outputFile << seatingArrangements;
-
     return 0;
 }
 
