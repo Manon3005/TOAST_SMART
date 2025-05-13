@@ -31,14 +31,16 @@ export class ParserService {
 
   private static allGraduatedStudents : GraduatedStudent[] = [];
   
+  private static graduatedStudents: GraduatedStudentMap = new Map();
+  
   private static columns: ColumnsNames;
 
   private static warnings : Warning[] = [];
 
   static async readFileCSV(csvFilePath: string): Promise<GraduatedStudent[]> {
     const absolutePath = path.resolve(csvFilePath);
-    const graduatedStudents: GraduatedStudentMap = new Map();
     
+    let homonymStudents: GraduatedStudent[] = [];
     return new Promise((resolve, reject) => {
       fs.createReadStream(absolutePath)
         .pipe(parse({ delimiter: ";", columns: true, trim: true, bom: true }))
@@ -70,20 +72,24 @@ export class ParserService {
             StringNormalizer.normalizeString(guestFirstName) === StringNormalizer.normalizeString(gradFirstName) && 
             StringNormalizer.normalizeString(guestLastName) === StringNormalizer.normalizeString(gradLastName);
 
-          if (!graduatedStudents.has(gradKey)) {
+          if (!this.graduatedStudents.has(gradKey)) {
             const id = this.getNextStudentId();
-            graduatedStudents.set(
+            this.graduatedStudents.set(
               gradKey,
               new GraduatedStudent(id, gradLastName, gradFirstName, gradEmail, tableMates)
             );
+          } else {
+            if (guestIsGraduatedStudent && ParserService.hasHomonym(guestFirstName, guestLastName, gradEmail)) {
+              homonymStudents.push(this.graduatedStudents.get(gradKey)!);
+            }
           }
           // If it is a guest OR
           // If 'has all information' => it's the case when the student's names is put also for the guest's names so it is a guest
-          const currentStudent = graduatedStudents.get(gradKey)
+          const currentStudent = this.graduatedStudents.get(gradKey)
           if (!guestIsGraduatedStudent || currentStudent!.hasAllInformation()) {
             const id = this.getNextGuestId();
             const guest = new Guest(id, ticketNumber, guestLastName, guestFirstName, specifiedDiet);
-            graduatedStudents.get(gradKey)!.addGuest(guest);
+            this.graduatedStudents.get(gradKey)!.addGuest(guest);
             if (currentStudent?.hasDifferentEmail(gradEmail) && !currentStudent?.catchedDoubleEmail()){
               currentStudent.catchDoubleEmail();
               this.warnings.push({message: currentStudent.getLastName() + " " +
@@ -96,15 +102,22 @@ export class ParserService {
           }
         })
         .on("end", () => {
-          this.allGraduatedStudents = Array.from(graduatedStudents.values());
+          this.allGraduatedStudents = Array.from(this.graduatedStudents.values());
           // Check if there are missing information = failing of finding during the parsing a student for a group
           const incompleteStudents = this.allGraduatedStudents.filter(student => !student.hasAllInformation());
+          let errorMessages = [];
           if(incompleteStudents.length > 0) {
             const fullNames = incompleteStudents.map(s => `${s.getLastName()} ${s.getFirstName()}`).join(", ");
-            return reject(
-              new Error(`Les étudiants suivants ne sont pas identifiés correctement (probablement une erreur dans le remplissage des noms et prénoms : ` +
-                `jamais un billet avec le même nom et/ou prénom pour le détenteur du billet et l'acheteur) : ${fullNames}`)
-            );
+            errorMessages.push(`Les étudiants suivants ne sont pas identifiés correctement (probablement une erreur dans le remplissage des noms et prénoms : ` +
+                `jamais un billet avec le même nom et/ou prénom pour le détenteur du billet et l'acheteur) : ${fullNames}`);
+          }
+          if(homonymStudents.length > 0) {
+            const fullNames = homonymStudents.map(s => `${s.getLastName()} ${s.getFirstName()}`).join(", ");
+            errorMessages.push(`\nLes étudiants suivants possèdent des homonymes empêchant la bonne exécution du programme` +
+            ` (même nom et prénom mais mail différent): ${fullNames}`);
+          }
+          if(errorMessages.length > 0) {
+            return reject(new Error(errorMessages.join("\n\n")));
           }
           // If no missing information
           this.allGraduatedStudents = NeighboursLinker.linkNeighboursToGraduatedStudents(this.allGraduatedStudents);
@@ -146,5 +159,14 @@ export class ParserService {
 
   private static getNextStudentId(): number {
     return this.studentIdCounter++;
+  }
+
+  private static hasHomonym(firstName: string, lastName: string, mail: string): boolean {
+    for(const student of this.graduatedStudents.values()) {
+      if(student.isHomonym(firstName, lastName, mail)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
