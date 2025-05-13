@@ -1,11 +1,12 @@
 {
+    "option": "less_guest",
     "nb_max_tables": 10,
     "nb_max_by_tables": 11,
     "graduated_students":
     [
         {
             "idStudent": 1,
-            "lastName": "A",
+            "lastName": "A;",
             "firstName": "a",
             "nbOfGuests": 4,
             "nbOfNeighbours": 1,

@@ -40,6 +40,10 @@ export class Table {
         return this.nbStudent;
     }
 
+    getGraduatedStudents(): GraduatedStudent[] {
+        return this.studentList;
+    }
+
     getId(): string {
         return this.id;
     }

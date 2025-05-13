@@ -1,10 +1,12 @@
 import { GraduatedStudent } from "../business/GraduatedStudent";
+import { Guest } from "../business/Guest";
+import { Table } from "../business/Table";
 import { InputColumnsNames } from "../services/ParserService";
 import * as fs from 'fs';
 import * as path from 'path';
 
 export class CsvExporter {
-    static exportCsv(columnNames: InputColumnsNames, graduatedStudents: GraduatedStudent[], filePath: string): void{
+    static exportCleanedInputCsv(columnNames: InputColumnsNames, graduatedStudents: GraduatedStudent[], filePath: string): void{
         const {
             ticket,
             firstName,
@@ -54,6 +56,48 @@ export class CsvExporter {
         }
         const csvContent = csvRows.join('\n');
         fs.writeFileSync(filePath, csvContent, { encoding: 'utf8' });
+    }
+
+    static exportPlacementCsv( tables: Table[], filePath: string): void{
+
+        const csvRows = [];
+        let tableCounter = 1;
+        for (const table of tables) {
+            let peoplecounter = 1;
+            csvRows.push("Table " + tableCounter);
+            for (const student of table.getGraduatedStudents()) {
+                const row = [
+                    "Personne " + peoplecounter,
+                    this.formatGraduatedStudentForCell(student),
+                ];
+                csvRows.push(row.map(CsvExporter.escapeCsvField).join(';'));
+                peoplecounter++;
+                for (const guest of student.getGuests()) {
+                    const rowGuest = [
+                        "Personne " + peoplecounter,
+                        this.formatGuestForCell(guest),
+                    ];
+                    csvRows.push(rowGuest.map(CsvExporter.escapeCsvField).join(';'));
+                    peoplecounter++;
+                }
+            }
+            tableCounter++;
+            csvRows.push("");
+        }
+        const csvContent = csvRows.join('\n');
+        fs.writeFileSync(filePath, csvContent, { encoding: 'utf8' });
+    }
+
+    private static formatGraduatedStudentForCell(student: GraduatedStudent): string {
+        const formatedOutput = student.getFirstName() + " " + student.getLastName() +
+        "(" + student.getDiet() + ")";
+        return formatedOutput;
+    }
+
+    private static formatGuestForCell(guest: Guest): string {
+        const formatedOutput = guest.getFirstName() + " " + guest.getLastName() +
+        "(" + guest.getDiet() + ")";
+        return formatedOutput;
     }
 
     private static escapeCsvField(field: string | number | null | undefined): string {
