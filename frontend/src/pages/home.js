@@ -24,11 +24,13 @@ export function Home() {
     const [conflictStep, setConflictStep] = useState(false);
     const [tablePlanStep, setTablePlanStep] = useState(false);
 
-    const [conflict, setConflict] = useState({})
+    const [conflictCase, setConflictCase] = useState({})
     const [returnConflict, setReturnConflict] = useState("");
     const [conflictManagment, setConflictManagment] = useState(false);
 
     const [finalAddress, setFinalAdress] = useState('');
+
+    const [loadPicture, setLoadPicture] = useState(true);
 
 
     const [isVisible, setIsVisible] = useState(false); 
@@ -63,21 +65,24 @@ export function Home() {
     };
 
     const generateCSVColumn = async () => {
+        setLoadPicture(true);
         const jsonColumnNames = headers.reduce((acc, name, index) => {
             acc[name] = tableData[index];
             return acc;
         }, {});
     
         const jsonConflict = await window.electronAPI.parseCsvFile(jsonColumnNames);
+        console.log(jsonConflict);
+        setLoadPicture(false);
         if (jsonConflict.error){
           actionReset(jsonConflict.error);
         } else {
           if (!jsonConflict.jsonContent || Object.keys(jsonConflict.jsonContent).length === 0) {
             setConflictManagment(true);
-            setConflict(null);
+            setConflictCase(null);
             return;
           }
-          setConflict({
+          setConflictCase({
             ...jsonConflict.jsonContent,
             remainingConflictNumber: jsonConflict.remainingConflictNumber
           });
@@ -137,29 +142,30 @@ export function Home() {
     };
 
     const nextConflict = async (result) => {
+      setLoadPicture(true);
       const exportJson = {
-        id_student: conflict.idStudent,
-        id_neighbour: conflict.conflict.idNeighbour,
+        id_student: conflictCase.idStudent,
+        id_neighbour: conflictCase.conflict.idNeighbour,
         result: result
       };
 
       const jsonTemp = await window.electronAPI.getNextConflict(exportJson);
-
+      setLoadPicture(false);
       if (!jsonTemp.jsonContent || Object.keys(jsonTemp.jsonContent).length === 0) {
         setConflictManagment(true);
-        setConflict(null);
+        setConflictCase(null);
         return;
       }
 
-      setConflict({
+      setConflictCase({
         ...jsonTemp.jsonContent,
         remainingConflictNumber: jsonTemp.remainingConflictNumber
       });
       
-      if (conflict.remainingConflictNumber == 0){
+      if (conflictCase.remainingConflictNumber == 0){
         setConflictManagment(true);
       }
-      console.log(conflict);
+      console.log(conflictCase);
     };
     
     const acceptConflict = () => {
@@ -209,15 +215,16 @@ export function Home() {
               React.createElement(ConflictCenter,{
                 fin : conflictManagment,
                 disabled: lockedGenerer,
-                student: conflict,
+                student: conflictCase,
                 onAccept: acceptConflict,
                 onRefuse: refuseConflict,
-                onFin : actionFinTraitement
+                onFin : actionFinTraitement,
+                load : loadPicture,
               }),
                           
             ),
             React.createElement('div', { className: 'right-part' },
-              React.createElement(StudentGuestDisplay,{student : conflict}),
+              React.createElement(StudentGuestDisplay,{student : conflictCase}),
             )
           ),
           tablePlanStep && React.createElement('div', { className: 'table-plan-step' },

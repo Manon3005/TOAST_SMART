@@ -7,22 +7,32 @@ import '../App.css';
 
 
 
-export function ConflictCenter({ student , onAccept, onRefuse, disabled, fin, onFin }) { 
+export function ConflictCenter({ student , onAccept, onRefuse, disabled, fin, onFin, load }) { 
 
+    if (load){
+        return React.createElement('div', { className: 'loading-container' },
+            React.createElement('img', {
+                src: 'img/loading.gif',
+                alt: 'Chargement...',
+                className: 'spinner'
+            }),
+            React.createElement('p', null, 'Chargement en cours...')
+        );
+    }
+    
+    
     if (fin) {
         return React.createElement('div',null,
             React.createElement('p', null, 'Traitement terminé'),
             React.createElement(FinTraitementButton, {onClick: onFin, disabled:disabled}),
         );  
     }
-    // if (!student) {
-    //     return React.createElement('p', null, 'Aucun conflit à traiter');
-    // }
+
 
     return React.createElement('div', null,
     React.createElement('p', null, `🎓 Diplômé.e : ${student.firstName} ${student.lastName}`),
     React.createElement('p', null, `Préférences initiales : ${student.neighboursEntry}`),
-    //React.createElement('p', null, `👤 Voisin.e proposé.e : ${student.conflict.firstName} ${student.conflict.lastName}`),
+    React.createElement('p', null, `👤 Voisin.e proposé.e : ${student.conflict?.firstName} ${student.conflict?.lastName}`),
     React.createElement('div', null,
         React.createElement('button', { onClick: onAccept }, 'Accepter'),
         React.createElement('button', { onClick: onRefuse }, 'Refuser')
