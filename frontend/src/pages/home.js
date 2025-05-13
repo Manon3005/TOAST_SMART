@@ -279,7 +279,7 @@ export function Home() {
               }),
                           
             ),
-            React.createElement('div', { className: 'right-part' },
+            !conflictManagment && React.createElement('div', { className: 'right-part' },
               React.createElement(StudentGuestDisplay,{student : conflictCase}),
             )
           ),
