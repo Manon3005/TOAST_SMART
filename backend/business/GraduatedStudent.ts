@@ -47,6 +47,13 @@ export class GraduatedStudent {
         return true;
     }
 
+    isHomonym(firstName: string, lastName: string, mail: string): boolean {
+        if(firstName === this.firstName && lastName === this.lastName && mail !== this.email) {
+            return true;
+        }
+        return false;
+    }
+
     setDiet(diet: string): void {
         this.diet = Diet.mapDietaryPreference(diet);;
     }
