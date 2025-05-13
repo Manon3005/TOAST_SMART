@@ -2,6 +2,8 @@ const { ParserService } = require("./backend/dist/backend/services/ParserService
 const { ComputeStatistics } = require("./backend/dist/backend/services/ComputeStatistics.js");
 const { GraduatedStudent } = require("./backend/dist/backend/business/GraduatedStudent.js");
 const { JsonExporter } = require("./backend/dist/backend/utils/JsonExporter.js")
+const { CsvExporter } = require("./backend/dist/backend/utils/CsvExporter.js")
+
 const { ConflictHandler } = require("./backend/dist/backend/services/ConflictHandler.js")
 const path = require('path')
 const { app, BrowserWindow, screen } = require('electron/main');
@@ -18,6 +20,7 @@ appServer.use(express.static(path.join(__dirname, 'frontend', 'public')));
 
 let globalFilePath = "";
 let allGraduatedStudents;
+let maxTables;
 
 async function createWindow() {
 
@@ -113,16 +116,16 @@ ipcMain.handle('dialog:getNextConflict', async (event, jsonSolution) => {
 ipcMain.handle('dialog:generateIntermediateCsv', async () => {
   const directoryPath = path.dirname(globalFilePath);
   const filePath = path.join(directoryPath, "parsing_export.csv");
-  CsvExporter.exportCsv(ParserService.columns, this.allGraduatedStudents, filePath);
+  CsvExporter.exportCsv(ParserService.columns, allGraduatedStudents, filePath);
   return filePath;
 });
 
-ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
-  const jsonData = JSON.parse(jsonDataBrut);
+ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   // Get the json from the front
-  const maxTables = jsonData.max_number_tables;
+  maxTables = jsonData.max_number_tables;
   const maxByTables = jsonData.max_number_by_tables;
   const selectedChoice = jsonData.selected_choice;
+
   // Create the json information for the table plan
   await JsonExporter.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables, selectedChoice, allGraduatedStudents);
   // Launch the generation of the table plan
