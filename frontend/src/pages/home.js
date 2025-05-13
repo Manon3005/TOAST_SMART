@@ -48,8 +48,12 @@ export function Home() {
     const [nameFileDraftPlan, setNameFileDraftPlan] = useState('');
     const [statsJson, setStatsJson] = useState({});
     
+    const [filePath, setPath] = useState('');
 
-    const [filePath, setPath] = useState(''); 
+    const [finTraitementModalOpen, setFinTraitementModalOpen] = useState(false);
+    
+    const openFinTraitementModal = () => setFinTraitementModalOpen(true);
+    const closeFinTraitementModal = () => setFinTraitementModalOpen(false);
 
     const handleSelectionChange = (value) => {
       console.log('Valeur sélectionnée :', value);
@@ -163,7 +167,7 @@ export function Home() {
     const genererIntermediate = async () => {
       try {
         const addressIntermediate = await window.electronAPI.generateIntermediateCsv();
-        alert("Fichier intermédiaire généré à l'emplacement du fichier initial");
+        openFinTraitementModal();
       } catch{
         console.error('Erreur lors de la fin du traitement');
         alert('Erreur lors de la fin du traitement');
@@ -279,6 +283,14 @@ export function Home() {
               React.createElement(StudentGuestDisplay,{student : conflictCase}),
             )
           ),
+
+          finTraitementModalOpen && React.createElement('div', { className: 'modal-overlay', onClick: closeFinTraitementModal },
+            React.createElement('div', { className: 'modal-content' },
+            React.createElement('p', null, 'Fichier intermédiaire généré avec succès à l\'emplacement du fichier initialement importé'),
+            React.createElement('button', { className: 'modal-close-button', onClick: closeFinTraitementModal }, 'Fermer')
+            )
+          ),
+
           tablePlanStep && React.createElement('div', { className: 'table-plan-step' },
             React.createElement('div', {className: 'option-choices'},
               React.createElement('div', { className: 'nb-table' },
