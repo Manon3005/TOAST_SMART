@@ -292,23 +292,36 @@ export function Home() {
           ),
 
           tablePlanStep && React.createElement('div', { className: 'table-plan-step' },
-            React.createElement('div', {className: 'option-choices'},
-              React.createElement('div', { className: 'nb-table' },
-                React.createElement('p', null, 'Nombre de tables maximum:'),
-                React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
+            React.createElement('div', { className: 'left-part' },
+              React.createElement('h2', null, 'Configurer vos tables :'),
+              React.createElement('div', {className: 'option-choices'},
+                React.createElement('div', { className: 'nb-table' },
+                  React.createElement('p', null, 'Nombre de tables maximum:'),
+                  React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
+                ),
+                React.createElement('div', { className: 'nb-guest' },
+                  React.createElement('p', null, 'Nombre de convives maximum/table :'),
+                  React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
+                ), 
+                React.createElement('div', { className: 'radio-button-container' },
+                  React.createElement('h2', 'null', 'Sélectionner le critère de génération du plan de table :'),
+                  React.createElement(ChoiceRadioButton, { onSelectionChange: handleSelectionChange }),
+                ),
               ),
-              React.createElement('div', { className: 'nb-guest' },
-                React.createElement('p', null, 'Nombre de convives maximum/table :'),
-                React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
-              ), 
-              React.createElement(ChoiceRadioButton, { onSelectionChange: handleSelectionChange }),
+              React.createElement('div', { className: 'input-generate-container' },
+                React.createElement('div', { className: 'buttons-row' },
+                    React.createElement(GenerateButton, { onClick: actionGenerer }),
+                    React.createElement(InputPlanButton, { onClick: loadPlanFile, nameFileDraftPlan: nameFileDraftPlan, setName: setName, errorFile: errorFile, setErrorFile: setErrorFile })
+                ),
+                finalAddress && React.createElement('p', null, finalAddress)
+              )
             ),
-            React.createElement(GenerateButton, {className: 'classic-button', onClick : actionGenerer}),
-            finalAddress && React.createElement('p',null,finalAddress),
-            React.createElement(InputPlanButton, {className: 'classic-button', onClick : loadPlanFile, nameFileDraftPlan: nameFileDraftPlan, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}), 
-            React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson }),
-            React.createElement(ExportSolutionButton, {className : 'export-solution-button', onClick: actionExporter,errorExportFile : errorExportFile, 
-              nameExportFile : nameExportFile, disabled: !nameFileDraftPlan && !finalAddress} )   
+            React.createElement('div', { className: 'right-part' },
+              React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson }),
+              React.createElement(ExportSolutionButton, {onClick: actionExporter,errorExportFile : errorExportFile, 
+              nameExportFile : nameExportFile, disabled: !nameFileDraftPlan && !finalAddress} ) 
+            ),
+              
           )
         )
       );

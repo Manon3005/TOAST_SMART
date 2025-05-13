@@ -11,7 +11,7 @@ export function InputPlanButton({disabled, nameFile, setName, errorFile, setErro
     React.createElement('div', { className: 'imput-plan-button-container' },
       React.createElement(
           'button',
-          { onClick: onClick, className: 'imput-plan-button', disabled : disabled},'📁 Importer une solution' ),
+          { onClick: onClick, className: 'classic-button', disabled : disabled},'📁 Importer un brouillon' ),
       
       React.createElement('div', { className: 'file-message-text' },
         errorFile && React.createElement('p', { style: { color: 'red' } }, errorFile),
