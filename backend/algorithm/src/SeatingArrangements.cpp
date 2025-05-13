@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <cstring>
+#include <fstream>
 
 #include "../headers/SeatingArrangements.h"
 
@@ -468,6 +469,57 @@ void SeatingArrangements::printTableGroups() {
     if (groupCount == 0) {
         cout << "No groups with multiple tables found." << endl;
     }
+}
+
+// table groups to CSV
+void SeatingArrangements::exportTableGroupsToCSV(const string& filename) {
+    // maximum group size
+    int maxGroupSize = 5;
+    vector<vector<int>> groups = groupCloseTables(maxGroupSize);
+    
+    ofstream outputFile;
+    outputFile.open(filename);
+    
+    if (!outputFile.is_open()) {
+        cout << "Error: Could not open file " << filename << endl;
+        return;
+    }
+    
+    // CSV header
+    outputFile << "Group,Table,StudentID,LastName,FirstName,NumberOfGuests,Neighbors" << endl;
+    
+    int groupCount = 0;
+    
+    for (size_t i = 0; i < groups.size(); i++) {
+        if (groups[i].size() >= 2) { 
+            groupCount++;
+            
+            for (size_t j = 0; j < groups[i].size(); j++) {
+                int tableIndex = groups[i][j];
+                Table* table = tableList[tableIndex];
+                
+                for (int k = 0; k < table->getNbStudent(); k++) {
+                    Student* student = table->getStudentList()[k];
+                    
+                    outputFile << groupCount << ","
+                              << table->getId() << ","
+                              << "\"" << student->getLastName() << " " << student->getFirstName() << "\"" << ","
+                              << student->getLastName() << ","
+                              << student->getFirstName() << ","
+                              << (student->getNbGuest() + 1) << ",\"";
+                    
+                    for (int n = 0; n < student->getNbNeighbour(); n++) {
+                        if (n > 0) outputFile << ";";
+                        outputFile << student->getNeighbours()[n]->getLastName() << " " << student->getNeighbours()[n]->getFirstName();
+                    }
+                    outputFile << "\"" << endl;
+                }
+            }
+        }
+    }
+    
+    outputFile.close();
+    cout << "Table group information exported to " << filename << endl;
 }
 
 ostream& operator<< (ostream& os,const SeatingArrangements& sA)
