@@ -1,7 +1,7 @@
 {
   "option": "max_demand",
-  "nb_max_tables": 63,
-  "nb_max_by_tables": 11,
+  "nb_max_tables": 1,
+  "nb_max_by_tables": 1,
   "graduated_students": [
     {
       "idStudent": 1,
