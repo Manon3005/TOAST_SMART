@@ -2,7 +2,7 @@ import { writeFile } from 'fs/promises';
 import { GraduatedStudent } from '../business/GraduatedStudent';
 
 export class CsvExporter {
-    static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number, allGraduatedStudents : GraduatedStudent[]): Promise<void> {
+    static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number, selectedChoice: string, allGraduatedStudents : GraduatedStudent[]): Promise<void> {
         const graduatedStudents = allGraduatedStudents.map(student => ({
             idStudent: student.getId(),
             lastName: student.getLastName(),
@@ -12,6 +12,7 @@ export class CsvExporter {
             idNeighbour: student.getNeighboursIds()
         }));
         const jsonContent = {
+            option: selectedChoice,
             nb_max_tables: nbMaxTables,
             nb_max_by_tables: nbMaxByTables,
             graduated_students: graduatedStudents
