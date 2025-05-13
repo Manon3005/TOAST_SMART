@@ -145,14 +145,6 @@ export class ParserService {
   static async importTablesCSV(csvFilePath: string, allGraduatedStudents: GraduatedStudent[]): Promise<Table[]> {
     const absolutePath = path.resolve(csvFilePath);
     const allTables: TableMap = new Map();
-    const graduatedStudents: GraduatedStudentMap = new Map();
-
-    for (const student of allGraduatedStudents) {
-      const gradKey = StringNormalizer.createKeyWithNames(student.getFirstName(), student.getLastName());
-      if (!graduatedStudents.has(gradKey)) {
-        graduatedStudents.set(gradKey,student);
-      }
-    }
 
     return new Promise((resolve, reject) => {
       fs.createReadStream(absolutePath)
@@ -163,7 +155,7 @@ export class ParserService {
           const firstName = row['First Name Buyer'].trim();
           const gradKey = StringNormalizer.createKeyWithNames(firstName, lastName);
 
-          const graduatedStudent = graduatedStudents.get(gradKey);
+          const graduatedStudent = this.graduatedStudents.get(gradKey);
 
           let table = allTables.get(tableId);
           if (!table) {
@@ -213,6 +205,15 @@ export class ParserService {
 
   private static getNextStudentId(): number {
     return this.studentIdCounter++;
+  }
+
+  private static hasHomonym(firstName: string, lastName: string, mail: string): boolean {
+    for(const student of this.graduatedStudents.values()) {
+      if(student.isHomonym(firstName, lastName, mail)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
 
