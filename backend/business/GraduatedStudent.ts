@@ -27,7 +27,7 @@ export class GraduatedStudent {
         nbGuests: number = 0,
         nbNeighbours: number = 0,
         diet: string = "",
-        ticket: string = "",
+        ticket: string = ""
     ) {
         this.id = id;
         this.lastName = lastName;
