@@ -1,5 +1,7 @@
 const { ParserService } = require("./backend/dist/backend/services/ParserService.js");
-const { GraduatedStudent } = require("./backend/dist/backend/business/Objects.js")
+const { GraduatedStudent } = require("./backend/dist/backend/business/GraduatedStudent.js");
+const { JsonExporter } = require("./backend/dist/backend/utils/JsonExporter.js")
+const { ConflictHandler } = require("./backend/dist/backend/utils/CsvExporter.js")
 const path = require('path')
 const { app, BrowserWindow, screen } = require('electron/main');
 const { Parser } = require("csv-parse");
@@ -113,7 +115,7 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
   const maxTables = jsonData.max_number_tables;
   const maxByTables = jsonData.max_number_by_tables;
   // Create the json information for the table plan
-  await ParserService.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables);
+  await JsonExporter.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables, allGraduatedStudents);
   // Launch the generation of the table plan
   const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
   const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
