@@ -20,6 +20,10 @@ export class ConflictHandler {
                         idNeighbour: firstConflict.getId(),
                         lastName: firstConflict.getLastName(),
                         firstName: firstConflict.getFirstName(),
+                        guests: firstConflict.getGuests().map(guest => ({
+                            guestLastName: guest.getLastName(),
+                            guestFirstName: guest.getFirstName(),
+                        }))
                     },
                     processedNeighbours: student.getNeighbours().map(neighbour => ({
                         neighbourId: neighbour.getId(),
