@@ -11,4 +11,9 @@ export class StringNormalizer {
             .replace(/[^a-zA-Z0-9]/g, "")
             .toLowerCase(); 
     }
+
+    static createKeyWithNames(firstName: string, lastName: string): string {
+        return StringNormalizer.normalizeString(firstName) + " " +
+        StringNormalizer.normalizeString(lastName)
+    }
 }

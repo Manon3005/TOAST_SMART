@@ -81,7 +81,7 @@ ipcMain.handle('dialog:openFile', async () => {
 
 ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   // Set the column names
-  ParserService.setColumnsNames({
+  ParserService.setInputColumnsNames({
     ticket: jsonColumnNames.ticket,
     firstName: jsonColumnNames.firstName,
     lastName: jsonColumnNames.lastName,
@@ -93,7 +93,7 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   });
   // Call the csv treatment
   try {
-    allGraduatedStudents = await ParserService.readFileCSV(globalFilePath);
+    allGraduatedStudents = await ParserService.readRawFileCSV(globalFilePath);
   } catch (error) {
     return {error : error.message};
   }
