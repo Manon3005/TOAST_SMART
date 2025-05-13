@@ -30,6 +30,8 @@ export function Home() {
 
     const [finalAddress, setFinalAdress] = useState('');
 
+    const [loadPicture, setLoadPicture] = useState(true);
+
 
     const [isVisible, setIsVisible] = useState(false); 
     
@@ -63,6 +65,7 @@ export function Home() {
     };
 
     const generateCSVColumn = async () => {
+        setLoadPicture(true);
         const jsonColumnNames = headers.reduce((acc, name, index) => {
             acc[name] = tableData[index];
             return acc;
@@ -70,6 +73,7 @@ export function Home() {
     
         const jsonConflict = await window.electronAPI.parseCsvFile(jsonColumnNames);
         console.log(jsonConflict);
+        setLoadPicture(false);
         if (jsonConflict.error){
           actionReset(jsonConflict.error);
         } else {
@@ -138,6 +142,7 @@ export function Home() {
     };
 
     const nextConflict = async (result) => {
+      setLoadPicture(true);
       const exportJson = {
         id_student: conflictCase.idStudent,
         id_neighbour: conflictCase.conflict.idNeighbour,
@@ -145,7 +150,7 @@ export function Home() {
       };
 
       const jsonTemp = await window.electronAPI.getNextConflict(exportJson);
-
+      setLoadPicture(false);
       if (!jsonTemp.jsonContent || Object.keys(jsonTemp.jsonContent).length === 0) {
         setConflictManagment(true);
         setConflictCase(null);
@@ -213,7 +218,8 @@ export function Home() {
                 student: conflictCase,
                 onAccept: acceptConflict,
                 onRefuse: refuseConflict,
-                onFin : actionFinTraitement
+                onFin : actionFinTraitement,
+                load : loadPicture,
               }),
                           
             ),
