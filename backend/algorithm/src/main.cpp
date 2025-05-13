@@ -20,16 +20,80 @@ int main(int argc, char* argv[])
     cout << "CSV Path : " << outputFilePath << endl;
 
     DataParser dataParser = DataParser(jsonFilePath);
-
-    Student** studentList = dataParser.getStudentList();
-
-    SeatingArrangements seatingArrangements = SeatingArrangements(studentList, dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
-    seatingArrangements.attributeTableToStudent(true);
-    seatingArrangements.completeExistingTable();
+    string option = dataParser.getOption();
 
     ofstream outputFile;
     outputFile.open(outputFilePath);
-    outputFile << seatingArrangements;
+
+    SeatingArrangements sA = SeatingArrangements(dataParser.getStudentList(), dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
+    if (option == "min_table" || option == "max_demand") {
+        SeatingArrangements sA1 = SeatingArrangements(dataParser.getStudentList(), dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
+        sA1.attributeTableToStudent(true, false, false);
+        sA1.completeExistingTable();
+        int nbTable1 = sA1.getNbUsedTable();
+        int nbDemand1 = sA1.nbSatisfiedDemand();
+
+        
+        SeatingArrangements sA2 = SeatingArrangements(dataParser.getStudentList(), dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
+        sA2.attributeTableToStudent(false, true, false);
+        sA2.completeExistingTable();
+        int nbTable2 = sA2.getNbUsedTable();
+        int nbDemand2 = sA2.nbSatisfiedDemand();
+
+        SeatingArrangements sA3 = SeatingArrangements(dataParser.getStudentList(), dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
+        sA3.attributeTableToStudent(false, false, true);
+        sA3.completeExistingTable();
+        int nbTable3 = sA3.getNbUsedTable();
+        int nbDemand3 = sA3.nbSatisfiedDemand();
+
+        SeatingArrangements sA4 = SeatingArrangements(dataParser.getStudentList(), dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
+        sA4.attributeTableToStudent(false, false, false);
+        sA4.completeExistingTable();
+        int nbTable4 = sA4.getNbUsedTable();
+        int nbDemand4 = sA4.nbSatisfiedDemand();
+        
+        SeatingArrangements sAfinal = SeatingArrangements(dataParser.getStudentList(), dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
+        if (option == "min_table") {
+            if (nbTable1 <= nbTable2 && nbTable1 <= nbTable3 && nbTable1 <= nbTable4) {
+                sAfinal.attributeTableToStudent(true, false, false);
+                sAfinal.completeExistingTable();    
+            } else if (nbTable2 <= nbTable3 && nbTable2 <= nbTable4) {
+                sAfinal.attributeTableToStudent(false, true, false);
+                sAfinal.completeExistingTable();  
+            } else if (nbTable3 <= nbTable4) {
+                sAfinal.attributeTableToStudent(false, false, true);
+                sAfinal.completeExistingTable();  
+            } else {
+                sAfinal.attributeTableToStudent(false, false, false);
+                sAfinal.completeExistingTable();  
+            }
+        } else {
+            if (nbDemand1 >= nbDemand2 && nbDemand1 >= nbDemand3 && nbDemand1 >= nbDemand4) {
+                sAfinal.attributeTableToStudent(true, false, false);
+                sAfinal.completeExistingTable();    
+            } else if (nbDemand2 >= nbDemand3 && nbDemand2 >= nbDemand4) {
+                sAfinal.attributeTableToStudent(false, true, false);
+                sAfinal.completeExistingTable();  
+            } else if (nbDemand3 >= nbDemand4) {
+                sAfinal.attributeTableToStudent(false, false, true);
+                sAfinal.completeExistingTable();  
+            } else {
+                sAfinal.attributeTableToStudent(false, false, false);
+                sAfinal.completeExistingTable();  
+            }
+        }
+        outputFile << sAfinal;
+    } else if (option == "max_student") {
+        sA.attributeTableToStudent(true, false, false);
+        sA.completeExistingTable();
+        outputFile << sA;
+    } else if (option == "less_guest") {
+        sA.attributeTableToStudent(false, true, false);
+        sA.completeExistingTable();
+        outputFile << sA;
+    } else {
+        return 1;
+    }
     return 0;
 }
 
