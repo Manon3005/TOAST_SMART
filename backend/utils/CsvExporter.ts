@@ -82,6 +82,7 @@ export class CsvExporter {
                 }
             }
             tableCounter++;
+            csvRows.push("");
         }
         const csvContent = csvRows.join('\n');
         fs.writeFileSync(filePath, csvContent, { encoding: 'utf8' });
