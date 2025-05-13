@@ -39,6 +39,9 @@ export function Home() {
 
     const [loadPicture, setLoadPicture] = useState(true);
 
+    const [nameExportFile, setNameExportFile] = useState('');
+    const [errorExportFile, setErrorExportFile] = useState('');
+
 
     const [isVisible, setIsVisible] = useState(false); 
     const [selectedChoice, setSelectedChoice] = useState('max_demand');
@@ -75,7 +78,9 @@ export function Home() {
     const loadPlanFile = async () => {
         try {
             const jsonResult = await window.electronAPI.getStatistics();
-            setStatsJson(jsonResult);
+            setStatsJson(jsonResult.statsJson);
+            setFinalAdress(jsonResult.address.split(/[/\\]/).pop())
+
             
         } catch (err) {
           alert("Problème configuration du fichier")
@@ -90,6 +95,19 @@ export function Home() {
         setConflictStep(true);
         generateCSVColumn();
     };
+
+    const actionExporter = () => {
+      exporterCSV();
+    }
+
+    const exporterCSV = async () => {
+      try{
+        const path = await window.electronAPI.exportTablesCsv();
+        setNameExportFile(path.split(/[/\\]/).pop());
+      } catch {
+        alert("Problème fichier export")
+      }
+    }
 
     const generateCSVColumn = async () => {
         setLoadPicture(true);
@@ -126,7 +144,7 @@ export function Home() {
 
       try {
         const jsonResult = await window.electronAPI.generateTablePlan(exportJson);
-        setFinalAdress(jsonResult.address);
+        setFinalAdress(jsonResult.address.split(/[/\\]/).pop());
         setStatsJson(jsonResult.statsJson);
       }
       catch (error) {
@@ -145,7 +163,7 @@ export function Home() {
     const genererIntermediate = async () => {
       try {
         const addressIntermediate = await window.electronAPI.generateIntermediateCsv();
-        alert(addressIntermediate);
+        alert("Fichier intermédiaire généré à l'emplacement du fichier initial");
       } catch{
         console.error('Erreur lors de la fin du traitement');
         alert('Erreur lors de la fin du traitement');
@@ -274,10 +292,11 @@ export function Home() {
               React.createElement(ChoiceRadioButton, { onSelectionChange: handleSelectionChange }),
             ),
             React.createElement(GenerateButton, {className: 'file-button', onClick : actionGenerer}),
-            finalAddress && React.createElement('p', null, finalAddress),
+            finalAddress && React.createElement('p',null,finalAddress),
             React.createElement(InputPlanButton, {className: 'file-button', onClick : loadPlanFile, nameFileDraftPlan: nameFileDraftPlan, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}), 
             React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson }),
-            React.createElement(ExportSolutionButton, {className : 'export-solution-button', onClick: () => { alert('Export de la solution')},disabled: !nameFileDraftPlan && !finalAddress} )   
+            React.createElement(ExportSolutionButton, {className : 'export-solution-button', onClick: actionExporter,errorExportFile : errorExportFile, 
+              nameExportFile : nameExportFile, disabled: !nameFileDraftPlan && !finalAddress} )   
           )
         )
       );

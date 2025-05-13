@@ -12,6 +12,8 @@ const { ipcMain, dialog } = require('electron');
 const util = require('util');
 const execFile = util.promisify(require('child_process').execFile);
 
+const { shell } = require('electron');
+
 // Create the express server in order to use the static files in the frontend public folder
 const express = require('express');
 const { json } = require("stream/consumers");
@@ -176,12 +178,19 @@ ipcMain.handle('dialog:getStatistics', async () => {
     const filePath = result.filePaths[0];
     globalFilePath = filePath;
     allTables = await ParserService.importTablesCSV(filePath, allGraduatedStudents)
-    return await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
-  }
+    const statsJson = await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
+    return { 
+      address: filePath,
+      statsJson 
+    }
+  };
 });
 
 ipcMain.handle('dialog:exportTablesCsv', async () => {
   const outputPath = path.dirname(globalFilePath)+"\\final_repartition.csv";
   CsvExporter.exportPlacementCsv(allTables, outputPath);
+
+  await shell.openPath(outputPath);
+
   return outputPath;
 });
