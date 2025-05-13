@@ -142,7 +142,7 @@ export class ParserService {
   }
 
   static async importTablesCSV(csvFilePath: string, allGraduatedStudents: GraduatedStudent[]): Promise<Table[]> {
-    const absolutePath = path.resolve(csvFilePath);
+    const absolutePath = csvFilePath;
     const allTables: TableMap = new Map();
     const graduatedStudents: GraduatedStudentMap = new Map();
 

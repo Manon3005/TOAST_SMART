@@ -76,6 +76,7 @@ export function Home() {
         try {
             const jsonResult = await window.electronAPI.getStatistics();
             setStatsJson(jsonResult);
+            
         } catch (err) {
           alert("Problème configuration du fichier")
       }
@@ -146,7 +147,7 @@ export function Home() {
         const addressIntermediate = await window.electronAPI.generateIntermediateCsv();
         alert(addressIntermediate);
       } catch{
-        console.error('Erreur lors de la fin du traitement', error);
+        console.error('Erreur lors de la fin du traitement');
         alert('Erreur lors de la fin du traitement');
       }
       
@@ -279,5 +280,5 @@ export function Home() {
             React.createElement(ExportSolutionButton, {className : 'export-solution-button', onClick: () => { alert('Export de la solution')},disabled: !nameFileDraftPlan && !finalAddress} )   
           )
         )
-        );
+      );
 }
