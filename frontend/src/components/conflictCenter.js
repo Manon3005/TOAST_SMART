@@ -23,7 +23,7 @@ export function ConflictCenter({ student , onAccept, onRefuse, disabled, fin, on
     
     if (fin) {
         return React.createElement('div',null,
-            React.createElement('p', null, 'Traitement terminé'),
+            React.createElement('h3', null, 'Traitement terminé'),
             React.createElement(FinTraitementButton, {onClick: onFin, disabled:disabled}),
         );  
     }
