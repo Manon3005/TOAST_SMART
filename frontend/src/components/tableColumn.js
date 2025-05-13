@@ -27,9 +27,19 @@ export function TableColumn({ tableData, setTableData, disabled, headersCSV }) {
             }
           },
           React.createElement('option', { value: '' }, '-- Sélectionnez --'),
-          ...headersCSV.map((opt, j) =>
-            opt && React.createElement('option', { key: j, value: opt }, opt)
-          )
+          ...headersCSV.map((opt, j) => {
+            // Vérifie si cette option est déjà sélectionnée ailleurs
+            const isSelectedElsewhere = tableData.includes(opt) && tableData[i] !== opt;
+            return opt && React.createElement(
+              'option',
+              {
+                key: j,
+                value: opt,
+                disabled: isSelectedElsewhere
+              },
+              opt
+            );
+          })
         )
       )
     )
