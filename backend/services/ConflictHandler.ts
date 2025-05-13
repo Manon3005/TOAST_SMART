@@ -21,7 +21,11 @@ export class ConflictHandler {
                         neighbourFirstName: neighbour.getFirstName(),
                         neighbourLastName: neighbour.getLastName()
                     })),
-                }
+                    guests: student.getGuests().map(guest => ({
+                        guestFirstName: guest.getFirstName(),
+                        guestLastName: guest.getLastName(),
+                    }))
+                };
             }
         }
         return {};
