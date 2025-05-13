@@ -68,12 +68,20 @@ export class GraduatedStudent {
     }
 
     addNeighbour(student: GraduatedStudent): void {
-        this.nbNeighbours++;
-        this.neighbours.push(student);
+        if(!this.isNeighboursAlreadyPresent(student)) {
+            this.nbNeighbours++;
+            this.neighbours.push(student);
+            if(this.isPotentialNeighboursAlreadyPresent(student)) {
+                this.removePotentialNeighbour(student.getId());
+            }
+        }
+        
     }
 
     addPotentialNeighbour(student: GraduatedStudent): void {
-        this.potentialNeighbours.push(student);
+        if(!this.isNeighboursAlreadyPresent(student) && !this.isPotentialNeighboursAlreadyPresent(student)) {
+            this.potentialNeighbours.push(student);
+        }
     }
 
     removePotentialNeighbour(id: number): void {
@@ -92,6 +100,10 @@ export class GraduatedStudent {
 
     isNeighboursAlreadyPresent(potentialNeighbour: GraduatedStudent): boolean {
         return this.neighbours.some(neighbour => neighbour.getId() == potentialNeighbour.getId());
+    }
+
+    isPotentialNeighboursAlreadyPresent(potentialNeighbour: GraduatedStudent): boolean {
+        return this.potentialNeighbours.some(neighbour => neighbour.getId() == potentialNeighbour.getId());
     }
 
     isSameStudent(student: GraduatedStudent): boolean {
