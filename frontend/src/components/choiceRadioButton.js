@@ -14,57 +14,25 @@ export function ChoiceRadioButton({ onSelectionChange }) {
   return React.createElement(
     'div',
     { className: 'radio-group' },
-    React.createElement(
-      'p',
-      null,
-      React.createElement('label', null,
+    ['min_table', 'max_demand', 'max_student', 'less_guest'].map((value, index) => {
+      const labels = {
+        'min_table': 'Minimiser le nombre de tables',
+        'max_demand': 'Favoriser le nombre de demandes satisfaites',
+        'max_student': 'Favoriser le nombre d\'étudiants satisfaits',
+        'less_guest': 'Satisfaire en priorité les étudiants avec le moins d\'invités',
+      };
+      return React.createElement(
+        'div',
+        { key: index, className: 'radio-option' },
         React.createElement('input', {
           type: 'radio',
-          value: 'min_table',
-          checked: selectedValue === 'min_table',
+          value: value,
+          checked: selectedValue === value,
           onChange: handleChange,
+          id: value,
         }),
-        'Minimiser le nombre de tables'
-      )
-    ),
-    React.createElement(
-      'p',
-      null,
-      React.createElement('label', null,
-        React.createElement('input', {
-          type: 'radio',
-          value: 'max_demand',
-          checked: selectedValue === 'max_demand',
-          onChange: handleChange,
-        }),
-        'Favoriser le nombre de demandes satisfaites'
-      )
-    ),
-    React.createElement(
-      'p',
-      null,
-      React.createElement('label', null,
-        React.createElement('input', {
-          type: 'radio',
-          value: 'max_student',
-          checked: selectedValue === 'max_student',
-          onChange: handleChange,
-        }),
-        'Favoriser le nombre d\'étudiants satisfaits' 
-      )
-    ),
-    React.createElement(
-      'p',
-      null,
-      React.createElement('label', null,
-        React.createElement('input', {
-          type: 'radio',
-          value: 'less_guest',
-          checked: selectedValue === 'less_guest',
-          onChange: handleChange,
-        }),
-        'Satisfaire en priorité les étudiants avec le moins d\'invités'
-      )
-    )
+        React.createElement('label', { htmlFor: value }, labels[value])
+      );
+    })
   );
 }
