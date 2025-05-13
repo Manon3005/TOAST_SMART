@@ -18,11 +18,11 @@ export function StatCenter({ nameFile, finalAddress, statsJson }) {
         { className: 'stats-center' },
         React.createElement('h3', null, 'Statistiques'),
         React.createElement('div', null,
-            React.createElement('p', null, 'Pourcentage d\'étudiants satisfaits : '),
-            React.createElement('p', null, 'Nombre de demandes possibles : '),
-            React.createElement('p', null, 'Nombre de demandes satisfaites : '),
-            React.createElement('p', null, 'Nombre de tables utilisées : '),
-            React.createElement('p', null, 'Nombre moyen de convives par table : ')
+            React.createElement('p', null, `Pourcentage d\'étudiants satisfaits : ${statsJson.percentage_student_satisfied} `),
+            React.createElement('p', null, `Nombre de demandes possibles : ${statsJson.nb_possible_demand} `),
+            React.createElement('p', null, `Nombre de demandes satisfaites : ${statsJson.nb_satisfied_demand} `),
+            React.createElement('p', null, `Nombre de tables utilisées : ${statsJson.nb_used_tables} `),
+            React.createElement('p', null, `Nombre moyen de convives par table : ${statsJson.mean_guest_by_table} `)
         )
     );
     }

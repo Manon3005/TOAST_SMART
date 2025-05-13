@@ -43,7 +43,7 @@ export function Home() {
     const [isVisible, setIsVisible] = useState(false); 
     const [selectedChoice, setSelectedChoice] = useState('max_demand');
     const [nameFileDraftPlan, setNameFileDraftPlan] = useState('');
-    const [statsJson, setStatsJson] = useState(false);
+    const [statsJson, setStatsJson] = useState({});
     
 
     const [filePath, setPath] = useState(''); 
@@ -68,8 +68,19 @@ export function Home() {
         } catch (err) {
             setErrorFile('Erreur chargement du fichier');
             setPath('');
-    }
-  };
+      }
+    };
+
+
+    const loadPlanFile = async () => {
+        try {
+            const jsonResult = await window.electronAPI.getStatistics();
+            setStatsJson(jsonResult);
+        } catch (err) {
+          alert("Problème configuration du fichier")
+      }
+    };
+  
 
 
     const actionContinue = () => {
@@ -112,17 +123,10 @@ export function Home() {
         selected_choice: selectedChoice,
       };
 
-      const jsonGenerate = JSON.stringify(exportJson);
-      console.log(jsonGenerate);
       try {
-        const address = await window.electronAPI.generateTablePlan(jsonGenerate);
-        setFinalAdress(address);
-        if (address.error){
-          actionReset(address.error);
-        }
-        else {
-          alert('Plan de table généré avec succès !');
-        }
+        const jsonResult = await window.electronAPI.generateTablePlan(exportJson);
+        setFinalAdress(jsonResult.address);
+        setStatsJson(jsonResult.statsJson);
       }
       catch (error) {
         console.error('Erreur lors de la génération du plan de table :', error);
@@ -138,8 +142,15 @@ export function Home() {
     }
 
     const genererIntermediate = async () => {
+      try {
+        const addressIntermediate = await window.electronAPI.generateIntermediateCsv();
+        alert(addressIntermediate);
+      } catch{
+        console.error('Erreur lors de la fin du traitement', error);
+        alert('Erreur lors de la fin du traitement');
+      }
+      
 
-      const addressIntermediate = await window.electronAPI.generateIntermediateCsv();
     }
 
     const actionGenerer = () => {
@@ -263,7 +274,7 @@ export function Home() {
             ),
             React.createElement(GenerateButton, {className: 'file-button', onClick : actionGenerer}),
             finalAddress && React.createElement('p', null, finalAddress),
-            React.createElement(InputPlanButton, {className: 'file-button', onClick : loadFile, nameFileDraftPlan: nameFileDraftPlan, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}), 
+            React.createElement(InputPlanButton, {className: 'file-button', onClick : loadPlanFile, nameFileDraftPlan: nameFileDraftPlan, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}), 
             React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson }),
             React.createElement(ExportSolutionButton, {className : 'export-solution-button', onClick: () => { alert('Export de la solution')},disabled: !nameFileDraftPlan && !finalAddress} )   
           )
