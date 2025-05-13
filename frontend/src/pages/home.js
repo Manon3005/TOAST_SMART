@@ -5,6 +5,13 @@ import { ContinueButton } from "../components/continueButton";
 import { TableColumn } from "../components/tableColumn";
 import { ConflictCenter } from "../components/conflictCenter";
 import { StudentGuestDisplay } from "../components/studentGuestDisplay";
+import { ExportSolutionButton } from "../components/exportSolutionButton";
+import { StatCenter } from "../components/statCenter";
+import { InputPlanButton } from "../components/inputPlanButton";
+import { ChoiceRadioButton } from "../components/choiceRadioButton";
+import { GenerateButton } from "../components/generateButton";
+
+
 import React, { useState, useEffect  } from 'react';
 import '../App.css';
 
@@ -32,11 +39,22 @@ export function Home() {
 
     const [loadPicture, setLoadPicture] = useState(true);
 
+    const [nameExportFile, setNameExportFile] = useState('');
+    const [errorExportFile, setErrorExportFile] = useState('');
+
 
     const [isVisible, setIsVisible] = useState(false); 
+    const [selectedChoice, setSelectedChoice] = useState('max_demand');
+    const [nameFileDraftPlan, setNameFileDraftPlan] = useState('');
+    const [statsJson, setStatsJson] = useState({});
     
 
     const [filePath, setPath] = useState(''); 
+
+    const handleSelectionChange = (value) => {
+      console.log('Valeur sélectionnée :', value);
+      setSelectedChoice(value);
+    };
     
     const loadFile = async () => {
         try {
@@ -53,8 +71,22 @@ export function Home() {
         } catch (err) {
             setErrorFile('Erreur chargement du fichier');
             setPath('');
-    }
-  };
+      }
+    };
+
+
+    const loadPlanFile = async () => {
+        try {
+            const jsonResult = await window.electronAPI.getStatistics();
+            setStatsJson(jsonResult.statsJson);
+            setFinalAdress(jsonResult.address.split(/[/\\]/).pop())
+
+            
+        } catch (err) {
+          alert("Problème configuration du fichier")
+      }
+    };
+  
 
 
     const actionContinue = () => {
@@ -63,6 +95,19 @@ export function Home() {
         setConflictStep(true);
         generateCSVColumn();
     };
+
+    const actionExporter = () => {
+      exporterCSV();
+    }
+
+    const exporterCSV = async () => {
+      try{
+        const path = await window.electronAPI.exportTablesCsv();
+        setNameExportFile(path.split(/[/\\]/).pop());
+      } catch {
+        alert("Problème fichier export")
+      }
+    }
 
     const generateCSVColumn = async () => {
         setLoadPicture(true);
@@ -94,19 +139,13 @@ export function Home() {
       const exportJson = {
         max_number_tables: maxTables,
         max_number_by_tables: maxGuests,
+        selected_choice: selectedChoice,
       };
 
-      const jsonGenerate = JSON.stringify(exportJson);
-      console.log(jsonGenerate);
       try {
-        const address = await window.electronAPI.generateTablePlan(jsonGenerate);
-        setFinalAdress(address);
-        if (address.error){
-          actionReset(address.error);
-        }
-        else {
-          alert('Plan de table généré avec succès !');
-        }
+        const jsonResult = await window.electronAPI.generateTablePlan(exportJson);
+        setFinalAdress(jsonResult.address.split(/[/\\]/).pop());
+        setStatsJson(jsonResult.statsJson);
       }
       catch (error) {
         console.error('Erreur lors de la génération du plan de table :', error);
@@ -118,6 +157,19 @@ export function Home() {
     const actionFinTraitement = () => {
       setConflictStep(false);
       setTablePlanStep(true);
+      genererIntermediate();
+    }
+
+    const genererIntermediate = async () => {
+      try {
+        const addressIntermediate = await window.electronAPI.generateIntermediateCsv();
+        alert("Fichier intermédiaire généré à l'emplacement du fichier initial");
+      } catch{
+        console.error('Erreur lors de la fin du traitement');
+        alert('Erreur lors de la fin du traitement');
+      }
+      
+
     }
 
     const actionGenerer = () => {
@@ -228,15 +280,24 @@ export function Home() {
             )
           ),
           tablePlanStep && React.createElement('div', { className: 'table-plan-step' },
-            React.createElement('div', { className: 'nb-table' },
+            React.createElement('div', {className: 'option-choices'},
+              React.createElement('div', { className: 'nb-table' },
                 React.createElement('p', null, 'Nombre de tables maximum:'),
                 React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
               ),
               React.createElement('div', { className: 'nb-guest' },
                 React.createElement('p', null, 'Nombre de convives maximum/table :'),
                 React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
-              ),          )
-
+              ), 
+              React.createElement(ChoiceRadioButton, { onSelectionChange: handleSelectionChange }),
+            ),
+            React.createElement(GenerateButton, {className: 'file-button', onClick : actionGenerer}),
+            finalAddress && React.createElement('p',null,finalAddress),
+            React.createElement(InputPlanButton, {className: 'file-button', onClick : loadPlanFile, nameFileDraftPlan: nameFileDraftPlan, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}), 
+            React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson }),
+            React.createElement(ExportSolutionButton, {className : 'export-solution-button', onClick: actionExporter,errorExportFile : errorExportFile, 
+              nameExportFile : nameExportFile, disabled: !nameFileDraftPlan && !finalAddress} )   
+          )
         )
-        );
+      );
 }
