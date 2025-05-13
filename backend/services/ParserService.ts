@@ -135,7 +135,7 @@ export class ParserService {
           }
           // If no missing information
           this.allGraduatedStudents = NeighboursLinker.linkNeighboursToGraduatedStudents(this.allGraduatedStudents);
-          CsvExporter.exportCsv(ParserService.columns, this.allGraduatedStudents, "./backend/resources/parsing_export.csv");          
+          CsvExporter.exportCleanedInputCsv(ParserService.columns, this.allGraduatedStudents, "./backend/resources/parsing_export.csv");          
           resolve(this.allGraduatedStudents);
         })
         .on("error", reject);
