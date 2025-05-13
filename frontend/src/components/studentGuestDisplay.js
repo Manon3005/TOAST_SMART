@@ -3,8 +3,8 @@ import '../App.css';
 
 
 
-export function StudentGuestDisplay({conflict}) {
-  if (!conflict || Object.keys(conflict).length === 0) {
+export function StudentGuestDisplay({student}) {
+  if (!student || Object.keys(student).length === 0) {
     return null; // ou un message du type "Aucune donnée"
   }
 
@@ -27,17 +27,17 @@ export function StudentGuestDisplay({conflict}) {
   return React.createElement('div', { className: "student-container" }, [
     React.createElement('h2', { className: "student-title" }, "Résumé de l'étudiant"),
 
-    paragraph('Nom', conflict.lastName),
-    paragraph('Prénom', conflict.firstName),
+    paragraph('Nom', student.lastName),
+    paragraph('Prénom', student.firstName),
 
     sectionTitle('Invités'),
-    Array.isArray(conflict.guests) && conflict.guests.length > 0
-      ? listItems(conflict.guests, g => `${g.guestFirstName} ${g.guestLastName}`)
+    Array.isArray(student.guests) && student.guests.length > 0
+      ? listItems(student.guests, g => `${g.guestFirstName} ${g.guestLastName}`)
       : React.createElement('p', { className: "empty-msg" }, 'Aucun invité 😂🫵.'),
 
     sectionTitle('Voisins'),
-    Array.isArray(conflict.processedNeighbours) && conflict.processedNeighbours.length > 0
-      ? listItems(conflict.processedNeighbours, n => `${n.neighbourFirstName} ${n.neighbourLastName}`)
+    Array.isArray(student.processedNeighbours) && student.processedNeighbours.length > 0
+      ? listItems(student.processedNeighbours, n => `${n.neighbourFirstName} ${n.neighbourLastName}`)
       : React.createElement('p', { className: "empty-msg" }, 'Aucun voisin.')
   ]);
 

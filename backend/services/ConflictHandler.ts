@@ -33,7 +33,7 @@ export class ConflictHandler {
                 };
             }
         }
-        return { remainingConflictNumber: conflictNumber, jsonContent };
+        return { remainingConflictNumber: conflictNumber, jsonContent : jsonContent };
     }
 
     static async resolveConflict(id_student: number, id_neighbour: number, result: string, allGraduatedStudents: GraduatedStudent[]):  Promise<void> {
