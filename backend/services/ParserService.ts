@@ -214,7 +214,7 @@ export class ParserService {
   private static getNextStudentId(): number {
     return this.studentIdCounter++;
   }
-  
+
   private static hasHomonym(firstName: string, lastName: string, mail: string): boolean {
     for(const student of this.graduatedStudents.values()) {
       if(student.isHomonym(firstName, lastName, mail)) {
@@ -224,3 +224,4 @@ export class ParserService {
     return false;
   }
 }
+
