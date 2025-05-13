@@ -2,15 +2,20 @@ import { GraduatedStudent } from "../business/GraduatedStudent";
 
 export class ConflictHandler {
     static async getNextConflict(allGraduatedStudents: GraduatedStudent[]): Promise<any> {
+        let conflictNumber = 0;
+        let find = false;
+        let jsonContent = {};
         for(const student of allGraduatedStudents) {
             const potentialNeighbours = student.getPotentialNeighbours();
-            if (potentialNeighbours) {
+            conflictNumber += potentialNeighbours.length;
+            if (potentialNeighbours.length > 0 && !find) {
+                find = true;
                 const firstConflict = potentialNeighbours[0];
-                return {
+                jsonContent = {
                     idStudent: student.getId(),
                     lastName: student.getLastName(),
                     firstName: student.getFirstName(),
-                    preferedNeighbours: student.getNeighboursString(),
+                    neighboursEntry: student.getNeighboursString(),
                     conflict: {
                         idNeighbour: firstConflict.getId(),
                         lastName: firstConflict.getLastName(),
@@ -28,7 +33,7 @@ export class ConflictHandler {
                 };
             }
         }
-        return {};
+        return { remainingConflictNumber: conflictNumber, jsonContent };
     }
 
     static async resolveConflict(id_student: number, id_neighbour: number, result: string, allGraduatedStudents: GraduatedStudent[]):  Promise<void> {
