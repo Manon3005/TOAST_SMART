@@ -1,10 +1,10 @@
 import { GraduatedStudent } from "../business/GraduatedStudent";
-import { ColumnsNames } from "../services/ParserService";
+import { InputColumnsNames } from "../services/ParserService";
 import * as fs from 'fs';
 import * as path from 'path';
 
 export class CsvExporter {
-    static exportCsv(columnNames: ColumnsNames, graduatedStudents: GraduatedStudent[], filePath: string): void{
+    static exportCsv(columnNames: InputColumnsNames, graduatedStudents: GraduatedStudent[], filePath: string): void{
         const {
             ticket,
             firstName,
