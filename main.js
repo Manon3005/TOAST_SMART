@@ -1,7 +1,7 @@
 const { ParserService } = require("./backend/dist/backend/services/ParserService.js");
 const { GraduatedStudent } = require("./backend/dist/backend/business/GraduatedStudent.js");
 const { JsonExporter } = require("./backend/dist/backend/utils/JsonExporter.js")
-const { ConflictHandler } = require("./backend/dist/backend/utils/CsvExporter.js")
+const { ConflictHandler } = require("./backend/dist/backend/services/ConflictHandler.js")
 const path = require('path')
 const { app, BrowserWindow, screen } = require('electron/main');
 const { Parser } = require("csv-parse");
@@ -43,7 +43,7 @@ async function createWindow() {
   win.maximize();
   win.setResizable(true);
   win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-  //win.webContents.openDevTools();  // pour debogage
+  win.webContents.openDevTools();  // pour debogage
 }
 
 app.whenReady().then(() => {
