@@ -1,5 +1,6 @@
 import { Guest } from "./Guest";
 import { Diet } from "./Diet";
+import { Table } from "./Table";
 
 export class GraduatedStudent {
     private id: number;
@@ -15,6 +16,7 @@ export class GraduatedStudent {
     private neighboursString: string;
     private diet: Diet;
     private doubleEmailCatched: boolean;
+    private table!: Table;
 
     constructor(
         id: number,
@@ -52,6 +54,10 @@ export class GraduatedStudent {
             return true;
         }
         return false;
+    }
+
+    setTable(table: Table): void {
+        this.table = table;
     }
 
     setDiet(diet: string): void {
@@ -135,6 +141,10 @@ export class GraduatedStudent {
 
     getNeighboursIds(): number[] {
         return this.neighbours.map(neighbour => neighbour.id);
+    }
+
+    getTable(): Table {
+        return this.table;
     }
 
     getNeighboursString(): string {
