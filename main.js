@@ -110,6 +110,13 @@ ipcMain.handle('dialog:getNextConflict', async (event, jsonSolution) => {
   return await ConflictHandler.getNextConflict(allGraduatedStudents);
 });
 
+ipcMain.handle('dialog:generateIntermediateCsv', async () => {
+  const directoryPath = path.dirname(globalFilePath);
+  const filePath = path.join(directoryPath, "parsing_export.csv");
+  CsvExporter.exportCsv(ParserService.columns, this.allGraduatedStudents, filePath);
+  return filePath;
+});
+
 ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
   const jsonData = JSON.parse(jsonDataBrut);
   // Get the json from the front

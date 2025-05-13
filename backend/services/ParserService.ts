@@ -134,8 +134,7 @@ export class ParserService {
             return reject(new Error(errorMessages.join("\n\n")));
           }
           // If no missing information
-          this.allGraduatedStudents = NeighboursLinker.linkNeighboursToGraduatedStudents(this.allGraduatedStudents);
-          CsvExporter.exportCsv(ParserService.columns, this.allGraduatedStudents, "./backend/resources/parsing_export.csv");          
+          this.allGraduatedStudents = NeighboursLinker.linkNeighboursToGraduatedStudents(this.allGraduatedStudents);          
           resolve(this.allGraduatedStudents);
         })
         .on("error", reject);
