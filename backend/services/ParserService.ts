@@ -53,7 +53,6 @@ export class ParserService {
 
   static async readRawFileCSV(csvFilePath: string): Promise<GraduatedStudent[]> {
     const absolutePath = path.resolve(csvFilePath);
-    
     let homonymStudents: GraduatedStudent[] = [];
     return new Promise((resolve, reject) => {
       fs.createReadStream(absolutePath)
@@ -205,6 +204,17 @@ export class ParserService {
 
   static setInputColumnsNames(columns: InputColumnsNames): void {
     this.columns = columns;
+  }
+
+  static reinitialize(): void {
+    this.allGraduatedStudents = [];
+    this.alltables = [];
+    this.graduatedStudents = new Map();
+    this.warnings = [];
+  }
+
+  static reinitializeTables(): void {
+    this.alltables = [];
   }
 
   private static getNextGuestId(): number {

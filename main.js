@@ -101,6 +101,7 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   });
   // Call the csv treatment
   try {
+    ParserService.reinitialize();
     allGraduatedStudents = await ParserService.readRawFileCSV(globalFilePath);
   } catch (error) {
     return {error : error.message};
@@ -148,7 +149,6 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   
   // "2023-09-11T02:41:56
   const outputPath = path.dirname(globalFilePath) + "\\planTable_" + dateStr + ".csv";
-  console.log(outputPath)
 
   try {
     const { stdout, stderr } = await execFile(executablePath, [inputPath, outputPath]);
@@ -156,6 +156,7 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
     throw error;
   }
   // Return the address of the generated csv
+  ParserService.reinitializeTables();
   allTables = await ParserService.importTablesCSV(outputPath ,allGraduatedStudents)
   const statsJson = await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
   return { 
@@ -177,6 +178,7 @@ ipcMain.handle('dialog:getStatistics', async () => {
   } else {
     const filePath = result.filePaths[0];
     globalFilePath = filePath;
+    ParserService.reinitializeTables();
     allTables = await ParserService.importTablesCSV(filePath, allGraduatedStudents)
     const statsJson = await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
     return { 
