@@ -4,7 +4,6 @@ import { StringNormalizer } from "../utils/StringNormalizer";
 import * as fs from "fs";
 import * as path from "path";
 import { parse, Parser } from "csv-parse";
-import { writeFile } from 'fs/promises';
 import { NeighboursLinker } from "../utils/NeighboursLinker";
 import { CsvExporter } from "../utils/CsvExporter";
 
@@ -114,77 +113,6 @@ export class ParserService {
         })
         .on("error", reject);
     });
-  }
-
-  static async deleteNonValidNeighbours(invalidNeighbours: { [studentId: string]: number[] }): Promise<void> {
-    Object.entries(invalidNeighbours).forEach(([studentId, neighboursToRemove]) => {
-      const graduatedStudent = this.allGraduatedStudents.find(student => student.getId() === parseInt(studentId,10));
-      if (graduatedStudent) {
-        neighboursToRemove.forEach(neighbourId => {
-          graduatedStudent.deleteNeighbour(neighbourId);
-        });
-      }
-    });
-  }
-
-
-  static async getNeighboursPairing(): Promise<any> {
-    const graduatedStudents = this.allGraduatedStudents.map(student => ({
-      idStudent: student.getId(),
-      lastName: student.getLastName(),
-      firstName: student.getFirstName(),
-      preferedNeighbours: student.getNeighboursString(),
-      processedNeighbours: student.getNeighbours().map(neighbour => ({
-        neighbourId: neighbour.getId(),
-        neighbourFirstName: neighbour.getFirstName(),
-        neighbourLastName: neighbour.getLastName()
-      }))
-    }));
-    const jsonContent = {
-      warnings: this.warnings,
-      graduated_students: graduatedStudents
-    };
-
-    return jsonContent;
-  }
-
-  static async fetchGraduatedStudentsList(): Promise<any> {
-    const graduatedStudents = this.allGraduatedStudents.map(student => ({
-      idStudent: student.getId(),
-      lastName: student.getLastName(),
-      firstName: student.getFirstName(),
-      guests: student.getGuests().map(guest => ({
-        guestId: guest.getId(),
-        guestFirstName: guest.getFirstName(),
-        guestLastName: guest.getLastName()
-      })),
-      preferedNeighbours: student.getNeighboursString(),
-      processedNeighbours: student.getNeighbours().map(neighbour => ({
-        neighbourId: neighbour.getId(),
-        neighbourFirstName: neighbour.getFirstName(),
-        neighbourLastName: neighbour.getLastName()
-      }))
-    }));
-
-    return { graduated_students: graduatedStudents };
-  }
-
-  static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number): Promise<void> {
-    const graduatedStudents = this.allGraduatedStudents.map(student => ({
-      idStudent: student.getId(),
-      lastName: student.getLastName(),
-      firstName: student.getFirstName(),
-      nbOfGuests: student.getNbGuests(),
-      nbOfNeighbours: student.getNbNeighbours(),
-      idNeighbour: student.getNeighboursIds()
-    }));
-    const jsonContent = {
-      nb_max_tables: nbMaxTables,
-      nb_max_by_tables: nbMaxByTables,
-      graduated_students: graduatedStudents
-    };
-    const jsonString = JSON.stringify(jsonContent, null, 2);
-    await writeFile(filepath, jsonString, 'utf-8');
   }
 
   static async getColumnNamesFromCsvFile(filePath: string): Promise<any> {

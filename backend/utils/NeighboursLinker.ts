@@ -42,8 +42,10 @@ export class NeighboursLinker {
             }
           }
           for (const { candidate, distance } of firstCaseCandidates) {
-            if (distance === firstCaseBestDistance && !student.isNeighboursAlreadyPresent(candidate) && !student.isSameStudent(candidate)) {
+            if (distance === 0) {
               student.addNeighbour(candidate);
+            } else if (distance === firstCaseBestDistance && !student.isNeighboursAlreadyPresent(candidate) && !student.isSameStudent(candidate)) {
+              student.addPotentialNeighbour(candidate);
             }
           }
     
@@ -71,7 +73,7 @@ export class NeighboursLinker {
           }
           for (const { candidate, distance } of secondCaseCandidates) {
             if (distance === secondCaseBestDistance && !student.isNeighboursAlreadyPresent(candidate) && !student.isSameStudent(candidate)) {
-              student.addNeighbour(candidate);
+              student.addPotentialNeighbour(candidate);
             }
           }
         });

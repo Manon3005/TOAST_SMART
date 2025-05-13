@@ -11,6 +11,7 @@ export class GraduatedStudent {
     private nbNeighbours: number;
     private guests: Guest[] = [];
     private neighbours: GraduatedStudent[] = [];
+    private potentialNeighbours: GraduatedStudent[] = [];
     private neighboursString: string;
     private diet: Diet;
     private doubleEmailCatched: boolean;
@@ -64,6 +65,16 @@ export class GraduatedStudent {
         this.neighbours.push(student);
     }
 
+    addPotentialNeighbour(student: GraduatedStudent): void {
+        this.potentialNeighbours.push(student);
+    }
+
+    removePotentialNeighbour(id: number): void {
+        this.potentialNeighbours = this.potentialNeighbours.filter(
+            neighbour => neighbour.getId() !== id
+        );
+    }
+
     deleteNeighbour(id: number): void {
         this.neighbours = this.neighbours.filter(neighbour => neighbour.id !== id);
     }
@@ -97,6 +108,10 @@ export class GraduatedStudent {
 
     getGuests(): Guest[] {
         return this.guests;
+    }
+
+    getPotentialNeighbours(): GraduatedStudent[] {
+        return this.potentialNeighbours;
     }
 
     getNeighboursIds(): number[] {
