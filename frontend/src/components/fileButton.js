@@ -11,7 +11,7 @@ export function FileButton({disabled, nameFile, setName, errorFile, setErrorFile
     React.createElement('div', { className: 'file-button-container' },
       React.createElement(
           'button',
-          { onClick: onClick, className: 'file-button', disabled : disabled},'📁 Charger un fichier' ),
+          { onClick: onClick, className: 'classic-button', disabled : disabled},'📁 Charger un fichier' ),
       
       React.createElement('div', { className: 'file-message-text' },
         errorFile && React.createElement('p', { style: { color: 'red' } }, errorFile),

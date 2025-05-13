@@ -5,7 +5,7 @@ export function ExportSolutionButton({ onClick, disabled, nameExportFile, errorE
   return React.createElement(
       'div',
       null,
-      React.createElement('div', { className: 'file-button-container' },
+      React.createElement('div', { className: 'export-button-container' },
         React.createElement(
             'button',
             { onClick: onClick, className: 'export-solution-button', disabled : disabled},'Exporter la solution' ),
