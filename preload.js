@@ -6,4 +6,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   parseCsvFile: (jsonColumnNames) => ipcRenderer.invoke('dialog:beginCsvParsing', jsonColumnNames),
   getNextConflict: (jsonSolution) => ipcRenderer.invoke('dialog:getNextConflict', jsonSolution), 
   generateTablePlan: (jsonData) => ipcRenderer.invoke('dialog:generateTablePlan', jsonData),
+  getStatistics: () => ipcRenderer.invoke('dialog:getStatistics'),
 });
