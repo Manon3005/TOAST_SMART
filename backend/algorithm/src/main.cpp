@@ -24,14 +24,14 @@ int main(int argc, char* argv[])
     seatingArrangements.attributeTableToStudent(true);
     seatingArrangements.completeExistingTable();
     
-    
-    cout << "\nClose Table Groups:" << endl;
-    seatingArrangements.printTableGroups();
-
     ofstream outputFile;
     string fileName = "../resources/seatingArrangements.csv";
     outputFile.open(fileName);
     outputFile << seatingArrangements;
+
+    // table groups to CSV
+    string groupsFileName = "../resources/tableGroups.csv";
+    seatingArrangements.exportTableGroupsToCSV(groupsFileName);
 
     return 0;
 }

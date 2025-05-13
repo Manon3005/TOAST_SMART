@@ -38,6 +38,8 @@ class SeatingArrangements
         vector<vector<int>> groupCloseTables(int maxGroupSize = INT_MAX);
         void printTableGroups();
 
+        void exportTableGroupsToCSV(const string& filename);
+
     protected:
 
         void dfsGroupTables(int tableIndex, vector<bool>& visited, vector<int>& group);
