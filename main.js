@@ -2,12 +2,17 @@ const { ParserService } = require("./backend/dist/backend/services/ParserService
 const { ComputeStatistics } = require("./backend/dist/backend/services/ComputeStatistics.js");
 const { GraduatedStudent } = require("./backend/dist/backend/business/GraduatedStudent.js");
 const { JsonExporter } = require("./backend/dist/backend/utils/JsonExporter.js")
+const { CsvExporter } = require("./backend/dist/backend/utils/CsvExporter.js")
+
 const { ConflictHandler } = require("./backend/dist/backend/services/ConflictHandler.js")
 const path = require('path')
 const { app, BrowserWindow, screen } = require('electron/main');
 const { Parser } = require("csv-parse");
 const { ipcMain, dialog } = require('electron');
-const { execFile } = require('child_process');
+const util = require('util');
+const execFile = util.promisify(require('child_process').execFile);
+
+const { shell } = require('electron');
 
 // Create the express server in order to use the static files in the frontend public folder
 const express = require('express');
@@ -18,6 +23,8 @@ appServer.use(express.static(path.join(__dirname, 'frontend', 'public')));
 
 let globalFilePath = "";
 let allGraduatedStudents;
+let maxTables;
+let allTables;
 
 async function createWindow() {
 
@@ -113,20 +120,20 @@ ipcMain.handle('dialog:getNextConflict', async (event, jsonSolution) => {
 ipcMain.handle('dialog:generateIntermediateCsv', async () => {
   const directoryPath = path.dirname(globalFilePath);
   const filePath = path.join(directoryPath, "parsing_export.csv");
-  CsvExporter.exportCsv(ParserService.columns, this.allGraduatedStudents, filePath);
+  CsvExporter.exportCleanedInputCsv(ParserService.columns, allGraduatedStudents, filePath);
   return filePath;
 });
 
-ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
-  const jsonData = JSON.parse(jsonDataBrut);
+ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   // Get the json from the front
-  const maxTables = jsonData.max_number_tables;
+  maxTables = jsonData.max_number_tables;
   const maxByTables = jsonData.max_number_by_tables;
   const selectedChoice = jsonData.selected_choice;
+
   // Create the json information for the table plan
   await JsonExporter.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables, selectedChoice, allGraduatedStudents);
   // Launch the generation of the table plan
-  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
+  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'toast.exe');
   const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
 
   // Generate the output path
@@ -140,24 +147,19 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
   const dateStr = year + "-" + month + "-" + day + "_" + hour + "H" + minute + "m" + second + "s";
   
   // "2023-09-11T02:41:56
-  const outputPath = globalFilePath.slice(0, globalFilePath.length - 4) + "_planTable_" + dateStr + ".csv";
+  const outputPath = path.dirname(globalFilePath) + "\\planTable_" + dateStr + ".csv";
+  console.log(outputPath)
 
-  execFile(executablePath, [inputPath, outputPath], (error, stdout, stderr) => {
-    if (error) {
-      console.error(`Erreur : ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.error(`Stderr : ${stderr}`);
-      return;
-    }
-    console.log(`Sortie : ${stdout}`);
-  });
+  try {
+    const { stdout, stderr } = await execFile(executablePath, [inputPath, outputPath]);
+  } catch (error) {
+    throw error;
+  }
   // Return the address of the generated csv
-  await ParserService.importTablesCSV(path.resolve(__dirname, 'backend', 'resources', 'seatingArrangements.csv'),allGraduatedStudents)
+  allTables = await ParserService.importTablesCSV(outputPath ,allGraduatedStudents)
   const statsJson = await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
   return { 
-    address: path.resolve(__dirname, 'backend', 'resources', 'seatingArrangements.csv'),
+    address: outputPath,
     statsJson 
   };
 });
@@ -174,7 +176,21 @@ ipcMain.handle('dialog:getStatistics', async () => {
     return null;
   } else {
     const filePath = result.filePaths[0];
-    await ParserService.importTablesCSV(filePath, allGraduatedStudents)
-    return await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
-  }
+    globalFilePath = filePath;
+    allTables = await ParserService.importTablesCSV(filePath, allGraduatedStudents)
+    const statsJson = await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
+    return { 
+      address: filePath,
+      statsJson 
+    }
+  };
+});
+
+ipcMain.handle('dialog:exportTablesCsv', async () => {
+  const outputPath = path.dirname(globalFilePath)+"\\final_repartition.csv";
+  CsvExporter.exportPlacementCsv(allTables, outputPath);
+
+  await shell.openPath(outputPath);
+
+  return outputPath;
 });
