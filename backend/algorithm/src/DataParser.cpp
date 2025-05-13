@@ -25,6 +25,7 @@ DataParser::DataParser(string jsonFile) {
 
     nbTableMax = jsonData["nb_max_tables"];
     tableCapacityMax = jsonData["nb_max_by_tables"];
+    option = jsonData["option"];
 
     nbStudent = 0;
     studentList = new Student*[jsonData["graduated_students"].size()];
@@ -70,4 +71,8 @@ int DataParser::getTableCapacityMax() {
         
 int DataParser::getNbTableMax() {
     return nbTableMax;
+}
+
+string DataParser::getOption() {
+    return option;
 }
