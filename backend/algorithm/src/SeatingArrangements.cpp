@@ -88,15 +88,17 @@ void SeatingArrangements::printMatrix() {
 }
 
 void SeatingArrangements::moveStudentToTable(Student* student, Table* table) {
-    if (student && table) {
-        table->addStudent(student);
+    if (student) {
+        if (table) {
+            table->addStudent(student);
+        }
         Table* previousTable = student->getTable();
         if (previousTable) {
             previousTable->removeStudent(student);
         }
         student->setTable(table);
     } else {
-        cout << "Error table or student pointer undefined" << endl;
+        cout << "Error student pointer undefined" << endl;
     }
 }
 
@@ -227,8 +229,27 @@ void SeatingArrangements::completeExistingTable() {
     }
     clearTable();
     if (nbUsedTable > nbTableMax) {
-        cout << "No result : " << nbUsedTable - nbTableMax << " table(s) missing" << endl;
+        change = true;
+        i = 0;
+        int studentWithoutTable = 0;
+        int tableRemoved = 0;
+        cout << nbUsedTable - nbTableMax << " table(s) missing" << endl;
+        while (nbUsedTable - tableRemoved > nbTableMax && change) {
+            change = false;
+            if (tableList[i]->getNbStudent() == 1) {
+                moveStudentToTable(tableList[i]->getStudentList()[0], nullptr);
+                change = true;
+                studentWithoutTable++;
+                tableRemoved++;
+            }
+            i++;
+        }
+        cout << studentWithoutTable << " student(s) without table" << endl;
+        if (nbUsedTable - tableRemoved > nbTableMax) {
+            cout << nbUsedTable - tableRemoved - nbTableMax << " extra table(s) in the proposal" << endl;
+        }
     }
+    clearTable();
 }
 
 void SeatingArrangements::print() {
