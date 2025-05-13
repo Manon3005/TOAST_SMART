@@ -1,4 +1,5 @@
 const { ParserService } = require("./backend/dist/backend/services/ParserService.js");
+const { ComputeStatistics } = require("./backend/dist/backend/services/ComputeStatistics.js");
 const { GraduatedStudent } = require("./backend/dist/backend/business/GraduatedStudent.js");
 const { JsonExporter } = require("./backend/dist/backend/utils/JsonExporter.js")
 const { ConflictHandler } = require("./backend/dist/backend/services/ConflictHandler.js")
@@ -146,5 +147,27 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
     console.log(`Sortie : ${stdout}`);
   });
   // Return the address of the generated csv
-  return path.resolve(__dirname, 'backend', 'resources', 'seatingArrangements.csv');
+  await ParserService.importTablesCSV(path.resolve(__dirname, 'backend', 'resources', 'seatingArrangements.csv'),allGraduatedStudents)
+  const statsJson = await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
+  return { 
+    address: path.resolve(__dirname, 'backend', 'resources', 'seatingArrangements.csv'),
+    statsJson 
+  };
+});
+
+ipcMain.handle('dialog:getStatistics', async () => {
+  const result = await dialog.showOpenDialog({
+    properties: ['openFile'], //openFile fconction Electron pour ouvrir un fichier
+    filters: [
+      { name: 'CSV', extensions: ['csv'] }, // filtre pour les CSV
+    ],
+  });
+
+  if (result.canceled) {
+    return null;
+  } else {
+    const filePath = result.filePaths[0];
+    await ParserService.importTablesCSV(filePath, allGraduatedStudents)
+    return await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
+  }
 });

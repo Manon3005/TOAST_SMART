@@ -39,4 +39,8 @@ export class Table {
     getNbStudent(): number {
         return this.nbStudent;
     }
+
+    getId(): string {
+        return this.id;
+    }
 }
