@@ -52,7 +52,7 @@ export class ComputeStatistics {
                 cmp++;
             }
         }
-        return (cmp/this.allGraduatedStudents.length)*100;
+        return this.allGraduatedStudents.length === 0 ? 0 : (cmp / this.allGraduatedStudents.length) * 100;
     }
 
     static async getStatistics(students: GraduatedStudent[], tables: Table[], tableMaxCapacity: number): Promise<any>{
