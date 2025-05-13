@@ -2,12 +2,8 @@
   text-align: center;
 }
 
-html, body {
-  overflow:scroll;
-}
-
 body {
-  padding-bottom: 40px; /* ou plus si nécessaire */
+  background-color: #e9e9e9; /* ou plus si nécessaire */
 }
 
 .App-logo {
@@ -178,7 +174,8 @@ p {
 
 .file-button,
 .continue-button,
-.reset-button {
+.reset-button,
+.conflict-button {
   padding: 12px 24px;
   font-size: 1rem;
   border: none;
@@ -188,14 +185,16 @@ p {
   font-family: 'Segoe UI', sans-serif;
 }
 
-.file-button:hover {
+.file-button:hover,
+.conflict-button:hover {
   background-color: #000000;
   color: #ffffff;
   outline: 2px solid #ffffff;
   transform: translateY(-1px);
 }
 
-.file-button {
+.file-button,
+.conflict-button {
   background-color: #ffffff;
   color: #000000;
   outline: 2px solid #000000;
@@ -244,16 +243,35 @@ p {
   border-color: #4a90e2;
 }
 
+.conflicts-step {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 4%;
+  align-items: stretch;
+}
+
 .left-part,
 .right-part {
-  width: 48%;
-  height: 100%;
+  flex: 1 1 48%;
+  min-height: 300px;;
   background-color: white;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  align-self: flex-start;
+  box-sizing: border-box;
 }
+
+.conflict-container-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 50px; 
+  margin-top: 20px;
+}
+
 
 .nb-table,
 .nb-guest {
@@ -419,7 +437,6 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh; /* Prend toute la hauteur de la fenêtre */
 }
 
 .start-header {
@@ -502,13 +519,14 @@ img {
 }
 
 .student-container {
-  max-width: 600px;
+  max-width: 100%;
   margin: 2rem auto;
   padding: 1.5rem;
   background-color: white;
   border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
   font-family: Arial, sans-serif;
+  box-sizing: border-box;
 }
 
 .student-title {
@@ -529,6 +547,7 @@ img {
 }
 
 .list {
+  list-style-type: none;
   padding-left: 1.2rem;
   margin-bottom: 1rem;
 }
