@@ -4,6 +4,7 @@ import { ResetButton } from "../components/resetButton";
 import { ContinueButton } from "../components/continueButton";
 import { TableColumn } from "../components/tableColumn";
 import { ConflictCenter } from "../components/conflictCenter";
+import { StudentGuestDisplay } from "../components/studentGuestDisplay";
 import React, { useState, useEffect  } from 'react';
 import '../App.css';
 
@@ -21,24 +22,16 @@ export function Home() {
     const [lockedGenerer, setLockedGenerer] = useState(false);
     const [headersCSV, setHeadersCSV] = useState(['','','','','','','','']);
 
-    const [tableConflicts, setTableConflicts] = useState([])
+    const [conflict, setConflict] = useState([])
     const [currentStudentIndex, setCurrentStudentIndex] = useState(0);
     const [currentNeighbourIndex, setCurrentNeighbourIndex] = useState(0);
-    const [refusedNeighbours, setRefusedNeighbours] = useState([]);
+    const [returnConflict, setReturnConflict] = useState(false);
     const [conflictManagment, setConflictManagment] = useState(false);
 
     const [finalAddress, setFinalAdress] = useState('');
 
 
     const [isVisible, setIsVisible] = useState(false); 
-
-    React.useEffect(() => {
-      if (tableConflicts.length > 0) {
-        setCurrentStudentIndex(0);
-        setCurrentNeighbourIndex(0);
-        console.log(tableConflicts[currentStudentIndex])
-      }
-    }, [tableConflicts]);
     
 
     const [filePath, setPath] = useState(''); 
@@ -74,27 +67,22 @@ export function Home() {
             return acc;
         }, {});
     
-        const jsonConflicts = await window.electronAPI.parseCsvFile(jsonColumnNames);
-        console.log(jsonConflicts);
-        if (jsonConflicts.error){
-          actionReset(jsonConflicts.error);
+        const jsonConflict = await window.electronAPI.parseCsvFile(jsonColumnNames);
+        console.log(jsonConflict);
+        if (jsonConflict.error){
+          actionReset(jsonConflict.error);
         }
         else {
-          setTableConflicts(jsonConflicts.graduated_students);
+          setConflict(jsonConflict); 
         } 
     }
     
     const genererPlan = async () => {
-      const refused = refusedNeighbours.reduce((acc, entry) => {
-        acc[entry.idStudent] = entry.refusedNeighbours.map(id => parseInt(id, 10));
-        return acc;
-      }, {});
 
       const exportJson = {
         max_number_tables: maxTables,
         max_number_by_tables: maxGuests,
-        invalid_neighbours_student_id: refused
-      };
+            };
 
       const jsonGenerate = JSON.stringify(exportJson);
       console.log(jsonGenerate);
@@ -136,44 +124,25 @@ export function Home() {
         setLockedContinue(false);
     };
 
-    const nextConflict = () => {
-      const student = tableConflicts[currentStudentIndex];
-    
-      if (currentNeighbourIndex + 1 < student.processedNeighbours.length) {
-        setCurrentNeighbourIndex(prev => prev + 1);
-      } else if (currentStudentIndex + 1 < tableConflicts.length) {
-        setCurrentStudentIndex(prev => prev + 1);
-        setCurrentNeighbourIndex(0);
-      } else {
-        console.log("Terminé");
-        console.log(refusedNeighbours);
-        setConflictManagment(true);
-      }
+    const nextConflict = async () => {
+      const exportJson = {
+        idGraduatedStudent: conflict.idStudent,
+        idNeighbour: conflict.conflict.idNeighbour,
+        result: returnConflict
+      };
+
+      const jsonTemp = await window.electronAPI.getNextConflict(exportJson) ;
+      setConflict(jsonTemp);
+
     };
     
     const acceptConflict = () => {
+      setReturnConflict("valid");
       nextConflict();
     };
     
     const refuseConflict = () => {
-      const student = tableConflicts[currentStudentIndex];
-      const neighbour = student.processedNeighbours[currentNeighbourIndex];
-    
-      setRefusedNeighbours(prev => {
-        const existing = prev.find(r => r.idStudent === student.idStudent);
-        if (existing) {
-          return prev.map(r => r.idStudent === student.idStudent
-            ? { ...r, refusedNeighbours: [...r.refusedNeighbours, neighbour.neighbourId] }
-            : r
-          );
-        } else {
-          return [...prev, {
-            idStudent: student.idStudent,
-            refusedNeighbours: [neighbour.neighbourId]
-          }];
-        }
-      });
-    
+      setReturnConflict("invalid");
       nextConflict();
     };
 
@@ -191,20 +160,10 @@ export function Home() {
           React.createElement('h3', null, 'Réalisez votre plan de table en quelques clics !'),
         ),
         React.createElement('div', { className: 'app-content' },
-          React.createElement('div', { className: 'preprocessing-step' },
+          !lockedContinue && React.createElement('div', { className: 'preprocessing-step' },
             React.createElement('h2', null, 'Prétraitement des données'), 
             React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
             React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
-            !finalAddress && React.createElement(ConflictCenter,{
-              disabled: lockedGenerer,
-              students: tableConflicts,
-              currentStudentIndex: currentStudentIndex,
-              currentNeighbourIndex: currentNeighbourIndex,
-              fin : conflictManagment,
-              onGenerate: actionGenerer,
-              onAccept: acceptConflict,
-              onRefuse: refuseConflict
-            }),
             finalAddress && React.createElement('p', null, finalAddress),
             
             React.createElement('div', {className: 'continue-reset-buttons'},
@@ -218,22 +177,20 @@ export function Home() {
               })
             ),
           ),
-          isVisible && React.createElement('div', { className: 'conflicts-step' },
+          React.createElement('div', { className: 'conflicts-step' },
             React.createElement('div', { className: 'left-part' },
               
               React.createElement(ConflictCenter,{
                 disabled: lockedGenerer,
-                students: tableConflicts,
-                currentStudentIndex: currentStudentIndex,
-                currentNeighbourIndex: currentNeighbourIndex,
+                students: conflict,
                 onAccept: acceptConflict,
                 onRefuse: refuseConflict
               }),
                           
             ),
             React.createElement('div', { className: 'right-part' },
-              
-              )
+              React.createElement(StudentGuestDisplay,{conflict : conflict}),
+            )
           ),
           isVisible && React.createElement('div', { className: 'table-plan-step' },
             React.createElement('div', { className: 'nb-table' },
