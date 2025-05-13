@@ -172,10 +172,9 @@ p {
   overflow: hidden;
 }
 
-.file-button,
+.classic-button,
 .continue-button,
-.reset-button,
-.conflict-button {
+.reset-button {
   padding: 12px 24px;
   font-size: 1rem;
   border: none;
@@ -185,16 +184,14 @@ p {
   font-family: 'Segoe UI', sans-serif;
 }
 
-.file-button:hover,
-.conflict-button:hover {
+.classic-button:hover {
   background-color: #000000;
   color: #ffffff;
   outline: 2px solid #ffffff;
   transform: translateY(-1px);
 }
 
-.file-button,
-.conflict-button {
+.classic-button{
   background-color: #ffffff;
   color: #000000;
   outline: 2px solid #000000;
