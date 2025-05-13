@@ -1,5 +1,6 @@
 import { GraduatedStudent } from "../business/GraduatedStudent";
 import { Guest } from "../business/Guest";
+import { Table } from "../business/Table";
 import { StringNormalizer } from "../utils/StringNormalizer";
 import * as fs from "fs";
 import * as path from "path";
@@ -7,7 +8,7 @@ import { parse, Parser } from "csv-parse";
 import { NeighboursLinker } from "../utils/NeighboursLinker";
 import { CsvExporter } from "../utils/CsvExporter";
 
-export type ColumnsNames = {
+export type InputColumnsNames = {
   ticket: string;
   firstName: string;
   lastName: string;
@@ -18,13 +19,24 @@ export type ColumnsNames = {
   wantedTableMates: string;
 };
 
+type importCSVRow = {
+  'Table': string;
+  'Last Name Buyer': string;
+  'First Name Buyer': string;
+  'Number of Guests (buyer included)': string;
+  'Seating preferences': string;
+};
+
 type ParsedCSVRow = Record<string, string>;
 
 type GraduatedStudentMap = Map<string, GraduatedStudent>;
 
+type TableMap = Map<string, Table>;
+
 type Warning = {
   message: string;
 }
+
 export class ParserService {
   private static guestIdCounter = 1;
   private static studentIdCounter = 1;
@@ -32,12 +44,14 @@ export class ParserService {
   private static allGraduatedStudents : GraduatedStudent[] = [];
   
   private static graduatedStudents: GraduatedStudentMap = new Map();
+
+  private static alltables : Table[] = [];
   
-  private static columns: ColumnsNames;
+  private static columns: InputColumnsNames;
 
   private static warnings : Warning[] = [];
 
-  static async readFileCSV(csvFilePath: string): Promise<GraduatedStudent[]> {
+  static async readRawFileCSV(csvFilePath: string): Promise<GraduatedStudent[]> {
     const absolutePath = path.resolve(csvFilePath);
     
     let homonymStudents: GraduatedStudent[] = [];
@@ -65,7 +79,7 @@ export class ParserService {
           const tableMates = row[wantedTableMates];
           const specifiedDiet = row[diet]?.trim();
 
-          const gradKey = `${StringNormalizer.normalizeString(gradFirstName)} ${StringNormalizer.normalizeString(gradLastName)}`;
+          const gradKey = StringNormalizer.createKeyWithNames(gradFirstName, gradLastName);
 
           // Need to take accents and capital letters off for the comparison 
           const guestIsGraduatedStudent = 
@@ -128,6 +142,46 @@ export class ParserService {
     });
   }
 
+  static async importTablesCSV(csvFilePath: string, allGraduatedStudents: GraduatedStudent[]): Promise<Table[]> {
+    const absolutePath = path.resolve(csvFilePath);
+    const allTables: TableMap = new Map();
+    const graduatedStudents: GraduatedStudentMap = new Map();
+
+    for (const student of allGraduatedStudents) {
+      const gradKey = StringNormalizer.createKeyWithNames(student.getFirstName(), student.getLastName());
+      if (!graduatedStudents.has(gradKey)) {
+        graduatedStudents.set(gradKey,student);
+      }
+    }
+
+    return new Promise((resolve, reject) => {
+      fs.createReadStream(absolutePath)
+        .pipe(parse({ delimiter: ';', columns: true, trim: true, bom: true }))
+        .on('data', (row :importCSVRow) => {
+          const tableId = row['Table'];
+          const lastName = row['Last Name Buyer'].trim();
+          const firstName = row['First Name Buyer'].trim();
+          const gradKey = StringNormalizer.createKeyWithNames(firstName, lastName);
+
+          const graduatedStudent = graduatedStudents.get(gradKey);
+
+          let table = allTables.get(tableId);
+          if (!table) {
+            table = new Table(tableId, 11, [], 0);
+            allTables.set(tableId, table);
+          }
+          if (graduatedStudent) {
+            table.addStudent(graduatedStudent);
+          }
+        })
+        .on('end', () => {
+          this.alltables = Array.from(allTables.values());
+          resolve(this.alltables);
+        })
+        .on('error', reject);
+    });
+  }
+
   static async getColumnNamesFromCsvFile(filePath: string): Promise<any> {
     const absolutePath = path.resolve(filePath);
     const headersCSV: string[] = [];
@@ -149,7 +203,7 @@ export class ParserService {
     });
   }
 
-  static setColumnsNames(columns: ColumnsNames): void {
+  static setInputColumnsNames(columns: InputColumnsNames): void {
     this.columns = columns;
   }
 
@@ -160,7 +214,7 @@ export class ParserService {
   private static getNextStudentId(): number {
     return this.studentIdCounter++;
   }
-
+  
   private static hasHomonym(firstName: string, lastName: string, mail: string): boolean {
     for(const student of this.graduatedStudents.values()) {
       if(student.isHomonym(firstName, lastName, mail)) {
