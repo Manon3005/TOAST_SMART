@@ -240,7 +240,8 @@ p {
   border-color: #4a90e2;
 }
 
-.conflicts-step {
+.conflicts-step,
+.table-plan-step {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -254,6 +255,7 @@ p {
 .left-part,
 .right-part {
   flex: 1 1 48%;
+  position: relative;
   min-height: 300px;;
   background-color: white;
   padding: 20px;
@@ -268,7 +270,6 @@ p {
   gap: 50px; 
   margin-top: 20px;
 }
-
 
 .nb-table,
 .nb-guest {
@@ -285,6 +286,81 @@ p {
   width: 300px; 
   margin: 0;
   text-align: left; 
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap : 10px;
+  margin-top: 10px;
+}
+
+.radio-group label {
+  color: black;
+}
+
+.radio-button-container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+}
+
+.radio-button-container h2 {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.input-generate-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px; 
+}
+
+.input-generate-container p {
+  margin : 0;
+  padding: 0;
+  text-align: center;
+  color: black
+}
+
+.buttons-row {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+}
+
+.stats-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  gap: 10px; 
+}
+
+.stats-container p {
+  margin: 0;
+  padding: 0;
+}
+
+.export-button-container{
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 20px; 
+}
+
+.export-button-container .file-message-text{
+  margin-top: 20px;
 }
 
 .continue-reset-buttons {

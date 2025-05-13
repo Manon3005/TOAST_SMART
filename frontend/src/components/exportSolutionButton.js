@@ -8,7 +8,7 @@ export function ExportSolutionButton({ onClick, disabled, nameExportFile, errorE
       React.createElement('div', { className: 'export-button-container' },
         React.createElement(
             'button',
-            { onClick: onClick, className: 'export-solution-button', disabled : disabled},'Exporter la solution' ),
+            { onClick: onClick, className: 'classic-button', disabled : disabled},'Exporter le plan de table' ),
         
         React.createElement('div', { className: 'file-message-text' },
           errorExportFile && React.createElement('p', { style: { color: 'red' } }, errorExportFile),
