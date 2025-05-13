@@ -72,6 +72,11 @@ export function Home() {
         if (jsonConflict.error){
           actionReset(jsonConflict.error);
         } else {
+          if (!jsonConflict.jsonContent || Object.keys(jsonConflict.jsonContent).length === 0) {
+            setConflictManagment(true);
+            setConflict(null);
+            return;
+          }
           setConflict({
             ...jsonConflict.jsonContent,
             remainingConflictNumber: jsonConflict.remainingConflictNumber
