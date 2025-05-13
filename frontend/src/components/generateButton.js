@@ -10,6 +10,6 @@ export function GenerateButton({onClick, disabled = false}) {
     null,
     React.createElement(
         'button',
-        { onClick : onClick, className: 'file-button' },'Générer le plan de table' )
+        { onClick : onClick, className: 'classic-button' },'Générer le plan de table' )
 );
 }

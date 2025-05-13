@@ -249,7 +249,7 @@ export function Home() {
 
           preprocessingStep && React.createElement('div', { className: 'preprocessing-step' },
             React.createElement('h2', null, 'Prétraitement des données'), 
-            React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
+            React.createElement(FileButton, {className: 'classic-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
             React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
             finalAddress && React.createElement('p', null, finalAddress),
             
@@ -303,9 +303,9 @@ export function Home() {
               ), 
               React.createElement(ChoiceRadioButton, { onSelectionChange: handleSelectionChange }),
             ),
-            React.createElement(GenerateButton, {className: 'file-button', onClick : actionGenerer}),
+            React.createElement(GenerateButton, {className: 'classic-button', onClick : actionGenerer}),
             finalAddress && React.createElement('p',null,finalAddress),
-            React.createElement(InputPlanButton, {className: 'file-button', onClick : loadPlanFile, nameFileDraftPlan: nameFileDraftPlan, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}), 
+            React.createElement(InputPlanButton, {className: 'classic-button', onClick : loadPlanFile, nameFileDraftPlan: nameFileDraftPlan, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}), 
             React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson }),
             React.createElement(ExportSolutionButton, {className : 'export-solution-button', onClick: actionExporter,errorExportFile : errorExportFile, 
               nameExportFile : nameExportFile, disabled: !nameFileDraftPlan && !finalAddress} )   
