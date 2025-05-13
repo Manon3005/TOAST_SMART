@@ -114,8 +114,9 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonDataBrut) => {
   // Get the json from the front
   const maxTables = jsonData.max_number_tables;
   const maxByTables = jsonData.max_number_by_tables;
+  const selectedChoice = jsonData.selected_choice;
   // Create the json information for the table plan
-  await JsonExporter.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables, allGraduatedStudents);
+  await JsonExporter.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables, selectedChoice, allGraduatedStudents);
   // Launch the generation of the table plan
   const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
   const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
