@@ -70,7 +70,11 @@ ostream& operator <<(ostream& os, const Student& s)
     } else {
         os << "no table";
     }
-    os << ';' << s.lastName << ';' << s.firstName << ';' << s.nbGuest + 1 << ';';
+    string lastName = s.lastName;
+    string firstName = s.firstName;
+    if (lastName.find(';') != string::npos) lastName = '"' + lastName + '"';
+    if (firstName.find(';') != string::npos) firstName = '"' + firstName + '"';
+    os << ';' << lastName << ';' << firstName << ';' << s.nbGuest + 1 << ';';
     int i;
     for (i = 0 ; i < s.nbNeighbour ; i++)
     {
