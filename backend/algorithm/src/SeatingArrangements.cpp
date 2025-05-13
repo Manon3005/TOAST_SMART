@@ -115,22 +115,28 @@ void SeatingArrangements::mergeTables(Table* tableSource, Table* tableDestinatio
         
 
 
-void SeatingArrangements::attributeTableToStudent(bool order) {
+void SeatingArrangements::attributeTableToStudent(bool orderByIncreasingDemand, bool orderByNbOfGuest, bool orderTableByDecreasingFilledSeat) {
     bool change = true;
     vector<int> ignored_index;
     int table_to_merge;
     int max_seat_amount;
     int i;
+    vector<int> ordered_i;
+
     // gathering of student with seating preferences
     while (change) {
         change = false;
         ignored_index.clear();
         createMatrix();
         
-        vector<int> ordered_i;
-        if (order) {
+        if (orderByIncreasingDemand) {
             orderTableByIncreasingNbOfDemand(ordered_i);
+        } else if (orderByNbOfGuest) { 
+            orderTableByFewerGuest(ordered_i);
+        } else if (orderTableByDecreasingFilledSeat) {
+            this->orderTableByDecreasingFilledSeat(ordered_i);
         } else {
+            ordered_i.clear();
             for (int j = 0 ; j < matrixSize ; j++) {
                 ordered_i.push_back(j);
             }
@@ -330,6 +336,7 @@ int SeatingArrangements::nbStudentWithAtLeastOneDemandSatisfied(){
 void SeatingArrangements::orderTableByIncreasingNbOfDemand(vector<int>& order) {
     int min = -1;
     int min_value;
+    order.clear();
     for (int i = 0 ; i < nbUsedTable ; i++) {
         min_value = INT32_MAX;
         for (int j = 0 ; j < nbUsedTable ; j++) {
@@ -344,6 +351,47 @@ void SeatingArrangements::orderTableByIncreasingNbOfDemand(vector<int>& order) {
     }
 }
 
+void SeatingArrangements::orderTableByFewerGuest(vector<int>& order) {
+    int min = -1;
+    int min_value;
+    int nbGuest;
+    order.clear();
+    for (int i = 0 ; i < nbUsedTable ; i++) {
+        min_value = INT32_MAX;
+        for (int j = 0 ; j < nbUsedTable ; j++) {
+            if (find(order.begin(), order.end(), j) == order.end()) {
+                nbGuest = 0;
+                for (int k = 0 ; k < tableList[j]->getNbStudent() ; k++) {
+                    nbGuest += tableList[j]->getStudentList()[k]->getNbGuest();
+                }
+                if (nbGuest < min_value) {
+                    min_value = nbGuest;
+                    min = j;
+                }
+            }
+        }
+        order.push_back(min);
+    }
+}
+
+void SeatingArrangements::orderTableByDecreasingFilledSeat(vector<int>& order) {
+    int max = -1;
+    int max_value;
+    order.clear();
+    for (int i = 0 ; i < nbUsedTable ; i++) {
+        max_value = 0;
+        for (int j = 0 ; j < nbUsedTable ; j++) {
+            if (find(order.begin(), order.end(), j) == order.end()) {
+                if (tableList[j]->getNbFilledSeat() > max_value) {
+                    max_value = tableList[j]->getNbFilledSeat();
+                    max = j;
+                }
+            }
+        }
+        order.push_back(max);
+    }
+}
+
 ostream& operator<< (ostream& os,const SeatingArrangements& sA)
 {
     os << "Table" << ';' << "Last Name Buyer" << ';' << "First Name Buyer" << ';' << "Number of Guests (buyer included)" << ';' << "Seating preferences" << endl;
@@ -352,4 +400,29 @@ ostream& operator<< (ostream& os,const SeatingArrangements& sA)
         os << *(sA.studentList[i]) << endl;
     }
     return os;
+}
+
+void SeatingArrangements::print_stats() {
+    cout << "Number of demand: " << nbDemand() << endl;
+    cout << "Number of possible demand: " << nbPossibleDemand() << endl;
+    cout << "Number of satisfied demand: " << nbSatisfiedDemand() << endl;
+    cout << "Number of student with at least one possible demand: " << nbStudentWithAtLeastOnePossibleDemand() << endl;
+    cout << "Number of student with at least one demand satisfied: " << nbStudentWithAtLeastOneDemandSatisfied() << endl;
+    cout << "Number of table: " << nbUsedTable << endl;
+    cout << "Mean number of guest by table: " << calculateMeanFilledSeat() << endl;
+}
+
+float SeatingArrangements::calculateMeanFilledSeat() {
+    float mean = 0;
+    for (int i = 0 ; i < nbUsedTable ; i++) {
+        mean += static_cast< float >(tableList[i]->getNbFilledSeat());
+    }
+    if (nbUsedTable != 0) {
+        mean = mean / static_cast< float >(nbUsedTable);
+    }
+    return mean;
+}
+
+int SeatingArrangements::getNbUsedTable() {
+    return nbUsedTable;
 }
