@@ -172,6 +172,7 @@ export class ParserService {
           }
           if (graduatedStudent) {
             table.addStudent(graduatedStudent);
+            graduatedStudent.setTable(table);
           }
         })
         .on('end', () => {
@@ -213,6 +214,10 @@ export class ParserService {
 
   private static getNextStudentId(): number {
     return this.studentIdCounter++;
+  }
+
+  private static getTables(): Table[] {
+    return this.alltables;
   }
 
   private static hasHomonym(firstName: string, lastName: string, mail: string): boolean {
