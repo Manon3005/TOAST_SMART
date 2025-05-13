@@ -47,8 +47,8 @@ export function ConflictCenter({ student , onAccept, onRefuse, disabled, fin, on
         `${student.conflict?.firstName} ${student.conflict?.lastName}`
     ),
     React.createElement('div', { className: 'conflict-container-buttons' },
-        React.createElement('button', { className: 'conflict-button', onClick: onAccept }, 'Accepter'),
-        React.createElement('button', { className: 'conflict-button', onClick: onRefuse }, 'Refuser')
+        React.createElement('button', { className: 'classic-button', onClick: onAccept }, 'Accepter'),
+        React.createElement('button', { className: 'classic-button', onClick: onRefuse }, 'Refuser')
     ),
     
 );
