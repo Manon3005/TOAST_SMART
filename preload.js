@@ -8,4 +8,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   generateIntermediateCsv: () => ipcRenderer.invoke('dialog:generateIntermediateCsv'),
   generateTablePlan: (jsonData) => ipcRenderer.invoke('dialog:generateTablePlan', jsonData),
   getStatistics: () => ipcRenderer.invoke('dialog:getStatistics'),
+  exportTablesCsv: () => ipcRenderer.invoke('dialog:exportTablesCsv'),
 });
