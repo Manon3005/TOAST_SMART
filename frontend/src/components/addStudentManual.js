@@ -6,7 +6,7 @@ import '../App.css';
 export function AddStudentManual({ label, listStudent, value, onChange, disabled }) {
   return React.createElement(
     'div',
-    { className: 'dropdown' },
+    { className: 'select-row' },
     React.createElement('label', null, label),
     React.createElement(
       'select',
@@ -21,7 +21,7 @@ export function AddStudentManual({ label, listStudent, value, onChange, disabled
           React.createElement(
             'option',
             { key: student.id, value: student.id },
-            `${student.firstName}  ${student.lastName}`
+            `${student.lastName}  ${student.firstName}`
           )
         )
       ]

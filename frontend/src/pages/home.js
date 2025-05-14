@@ -340,6 +340,19 @@ export function Home() {
 
           conflictStep && React.createElement('div', { className: 'conflicts-step' },
             React.createElement('div', { className: 'left-part' },
+
+              React.createElement('br', null),
+              !conflictManagment && React.createElement('div', null,
+                React.createElement(AddStudentManual,{label: 'Ajouter etudiant manuellement',
+                                                        listStudent :listStudent,
+                                                        value: selectedOption,
+                                                        onChange: setSelectedOption,
+                                                        disabled: false}
+                ),
+                React.createElement('br', null),
+                React.createElement(AddStudentButton, {onClick : actionAddStudent}),
+                          
+              ),
               
               React.createElement(ConflictCenter,{
                 fin : conflictManagment,
@@ -350,16 +363,7 @@ export function Home() {
                 onFin : actionFinTraitement,
                 load : loadPicture,
               }),
-              !conflictManagment && React.createElement('div', null,
-                React.createElement(AddStudentManual,{label: 'Ajouter etudiant manuellement',
-                                                        listStudent :listStudent,
-                                                        value: selectedOption,
-                                                        onChange: setSelectedOption,
-                                                        disabled: false}
-                ),
-                React.createElement(AddStudentButton, {onClick : actionAddStudent}),
-                          
-              ),
+  
             ),
               !conflictManagment && React.createElement('div', { className: 'right-part' },
                 React.createElement(StudentGuestDisplay,{student : conflictCase}),
