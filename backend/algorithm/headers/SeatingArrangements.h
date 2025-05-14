@@ -40,7 +40,16 @@ class SeatingArrangements
         float calculateMeanFilledSeat();
         void print_stats();
 
+        void createTableRelationshipMatrix();
+        vector<vector<int>> groupCloseTables(int maxGroupSize = 10);
+        void printTableGroups();
+
+        void exportTableGroupsToCSV(const string& filename);
+
     protected:
+
+        void dfsGroupTables(int tableIndex, vector<bool>& visited, vector<int>& group);
+        void divideIntoSubgroups(vector<int>& largeGroup, vector<vector<int>>& groups, int maxGroupSize);
 
         Student** studentList;
         int nbStudent;
