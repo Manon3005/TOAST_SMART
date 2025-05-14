@@ -54,7 +54,7 @@ async function createWindow() {
   win.maximize();
   win.setResizable(true);
   win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-  //win.webContents.openDevTools();  // pour debogage
+  win.webContents.openDevTools();  // pour debogage
 }
 
 app.whenReady().then(() => {
@@ -133,7 +133,9 @@ ipcMain.handle('dialog:addNeighbour', async (event, jsonInfo) => {
 
 ipcMain.handle('dialog:generateIntermediateCsv', async () => {
   const directoryPath = path.dirname(globalFilePath);
-  const filePath = path.join(directoryPath, "cleaned_input_file.csv");
+  const ext = path.extname(globalFilePath);
+  const baseName = path.basename(globalFilePath, ext); 
+  const filePath = path.join(directoryPath, baseName + "cleaned_input_file.csv");
   CsvExporter.exportCleanedInputCsv(ParserService.columns, allGraduatedStudents, filePath);
   return filePath;
 });
