@@ -50,6 +50,8 @@ export function Home() {
     
     const [filePath, setPath] = useState('');
 
+    const [errorActionReset, setErrorActionReset] = useState('');
+
     // Modals states
     const [finTraitementModalOpen, setFinTraitementModalOpen] = useState(false);
     const openFinTraitementModal = () => setFinTraitementModalOpen(true);
@@ -58,6 +60,10 @@ export function Home() {
     const [errorExportFileModal, setErrorExportFileModal] = useState(false);
     const openErrorExportFileModal = () => setErrorExportFileModal(true);
     const closeErrorExportFileModal = () => setErrorExportFileModal(false);
+
+    const [errorActionResetModal, setErrorActionResetModal] = useState(false);
+    const openErrorActionResetModal = () => setErrorActionResetModal(true);
+    const closeErrorActionResetModal = () => setErrorActionResetModal(false);
 
     const handleSelectionChange = (value) => {
       console.log('Valeur sélectionnée :', value);
@@ -201,7 +207,8 @@ export function Home() {
           setTableData(Array(8).fill(''));
         }
         else if (error){
-          alert(error);
+          setErrorActionReset(error);
+          openErrorActionResetModal();
         }
         setLockedGenerer(true);
         setLockedContinue(false);
@@ -272,6 +279,12 @@ export function Home() {
                 onClick: () => actionReset(),
                 disabled : false
               })
+            ),
+            errorActionResetModal && React.createElement('div', { className: 'modal-overlay', onClick: closeErrorActionResetModal },
+              React.createElement('div', { className: 'modal-content' },
+              React.createElement('p', null, errorActionReset),
+              React.createElement('button', { className: 'modal-close-button', onClick: closeErrorActionResetModal }, 'Fermer')
+              )
             ),
             loadPicture && React.createElement('div', { className: 'loading-container' },
               React.createElement('img', {
