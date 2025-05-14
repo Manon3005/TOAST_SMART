@@ -6,8 +6,10 @@
 #include <cstring>
 
 #include "../headers/SeatingArrangements.h"
+#include "../resource/json.hpp"
 
 using namespace std;
+using json = nlohmann::json;
 
 SeatingArrangements::SeatingArrangements(Student** studentList, int nbStudent, int tableCapacityMax, int nbTableMax) {
     this->tableCapacityMax = tableCapacityMax;
@@ -201,7 +203,7 @@ void SeatingArrangements::clearTable() {
 }
 
 
-void SeatingArrangements::completeExistingTable() { 
+void SeatingArrangements::completeExistingTable(json& rapport_json) { 
     bool change = true;
     int i = 0;
     int j;
@@ -228,12 +230,16 @@ void SeatingArrangements::completeExistingTable() {
         }
     }
     clearTable();
+    rapport_json["nb_table_missing"] = 0;
+    rapport_json["nb_student_without_table"] = 0;
+    rapport_json["extra_table"] = 0;
     if (nbUsedTable > nbTableMax) {
         change = true;
         i = 0;
         int studentWithoutTable = 0;
         int tableRemoved = 0;
-        cout << nbUsedTable - nbTableMax << " table(s) missing" << endl;
+        rapport_json["nb_table_missing"] = nbUsedTable - nbTableMax;
+        // cout << nbUsedTable - nbTableMax << " table(s) missing" << endl;
         while (nbUsedTable - tableRemoved > nbTableMax && change) {
             change = false;
             if (tableList[i]->getNbStudent() == 1) {
@@ -244,9 +250,11 @@ void SeatingArrangements::completeExistingTable() {
             }
             i++;
         }
-        cout << studentWithoutTable << " student(s) without table" << endl;
+        rapport_json["nb_student_without_table"] = studentWithoutTable;
+        // cout << studentWithoutTable << " student(s) without table" << endl;
         if (nbUsedTable - tableRemoved > nbTableMax) {
-            cout << nbUsedTable - tableRemoved - nbTableMax << " extra table(s) in the proposal" << endl;
+            rapport_json["extra_table"] = nbUsedTable - tableRemoved - nbTableMax;
+            // cout << nbUsedTable - tableRemoved - nbTableMax << " extra table(s) in the proposal" << endl;
         }
     }
     clearTable();

@@ -7,6 +7,9 @@
 
 #include "Table.h"
 #include "Student.h"
+#include "../resource/json.hpp"
+
+using json = nlohmann::json;
 
 class SeatingArrangements
 {
@@ -22,7 +25,7 @@ class SeatingArrangements
         void mergeTables(Table* tableSource, Table* tableDestination);
         void attributeTableToStudent(bool orderByIncreasingDemand, bool orderByNbOfGuest, bool orderTableByDecreasingFilledSeat);
         void removeTable(int to_remove);
-        void completeExistingTable();
+        void completeExistingTable(json& rapport_json);
         void print();
         void clearTable();
         void orderTableByIncreasingNbOfDemand(vector<int>& order);
