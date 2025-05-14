@@ -163,7 +163,7 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   const executablePath = path.resolve(__dirname, 'backend', 'algorithm', executableName);
   const fileName = "planTable_" + dateStr;
   const outputPath = path.join(path.dirname(globalFilePath), fileName + ".csv");
-  const rapportPath = path.dirname(globalFilePath) + fileName + "_rapport_json.json";
+  const rapportPath = path.join(path.dirname(globalFilePath), fileName + "_rapport_json.json");
   const groupTablePath = path.join(path.dirname(globalFilePath), fileName + "_table_group.csv");
 
   try {
