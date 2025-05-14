@@ -189,10 +189,11 @@ ipcMain.handle('dialog:getStatistics', async () => {
 });
 
 ipcMain.handle('dialog:exportTablesCsv', async () => {
-  const outputPath = path.dirname(globalFilePath)+"\\final_repartition.csv";
+  const dir = path.dirname(globalFilePath);
+  const baseName = path.basename(globalFilePath, path.extname(globalFilePath));
+  const finalFileName = `${baseName}_final_repartition.csv`;
+  const outputPath = path.join(dir, finalFileName);  
   CsvExporter.exportPlacementCsv(allTables, outputPath);
-
   await shell.openPath(outputPath);
-
   return outputPath;
 });
