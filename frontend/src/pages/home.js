@@ -97,11 +97,13 @@ export function Home() {
   
 
 
-    const actionContinue = () => {
+    const actionContinue = async () => {
         setLockedContinue(true);
-        setPreprocessingStep(false);
-        setConflictStep(true);
-        generateCSVColumn();
+        const result = await generateCSVColumn();
+        if (result) {
+          setPreprocessingStep(false);
+          setConflictStep(true);
+        }
     };
 
     const actionExporter = () => {
@@ -128,16 +130,18 @@ export function Home() {
           setLoadPicture(false);
           if (jsonConflict.error){
             actionReset(jsonConflict.error);
+            return false;
           } else {
             if (!jsonConflict.jsonContent || Object.keys(jsonConflict.jsonContent).length === 0) {
               setConflictManagment(true);
               setConflictCase(null);
-              return;
+              return true;
             }
             setConflictCase({
               ...jsonConflict.jsonContent,
               remainingConflictNumber: jsonConflict.remainingConflictNumber
             });
+            return true;
           }
         } catch {
           alert("Les noms de colonnes ne correspondent pas, ou ne sont pas complétés");
