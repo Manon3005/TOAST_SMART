@@ -10,6 +10,6 @@ export function AddStudentButton({onClick}) {
     null,
     React.createElement(
         'button',
-        {className: 'file-button', onClick : onClick },'Ajouter voisin' )
+        {className: 'classic-button', onClick : onClick },'Ajouter voisin' )
 );
 }
