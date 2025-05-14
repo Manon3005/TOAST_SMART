@@ -12,9 +12,9 @@ import { ChoiceRadioButton } from "../components/choiceRadioButton";
 import { GenerateButton } from "../components/generateButton";
 import { AddStudentManual } from "../components/addStudentManual";
 import { AddStudentButton } from "../components/addStudentButton";
-
-
-import React, { useState, useEffect  } from 'react';
+import { AcceptConflictButton } from "../components/acceptConflictButton";
+import { RefuseConflictButton } from "../components/refuseConflictButton";
+import React, { useState  } from 'react';
 import '../App.css';
 
 export function Home() {
@@ -34,7 +34,6 @@ export function Home() {
     const [tablePlanStep, setTablePlanStep] = useState(false);
 
     const [conflictCase, setConflictCase] = useState({})
-    const [returnConflict, setReturnConflict] = useState("");
     const [conflictManagment, setConflictManagment] = useState(false);
 
     const [finalAddress, setFinalAdress] = useState('');
@@ -46,13 +45,11 @@ export function Home() {
     const [errorExportFile, setErrorExportFile] = useState('');
 
 
-    const [isVisible, setIsVisible] = useState(false); 
     const [selectedChoice, setSelectedChoice] = useState('max_demand');
     const [nameFileDraftPlan, setNameFileDraftPlan] = useState('');
     const [statsJson, setStatsJson] = useState({});
+    const [rapportJson, setRapportJson] = useState({});
     
-    const [filePath, setPath] = useState('');
-
     const [selectedOption, setSelectedOption] = React.useState('--selectionnez--');
 
     const [listStudent, setListStudent] = React.useState([]);
@@ -73,6 +70,10 @@ export function Home() {
     const [errorActionResetModal, setErrorActionResetModal] = useState(false);
     const openErrorActionResetModal = () => setErrorActionResetModal(true);
     const closeErrorActionResetModal = () => setErrorActionResetModal(false);
+
+    const [rapportModal, setRapportModal] = useState(false);
+    const openRapportModal = () => setRapportModal(true);
+    const closeRapportModal = () => setRapportModal(false);
 
     const handleSelectionChange = (value) => {
       setSelectedChoice(value);
@@ -101,6 +102,7 @@ export function Home() {
         try {
             const jsonResult = await window.electronAPI.getStatistics();
             setStatsJson(jsonResult.statsJson);
+            setRapportJson({});
             setFinalAdress(jsonResult.address.split(/[/\\]/).pop())
             setGroupTableFinalAdress(' / ')
 
@@ -177,7 +179,10 @@ export function Home() {
         setFinalAdress(jsonResult.addressPlanTable.split(/[/\\]/).pop());
         setGroupTableFinalAdress(jsonResult.addressGroupTable.split(/[/\\]/).pop())
         setStatsJson(jsonResult.statsJson);
-
+        setRapportJson(jsonResult.rapportJson);
+        if (jsonResult.rapportJson && Object.keys(jsonResult.rapportJson).length > 0 && (jsonResult.rapportJson.nb_table_missing > 0 || jsonResult.rapportJson.nb_student_without_table > 0 || jsonResult.rapportJson.extra_table > 0)){
+          openRapportModal();
+        }
       }
       catch (error) {
         console.error('Erreur lors de la génération du plan de table :', error);
@@ -331,26 +336,34 @@ export function Home() {
 
           conflictStep && React.createElement('div', { className: 'conflicts-step' },
             React.createElement('div', { className: 'left-part' },
-              
+
+              React.createElement('br', null),
               React.createElement(ConflictCenter,{
                 fin : conflictManagment,
                 disabled: lockedGenerer,
                 student: conflictCase,
-                onAccept: acceptConflict,
-                onRefuse: refuseConflict,
                 onFin : actionFinTraitement,
                 load : loadPicture,
               }),
+              React.createElement('br', null),
               !conflictManagment && React.createElement('div', null,
-                React.createElement(AddStudentManual,{label: 'Ajouter etudiant manuellement',
+                React.createElement(AddStudentManual,{label: 'Ajouter étudiant manuellement : ',
                                                         listStudent :listStudent,
                                                         value: selectedOption,
                                                         onChange: setSelectedOption,
                                                         disabled: false}
                 ),
+                React.createElement('br', null),
                 React.createElement(AddStudentButton, {onClick : actionAddStudent}),
                           
               ),
+              React.createElement('br', null),
+              React.createElement('br', null),
+              !conflictManagment && React.createElement('div', { className: 'conflict-container-buttons' },
+                React.createElement(AcceptConflictButton, { className: 'classic-button', onClick: acceptConflict }),
+                React.createElement(RefuseConflictButton, { className: 'classic-button', onClick: refuseConflict })
+              ),
+  
             ),
               !conflictManagment && React.createElement('div', { className: 'right-part' },
                 React.createElement(StudentGuestDisplay,{student : conflictCase}),
@@ -398,7 +411,7 @@ export function Home() {
               )
             ),
             React.createElement('div', { className: 'right-part' },
-              React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson }),
+              React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson, rapportJson: rapportJson }),
               React.createElement(ExportSolutionButton, {onClick: actionExporter,errorExportFile : errorExportFile, 
               nameExportFile : nameExportFile, disabled: !nameFileDraftPlan && !finalAddress} ) 
             ),
@@ -409,6 +422,16 @@ export function Home() {
               React.createElement('button', { className: 'modal-close-button', onClick: closeErrorExportFileModal }, 'Fermer')
               )
             ),
+
+            rapportModal && React.createElement('div', { className: 'modal-overlay', onClick: closeRapportModal },
+              React.createElement('div', { className: 'modal-content'},
+                React.createElement('h2', null, 'Erreur dans la génération !'),
+                React.createElement('p', null, `Nombre de tables manquantes : ${rapportJson.nb_table_missing}`),
+                React.createElement('p', null, `Nombre d'étudiants sans table : ${rapportJson.nb_student_without_table}`),
+                React.createElement('p', null, `Nombre de tables en trop dans la solution : ${rapportJson.extra_table}`),
+                React.createElement('button', { className: 'modal-close-button', onClick: closeRapportModal }, 'Fermer')
+              )
+            )
               
           )
         )
