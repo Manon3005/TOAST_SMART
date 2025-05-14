@@ -148,14 +148,15 @@ export function Home() {
             actionReset(jsonConflict.error);
             return false;
           } else {
-            if (!jsonConflict.jsonContent || Object.keys(jsonConflict.jsonContent).length === 0) {
+            if (!jsonConflict.conflictInformations.jsonContent || Object.keys(jsonConflict.conflictInformations.jsonContent).length === 0) {
               setConflictManagment(true);
               setConflictCase(null);
               return true;
             }
+            setListStudent(jsonConflict.listStudents);
             setConflictCase({
-              ...jsonConflict.jsonContent,
-              remainingConflictNumber: jsonConflict.remainingConflictNumber
+              ...jsonConflict.conflictInformations.jsonContent,
+              remainingConflictNumber: jsonConflict.conflictInformations.remainingConflictNumber
             });
             return true;
           }
@@ -343,7 +344,7 @@ export function Home() {
                 onFin : actionFinTraitement,
                 load : loadPicture,
               }),
-              React.createElement('div', null,
+              !conflictManagment && React.createElement('div', null,
                 React.createElement(AddStudentManual,{label: 'Ajouter etudiant manuellement',
                                                         listStudent :listStudent,
                                                         value: selectedOption,
