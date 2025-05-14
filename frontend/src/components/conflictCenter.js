@@ -1,41 +1,57 @@
 import { AcceptConflictButton } from "./acceptConflictButton";
 import { RefuseConflictButton } from "./refuseConflictButton";
+import { FinTraitementButton } from "./finTraitementButton";
+
 import React, { useState } from 'react';
-import { GenerateButton } from "../components/generateButton";
 import '../App.css';
 
 
 
-export function ConflictCenter({ students = [], currentStudentIndex = 0, currentNeighbourIndex = 0, onAccept, onRefuse, disabled, fin, onGenerate }) { 
-    const student = students[currentStudentIndex];
-    const neighbour = student?.processedNeighbours?.[currentNeighbourIndex];
+export function ConflictCenter({ student , onAccept, onRefuse, disabled, fin, onFin, load }) { 
 
+    if (load){
+        return React.createElement('div', { className: 'loading-container' },
+            React.createElement('img', {
+                src: 'img/loading.gif',
+                alt: 'Chargement...',
+                className: 'spinner'
+            }),
+            React.createElement('p', null, 'Chargement en cours...')
+        );
+    }
+    
+    
     if (fin) {
         return React.createElement('div',null,
-            React.createElement('p', null, 'Traitement terminé'),
-            React.createElement(GenerateButton, {className: 'file-button', onClick: onGenerate}),
-        );
-        
-    }
-    if (!student || disabled) {
-        return React.createElement('p', null, 'Aucun conflit à traiter');
-    }
-    if (!neighbour){
-        return React.createElement('div',null,
-            React.createElement('p', null, 'Pas de voisin.e pour ce diplomé.e'),
-            React.createElement('button', { onClick: onAccept, disabled }, 'Suivant'),
-            React.createElement('p', null, `Cas ${currentStudentIndex + 1}/${students.length}`)
-        );
+            React.createElement('h3', null, 'Traitement terminé'),
+            React.createElement(FinTraitementButton, {onClick: onFin, disabled:disabled}),
+        );  
     }
 
+
     return React.createElement('div', null,
-    React.createElement('p', null, `🎓 Diplômé.e : ${student.firstName} ${student.lastName}`),
-    React.createElement('p', null, `Préférences initiales : ${student.preferedNeighbours}`),
-    React.createElement('p', null, `👤 Voisin.e proposé.e : ${neighbour.neighbourFirstName} ${neighbour.neighbourLastName}`),
-    React.createElement('div', null,
-        React.createElement('button', { onClick: onAccept, disabled }, 'Accepter'),
-        React.createElement('button', { onClick: onRefuse, disabled }, 'Refuser')
+    React.createElement('p', null, 
+        React.createElement('strong', null, 'Nombre de conflits restants : '),
+        student.remainingConflictNumber
     ),
-    React.createElement('p', null, `Cas ${currentStudentIndex + 1}/${students.length} - Voisin.e ${currentNeighbourIndex + 1}/${student.processedNeighbours.length}`)
-    );
+    React.createElement('p', null, 
+        React.createElement('strong', null, '🎓 Diplômé.e : '),
+        `${student.firstName} ${student.lastName}`
+    ),
+    React.createElement('p', null, 
+        React.createElement('strong', null, 'Préférences indiquées : '),
+        student.neighboursEntry
+    ),
+    React.createElement('p', null, 
+        React.createElement('strong', null, '👤 Voisin.e proposé.e : '),
+        `${student.conflict?.firstName} ${student.conflict?.lastName}`,
+        student.conflict?.guests?.length > 0 &&
+            ` (Invité.e.s : ${student.conflict.guests.map(guest => `${guest.guestFirstName} ${guest.guestLastName}`).join(', ')})`
+    ),
+    React.createElement('div', { className: 'conflict-container-buttons' },
+        React.createElement('button', { className: 'classic-button', onClick: onAccept }, 'Accepter'),
+        React.createElement('button', { className: 'classic-button', onClick: onRefuse }, 'Refuser')
+    ),
+    
+);
 }
