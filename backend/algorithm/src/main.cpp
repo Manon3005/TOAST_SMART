@@ -22,6 +22,8 @@ int main(int argc, char* argv[])
     DataParser dataParser = DataParser(jsonFilePath);
     string option = dataParser.getOption();
 
+    string groupsFileName = outputFilePath.substr(0, outputFilePath.length() - 4) + "_table_group.csv";
+
     ofstream outputFile;
     outputFile.open(outputFilePath);
 
@@ -89,16 +91,19 @@ int main(int argc, char* argv[])
                 sAfinal.completeExistingTable(rapport_json);  
             }
         }
+        sAfinal.exportTableGroupsToCSV(groupsFileName);
         outputFile << sAfinal;
         outputJson << rapport_json;
     } else if (option == "max_student") {
         sA.attributeTableToStudent(true, false, false);
         sA.completeExistingTable(rapport_json);
+        sA.exportTableGroupsToCSV(groupsFileName);
         outputFile << sA;
         outputJson << rapport_json;
     } else if (option == "less_guest") {
         sA.attributeTableToStudent(false, true, false);
         sA.completeExistingTable(rapport_json);
+        sA.exportTableGroupsToCSV(groupsFileName);
         outputFile << sA;
         outputJson << rapport_json;
     } else {
