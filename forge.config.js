@@ -10,13 +10,7 @@ module.exports = {
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {
-        certificateFile: './cert.pfx',
-        certificatePassword: process.env.CERTIFICATE_PASSWORD,
-        options: {
-          icon: 'frontend/public/img/Logo_TOAST.ico'
-        }
-      },
+      config: {},
     },
     {
       name: '@electron-forge/maker-zip',
@@ -27,6 +21,10 @@ module.exports = {
       config: {
         options: {
           icon: 'frontend/public/img/Logo_TOAST.png',
+          name: 'toast',
+          productName: 'TOAST',
+          description: 'Une super app pour organiser des plans de table',
+          categories: ['Utility'],
         }
       },
     },
@@ -35,6 +33,10 @@ module.exports = {
       config: {
         options: {
           icon: 'frontend/public/img/Logo_TOAST.png',
+          name: 'toast',
+          productName: 'TOAST',
+          description: 'Une super app pour organiser des plans de table',
+          categories: ['Utility'],
         }
       },
     },

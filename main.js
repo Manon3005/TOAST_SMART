@@ -36,6 +36,7 @@ async function createWindow() {
   
   const win = new BrowserWindow({
     icon: 'frontend/public/img/Logo_TOAST.ico',
+    title: 'TOAST',
     width: Math.floor(width),    
     height: Math.floor(height),    
     minWidth: Math.floor(width),                       
