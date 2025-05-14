@@ -27,30 +27,37 @@ int main(int argc, char* argv[])
     ofstream outputFile;
     outputFile.open(outputFilePath);
 
+    json rapport_json;
+
+    string outputFileJson = outputFilePath.substr(0, outputFilePath.length() - 4) + "_rapport_json.json";
+    ofstream outputJson;
+    outputJson.open(outputFileJson);
+    cout << outputFileJson << endl;
+
     SeatingArrangements sA = SeatingArrangements(dataParser.getStudentList(), dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
     if (option == "min_table" || option == "max_demand") {
         SeatingArrangements sA1 = SeatingArrangements(dataParser.getStudentList(), dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
         sA1.attributeTableToStudent(true, false, false);
-        sA1.completeExistingTable();
+        sA1.completeExistingTable(rapport_json);
         int nbTable1 = sA1.getNbUsedTable();
         int nbDemand1 = sA1.nbSatisfiedDemand();
 
         
         SeatingArrangements sA2 = SeatingArrangements(dataParser.getStudentList(), dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
         sA2.attributeTableToStudent(false, true, false);
-        sA2.completeExistingTable();
+        sA2.completeExistingTable(rapport_json);
         int nbTable2 = sA2.getNbUsedTable();
         int nbDemand2 = sA2.nbSatisfiedDemand();
 
         SeatingArrangements sA3 = SeatingArrangements(dataParser.getStudentList(), dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
         sA3.attributeTableToStudent(false, false, true);
-        sA3.completeExistingTable();
+        sA3.completeExistingTable(rapport_json);
         int nbTable3 = sA3.getNbUsedTable();
         int nbDemand3 = sA3.nbSatisfiedDemand();
 
         SeatingArrangements sA4 = SeatingArrangements(dataParser.getStudentList(), dataParser.getNbStudent(), dataParser.getTableCapacityMax(), dataParser.getNbTableMax());
         sA4.attributeTableToStudent(false, false, false);
-        sA4.completeExistingTable();
+        sA4.completeExistingTable(rapport_json);
         int nbTable4 = sA4.getNbUsedTable();
         int nbDemand4 = sA4.nbSatisfiedDemand();
         
@@ -58,44 +65,47 @@ int main(int argc, char* argv[])
         if (option == "min_table") {
             if (nbTable1 <= nbTable2 && nbTable1 <= nbTable3 && nbTable1 <= nbTable4) {
                 sAfinal.attributeTableToStudent(true, false, false);
-                sAfinal.completeExistingTable();    
+                sAfinal.completeExistingTable(rapport_json);    
             } else if (nbTable2 <= nbTable3 && nbTable2 <= nbTable4) {
                 sAfinal.attributeTableToStudent(false, true, false);
-                sAfinal.completeExistingTable();  
+                sAfinal.completeExistingTable(rapport_json);  
             } else if (nbTable3 <= nbTable4) {
                 sAfinal.attributeTableToStudent(false, false, true);
-                sAfinal.completeExistingTable();  
+                sAfinal.completeExistingTable(rapport_json);  
             } else {
                 sAfinal.attributeTableToStudent(false, false, false);
-                sAfinal.completeExistingTable();  
+                sAfinal.completeExistingTable(rapport_json);  
             }
         } else {
             if (nbDemand1 >= nbDemand2 && nbDemand1 >= nbDemand3 && nbDemand1 >= nbDemand4) {
                 sAfinal.attributeTableToStudent(true, false, false);
-                sAfinal.completeExistingTable();    
+                sAfinal.completeExistingTable(rapport_json);    
             } else if (nbDemand2 >= nbDemand3 && nbDemand2 >= nbDemand4) {
                 sAfinal.attributeTableToStudent(false, true, false);
-                sAfinal.completeExistingTable();  
+                sAfinal.completeExistingTable(rapport_json);  
             } else if (nbDemand3 >= nbDemand4) {
                 sAfinal.attributeTableToStudent(false, false, true);
-                sAfinal.completeExistingTable();  
+                sAfinal.completeExistingTable(rapport_json);  
             } else {
                 sAfinal.attributeTableToStudent(false, false, false);
-                sAfinal.completeExistingTable();  
+                sAfinal.completeExistingTable(rapport_json);  
             }
         }
         sAfinal.exportTableGroupsToCSV(groupsFileName);
         outputFile << sAfinal;
+        outputJson << rapport_json;
     } else if (option == "max_student") {
         sA.attributeTableToStudent(true, false, false);
-        sA.completeExistingTable();
+        sA.completeExistingTable(rapport_json);
         sA.exportTableGroupsToCSV(groupsFileName);
         outputFile << sA;
+        outputJson << rapport_json;
     } else if (option == "less_guest") {
         sA.attributeTableToStudent(false, true, false);
-        sA.completeExistingTable();
+        sA.completeExistingTable(rapport_json);
         sA.exportTableGroupsToCSV(groupsFileName);
         outputFile << sA;
+        outputJson << rapport_json;
     } else {
         return 1;
     }
