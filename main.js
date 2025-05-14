@@ -17,6 +17,7 @@ const { shell } = require('electron');
 // Create the express server in order to use the static files in the frontend public folder
 const express = require('express');
 const { json } = require("stream/consumers");
+const { NeighboursLinker } = require("./backend/dist/backend/utils/NeighboursLinker.js");
 const appServer = express();
 appServer.use(express.static(path.join(__dirname, 'frontend', 'public')));
 
@@ -107,7 +108,10 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
     return {error : error.message};
   }
   // Return the first conflict
-  return await ConflictHandler.getNextConflict(allGraduatedStudents);
+  return {
+    conflict: await ConflictHandler.getNextConflict(allGraduatedStudents),
+    listStudents: await JsonExporter.getListStudents(allGraduatedStudents),
+  };
 }); 
 
 ipcMain.handle('dialog:getNextConflict', async (event, jsonSolution) => {
@@ -115,6 +119,13 @@ ipcMain.handle('dialog:getNextConflict', async (event, jsonSolution) => {
   const id_neighbour = jsonSolution.id_neighbour;
   const result = jsonSolution.result;
   await ConflictHandler.resolveConflict(id_student, id_neighbour, result, allGraduatedStudents);
+  return await ConflictHandler.getNextConflict(allGraduatedStudents);
+});
+
+ipcMain.handle('dialog:addNeighbour', async (event, jsonInfo) => {
+  const id_student = jsonInfo.id_student;
+  const id_neighbour = jsonInfo.id_neighbour; 
+  await NeighboursLinker.addNeighbour(allGraduatedStudents, id_student, id_neighbour);
   return await ConflictHandler.getNextConflict(allGraduatedStudents);
 });
 
