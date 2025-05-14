@@ -359,7 +359,7 @@ export function Home() {
               ),
               React.createElement('br', null),
               React.createElement('br', null),
-              React.createElement('div', { className: 'conflict-container-buttons' },
+              !conflictManagment && React.createElement('div', { className: 'conflict-container-buttons' },
                 React.createElement(AcceptConflictButton, { className: 'classic-button', onClick: acceptConflict }),
                 React.createElement(RefuseConflictButton, { className: 'classic-button', onClick: refuseConflict })
               ),
