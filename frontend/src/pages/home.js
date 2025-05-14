@@ -47,6 +47,7 @@ export function Home() {
     const [selectedChoice, setSelectedChoice] = useState('max_demand');
     const [nameFileDraftPlan, setNameFileDraftPlan] = useState('');
     const [statsJson, setStatsJson] = useState({});
+    const [rapportJson, setRapportJson] = useState({});
     
     const [filePath, setPath] = useState('');
 
@@ -64,6 +65,10 @@ export function Home() {
     const [errorActionResetModal, setErrorActionResetModal] = useState(false);
     const openErrorActionResetModal = () => setErrorActionResetModal(true);
     const closeErrorActionResetModal = () => setErrorActionResetModal(false);
+
+    const [rapportModal, setRapportModal] = useState(false);
+    const openRapportModal = () => setRapportModal(true);
+    const closeRapportModal = () => setRapportModal(false);
 
     const handleSelectionChange = (value) => {
       console.log('Valeur sélectionnée :', value);
@@ -93,6 +98,7 @@ export function Home() {
         try {
             const jsonResult = await window.electronAPI.getStatistics();
             setStatsJson(jsonResult.statsJson);
+            setRapportJson({});
             setFinalAdress(jsonResult.address.split(/[/\\]/).pop())
 
             
@@ -166,6 +172,10 @@ export function Home() {
         const jsonResult = await window.electronAPI.generateTablePlan(exportJson);
         setFinalAdress(jsonResult.address.split(/[/\\]/).pop());
         setStatsJson(jsonResult.statsJson);
+        setRapportJson(jsonResult.rapportJson);
+        if (jsonResult.rapportJson && Object.keys(jsonResult.rapportJson).length > 0 && (jsonResult.rapportJson.nb_table_missing > 0 || jsonResult.rapportJson.nb_student_without_table > 0 || jsonResult.rapportJson.extra_table > 0)){
+          setRapportModal(true);
+        }
       }
       catch (error) {
         console.error('Erreur lors de la génération du plan de table :', error);
@@ -348,7 +358,7 @@ export function Home() {
               )
             ),
             React.createElement('div', { className: 'right-part' },
-              React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson }),
+              React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson, rapportJson: rapportJson }),
               React.createElement(ExportSolutionButton, {onClick: actionExporter,errorExportFile : errorExportFile, 
               nameExportFile : nameExportFile, disabled: !nameFileDraftPlan && !finalAddress} ) 
             ),
@@ -359,6 +369,16 @@ export function Home() {
               React.createElement('button', { className: 'modal-close-button', onClick: closeErrorExportFileModal }, 'Fermer')
               )
             ),
+
+            rapportModal && React.createElement('div', { className: 'modal-overlay', onClick: closeRapportModal },
+              React.createElement('div', { className: 'modal-content'},
+                React.createElement('h2', null, 'Erreur dans la génération !'),
+                React.createElement('p', null, `Nombre de tables manquantes : ${rapportJson.nb_table_missing}`),
+                React.createElement('p', null, `Nombre d'étudiants sans table : ${rapportJson.nb_student_without_table}`),
+                React.createElement('p', null, `Nombre de tables en trop dans la solution : ${rapportJson.extra_table}`),
+                React.createElement('button', { className: 'modal-close-button', onClick: closeRapportModal }, 'Fermer')
+              )
+            )
               
           )
         )
