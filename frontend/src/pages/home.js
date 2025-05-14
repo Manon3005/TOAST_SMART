@@ -59,7 +59,6 @@ export function Home() {
 
 
 
-
     const [errorActionReset, setErrorActionReset] = useState('');
 
     // Modals states
