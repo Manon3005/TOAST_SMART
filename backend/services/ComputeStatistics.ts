@@ -44,15 +44,16 @@ export class ComputeStatistics {
 
     private static percentageStudentSatisfied() {
         let cmp = 0;
-        for(const student of this.allGraduatedStudents) {
+        const allGraduatedStudentsWithDemand = this.allGraduatedStudents.filter(student => student.getNeighbours.length > 0);
+        for(const student of allGraduatedStudentsWithDemand) {
             const neighboursSatisfied = student
                 .getNeighbours()
                 .filter(neighbour => neighbour.getTable().getId() === student.getTable().getId());
-            if(neighboursSatisfied.length > 0) {
+            if (neighboursSatisfied.length > 0) {
                 cmp++;
             }
         }
-        return this.allGraduatedStudents.length === 0 ? 0 : (cmp / this.allGraduatedStudents.length) * 100;
+        return allGraduatedStudentsWithDemand.length === 0 ? 100 : (cmp / allGraduatedStudentsWithDemand.length) * 100;
     }
 
     static async getStatistics(students: GraduatedStudent[], tables: Table[], tableMaxCapacity: number): Promise<any>{
