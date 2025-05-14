@@ -134,7 +134,7 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   // Create the json information for the table plan
   await JsonExporter.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables, selectedChoice, allGraduatedStudents);
   // Launch the generation of the table plan
-  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'toast.exe');
+  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
   const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
 
   // Generate the output path
@@ -149,6 +149,8 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   
   // "2023-09-11T02:41:56
   const outputPath = path.dirname(globalFilePath) + "\\planTable_" + dateStr + ".csv";
+  const parsed = path.parse(globalFilePath);
+  const groupTablePath = parsed.dir + "\\" + parsed.name + "_table_group.csv";
 
   try {
     const { stdout, stderr } = await execFile(executablePath, [inputPath, outputPath]);
@@ -161,6 +163,7 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   const statsJson = await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
   return { 
     address: outputPath,
+    addressGroupTable: groupTablePath,
     statsJson 
   };
 });
