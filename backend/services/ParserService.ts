@@ -165,7 +165,7 @@ export class ParserService {
 
           let table = allTables.get(tableId);
           if (!table) {
-            table = new Table(tableId, 11, [], 0);
+            table = new Table(tableId, 11, [], 0, 0);
             allTables.set(tableId, table);
           }
           if (graduatedStudent) {

@@ -34,7 +34,7 @@ export class ComputeStatistics {
         let mean = 0;
         let sum = 0;
         for(const table of this.tables) {
-            sum += table.getNbStudent();
+            sum += table.getNbFilledSeat();
         }
         if(sum != 0) {
             mean = sum / this.tables.length;
