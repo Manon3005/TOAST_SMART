@@ -79,4 +79,12 @@ export class NeighboursLinker {
         });
         return allGraduatedStudents;
     }
+
+    static async addNeighbour(allGraduatedStudents: GraduatedStudent[], id_student:number, id_neighbour: number): Promise<void> {
+      const student = allGraduatedStudents.find(s => s.getId() == id_student);
+      const neighbour = allGraduatedStudents.find(n => n.getId() == id_neighbour);
+      if(!student!.isSameStudent(neighbour!)) {
+        student!.addNeighbour(neighbour!);
+      }
+    }
 }
