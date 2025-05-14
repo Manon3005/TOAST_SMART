@@ -8,6 +8,8 @@ const { ConflictHandler } = require("./backend/dist/backend/services/ConflictHan
 const path = require('path')
 const { app, BrowserWindow, screen } = require('electron/main');
 const { Parser } = require("csv-parse");
+const fs = require("fs");
+const os = require("os");
 const { ipcMain, dialog } = require('electron');
 const util = require('util');
 const execFile = util.promisify(require('child_process').execFile);
@@ -131,7 +133,7 @@ ipcMain.handle('dialog:addNeighbour', async (event, jsonInfo) => {
 
 ipcMain.handle('dialog:generateIntermediateCsv', async () => {
   const directoryPath = path.dirname(globalFilePath);
-  const filePath = path.join(directoryPath, "parsing_export.csv");
+  const filePath = path.join(directoryPath, "cleaned_input_file.csv");
   CsvExporter.exportCleanedInputCsv(ParserService.columns, allGraduatedStudents, filePath);
   return filePath;
 });
@@ -141,12 +143,6 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   maxTables = jsonData.max_number_tables;
   const maxByTables = jsonData.max_number_by_tables;
   const selectedChoice = jsonData.selected_choice;
-
-  // Create the json information for the table plan
-  await JsonExporter.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables, selectedChoice, allGraduatedStudents);
-  // Launch the generation of the table plan
-  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
-  const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
 
   // Generate the output path
   const date = new Date();
@@ -158,13 +154,20 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   const second = date.getSeconds();
   const dateStr = year + "-" + month + "-" + day + "_" + hour + "H" + minute + "m" + second + "s";
   
-  // "2023-09-11T02:41:56
-  const fileName = "\\planTable_" + dateStr;
-  const outputPath = path.dirname(globalFilePath) + fileName + ".csv";
-  const groupTablePath = path.dirname(globalFilePath) + fileName + "_table_group.csv";
+  // Create the json information for the table plan
+  const inputPath = path.join(path.dirname(globalFilePath), 'jsonAlgorithmInput.json');
+  await JsonExporter.createJsonFileForAlgorithm(inputPath, maxTables, maxByTables, selectedChoice, allGraduatedStudents);
+  // Launch the generation of the table plan
+  const isWindows = os.platform() === 'win32';
+  const executableName = isWindows ? 'main.exe' : 'main';
+  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', executableName);
+  const fileName = "planTable_" + dateStr;
+  const outputPath = path.join(path.dirname(globalFilePath), fileName + ".csv");
+  const groupTablePath = path.join(path.dirname(globalFilePath), fileName + "_table_group.csv");
 
   try {
     const { stdout, stderr } = await execFile(executablePath, [inputPath, outputPath]);
+    fs.unlinkSync(inputPath);
   } catch (error) {
     throw error;
   }
