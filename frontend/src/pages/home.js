@@ -36,6 +36,7 @@ export function Home() {
     const [conflictManagment, setConflictManagment] = useState(false);
 
     const [finalAddress, setFinalAdress] = useState('');
+    const [groupTableFinalAddress, setGroupTableFinalAdress] = useState('');
 
     const [loadPicture, setLoadPicture] = useState(false);
 
@@ -88,6 +89,7 @@ export function Home() {
             const jsonResult = await window.electronAPI.getStatistics();
             setStatsJson(jsonResult.statsJson);
             setFinalAdress(jsonResult.address.split(/[/\\]/).pop())
+            setGroupTableFinalAdress(' / ')
 
             
         } catch (err) {
@@ -158,8 +160,10 @@ export function Home() {
 
       try {
         const jsonResult = await window.electronAPI.generateTablePlan(exportJson);
-        setFinalAdress(jsonResult.address.split(/[/\\]/).pop());
+        setFinalAdress(jsonResult.addressPlanTable.split(/[/\\]/).pop());
+        setGroupTableFinalAdress(jsonResult.addressGroupTable.split(/[/\\]/).pop())
         setStatsJson(jsonResult.statsJson);
+
       }
       catch (error) {
         console.error('Erreur lors de la génération du plan de table :', error);
@@ -331,7 +335,14 @@ export function Home() {
                     React.createElement(GenerateButton, { onClick: actionGenerer }),
                     React.createElement(InputPlanButton, { onClick: loadPlanFile, nameFileDraftPlan: nameFileDraftPlan, setName: setName, errorFile: errorFile, setErrorFile: setErrorFile })
                 ),
-                finalAddress && React.createElement('p', null, finalAddress)
+                finalAddress && React.createElement('div', {className : 'file-line'},
+                  React.createElement('span', {className: 'label'}, 'Solution :\u00A0'), 
+                  React.createElement('span', {className: 'file-name'}, finalAddress),
+                ),
+                groupTableFinalAddress && React.createElement('div', {className : 'file-line'},
+                  React.createElement('span', {className: 'label'}, 'Groupement des tables :\u00A0'),
+                  React.createElement('span', {className: 'file-name'}, groupTableFinalAddress),
+                ),
               )
             ),
             React.createElement('div', { className: 'right-part' },
