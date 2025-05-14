@@ -22,7 +22,7 @@ export class ComputeStatistics {
         let cmp = 0;
         for(const student of this.allGraduatedStudents) {
             for(const neighbour of student.getNeighbours()) {
-                if(student.getTable().getId() === neighbour.getTable().getId()) {
+                if(neighbour.getTable() != undefined && student.getTable() && student.getTable().getId() === neighbour.getTable().getId()) {
                     cmp += 1;
                 }
             }
@@ -48,7 +48,7 @@ export class ComputeStatistics {
         for(const student of allGraduatedStudentsWithDemand) {
             const neighboursSatisfied = student
                 .getNeighbours()
-                .filter(neighbour => neighbour.getTable().getId() === student.getTable().getId());
+                .filter(neighbour => neighbour.getTable() != undefined && student.getTable() != undefined && neighbour.getTable().getId() === student.getTable().getId());
             if (neighboursSatisfied.length > 0) {
                 cmp++;
             }

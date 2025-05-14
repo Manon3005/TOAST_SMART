@@ -135,7 +135,7 @@ ipcMain.handle('dialog:generateIntermediateCsv', async () => {
   const directoryPath = path.dirname(globalFilePath);
   const ext = path.extname(globalFilePath);
   const baseName = path.basename(globalFilePath, ext); 
-  const filePath = path.join(directoryPath, baseName + "cleaned_input_file.csv");
+  const filePath = path.join(directoryPath, baseName + "_cleaned_input_file.csv");
   CsvExporter.exportCleanedInputCsv(ParserService.columns, allGraduatedStudents, filePath);
   return filePath;
 });
