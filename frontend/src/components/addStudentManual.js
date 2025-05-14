@@ -4,6 +4,9 @@ import '../App.css';
 
 
 export function AddStudentManual({ label, listStudent, value, onChange, disabled }) {
+  const sortedStudents = [...listStudent].sort((a, b) =>
+    a.lastName.localeCompare(b.lastName)
+  );
   return React.createElement(
     'div',
     { className: 'select-row' },
@@ -17,7 +20,7 @@ export function AddStudentManual({ label, listStudent, value, onChange, disabled
       },
       [
         React.createElement('option', { key: '-1', value: '--selectionnez--' }, '--Sélectionnez--'),
-        ...listStudent.map((student) =>
+        ...sortedStudents.map((student) =>
           React.createElement(
             'option',
             { key: student.id, value: student.id },
