@@ -3,6 +3,7 @@ import { Guest } from "../business/Guest";
 import { Table } from "../business/Table";
 import { StringNormalizer } from "../utils/StringNormalizer";
 import * as fs from "fs";
+import * as fsPromises from "fs/promises";
 import * as path from "path";
 import { parse, Parser } from "csv-parse";
 import { NeighboursLinker } from "../utils/NeighboursLinker";
@@ -192,6 +193,22 @@ export class ParserService {
         })
         .on('error', reject);
     });
+  }
+
+  static async parseRapportJson(path: string): Promise<any> {
+    try {
+      const content = await fsPromises.readFile(path, "utf-8");
+      const json = JSON.parse(content);
+      if (!("nb_table_missing" in json) ||
+          !("nb_student_without_table" in json) ||
+          !("extra_table" in json)
+      ) {
+        throw new Error("Le fichier JSON ne contient pas tous les champs nécessaires.");
+      }
+      return json;
+    } catch (error: any) {
+      throw new Error(`Erreur lors de la lecture du fichier JSON : ${error.message}`);
+    }
   }
 
   static async getColumnNamesFromCsvFile(filePath: string): Promise<any> {
