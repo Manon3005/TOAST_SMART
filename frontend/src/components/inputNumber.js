@@ -8,7 +8,6 @@ export function InputNumber({ value, onChange, disabled }) {
       type: 'number',
       min : "1",
       value: value,
-      disabled : disabled,
       onChange: (e) => onChange(e.target.value),
       className: 'glass-number',
       placeholder: '0',
