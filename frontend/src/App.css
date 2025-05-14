@@ -333,6 +333,24 @@ p {
   justify-content: center;
 }
 
+.file-line {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.label {
+  font-weight: bold;
+  color: black;
+  font-size: 13px;
+}
+
+.file-name {
+  color: black;
+  font-size: 13px;
+}
+
 .stats-center {
   display: flex;
   flex-direction: column;
