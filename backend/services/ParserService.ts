@@ -79,6 +79,19 @@ export class ParserService {
           const tableMates = row[wantedTableMates];
           const specifiedDiet = row[diet]?.trim();
 
+          if (
+            ticketNumber === undefined ||
+            guestFirstName === undefined ||
+            guestLastName === undefined ||
+            gradFirstName === undefined ||
+            gradLastName === undefined ||
+            gradEmail === undefined ||
+            specifiedDiet === undefined ||
+            tableMates === undefined
+          ) {
+            return reject(new Error("Le fichier CSV est invalide : une ou plusieurs colonnes attendues sont mal spécifiées."));
+          }
+
           const gradKey = StringNormalizer.createKeyWithNames(gradFirstName, gradLastName);
 
           // Need to take accents and capital letters off for the comparison 
