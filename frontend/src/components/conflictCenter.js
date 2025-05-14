@@ -1,10 +1,8 @@
-import { AcceptConflictButton } from "./acceptConflictButton";
-import { RefuseConflictButton } from "./refuseConflictButton";
 import { FinTraitementButton } from "./finTraitementButton";
 import React from 'react';
 import '../App.css';
 
-export function ConflictCenter({ student, onAccept, onRefuse, disabled, fin, onFin, load }) {
+export function ConflictCenter({ student, disabled, fin, onFin, load }) {
     if (load) {
         return React.createElement('div', { className: 'loading-container' },
             React.createElement('img', {
@@ -48,9 +46,5 @@ export function ConflictCenter({ student, onAccept, onRefuse, disabled, fin, onF
             React.createElement('strong', null, '👤 Voisin.e proposé.e : '),
             `${conflictFirst} ${conflictLast}${guestDisplay}`
         ),
-        React.createElement('div', { className: 'conflict-container-buttons' },
-            React.createElement('button', { className: 'classic-button', onClick: onAccept }, 'Accepter'),
-            React.createElement('button', { className: 'classic-button', onClick: onRefuse }, 'Refuser')
-        )
     );
 }

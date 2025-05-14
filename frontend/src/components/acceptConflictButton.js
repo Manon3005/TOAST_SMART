@@ -10,6 +10,6 @@ export function AcceptConflictButton({onClick}) {
     null,
     React.createElement(
         'button',
-        {className: 'classic-button', onClick : onClick },'✗' )
+        {className: 'classic-button', onClick : onClick },' ✅ Accepter' )
 );
 }
