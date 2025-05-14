@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <cstring>
+#include <fstream>
 
 #include "../headers/SeatingArrangements.h"
 
@@ -390,6 +391,188 @@ void SeatingArrangements::orderTableByDecreasingFilledSeat(vector<int>& order) {
         }
         order.push_back(max);
     }
+}
+
+// Relationship matrix between tables
+// This matrix is used to determine which tables are close to each other based on the students' preferences
+void SeatingArrangements::createTableRelationshipMatrix() {
+    // reset matrix if it already exists
+    if (matrix) {
+        for (int i = 0; i < matrixSize; i++) {
+            delete[] matrix[i];
+        }
+        delete[] matrix;
+    }
+
+    // make a new matrix
+    matrix = new int*[nbUsedTable];
+    for (int i = 0; i < nbUsedTable; i++) {
+        matrix[i] = new int[nbUsedTable];
+        for (int j = 0; j < nbUsedTable; j++) {
+            matrix[i][j] = 0;
+        }
+    }
+    matrixSize = nbUsedTable;
+
+    // calculate the relationship score between each pair of tables
+    for (int i = 0; i < nbUsedTable; i++) {
+        for (int j = i + 1; j < nbUsedTable; j++) {
+            int relationScore = 0;
+            
+            // for every student at table i
+            for (int k = 0; k < tableList[i]->getNbStudent(); k++) {
+                Student* student = tableList[i]->getStudentList()[k];
+                
+                // every neighbour of the student
+                for (int l = 0; l < student->getNbNeighbour(); l++) {
+                    Student* neighbour = student->getNeighbours()[l];
+                    
+                    // if the neighbour is at table j, increase the relation score
+                    if (neighbour->getTable() == tableList[j]) {
+                        relationScore++;
+                    }
+                }
+            }
+            
+            matrix[i][j] = relationScore;
+            matrix[j][i] = relationScore;
+        }
+    }
+}
+
+// Group tables that are close to each other
+// This function uses DFS to find connected components in the relationship matrix
+vector<vector<int>> SeatingArrangements::groupCloseTables(int maxGroupSize) {
+    createTableRelationshipMatrix();
+    
+    vector<vector<int>> groups;
+    vector<bool> visited(nbUsedTable, false);
+    
+    for (int i = 0; i < nbUsedTable; i++) {
+        if (!visited[i]) {
+            vector<int> group;
+            dfsGroupTables(i, visited, group);
+            
+            // if the group size exceeds the maximum group size, divide it into smaller subgroups
+            if (group.size() > maxGroupSize && group.size() > 1) {
+                divideIntoSubgroups(group, groups, maxGroupSize);
+            } else if (!group.empty()) {
+                groups.push_back(group);
+            }
+        }
+    }
+    
+    return groups;
+}
+
+// divide big groups into smaller subgroups
+void SeatingArrangements::divideIntoSubgroups(vector<int>& largeGroup, vector<vector<int>>& groups, int maxGroupSize) {
+    int currentIndex = 0;
+    
+    while (currentIndex < largeGroup.size()) {
+        vector<int> subgroup;
+        for (int i = 0; i < maxGroupSize && currentIndex < largeGroup.size(); i++) {
+            subgroup.push_back(largeGroup[currentIndex++]);
+        }
+        if (!subgroup.empty()) {
+            groups.push_back(subgroup);
+        }
+    }
+}
+
+// dfs to find connected components in the table relationship matrix
+void SeatingArrangements::dfsGroupTables(int tableIndex, vector<bool>& visited, vector<int>& group) {
+    visited[tableIndex] = true;
+    group.push_back(tableIndex);
+    
+    for (int j = 0; j < nbUsedTable; j++) {
+        // if the table is not visited and there is a relationship between the tables
+        if (!visited[j] && matrix[tableIndex][j] > 0) {
+            dfsGroupTables(j, visited, group);
+        }
+    }
+}
+
+
+// print the groups of close tables
+void SeatingArrangements::printTableGroups() {
+    // limit the maximum group size to 5
+    int maxGroupSize = 5;
+    vector<vector<int>> groups = groupCloseTables(maxGroupSize);
+
+    int groupCount = 0;
+    
+    for (size_t i = 0; i < groups.size(); i++) {
+        if (groups[i].size() >= 2) {
+            groupCount++;
+            cout << "Group " << groupCount << ": ";
+            
+            for (size_t j = 0; j < groups[i].size(); j++) {
+                int tableIndex = groups[i][j];
+                cout << "Table " << tableList[tableIndex]->getId();
+                
+                if (j < groups[i].size() - 1) {
+                    cout << " - ";
+                }
+            }
+            cout << endl;
+        }
+    }
+    
+    if (groupCount == 0) {
+        cout << "No groups with multiple tables found." << endl;
+    }
+}
+
+// table groups to CSV
+void SeatingArrangements::exportTableGroupsToCSV(const string& filename) {
+    // maximum group size
+    int maxGroupSize = 5;
+    vector<vector<int>> groups = groupCloseTables(maxGroupSize);
+    
+    ofstream outputFile;
+    outputFile.open(filename);
+    
+    if (!outputFile.is_open()) {
+        cout << "Error: Could not open file " << filename << endl;
+        return;
+    }
+    
+    // CSV header
+    outputFile << "Group,Table,StudentID,LastName,FirstName,NumberOfGuests,Neighbors" << endl;
+    
+    int groupCount = 0;
+    
+    for (size_t i = 0; i < groups.size(); i++) {
+        if (groups[i].size() >= 2) { 
+            groupCount++;
+            
+            for (size_t j = 0; j < groups[i].size(); j++) {
+                int tableIndex = groups[i][j];
+                Table* table = tableList[tableIndex];
+                
+                for (int k = 0; k < table->getNbStudent(); k++) {
+                    Student* student = table->getStudentList()[k];
+                    
+                    outputFile << groupCount << ","
+                              << table->getId() << ","
+                              << "\"" << student->getLastName() << " " << student->getFirstName() << "\"" << ","
+                              << student->getLastName() << ","
+                              << student->getFirstName() << ","
+                              << (student->getNbGuest() + 1) << ",\"";
+                    
+                    for (int n = 0; n < student->getNbNeighbour(); n++) {
+                        if (n > 0) outputFile << ";";
+                        outputFile << student->getNeighbours()[n]->getLastName() << " " << student->getNeighbours()[n]->getFirstName();
+                    }
+                    outputFile << "\"" << endl;
+                }
+            }
+        }
+    }
+    
+    outputFile.close();
+    cout << "Table group information exported to " << filename << endl;
 }
 
 ostream& operator<< (ostream& os,const SeatingArrangements& sA)
