@@ -37,7 +37,7 @@ export function Home() {
 
     const [finalAddress, setFinalAdress] = useState('');
 
-    const [loadPicture, setLoadPicture] = useState(true);
+    const [loadPicture, setLoadPicture] = useState(false);
 
     const [nameExportFile, setNameExportFile] = useState('');
     const [errorExportFile, setErrorExportFile] = useState('');
@@ -50,10 +50,14 @@ export function Home() {
     
     const [filePath, setPath] = useState('');
 
+    // Modals states
     const [finTraitementModalOpen, setFinTraitementModalOpen] = useState(false);
-    
     const openFinTraitementModal = () => setFinTraitementModalOpen(true);
     const closeFinTraitementModal = () => setFinTraitementModalOpen(false);
+
+    const [errorExportFileModal, setErrorExportFileModal] = useState(false);
+    const openErrorExportFileModal = () => setErrorExportFileModal(true);
+    const closeErrorExportFileModal = () => setErrorExportFileModal(false);
 
     const handleSelectionChange = (value) => {
       console.log('Valeur sélectionnée :', value);
@@ -70,11 +74,11 @@ export function Home() {
             setHeadersCSV(jsonFile.headersCSV);
             const name = jsonFile.filePath.split(/[/\\]/).pop();
             setName(name);
-            setPath(jsonFile.filePath);
             setErrorFile('');
         } catch (err) {
             setErrorFile('Erreur chargement du fichier');
-            setPath('');
+            setName('');
+            setHeadersCSV(['','','','','','','','']);
       }
     };
 
@@ -93,11 +97,13 @@ export function Home() {
   
 
 
-    const actionContinue = () => {
+    const actionContinue = async () => {
         setLockedContinue(true);
-        setPreprocessingStep(false);
-        setConflictStep(true);
-        generateCSVColumn();
+        const result = await generateCSVColumn();
+        if (result) {
+          setPreprocessingStep(false);
+          setConflictStep(true);
+        }
     };
 
     const actionExporter = () => {
@@ -109,7 +115,7 @@ export function Home() {
         const path = await window.electronAPI.exportTablesCsv();
         setNameExportFile(path.split(/[/\\]/).pop());
       } catch {
-        alert("Problème fichier export")
+        openErrorExportFileModal();
       }
     }
 
@@ -119,22 +125,26 @@ export function Home() {
             acc[name] = tableData[index];
             return acc;
         }, {});
-    
-        const jsonConflict = await window.electronAPI.parseCsvFile(jsonColumnNames);
-        console.log(jsonConflict);
-        setLoadPicture(false);
-        if (jsonConflict.error){
-          actionReset(jsonConflict.error);
-        } else {
-          if (!jsonConflict.jsonContent || Object.keys(jsonConflict.jsonContent).length === 0) {
-            setConflictManagment(true);
-            setConflictCase(null);
-            return;
+        try {
+          const jsonConflict = await window.electronAPI.parseCsvFile(jsonColumnNames);
+          setLoadPicture(false);
+          if (jsonConflict.error){
+            actionReset(jsonConflict.error);
+            return false;
+          } else {
+            if (!jsonConflict.jsonContent || Object.keys(jsonConflict.jsonContent).length === 0) {
+              setConflictManagment(true);
+              setConflictCase(null);
+              return true;
+            }
+            setConflictCase({
+              ...jsonConflict.jsonContent,
+              remainingConflictNumber: jsonConflict.remainingConflictNumber
+            });
+            return true;
           }
-          setConflictCase({
-            ...jsonConflict.jsonContent,
-            remainingConflictNumber: jsonConflict.remainingConflictNumber
-          });
+        } catch {
+          alert("Les noms de colonnes ne correspondent pas, ou ne sont pas complétés");
         }
     }
     
@@ -256,13 +266,21 @@ export function Home() {
             React.createElement('div', {className: 'continue-reset-buttons'},
               React.createElement(ContinueButton, {
                 onClick: actionContinue,
-                disabled : lockedContinue
+                disabled: !nameFile || tableData.some(value => value === ''),
               }),
               React.createElement(ResetButton, {
                 onClick: () => actionReset(),
                 disabled : false
               })
             ),
+            loadPicture && React.createElement('div', { className: 'loading-container' },
+              React.createElement('img', {
+                  src: 'img/loading.gif',
+                  alt: 'Chargement...',
+                  className: 'spinner'
+              }),
+              React.createElement('p', null, 'Chargement en cours...')
+            )
           ),
 
           conflictStep && React.createElement('div', { className: 'conflicts-step' },
@@ -320,6 +338,13 @@ export function Home() {
               React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson }),
               React.createElement(ExportSolutionButton, {onClick: actionExporter,errorExportFile : errorExportFile, 
               nameExportFile : nameExportFile, disabled: !nameFileDraftPlan && !finalAddress} ) 
+            ),
+
+            errorExportFileModal && React.createElement('div', { className: 'modal-overlay', onClick: closeErrorExportFileModal },
+              React.createElement('div', { className: 'modal-content' },
+              React.createElement('p', null, "Erreur lors de l'exportation du fichier CSV : Veuillez vérifier que le fichier n'est pas déjà ouvert."),
+              React.createElement('button', { className: 'modal-close-button', onClick: closeErrorExportFileModal }, 'Fermer')
+              )
             ),
               
           )
