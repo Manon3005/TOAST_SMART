@@ -37,7 +37,7 @@ export function Home() {
 
     const [finalAddress, setFinalAdress] = useState('');
 
-    const [loadPicture, setLoadPicture] = useState(true);
+    const [loadPicture, setLoadPicture] = useState(false);
 
     const [nameExportFile, setNameExportFile] = useState('');
     const [errorExportFile, setErrorExportFile] = useState('');
@@ -266,13 +266,21 @@ export function Home() {
             React.createElement('div', {className: 'continue-reset-buttons'},
               React.createElement(ContinueButton, {
                 onClick: actionContinue,
-                disabled : !nameFile,
+                disabled: !nameFile || tableData.some(value => value === ''),
               }),
               React.createElement(ResetButton, {
                 onClick: () => actionReset(),
                 disabled : false
               })
             ),
+            loadPicture && React.createElement('div', { className: 'loading-container' },
+              React.createElement('img', {
+                  src: 'img/loading.gif',
+                  alt: 'Chargement...',
+                  className: 'spinner'
+              }),
+              React.createElement('p', null, 'Chargement en cours...')
+            )
           ),
 
           conflictStep && React.createElement('div', { className: 'conflicts-step' },
