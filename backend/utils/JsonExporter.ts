@@ -20,4 +20,12 @@ export class JsonExporter {
         const jsonString = JSON.stringify(jsonContent, null, 2);
         await writeFile(filepath, jsonString, 'utf-8');
     }
+
+    static async getListStudents(allGraduatedStudents: GraduatedStudent[]) {
+        return allGraduatedStudents.map(student => ({
+            id: student.getId(),
+            lastName: student.getLastName(),
+            firstName: student.getFirstName(),
+        })) 
+    }
 }
