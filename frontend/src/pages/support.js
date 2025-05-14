@@ -18,7 +18,7 @@ export function Support() {
                 React.createElement('p', { className: 'support-content' }, 'Pour toute question ou problème, n\'hésitez pas à nous contacter à l\'adresse suivante : manon.bertrand@insa-lyon.fr'),
                 React.createElement('p', { className: 'support-content' }, 'Vous pouvez également consulter notre dépôt GitHub pour plus d\'informations sur le projet : https://github.com/Manon3005/TOAST'),
         ),
-        React.createElement('img', { className: 'support-image', src: 'img/Logo TOAST.png', useMap: '#toastmap' }),
+        React.createElement('img', { className: 'support-image', src: 'img/Logo_TOAST.png', useMap: '#toastmap' }),
             React.createElement('map', { name: 'toastmap' },
                 React.createElement('area', {
                     shape: 'rect',

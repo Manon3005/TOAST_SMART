@@ -12,9 +12,9 @@ export function Start() {
         React.createElement(
             'h1',
             { className: 'page-title' },
-            React.createElement('img', { src: 'img/Logo TOAST.png', alt: 'Logo', className: 'logo-inline' }),
+            React.createElement('img', { src: 'img/Logo_TOAST.png', alt: 'Logo', className: 'logo-inline' }),
             ' TOus A Sa Table ',
-            React.createElement('img', { src: 'img/Logo TOAST.png', alt: 'Logo', className: 'logo-inline' })
+            React.createElement('img', { src: 'img/Logo_TOAST.png', alt: 'Logo', className: 'logo-inline' })
         ),  
         React.createElement('h3', null, 'Réalisez votre plan de table en quelques clics !'),
     ),

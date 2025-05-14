@@ -4,6 +4,7 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
+    icon: 'frontend/public/img/Logo_TOAST',
   },
   rebuildConfig: {},
   makers: [
@@ -11,7 +12,10 @@ module.exports = {
       name: '@electron-forge/maker-squirrel',
       config: {
         certificateFile: './cert.pfx',
-        certificatePassword: process.env.CERTIFICATE_PASSWORD
+        certificatePassword: process.env.CERTIFICATE_PASSWORD,
+        options: {
+          icon: 'frontend/public/img/Logo_TOAST.ico'
+        }
       },
     },
     {
@@ -20,11 +24,19 @@ module.exports = {
     },
     {
       name: '@electron-forge/maker-deb',
-      config: {},
+      config: {
+        options: {
+          icon: 'frontend/public/img/Logo_TOAST.png',
+        }
+      },
     },
     {
       name: '@electron-forge/maker-rpm',
-      config: {},
+      config: {
+        options: {
+          icon: 'frontend/public/img/Logo_TOAST.png',
+        }
+      },
     },
   ],
   plugins: [
