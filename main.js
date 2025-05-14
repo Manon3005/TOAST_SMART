@@ -109,7 +109,7 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   }
   // Return the first conflict
   return {
-    conflict: await ConflictHandler.getNextConflict(allGraduatedStudents),
+    conflictInformations: await ConflictHandler.getNextConflict(allGraduatedStudents),
     listStudents: await JsonExporter.getListStudents(allGraduatedStudents),
   };
 }); 
