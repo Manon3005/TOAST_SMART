@@ -4,9 +4,16 @@ import { ResetButton } from "../components/resetButton";
 import { ContinueButton } from "../components/continueButton";
 import { TableColumn } from "../components/tableColumn";
 import { ConflictCenter } from "../components/conflictCenter";
+import { StudentGuestDisplay } from "../components/studentGuestDisplay";
+import { ExportSolutionButton } from "../components/exportSolutionButton";
+import { StatCenter } from "../components/statCenter";
+import { InputPlanButton } from "../components/inputPlanButton";
+import { ChoiceRadioButton } from "../components/choiceRadioButton";
+import { GenerateButton } from "../components/generateButton";
+
+
 import React, { useState, useEffect  } from 'react';
 import '../App.css';
-
 
 export function Home() {
     
@@ -20,28 +27,38 @@ export function Home() {
     const [lockedContinue, setLockedContinue] = useState(false);
     const [lockedGenerer, setLockedGenerer] = useState(false);
     const [headersCSV, setHeadersCSV] = useState(['','','','','','','','']);
+    const [preprocessingStep, setPreprocessingStep] = useState(true);
+    const [conflictStep, setConflictStep] = useState(false);
+    const [tablePlanStep, setTablePlanStep] = useState(false);
 
-    const [tableConflicts, setTableConflicts] = useState([])
-    const [currentStudentIndex, setCurrentStudentIndex] = useState(0);
-    const [currentNeighbourIndex, setCurrentNeighbourIndex] = useState(0);
-    const [refusedNeighbours, setRefusedNeighbours] = useState([]);
+    const [conflictCase, setConflictCase] = useState({})
+    const [returnConflict, setReturnConflict] = useState("");
     const [conflictManagment, setConflictManagment] = useState(false);
 
     const [finalAddress, setFinalAdress] = useState('');
 
+    const [loadPicture, setLoadPicture] = useState(true);
+
+    const [nameExportFile, setNameExportFile] = useState('');
+    const [errorExportFile, setErrorExportFile] = useState('');
+
 
     const [isVisible, setIsVisible] = useState(false); 
-
-    React.useEffect(() => {
-      if (tableConflicts.length > 0) {
-        setCurrentStudentIndex(0);
-        setCurrentNeighbourIndex(0);
-        console.log(tableConflicts[currentStudentIndex])
-      }
-    }, [tableConflicts]);
+    const [selectedChoice, setSelectedChoice] = useState('max_demand');
+    const [nameFileDraftPlan, setNameFileDraftPlan] = useState('');
+    const [statsJson, setStatsJson] = useState({});
     
+    const [filePath, setPath] = useState('');
 
-    const [filePath, setPath] = useState(''); 
+    const [finTraitementModalOpen, setFinTraitementModalOpen] = useState(false);
+    
+    const openFinTraitementModal = () => setFinTraitementModalOpen(true);
+    const closeFinTraitementModal = () => setFinTraitementModalOpen(false);
+
+    const handleSelectionChange = (value) => {
+      console.log('Valeur sélectionnée :', value);
+      setSelectedChoice(value);
+    };
     
     const loadFile = async () => {
         try {
@@ -58,61 +75,105 @@ export function Home() {
         } catch (err) {
             setErrorFile('Erreur chargement du fichier');
             setPath('');
-    }
-  };
+      }
+    };
+
+
+    const loadPlanFile = async () => {
+        try {
+            const jsonResult = await window.electronAPI.getStatistics();
+            setStatsJson(jsonResult.statsJson);
+            setFinalAdress(jsonResult.address.split(/[/\\]/).pop())
+
+            
+        } catch (err) {
+          alert("Problème configuration du fichier")
+      }
+    };
+  
 
 
     const actionContinue = () => {
         setLockedContinue(true);
-        setLockedGenerer(false);
+        setPreprocessingStep(false);
+        setConflictStep(true);
         generateCSVColumn();
     };
 
+    const actionExporter = () => {
+      exporterCSV();
+    }
+
+    const exporterCSV = async () => {
+      try{
+        const path = await window.electronAPI.exportTablesCsv();
+        setNameExportFile(path.split(/[/\\]/).pop());
+      } catch {
+        alert("Problème fichier export")
+      }
+    }
+
     const generateCSVColumn = async () => {
+        setLoadPicture(true);
         const jsonColumnNames = headers.reduce((acc, name, index) => {
             acc[name] = tableData[index];
             return acc;
         }, {});
     
-        const jsonConflicts = await window.electronAPI.parseCsvFile(jsonColumnNames);
-        console.log(jsonConflicts);
-        if (jsonConflicts.error){
-          actionReset(jsonConflicts.error);
+        const jsonConflict = await window.electronAPI.parseCsvFile(jsonColumnNames);
+        console.log(jsonConflict);
+        setLoadPicture(false);
+        if (jsonConflict.error){
+          actionReset(jsonConflict.error);
+        } else {
+          if (!jsonConflict.jsonContent || Object.keys(jsonConflict.jsonContent).length === 0) {
+            setConflictManagment(true);
+            setConflictCase(null);
+            return;
+          }
+          setConflictCase({
+            ...jsonConflict.jsonContent,
+            remainingConflictNumber: jsonConflict.remainingConflictNumber
+          });
         }
-        else {
-          setTableConflicts(jsonConflicts.graduated_students);
-        } 
     }
     
     const genererPlan = async () => {
-      const refused = refusedNeighbours.reduce((acc, entry) => {
-        acc[entry.idStudent] = entry.refusedNeighbours.map(id => parseInt(id, 10));
-        return acc;
-      }, {});
 
       const exportJson = {
         max_number_tables: maxTables,
         max_number_by_tables: maxGuests,
-        invalid_neighbours_student_id: refused
+        selected_choice: selectedChoice,
       };
 
-      const jsonGenerate = JSON.stringify(exportJson);
-      console.log(jsonGenerate);
       try {
-        const address = await window.electronAPI.generateTablePlan(jsonGenerate);
-        setFinalAdress(address);
-        if (address.error){
-          actionReset(address.error);
-        }
-        else {
-          alert('Plan de table généré avec succès !');
-        }
+        const jsonResult = await window.electronAPI.generateTablePlan(exportJson);
+        setFinalAdress(jsonResult.address.split(/[/\\]/).pop());
+        setStatsJson(jsonResult.statsJson);
       }
       catch (error) {
         console.error('Erreur lors de la génération du plan de table :', error);
         alert('Erreur lors de la génération du plan de table');
       }
       
+    }
+
+    const actionFinTraitement = () => {
+      setConflictStep(false);
+      setTablePlanStep(true);
+      genererIntermediate();
+    }
+
+    const genererIntermediate = async () => {
+      try {
+        const addressIntermediate = await window.electronAPI.generateIntermediateCsv();
+        openFinTraitementModal();
+      } catch{
+        console.error('Erreur lors de la fin du traitement');
+        alert('Erreur lors de la fin du traitement');
+      }
+      
+
     }
 
     const actionGenerer = () => {
@@ -136,45 +197,39 @@ export function Home() {
         setLockedContinue(false);
     };
 
-    const nextConflict = () => {
-      const student = tableConflicts[currentStudentIndex];
-    
-      if (currentNeighbourIndex + 1 < student.processedNeighbours.length) {
-        setCurrentNeighbourIndex(prev => prev + 1);
-      } else if (currentStudentIndex + 1 < tableConflicts.length) {
-        setCurrentStudentIndex(prev => prev + 1);
-        setCurrentNeighbourIndex(0);
-      } else {
-        console.log("Terminé");
-        console.log(refusedNeighbours);
+    const nextConflict = async (result) => {
+      setLoadPicture(true);
+      const exportJson = {
+        id_student: conflictCase.idStudent,
+        id_neighbour: conflictCase.conflict.idNeighbour,
+        result: result
+      };
+
+      const jsonTemp = await window.electronAPI.getNextConflict(exportJson);
+      setLoadPicture(false);
+      if (!jsonTemp.jsonContent || Object.keys(jsonTemp.jsonContent).length === 0) {
+        setConflictManagment(true);
+        setConflictCase(null);
+        return;
+      }
+
+      setConflictCase({
+        ...jsonTemp.jsonContent,
+        remainingConflictNumber: jsonTemp.remainingConflictNumber
+      });
+      
+      if (conflictCase.remainingConflictNumber == 0){
         setConflictManagment(true);
       }
+      console.log(conflictCase);
     };
     
     const acceptConflict = () => {
-      nextConflict();
+      nextConflict("valid");
     };
     
     const refuseConflict = () => {
-      const student = tableConflicts[currentStudentIndex];
-      const neighbour = student.processedNeighbours[currentNeighbourIndex];
-    
-      setRefusedNeighbours(prev => {
-        const existing = prev.find(r => r.idStudent === student.idStudent);
-        if (existing) {
-          return prev.map(r => r.idStudent === student.idStudent
-            ? { ...r, refusedNeighbours: [...r.refusedNeighbours, neighbour.neighbourId] }
-            : r
-          );
-        } else {
-          return [...prev, {
-            idStudent: student.idStudent,
-            refusedNeighbours: [neighbour.neighbourId]
-          }];
-        }
-      });
-    
-      nextConflict();
+      nextConflict("invalid");
     };
 
     return React.createElement(
@@ -191,20 +246,11 @@ export function Home() {
           React.createElement('h3', null, 'Réalisez votre plan de table en quelques clics !'),
         ),
         React.createElement('div', { className: 'app-content' },
-          React.createElement('div', { className: 'preprocessing-step' },
+
+          preprocessingStep && React.createElement('div', { className: 'preprocessing-step' },
             React.createElement('h2', null, 'Prétraitement des données'), 
-            React.createElement(FileButton, {className: 'file-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
+            React.createElement(FileButton, {className: 'classic-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
             React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
-            !finalAddress && React.createElement(ConflictCenter,{
-              disabled: lockedGenerer,
-              students: tableConflicts,
-              currentStudentIndex: currentStudentIndex,
-              currentNeighbourIndex: currentNeighbourIndex,
-              fin : conflictManagment,
-              onGenerate: actionGenerer,
-              onAccept: acceptConflict,
-              onRefuse: refuseConflict
-            }),
             finalAddress && React.createElement('p', null, finalAddress),
             
             React.createElement('div', {className: 'continue-reset-buttons'},
@@ -218,33 +264,65 @@ export function Home() {
               })
             ),
           ),
-          isVisible && React.createElement('div', { className: 'conflicts-step' },
+
+          conflictStep && React.createElement('div', { className: 'conflicts-step' },
             React.createElement('div', { className: 'left-part' },
               
               React.createElement(ConflictCenter,{
+                fin : conflictManagment,
                 disabled: lockedGenerer,
-                students: tableConflicts,
-                currentStudentIndex: currentStudentIndex,
-                currentNeighbourIndex: currentNeighbourIndex,
+                student: conflictCase,
                 onAccept: acceptConflict,
-                onRefuse: refuseConflict
+                onRefuse: refuseConflict,
+                onFin : actionFinTraitement,
+                load : loadPicture,
               }),
                           
             ),
-            React.createElement('div', { className: 'right-part' },
-              
-              )
+            !conflictManagment && React.createElement('div', { className: 'right-part' },
+              React.createElement(StudentGuestDisplay,{student : conflictCase}),
+            )
           ),
-          isVisible && React.createElement('div', { className: 'table-plan-step' },
-            React.createElement('div', { className: 'nb-table' },
-                React.createElement('p', null, 'Nombre de tables maximum:'),
-                React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
-              ),
-              React.createElement('div', { className: 'nb-guest' },
-                React.createElement('p', null, 'Nombre de convives maximum/table :'),
-                React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
-              ),          )
 
+          finTraitementModalOpen && React.createElement('div', { className: 'modal-overlay', onClick: closeFinTraitementModal },
+            React.createElement('div', { className: 'modal-content' },
+            React.createElement('p', null, 'Fichier intermédiaire généré avec succès à l\'emplacement du fichier initialement importé'),
+            React.createElement('button', { className: 'modal-close-button', onClick: closeFinTraitementModal }, 'Fermer')
+            )
+          ),
+
+          tablePlanStep && React.createElement('div', { className: 'table-plan-step' },
+            React.createElement('div', { className: 'left-part' },
+              React.createElement('h2', null, 'Configurer vos tables :'),
+              React.createElement('div', {className: 'option-choices'},
+                React.createElement('div', { className: 'nb-table' },
+                  React.createElement('p', null, 'Nombre de tables maximum:'),
+                  React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
+                ),
+                React.createElement('div', { className: 'nb-guest' },
+                  React.createElement('p', null, 'Nombre de convives maximum/table :'),
+                  React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
+                ), 
+                React.createElement('div', { className: 'radio-button-container' },
+                  React.createElement('h2', 'null', 'Sélectionner le critère de génération du plan de table :'),
+                  React.createElement(ChoiceRadioButton, { onSelectionChange: handleSelectionChange }),
+                ),
+              ),
+              React.createElement('div', { className: 'input-generate-container' },
+                React.createElement('div', { className: 'buttons-row' },
+                    React.createElement(GenerateButton, { onClick: actionGenerer }),
+                    React.createElement(InputPlanButton, { onClick: loadPlanFile, nameFileDraftPlan: nameFileDraftPlan, setName: setName, errorFile: errorFile, setErrorFile: setErrorFile })
+                ),
+                finalAddress && React.createElement('p', null, finalAddress)
+              )
+            ),
+            React.createElement('div', { className: 'right-part' },
+              React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson }),
+              React.createElement(ExportSolutionButton, {onClick: actionExporter,errorExportFile : errorExportFile, 
+              nameExportFile : nameExportFile, disabled: !nameFileDraftPlan && !finalAddress} ) 
+            ),
+              
+          )
         )
-        );
+      );
 }

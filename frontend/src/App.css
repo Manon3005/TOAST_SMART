@@ -2,12 +2,8 @@
   text-align: center;
 }
 
-html, body {
-  overflow:hidden;
-}
-
 body {
-  padding-bottom: 40px; /* ou plus si nécessaire */
+  background-color: #e9e9e9; /* ou plus si nécessaire */
 }
 
 .App-logo {
@@ -176,7 +172,7 @@ p {
   overflow: hidden;
 }
 
-.file-button,
+.classic-button,
 .continue-button,
 .reset-button {
   padding: 12px 24px;
@@ -188,14 +184,14 @@ p {
   font-family: 'Segoe UI', sans-serif;
 }
 
-.file-button:hover {
+.classic-button:hover {
   background-color: #000000;
   color: #ffffff;
   outline: 2px solid #ffffff;
   transform: translateY(-1px);
 }
 
-.file-button {
+.classic-button{
   background-color: #ffffff;
   color: #000000;
   outline: 2px solid #000000;
@@ -244,15 +240,35 @@ p {
   border-color: #4a90e2;
 }
 
+.conflicts-step,
+.table-plan-step {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 4%;
+  align-items: stretch;
+}
+
 .left-part,
 .right-part {
-  width: 48%;
-  height: 100%;
+  flex: 1 1 48%;
+  position: relative;
+  min-height: 300px;;
   background-color: white;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  align-self: flex-start;
+  box-sizing: border-box;
+}
+
+.conflict-container-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 50px; 
+  margin-top: 20px;
 }
 
 .nb-table,
@@ -270,6 +286,81 @@ p {
   width: 300px; 
   margin: 0;
   text-align: left; 
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap : 10px;
+  margin-top: 10px;
+}
+
+.radio-group label {
+  color: black;
+}
+
+.radio-button-container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+}
+
+.radio-button-container h2 {
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.input-generate-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px; 
+}
+
+.input-generate-container p {
+  margin : 0;
+  padding: 0;
+  text-align: center;
+  color: black
+}
+
+.buttons-row {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+}
+
+.stats-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  gap: 10px; 
+}
+
+.stats-container p {
+  margin: 0;
+  padding: 0;
+}
+
+.export-button-container{
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 20px; 
+}
+
+.export-button-container .file-message-text{
+  margin-top: 20px;
 }
 
 .continue-reset-buttons {
@@ -345,7 +436,7 @@ img {
   position: relative; 
   width: 40%;  
   height: 100%; 
-  background-color: #ffffff; 
+  background-color: #e9e9e9; 
   display: flex;
   justify-content: center; 
   align-items: center; 
@@ -419,7 +510,6 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh; /* Prend toute la hauteur de la fenêtre */
 }
 
 .start-header {
@@ -499,4 +589,66 @@ img {
 
 .modal-close-button:hover {
   background-color: #45a049;
+}
+
+.student-container {
+  max-width: 100%;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: none;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.student-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.info-line {
+  margin: 0.3rem 0;
+}
+
+.list {
+  list-style-type: none;
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.list-item {
+  margin: 0.2rem 0;
+  color: black;
+}
+
+.empty-msg {
+  color: #888;
+  font-style: italic;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  display: block;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container {
+  text-align: center;
+  margin-top: 20px;
 }
