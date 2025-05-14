@@ -10,6 +10,6 @@ export function GenerateButton({onClick, disabled = false}) {
     null,
     React.createElement(
         'button',
-        { onClick : onClick, className: 'classic-button' },'Générer le brouillon' )
+        { onClick : onClick, className: 'classic-button' },'Générer la solution' )
 );
 }
