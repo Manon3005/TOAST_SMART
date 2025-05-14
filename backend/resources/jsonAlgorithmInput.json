@@ -1,7 +1,7 @@
 {
   "option": "max_demand",
-  "nb_max_tables": 1,
-  "nb_max_by_tables": 1,
+  "nb_max_tables": 100,
+  "nb_max_by_tables": 11,
   "graduated_students": [
     {
       "idStudent": 1,
@@ -146,10 +146,8 @@
       "lastName": "DE LORGERIL",
       "firstName": "Alexis",
       "nbOfGuests": 6,
-      "nbOfNeighbours": 1,
-      "idNeighbour": [
-        16
-      ]
+      "nbOfNeighbours": 0,
+      "idNeighbour": []
     },
     {
       "idStudent": 19,
