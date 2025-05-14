@@ -74,11 +74,10 @@ export function Home() {
             setHeadersCSV(jsonFile.headersCSV);
             const name = jsonFile.filePath.split(/[/\\]/).pop();
             setName(name);
-            setPath(jsonFile.filePath);            
             setErrorFile('');
         } catch (err) {
             setErrorFile('Erreur chargement du fichier');
-            setPath('');
+            setName('');
       }
     };
 
