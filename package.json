@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "electron-trace": "electron --trace-warnings .",
     "package": "electron-forge package",
-    "make": "npx electron-forge make --platform=win32"
+    "make-windows": "npx electron-forge make --platform=win32"
+    "make-linux": "npx electron-forge make"
   },
   "author": "Adrien Doan, Aodren Pitard-Bouet, Armand Brunet, Aubin Roche, Manon Bertrand, Mathis Getenet, Royce Cho",
   "license": "MIT",
