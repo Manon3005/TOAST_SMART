@@ -33,10 +33,10 @@ export class ComputeStatistics {
     private static meanGuestByTable(): number {
         let mean = 0;
         let sum = 0;
-        for(const table of this.tables) {
+        for (const table of this.tables) {
             sum += table.getNbFilledSeat();
         }
-        if(sum != 0) {
+        if (this.tables.length != 0) {
             mean = sum / this.tables.length;
         }
         return mean;
@@ -44,7 +44,7 @@ export class ComputeStatistics {
 
     private static percentageStudentSatisfied() {
         let cmp = 0;
-        const allGraduatedStudentsWithDemand = this.allGraduatedStudents.filter(student => student.getNeighbours.length > 0);
+        const allGraduatedStudentsWithDemand = this.allGraduatedStudents.filter(student => student.getNeighbours().length > 0);
         for(const student of allGraduatedStudentsWithDemand) {
             const neighboursSatisfied = student
                 .getNeighbours()
