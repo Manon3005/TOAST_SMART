@@ -351,11 +351,12 @@ export function Home() {
                 React.createElement(AddStudentButton, {onClick : actionAddStudent}),
                           
               ),
+            ),
               !conflictManagment && React.createElement('div', { className: 'right-part' },
                 React.createElement(StudentGuestDisplay,{student : conflictCase}),
               )
-            ),
           ),
+
 
           finTraitementModalOpen && React.createElement('div', { className: 'modal-overlay', onClick: closeFinTraitementModal },
             React.createElement('div', { className: 'modal-content' },
