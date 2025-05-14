@@ -70,7 +70,7 @@ export function Home() {
             setHeadersCSV(jsonFile.headersCSV);
             const name = jsonFile.filePath.split(/[/\\]/).pop();
             setName(name);
-            setPath(jsonFile.filePath);
+            setPath(jsonFile.filePath);            
             setErrorFile('');
         } catch (err) {
             setErrorFile('Erreur chargement du fichier');
@@ -119,22 +119,24 @@ export function Home() {
             acc[name] = tableData[index];
             return acc;
         }, {});
-    
-        const jsonConflict = await window.electronAPI.parseCsvFile(jsonColumnNames);
-        console.log(jsonConflict);
-        setLoadPicture(false);
-        if (jsonConflict.error){
-          actionReset(jsonConflict.error);
-        } else {
-          if (!jsonConflict.jsonContent || Object.keys(jsonConflict.jsonContent).length === 0) {
-            setConflictManagment(true);
-            setConflictCase(null);
-            return;
+        try {
+          const jsonConflict = await window.electronAPI.parseCsvFile(jsonColumnNames);
+          setLoadPicture(false);
+          if (jsonConflict.error){
+            actionReset(jsonConflict.error);
+          } else {
+            if (!jsonConflict.jsonContent || Object.keys(jsonConflict.jsonContent).length === 0) {
+              setConflictManagment(true);
+              setConflictCase(null);
+              return;
+            }
+            setConflictCase({
+              ...jsonConflict.jsonContent,
+              remainingConflictNumber: jsonConflict.remainingConflictNumber
+            });
           }
-          setConflictCase({
-            ...jsonConflict.jsonContent,
-            remainingConflictNumber: jsonConflict.remainingConflictNumber
-          });
+        } catch {
+          alert("Les noms de colonnes ne correspondent pas, ou ne sont pas complétés");
         }
     }
     
@@ -256,7 +258,7 @@ export function Home() {
             React.createElement('div', {className: 'continue-reset-buttons'},
               React.createElement(ContinueButton, {
                 onClick: actionContinue,
-                disabled : lockedContinue
+                disabled : !nameFile,
               }),
               React.createElement(ResetButton, {
                 onClick: () => actionReset(),
