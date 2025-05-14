@@ -75,7 +75,6 @@ export function Home() {
     const closeErrorActionResetModal = () => setErrorActionResetModal(false);
 
     const handleSelectionChange = (value) => {
-      console.log('Valeur sélectionnée :', value);
       setSelectedChoice(value);
     };
     
@@ -237,7 +236,6 @@ export function Home() {
 
       const jsonConflict = await window.electronAPI.getNextConflict(exportJson);
       setLoadPicture(false);
-      console.log(jsonConflict);
       if (!jsonConflict.jsonContent || Object.keys(jsonConflict.jsonContent).length === 0) {
             setConflictManagment(true);
             setConflictCase(null);
@@ -251,7 +249,6 @@ export function Home() {
       if (conflictCase.remainingConflictNumber == 0){
         setConflictManagment(true);
       }
-      console.log(conflictCase);
     };
     
     const acceptConflict = () => {
