@@ -5,6 +5,7 @@ module.exports = {
   packagerConfig: {
     asar: true,
     icon: 'frontend/public/img/Logo_TOAST',
+    executableName: 'toast',
   },
   rebuildConfig: {},
   makers: [
