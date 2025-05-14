@@ -11,7 +11,7 @@ export function NavBar() {
             React.createElement(
                 Link,
                 { to: '/', className: 'nav-link' },
-                'TOAST 🍞'
+                'Accueil'
             )
         ),
         React.createElement(

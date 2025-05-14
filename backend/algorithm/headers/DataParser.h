@@ -17,6 +17,7 @@ class DataParser
         int getNbStudent();
         int getTableCapacityMax();
         int getNbTableMax();
+        string getOption();
 
     protected:
 
@@ -25,5 +26,6 @@ class DataParser
         int nbStudent;
         int tableCapacityMax;
         int nbTableMax;
+        string option;
 };
 

@@ -1,14 +1,14 @@
 import { GraduatedStudent } from "../business/GraduatedStudent";
 import { Guest } from "../business/Guest";
+import { Table } from "../business/Table";
 import { StringNormalizer } from "../utils/StringNormalizer";
 import * as fs from "fs";
 import * as path from "path";
 import { parse, Parser } from "csv-parse";
-import { writeFile } from 'fs/promises';
 import { NeighboursLinker } from "../utils/NeighboursLinker";
 import { CsvExporter } from "../utils/CsvExporter";
 
-export type ColumnsNames = {
+export type InputColumnsNames = {
   ticket: string;
   firstName: string;
   lastName: string;
@@ -19,21 +19,42 @@ export type ColumnsNames = {
   wantedTableMates: string;
 };
 
+type importCSVRow = {
+  'Table': string;
+  'Last Name Buyer': string;
+  'First Name Buyer': string;
+  'Number of Guests (buyer included)': string;
+  'Seating preferences': string;
+};
+
 type ParsedCSVRow = Record<string, string>;
 
 type GraduatedStudentMap = Map<string, GraduatedStudent>;
+
+type TableMap = Map<string, Table>;
+
+type Warning = {
+  message: string;
+}
+
 export class ParserService {
   private static guestIdCounter = 1;
   private static studentIdCounter = 1;
 
   private static allGraduatedStudents : GraduatedStudent[] = [];
   
-  private static columns: ColumnsNames;
+  private static graduatedStudents: GraduatedStudentMap = new Map();
 
-  static async readFileCSV(csvFilePath: string): Promise<GraduatedStudent[]> {
+  private static alltables : Table[] = [];
+  
+  private static columns: InputColumnsNames;
+
+  private static warnings : Warning[] = [];
+
+  static async readRawFileCSV(csvFilePath: string): Promise<GraduatedStudent[]> {
     const absolutePath = path.resolve(csvFilePath);
-    const graduatedStudents: GraduatedStudentMap = new Map();
     
+    let homonymStudents: GraduatedStudent[] = [];
     return new Promise((resolve, reject) => {
       fs.createReadStream(absolutePath)
         .pipe(parse({ delimiter: ";", columns: true, trim: true, bom: true }))
@@ -58,42 +79,59 @@ export class ParserService {
           const tableMates = row[wantedTableMates];
           const specifiedDiet = row[diet]?.trim();
 
-          const gradKey = `${StringNormalizer.normalizeString(gradFirstName)} ${StringNormalizer.normalizeString(gradLastName)}`;
+          const gradKey = StringNormalizer.createKeyWithNames(gradFirstName, gradLastName);
 
           // Need to take accents and capital letters off for the comparison 
           const guestIsGraduatedStudent = 
             StringNormalizer.normalizeString(guestFirstName) === StringNormalizer.normalizeString(gradFirstName) && 
             StringNormalizer.normalizeString(guestLastName) === StringNormalizer.normalizeString(gradLastName);
 
-          if (!graduatedStudents.has(gradKey)) {
+          if (!this.graduatedStudents.has(gradKey)) {
             const id = this.getNextStudentId();
-            graduatedStudents.set(
+            this.graduatedStudents.set(
               gradKey,
               new GraduatedStudent(id, gradLastName, gradFirstName, gradEmail, tableMates)
             );
+          } else {
+            if (guestIsGraduatedStudent && ParserService.hasHomonym(guestFirstName, guestLastName, gradEmail)) {
+              homonymStudents.push(this.graduatedStudents.get(gradKey)!);
+            }
           }
           // If it is a guest OR
           // If 'has all information' => it's the case when the student's names is put also for the guest's names so it is a guest
-          if (!guestIsGraduatedStudent || graduatedStudents.get(gradKey)!.hasAllInformation()) {
+          const currentStudent = this.graduatedStudents.get(gradKey)
+          if (!guestIsGraduatedStudent || currentStudent!.hasAllInformation()) {
             const id = this.getNextGuestId();
             const guest = new Guest(id, ticketNumber, guestLastName, guestFirstName, specifiedDiet);
-            graduatedStudents.get(gradKey)!.addGuest(guest);
+            this.graduatedStudents.get(gradKey)!.addGuest(guest);
+            if (currentStudent?.hasDifferentEmail(gradEmail) && !currentStudent?.catchedDoubleEmail()){
+              currentStudent.catchDoubleEmail();
+              this.warnings.push({message: currentStudent.getLastName() + " " +
+                currentStudent.getFirstName() + " a utilisé deux adresses mail pour s'inscrire."})
+            }
           }
           else {
-            graduatedStudents.get(gradKey)!.setDiet(specifiedDiet);
-            graduatedStudents.get(gradKey)!.setTicket(ticketNumber);
+            currentStudent!.setDiet(specifiedDiet);
+            currentStudent!.setTicket(ticketNumber);
           }
         })
         .on("end", () => {
-          this.allGraduatedStudents = Array.from(graduatedStudents.values());
+          this.allGraduatedStudents = Array.from(this.graduatedStudents.values());
           // Check if there are missing information = failing of finding during the parsing a student for a group
           const incompleteStudents = this.allGraduatedStudents.filter(student => !student.hasAllInformation());
+          let errorMessages = [];
           if(incompleteStudents.length > 0) {
             const fullNames = incompleteStudents.map(s => `${s.getLastName()} ${s.getFirstName()}`).join(", ");
-            return reject(
-              new Error(`Les étudiants suivants ne sont pas identifiés correctement (probablement une erreur dans le remplissage des noms et prénoms : ` +
-                `jamais un billet avec le même nom et/ou prénom pour le détenteur du billet et l'acheteur) : ${fullNames}`)
-            );
+            errorMessages.push(`Les étudiants suivants ne sont pas identifiés correctement (probablement une erreur dans le remplissage des noms et prénoms : ` +
+                `jamais un billet avec le même nom et/ou prénom pour le détenteur du billet et l'acheteur) : ${fullNames}`);
+          }
+          if(homonymStudents.length > 0) {
+            const fullNames = homonymStudents.map(s => `${s.getLastName()} ${s.getFirstName()}`).join(", ");
+            errorMessages.push(`\nLes étudiants suivants possèdent des homonymes empêchant la bonne exécution du programme` +
+            ` (même nom et prénom mais mail différent): ${fullNames}`);
+          }
+          if(errorMessages.length > 0) {
+            return reject(new Error(errorMessages.join("\n\n")));
           }
           // If no missing information
           this.allGraduatedStudents = NeighboursLinker.linkNeighboursToGraduatedStudents(this.allGraduatedStudents);
@@ -104,52 +142,44 @@ export class ParserService {
     });
   }
 
-  static async deleteNonValidNeighbours(graduatedStudents: { list_id: { [studentId: number]: number[] }[] }): Promise<void> {
-    graduatedStudents.list_id.forEach(entry => {
-      const [studentIdStr, neighboursToRemove] = Object.entries(entry)[0];
-      const studentId = parseInt(studentIdStr, 10);
-  
-      const student = this.allGraduatedStudents.find(student => student.getId() === studentId);
-      if (student) {
-        neighboursToRemove.forEach(neighbourId => {
-          student.deleteNeighbour(neighbourId);
-        });
+  static async importTablesCSV(csvFilePath: string, allGraduatedStudents: GraduatedStudent[]): Promise<Table[]> {
+    const absolutePath = path.resolve(csvFilePath);
+    const allTables: TableMap = new Map();
+    const graduatedStudents: GraduatedStudentMap = new Map();
+
+    for (const student of allGraduatedStudents) {
+      const gradKey = StringNormalizer.createKeyWithNames(student.getFirstName(), student.getLastName());
+      if (!graduatedStudents.has(gradKey)) {
+        graduatedStudents.set(gradKey,student);
       }
+    }
+
+    return new Promise((resolve, reject) => {
+      fs.createReadStream(absolutePath)
+        .pipe(parse({ delimiter: ';', columns: true, trim: true, bom: true }))
+        .on('data', (row :importCSVRow) => {
+          const tableId = row['Table'];
+          const lastName = row['Last Name Buyer'].trim();
+          const firstName = row['First Name Buyer'].trim();
+          const gradKey = StringNormalizer.createKeyWithNames(firstName, lastName);
+
+          const graduatedStudent = graduatedStudents.get(gradKey);
+
+          let table = allTables.get(tableId);
+          if (!table) {
+            table = new Table(tableId, 11, [], 0);
+            allTables.set(tableId, table);
+          }
+          if (graduatedStudent) {
+            table.addStudent(graduatedStudent);
+          }
+        })
+        .on('end', () => {
+          this.alltables = Array.from(allTables.values());
+          resolve(this.alltables);
+        })
+        .on('error', reject);
     });
-  }
-
-  static async getNeighboursPairing(): Promise<any> {
-    const graduatedStudents = this.allGraduatedStudents.map(student => ({
-      idStudent: student.getId(),
-      lastName: student.getLastName(),
-      firstName: student.getFirstName(),
-      preferedNeighbours: student.getNeighboursString(),
-      processedNeighbours: student.getNeighbours().map(neighbour => ({
-        neighbourId: neighbour.getId(),
-        neighbourFirstName: neighbour.getFirstName(),
-        neighbourLastName: neighbour.getLastName()
-      }))
-    }));
-
-    return { graduated_students: graduatedStudents };
-  }
-
-  static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number): Promise<void> {
-    const graduatedStudents = this.allGraduatedStudents.map(student => ({
-      idStudent: student.getId(),
-      lastName: student.getLastName(),
-      firstName: student.getFirstName(),
-      nbOfGuests: student.getNbGuests(),
-      nbOfNeighbours: student.getNbNeighbours(),
-      idNeighbour: student.getNeighboursIds()
-    }));
-    const jsonContent = {
-      nb_max_tables: nbMaxTables,
-      nb_max_by_tables: nbMaxByTables,
-      graduated_students: graduatedStudents
-    };
-    const jsonString = JSON.stringify(jsonContent, null, 2);
-    await writeFile(filepath, jsonString, 'utf-8');
   }
 
   static async getColumnNamesFromCsvFile(filePath: string): Promise<any> {
@@ -173,7 +203,7 @@ export class ParserService {
     });
   }
 
-  static setColumnsNames(columns: ColumnsNames): void {
+  static setInputColumnsNames(columns: InputColumnsNames): void {
     this.columns = columns;
   }
 
@@ -184,4 +214,14 @@ export class ParserService {
   private static getNextStudentId(): number {
     return this.studentIdCounter++;
   }
+
+  private static hasHomonym(firstName: string, lastName: string, mail: string): boolean {
+    for(const student of this.graduatedStudents.values()) {
+      if(student.isHomonym(firstName, lastName, mail)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
+
