@@ -78,6 +78,7 @@ export function Home() {
         } catch (err) {
             setErrorFile('Erreur chargement du fichier');
             setName('');
+            setHeadersCSV(['','','','','','','','']);
       }
     };
 
