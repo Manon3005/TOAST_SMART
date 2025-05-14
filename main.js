@@ -148,9 +148,9 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   const dateStr = year + "-" + month + "-" + day + "_" + hour + "H" + minute + "m" + second + "s";
   
   // "2023-09-11T02:41:56
-  const outputPath = path.dirname(globalFilePath) + "\\planTable_" + dateStr + ".csv";
-  const parsed = path.parse(globalFilePath);
-  const groupTablePath = parsed.dir + "\\" + parsed.name + "_table_group.csv";
+  const fileName = "\\planTable_" + dateStr;
+  const outputPath = path.dirname(globalFilePath) + fileName + ".csv";
+  const groupTablePath = path.dirname(globalFilePath) + fileName + "_table_group.csv";
 
   try {
     const { stdout, stderr } = await execFile(executablePath, [inputPath, outputPath]);
@@ -162,7 +162,7 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   allTables = await ParserService.importTablesCSV(outputPath ,allGraduatedStudents)
   const statsJson = await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
   return { 
-    address: outputPath,
+    addressPlanTable: outputPath,
     addressGroupTable: groupTablePath,
     statsJson 
   };
