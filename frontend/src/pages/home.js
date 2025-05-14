@@ -12,9 +12,9 @@ import { ChoiceRadioButton } from "../components/choiceRadioButton";
 import { GenerateButton } from "../components/generateButton";
 import { AddStudentManual } from "../components/addStudentManual";
 import { AddStudentButton } from "../components/addStudentButton";
-
-
-import React, { useState, useEffect  } from 'react';
+import { AcceptConflictButton } from "../components/acceptConflictButton";
+import { RefuseConflictButton } from "../components/refuseConflictButton";
+import React, { useState  } from 'react';
 import '../App.css';
 
 export function Home() {
@@ -34,7 +34,6 @@ export function Home() {
     const [tablePlanStep, setTablePlanStep] = useState(false);
 
     const [conflictCase, setConflictCase] = useState({})
-    const [returnConflict, setReturnConflict] = useState("");
     const [conflictManagment, setConflictManagment] = useState(false);
 
     const [finalAddress, setFinalAdress] = useState('');
@@ -46,14 +45,11 @@ export function Home() {
     const [errorExportFile, setErrorExportFile] = useState('');
 
 
-    const [isVisible, setIsVisible] = useState(false); 
     const [selectedChoice, setSelectedChoice] = useState('max_demand');
     const [nameFileDraftPlan, setNameFileDraftPlan] = useState('');
     const [statsJson, setStatsJson] = useState({});
     const [rapportJson, setRapportJson] = useState({});
     
-    const [filePath, setPath] = useState('');
-
     const [selectedOption, setSelectedOption] = React.useState('--selectionnez--');
 
     const [listStudent, setListStudent] = React.useState([]);
@@ -185,7 +181,7 @@ export function Home() {
         setStatsJson(jsonResult.statsJson);
         setRapportJson(jsonResult.rapportJson);
         if (jsonResult.rapportJson && Object.keys(jsonResult.rapportJson).length > 0 && (jsonResult.rapportJson.nb_table_missing > 0 || jsonResult.rapportJson.nb_student_without_table > 0 || jsonResult.rapportJson.extra_table > 0)){
-          setRapportModal(true);
+          openRapportModal();
         }
       }
       catch (error) {
@@ -342,8 +338,16 @@ export function Home() {
             React.createElement('div', { className: 'left-part' },
 
               React.createElement('br', null),
+              React.createElement(ConflictCenter,{
+                fin : conflictManagment,
+                disabled: lockedGenerer,
+                student: conflictCase,
+                onFin : actionFinTraitement,
+                load : loadPicture,
+              }),
+              React.createElement('br', null),
               !conflictManagment && React.createElement('div', null,
-                React.createElement(AddStudentManual,{label: 'Ajouter etudiant manuellement',
+                React.createElement(AddStudentManual,{label: 'Ajouter étudiant manuellement : ',
                                                         listStudent :listStudent,
                                                         value: selectedOption,
                                                         onChange: setSelectedOption,
@@ -353,16 +357,12 @@ export function Home() {
                 React.createElement(AddStudentButton, {onClick : actionAddStudent}),
                           
               ),
-              
-              React.createElement(ConflictCenter,{
-                fin : conflictManagment,
-                disabled: lockedGenerer,
-                student: conflictCase,
-                onAccept: acceptConflict,
-                onRefuse: refuseConflict,
-                onFin : actionFinTraitement,
-                load : loadPicture,
-              }),
+              React.createElement('br', null),
+              React.createElement('br', null),
+              React.createElement('div', { className: 'conflict-container-buttons' },
+                React.createElement(AcceptConflictButton, { className: 'classic-button', onClick: acceptConflict }),
+                React.createElement(RefuseConflictButton, { className: 'classic-button', onClick: refuseConflict })
+              ),
   
             ),
               !conflictManagment && React.createElement('div', { className: 'right-part' },
