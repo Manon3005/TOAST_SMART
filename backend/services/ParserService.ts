@@ -177,14 +177,16 @@ export class ParserService {
 
           const graduatedStudent = graduatedStudents.get(gradKey);
 
-          let table = allTables.get(tableId);
-          if (!table) {
-            table = new Table(tableId, 11, [], 0, 0);
-            allTables.set(tableId, table);
-          }
-          if (graduatedStudent) {
-            table.addStudent(graduatedStudent);
-            graduatedStudent.setTable(table);
+          if (tableId != "no table") {
+            let table = allTables.get(tableId);
+            if (!table) {
+              table = new Table(tableId, 11, [], 0, 0);
+              allTables.set(tableId, table);
+            }
+            if (graduatedStudent) {
+              table.addStudent(graduatedStudent);
+              graduatedStudent.setTable(table);
+            }
           }
         })
         .on('end', () => {
