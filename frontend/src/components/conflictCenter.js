@@ -46,7 +46,7 @@ export function ConflictCenter({ student , onAccept, onRefuse, disabled, fin, on
         React.createElement('strong', null, '👤 Voisin.e proposé.e : '),
         `${student.conflict?.firstName} ${student.conflict?.lastName}`,
         student.conflict?.guests?.length > 0 &&
-            ` (${student.conflict.guests.map(guest => `${guest.guestFirstName} ${guest.guestLastName}`).join(', ')})`
+            ` (Invité.e.s : ${student.conflict.guests.map(guest => `${guest.guestFirstName} ${guest.guestLastName}`).join(', ')})`
     ),
     React.createElement('div', { className: 'conflict-container-buttons' },
         React.createElement('button', { className: 'classic-button', onClick: onAccept }, 'Accepter'),
