@@ -17,7 +17,7 @@ export function ConflictCenter({ student, disabled, fin, onFin, load }) {
     if (fin) {
         return React.createElement('div', null,
             React.createElement('h3', null, 'Traitement terminé'),
-            React.createElement(FinTraitementButton, { onClick: onFin, disabled: disabled })
+            React.createElement(FinTraitementButton, { onClick: onFin })
         );
     }
 

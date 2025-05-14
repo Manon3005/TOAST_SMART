@@ -11,6 +11,6 @@ export function FinTraitementButton({onClick, disabled}) {
     null,
     React.createElement(
         'button',
-        { onClick : onClick, className: 'classic-button', disabled : disabled },'Fin traitement' )
+        { onClick : onClick, className: 'classic-button'},'Fin traitement' )
   );
 }
