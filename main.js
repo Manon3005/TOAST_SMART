@@ -134,7 +134,7 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   // Create the json information for the table plan
   await JsonExporter.createJsonFileForAlgorithm("backend/resources/jsonAlgorithmInput.json", maxTables, maxByTables, selectedChoice, allGraduatedStudents);
   // Launch the generation of the table plan
-  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'toast.exe');
+  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', 'main.exe');
   const inputPath = path.resolve(__dirname, 'backend', 'resources', 'jsonAlgorithmInput.json');
 
   // Generate the output path
@@ -148,7 +148,9 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   const dateStr = year + "-" + month + "-" + day + "_" + hour + "H" + minute + "m" + second + "s";
   
   // "2023-09-11T02:41:56
-  const outputPath = path.dirname(globalFilePath) + "\\planTable_" + dateStr + ".csv";
+  const fileName = "\\planTable_" + dateStr;
+  const outputPath = path.dirname(globalFilePath) + fileName + ".csv";
+  const rapportPath = path.dirname(globalFilePath) + fileName + "_rapport_json.json";
 
   try {
     const { stdout, stderr } = await execFile(executablePath, [inputPath, outputPath]);
@@ -159,9 +161,11 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   ParserService.reinitializeTables();
   allTables = await ParserService.importTablesCSV(outputPath ,allGraduatedStudents)
   const statsJson = await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
+  const rapportJson = await ParserService.parseRapportJson(rapportPath);
   return { 
     address: outputPath,
-    statsJson 
+    statsJson,
+    rapportJson
   };
 });
 
