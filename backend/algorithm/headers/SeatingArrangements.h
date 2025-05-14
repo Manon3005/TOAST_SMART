@@ -41,7 +41,7 @@ class SeatingArrangements
         void print_stats();
 
         void createTableRelationshipMatrix();
-        vector<vector<int>> groupCloseTables(int maxGroupSize = INT_MAX);
+        vector<vector<int>> groupCloseTables(int maxGroupSize = 10);
         void printTableGroups();
 
         void exportTableGroupsToCSV(const string& filename);
