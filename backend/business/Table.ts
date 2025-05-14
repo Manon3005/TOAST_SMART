@@ -25,7 +25,7 @@ export class Table {
     addStudent(student: GraduatedStudent) : void {
         this.studentList.push(student);
         this.nbStudent++;
-        this.nbFilledSeat = 1 + student.getGuests().length;
+        this.nbFilledSeat += 1 + student.getGuests().length;
     }
 
     setNbMaxStudent(nbMaxStudent: number): void {
