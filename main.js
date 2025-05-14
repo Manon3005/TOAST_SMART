@@ -54,7 +54,7 @@ async function createWindow() {
   win.maximize();
   win.setResizable(true);
   win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-  win.webContents.openDevTools();  // pour debogage
+  // win.webContents.openDevTools();  // pour debogage
 }
 
 app.whenReady().then(() => {
