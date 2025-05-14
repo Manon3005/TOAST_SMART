@@ -53,7 +53,6 @@ export class ParserService {
 
   static async readRawFileCSV(csvFilePath: string): Promise<GraduatedStudent[]> {
     const absolutePath = path.resolve(csvFilePath);
-    
     let homonymStudents: GraduatedStudent[] = [];
     return new Promise((resolve, reject) => {
       fs.createReadStream(absolutePath)
@@ -134,8 +133,7 @@ export class ParserService {
             return reject(new Error(errorMessages.join("\n\n")));
           }
           // If no missing information
-          this.allGraduatedStudents = NeighboursLinker.linkNeighboursToGraduatedStudents(this.allGraduatedStudents);
-          CsvExporter.exportCsv(ParserService.columns, this.allGraduatedStudents, "./backend/resources/parsing_export.csv");          
+          this.allGraduatedStudents = NeighboursLinker.linkNeighboursToGraduatedStudents(this.allGraduatedStudents);          
           resolve(this.allGraduatedStudents);
         })
         .on("error", reject);
@@ -143,7 +141,7 @@ export class ParserService {
   }
 
   static async importTablesCSV(csvFilePath: string, allGraduatedStudents: GraduatedStudent[]): Promise<Table[]> {
-    const absolutePath = path.resolve(csvFilePath);
+    const absolutePath = csvFilePath;
     const allTables: TableMap = new Map();
     const graduatedStudents: GraduatedStudentMap = new Map();
 
@@ -167,11 +165,12 @@ export class ParserService {
 
           let table = allTables.get(tableId);
           if (!table) {
-            table = new Table(tableId, 11, [], 0);
+            table = new Table(tableId, 11, [], 0, 0);
             allTables.set(tableId, table);
           }
           if (graduatedStudent) {
             table.addStudent(graduatedStudent);
+            graduatedStudent.setTable(table);
           }
         })
         .on('end', () => {
@@ -207,12 +206,27 @@ export class ParserService {
     this.columns = columns;
   }
 
+  static reinitialize(): void {
+    this.allGraduatedStudents = [];
+    this.alltables = [];
+    this.graduatedStudents = new Map();
+    this.warnings = [];
+  }
+
+  static reinitializeTables(): void {
+    this.alltables = [];
+  }
+
   private static getNextGuestId(): number {
     return this.guestIdCounter++;
   }
 
   private static getNextStudentId(): number {
     return this.studentIdCounter++;
+  }
+
+  private static getTables(): Table[] {
+    return this.alltables;
   }
 
   private static hasHomonym(firstName: string, lastName: string, mail: string): boolean {
