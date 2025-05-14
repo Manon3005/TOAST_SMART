@@ -163,6 +163,7 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   const executablePath = path.resolve(__dirname, 'backend', 'algorithm', executableName);
   const fileName = "planTable_" + dateStr;
   const outputPath = path.join(path.dirname(globalFilePath), fileName + ".csv");
+  const rapportPath = path.dirname(globalFilePath) + fileName + "_rapport_json.json";
   const groupTablePath = path.join(path.dirname(globalFilePath), fileName + "_table_group.csv");
 
   try {
@@ -175,10 +176,12 @@ ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
   ParserService.reinitializeTables();
   allTables = await ParserService.importTablesCSV(outputPath ,allGraduatedStudents)
   const statsJson = await ComputeStatistics.getStatistics(allGraduatedStudents, ParserService.getTables(), maxTables);
+  const rapportJson = await ParserService.parseRapportJson(rapportPath);
   return { 
     addressPlanTable: outputPath,
     addressGroupTable: groupTablePath,
-    statsJson 
+    statsJson,
+    rapportJson
   };
 });
 
