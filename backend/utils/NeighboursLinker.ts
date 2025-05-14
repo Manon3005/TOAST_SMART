@@ -81,8 +81,11 @@ export class NeighboursLinker {
     }
 
     static async addNeighbour(allGraduatedStudents: GraduatedStudent[], id_student:number, id_neighbour: number): Promise<void> {
-      const student = allGraduatedStudents.find(s => s.getId() === id_student);
-      const neighbour = allGraduatedStudents.find(n => n.getId() === id_neighbour);
-      student!.addNeighbour(neighbour!);
+      const student = allGraduatedStudents.find(s => s.getId() == id_student);
+      const neighbour = allGraduatedStudents.find(n => n.getId() == id_neighbour);
+      console.log(neighbour)
+      if(!student!.isSameStudent(neighbour!)) {
+        student!.addNeighbour(neighbour!);
+      }
     }
 }

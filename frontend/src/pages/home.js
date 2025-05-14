@@ -10,6 +10,8 @@ import { StatCenter } from "../components/statCenter";
 import { InputPlanButton } from "../components/inputPlanButton";
 import { ChoiceRadioButton } from "../components/choiceRadioButton";
 import { GenerateButton } from "../components/generateButton";
+import { AddStudentManual } from "../components/addStudentManual";
+import { AddStudentButton } from "../components/addStudentButton";
 
 
 import React, { useState, useEffect  } from 'react';
@@ -50,6 +52,13 @@ export function Home() {
     const [statsJson, setStatsJson] = useState({});
     
     const [filePath, setPath] = useState('');
+
+    const [selectedOption, setSelectedOption] = React.useState('--selectionnez--');
+
+    const [listStudent, setListStudent] = React.useState([]);
+
+
+
 
     const [errorActionReset, setErrorActionReset] = useState('');
 
@@ -226,17 +235,17 @@ export function Home() {
         result: result
       };
 
-      const jsonTemp = await window.electronAPI.getNextConflict(exportJson);
+      const jsonConflict = await window.electronAPI.getNextConflict(exportJson);
       setLoadPicture(false);
-      if (!jsonTemp.jsonContent || Object.keys(jsonTemp.jsonContent).length === 0) {
-        setConflictManagment(true);
-        setConflictCase(null);
-        return;
+      console.log(jsonConflict);
+      if (!jsonConflict.jsonContent || Object.keys(jsonConflict.jsonContent).length === 0) {
+            setConflictManagment(true);
+            setConflictCase(null);
+            return;
       }
-
       setConflictCase({
-        ...jsonTemp.jsonContent,
-        remainingConflictNumber: jsonTemp.remainingConflictNumber
+        ...jsonConflict.jsonContent,
+        remainingConflictNumber: jsonConflict.remainingConflictNumber
       });
       
       if (conflictCase.remainingConflictNumber == 0){
@@ -251,6 +260,29 @@ export function Home() {
     
     const refuseConflict = () => {
       nextConflict("invalid");
+    };
+
+    const actionAddStudent = async () => {
+      const jsonInput = {
+          id_student : conflictCase.idStudent,
+          id_neighbour : selectedOption ,
+      }
+      try {
+        const jsonTemp = await window.electronAPI.addNeighbour(jsonInput)
+        if (!jsonTemp.jsonContent || Object.keys(jsonTemp.jsonContent).length === 0) {
+          setConflictManagment(true);
+          setConflictCase(null);
+          return;
+        }
+
+        setConflictCase({
+          ...jsonTemp.jsonContent,
+          remainingConflictNumber: jsonTemp.remainingConflictNumber
+        });
+
+      } catch{
+        alert("Problème ajout étudiant");
+      }
     };
 
     return React.createElement(
@@ -312,11 +344,20 @@ export function Home() {
                 onFin : actionFinTraitement,
                 load : loadPicture,
               }),
+              React.createElement('div', null,
+                React.createElement(AddStudentManual,{label: 'Ajouter etudiant manuellement',
+                                                        listStudent :listStudent,
+                                                        value: selectedOption,
+                                                        onChange: setSelectedOption,
+                                                        disabled: false}
+                ),
+                React.createElement(AddStudentButton, {onClick : actionAddStudent}),
                           
+              ),
+              !conflictManagment && React.createElement('div', { className: 'right-part' },
+                React.createElement(StudentGuestDisplay,{student : conflictCase}),
+              )
             ),
-            !conflictManagment && React.createElement('div', { className: 'right-part' },
-              React.createElement(StudentGuestDisplay,{student : conflictCase}),
-            )
           ),
 
           finTraitementModalOpen && React.createElement('div', { className: 'modal-overlay', onClick: closeFinTraitementModal },
