@@ -97,3 +97,7 @@ void Table::updateNbRemainingStudentPreference() {
 int Table::getRemainingStudentPreference() {
     return remainingStudentPreference;
 }
+
+void Table::setId(string id) {
+    this->id = id;
+}

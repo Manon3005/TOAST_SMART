@@ -11,8 +11,10 @@ export class GraduatedStudent {
     private nbNeighbours: number;
     private guests: Guest[] = [];
     private neighbours: GraduatedStudent[] = [];
+    private potentialNeighbours: GraduatedStudent[] = [];
     private neighboursString: string;
     private diet: Diet;
+    private doubleEmailCatched: boolean;
 
     constructor(
         id: number,
@@ -34,6 +36,7 @@ export class GraduatedStudent {
         this.nbNeighbours = nbNeighbours;
         this.diet = Diet.mapDietaryPreference(diet);
         this.ticket = ticket;
+        this.doubleEmailCatched = false;
     }
 
     hasAllInformation(): boolean {
@@ -42,6 +45,13 @@ export class GraduatedStudent {
             return false;
         }
         return true;
+    }
+
+    isHomonym(firstName: string, lastName: string, mail: string): boolean {
+        if(firstName === this.firstName && lastName === this.lastName && mail !== this.email) {
+            return true;
+        }
+        return false;
     }
 
     setDiet(diet: string): void {
@@ -60,6 +70,16 @@ export class GraduatedStudent {
     addNeighbour(student: GraduatedStudent): void {
         this.nbNeighbours++;
         this.neighbours.push(student);
+    }
+
+    addPotentialNeighbour(student: GraduatedStudent): void {
+        this.potentialNeighbours.push(student);
+    }
+
+    removePotentialNeighbour(id: number): void {
+        this.potentialNeighbours = this.potentialNeighbours.filter(
+            neighbour => neighbour.getId() !== id
+        );
     }
 
     deleteNeighbour(id: number): void {
@@ -81,8 +101,24 @@ export class GraduatedStudent {
         return false;
     }
     
+    hasDifferentEmail(email: string): boolean {
+        return this.email !== email;
+    }
+
+    catchDoubleEmail(): void {
+        this.doubleEmailCatched = true;
+    }
+
+    catchedDoubleEmail(): boolean {
+        return this.doubleEmailCatched;
+    }
+
     getGuests(): Guest[] {
         return this.guests;
+    }
+
+    getPotentialNeighbours(): GraduatedStudent[] {
+        return this.potentialNeighbours;
     }
 
     getNeighboursIds(): number[] {
