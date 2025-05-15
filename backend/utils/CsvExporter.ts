@@ -59,12 +59,10 @@ export class CsvExporter {
     }
 
     static exportPlacementCsv( tables: Table[], filePath: string): void{
-
         const csvRows = [];
-        let tableCounter = 1;
         for (const table of tables) {
             let peoplecounter = 1;
-            csvRows.push("Table " + tableCounter);
+            csvRows.push("Table " + table.getId());
             for (const student of table.getGraduatedStudents()) {
                 const row = [
                     "Personne " + peoplecounter,
@@ -81,7 +79,6 @@ export class CsvExporter {
                     peoplecounter++;
                 }
             }
-            tableCounter++;
             csvRows.push("");
         }
         const csvContent = csvRows.join('\n');
