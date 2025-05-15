@@ -14,6 +14,7 @@ export function Support() {
             React.createElement('div', { className: 'support-container' },
                 React.createElement('h1', { className: 'support-title' }, 'Support'),
                 React.createElement('p', { className: 'support-content' }, 'Ce projet a été réalisé dans le cadre du projet SMART par un groupe d\'étudiants de 4ème année du département Informatique de l\'INSA Lyon.'),
+                React.createElement('p', { className: 'support-content' }, 'Contributeurs : Manon Bertrand, Royce Cho, Aodren Pitard-Bouet, Adrien Doan, Mathis Getenet, Armand Brunet et Aubin Roche'),
                 React.createElement('p', { className: 'support-content' }, 'Pour toute question ou problème, n\'hésitez pas à nous contacter à l\'adresse suivante : manon.bertrand@insa-lyon.fr'),
                 React.createElement('p', { className: 'support-content' }, 'Vous pouvez également consulter notre dépôt GitHub pour plus d\'informations sur le projet : https://github.com/Manon3005/TOAST'),
         ),
