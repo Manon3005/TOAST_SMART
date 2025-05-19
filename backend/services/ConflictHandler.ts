@@ -1,3 +1,4 @@
+import { allowedNodeEnvironmentFlags } from "process";
 import { GraduatedStudent } from "../business/GraduatedStudent";
 
 export class ConflictHandler {
@@ -52,6 +53,12 @@ export class ConflictHandler {
                     }
                 }
             }
+        }
+    }
+
+    static async deleteAllConflicts(allGraduatedStudents: GraduatedStudent[]) {
+        for(const student of allGraduatedStudents) {
+            student.removeAllPotentialNeighbours();
         }
     }
 }
