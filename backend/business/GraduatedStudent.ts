@@ -96,6 +96,10 @@ export class GraduatedStudent {
         );
     }
 
+    removeAllPotentialNeighbours(): void {
+        this.potentialNeighbours = [];
+    }
+
     deleteNeighbour(id: number): void {
         this.neighbours = this.neighbours.filter(neighbour => neighbour.id !== id);
     }
