@@ -14,7 +14,6 @@ import { AddStudentManual } from "../components/addStudentManual";
 import { AddStudentButton } from "../components/addStudentButton";
 import { AcceptConflictButton } from "../components/acceptConflictButton";
 import { RefuseConflictButton } from "../components/refuseConflictButton";
-import { RefuseAllConflictsButton } from "../components/refuseAllConflictsButton";
 import React, { useState  } from 'react';
 import '../App.css';
 
@@ -98,6 +97,7 @@ export function Home() {
       }
     };
 
+
     const loadPlanFile = async () => {
         try {
             const jsonResult = await window.electronAPI.getStatistics();
@@ -112,6 +112,8 @@ export function Home() {
       }
     };
   
+
+
     const actionContinue = async () => {
         setLockedContinue(true);
         const result = await generateCSVColumn();
@@ -262,21 +264,6 @@ export function Home() {
       nextConflict("invalid");
     };
 
-    const refuseAllConflicts = async () => {
-      try {
-        const jsonTemp = await window.electronAPI.deleteAllConflicts();
-        if(!jsonTemp.jsonContent || Object.keys(jsonTemp.jsonContent).length === 0) {
-          setConflictManagment(true);
-          setConflictCase(null);
-          return;
-        } else {
-          throw new Error("Le JSON n'est pas valide !");
-        }
-      } catch{
-        alert("Problème lors de la suppression de tous les conflits");
-      }
-    };
-
     const actionAddStudent = async () => {
       const jsonInput = {
           id_student : conflictCase.idStudent,
@@ -376,13 +363,11 @@ export function Home() {
                 React.createElement(AcceptConflictButton, { className: 'classic-button', onClick: acceptConflict }),
                 React.createElement(RefuseConflictButton, { className: 'classic-button', onClick: refuseConflict })
               ),
-              !conflictManagment && React.createElement('div', { className: 'conflict-container-buttons' },
-                React.createElement(RefuseAllConflictsButton, { className: 'classic-button', onClick: refuseAllConflicts })
-              )
+  
             ),
-            !conflictManagment && React.createElement('div', { className: 'right-part' },
-              React.createElement(StudentGuestDisplay,{student : conflictCase}),
-            )
+              !conflictManagment && React.createElement('div', { className: 'right-part' },
+                React.createElement(StudentGuestDisplay,{student : conflictCase}),
+              )
           ),
 
 

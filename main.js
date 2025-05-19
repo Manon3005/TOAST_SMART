@@ -124,11 +124,6 @@ ipcMain.handle('dialog:getNextConflict', async (event, jsonSolution) => {
   return await ConflictHandler.getNextConflict(allGraduatedStudents);
 });
 
-ipcMain.handle('dialog:deleteAllConflicts', async () => {
-  await ConflictHandler.deleteAllConflicts(allGraduatedStudents);
-  return await ConflictHandler.getNextConflict(allGraduatedStudents);
-})
-
 ipcMain.handle('dialog:addNeighbour', async (event, jsonInfo) => {
   const id_student = jsonInfo.id_student;
   const id_neighbour = jsonInfo.id_neighbour; 
