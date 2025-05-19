@@ -10,6 +10,6 @@ export function RefuseAllConflictsButton({onClick}) {
     null,
     React.createElement(
         'button',
-        {className: 'classic-button', onClick : onClick },' ❌ Passer tous les conflits restants' )
+        {className: 'classic-button', onClick : onClick },' ⛔ Passer tous les conflits restants' )
 );
 }
