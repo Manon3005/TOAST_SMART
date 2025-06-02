@@ -1,4 +1,4 @@
-In order to at the REACT frontend :
+In order to launch the REACT frontend :
 ```bash
 $ cd frontend  
 $ npm install  
