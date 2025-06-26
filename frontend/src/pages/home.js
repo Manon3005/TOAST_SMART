@@ -300,155 +300,224 @@ export function Home() {
       }
     };
 
-    return React.createElement(
-        'div',
-        { className: 'app-container'},
-        React.createElement('div', { className: 'app-header' },
-          React.createElement(
-              'h1',
-              { className: 'page-title' },
-              React.createElement('img', { src: 'img/Logo TOAST.png', alt: 'Logo', className: 'logo-inline' }),
-              ' TOus A Sa Table ',
-              React.createElement('img', { src: 'img/Logo TOAST.png', alt: 'Logo', className: 'logo-inline' })
-          ),  
-          React.createElement('h3', null, 'Réalisez votre plan de table en quelques clics !'),
-        ),
-        React.createElement('div', { className: 'app-content' },
+    return (
+    <div className="app-container">
+      <div className="app-header">
+        <h1 className="page-title">
+          <img src="img/Logo TOAST.png" alt="Logo" className="logo-inline" />
+          TOus A Sa Table
+          <img src="img/Logo TOAST.png" alt="Logo" className="logo-inline" />
+        </h1>
+        <h3>Réalisez votre plan de table en quelques clics !</h3>
+      </div>
 
-          preprocessingStep && React.createElement('div', { className: 'preprocessing-step' },
-            React.createElement('h2', null, 'Prétraitement des données'), 
-            React.createElement(FileButton, {className: 'classic-button', onClick : loadFile, disabled: lockedContinue, nameFile: nameFile, setName: setName, errorFile : errorFile, setErrorFile : setErrorFile}),
-            React.createElement(TableColumn,{tableData : tableData, setTableData : setTableData, disabled : lockedContinue, headersCSV : headersCSV}),
-            finalAddress && React.createElement('p', null, finalAddress),
-            
-            React.createElement('div', {className: 'continue-reset-buttons'},
-              React.createElement(ContinueButton, {
-                onClick: actionContinue,
-                disabled: !nameFile || tableData.some(value => value === ''),
-              }),
-              React.createElement(ResetButton, {
-                onClick: () => actionReset(),
-                disabled : false
-              })
-            ),
-            errorActionResetModal && React.createElement('div', { className: 'modal-overlay', onClick: closeErrorActionResetModal },
-              React.createElement('div', { className: 'modal-content' },
-              React.createElement('p', null, errorActionReset),
-              React.createElement('button', { className: 'modal-close-button', onClick: closeErrorActionResetModal }, 'Fermer')
-              )
-            ),
-            loadPicture && React.createElement('div', { className: 'loading-container' },
-              React.createElement('img', {
-                  src: 'img/loading.gif',
-                  alt: 'Chargement...',
-                  className: 'spinner'
-              }),
-              React.createElement('p', null, 'Chargement en cours...')
-            )
-          ),
+      <div className="app-content">
+        {preprocessingStep && (
+          <div className="preprocessing-step">
+            <h2>Prétraitement des données</h2>
+            <FileButton
+              className="classic-button"
+              onClick={loadFile}
+              disabled={lockedContinue}
+              nameFile={nameFile}
+              setName={setName}
+              errorFile={errorFile}
+              setErrorFile={setErrorFile}
+            />
+            <TableColumn
+              tableData={tableData}
+              setTableData={setTableData}
+              disabled={lockedContinue}
+              headersCSV={headersCSV}
+            />
+            {finalAddress && <p>{finalAddress}</p>}
 
-          conflictStep && React.createElement('div', { className: 'conflicts-step' },
-            React.createElement('div', { className: 'left-part' },
+            <div className="continue-reset-buttons">
+              <ContinueButton
+                onClick={actionContinue}
+                disabled={!nameFile || tableData.some(value => value === '')}
+              />
+              <ResetButton onClick={() => actionReset()} disabled={false} />
+            </div>
 
-              React.createElement('br', null),
-              React.createElement(ConflictCenter,{
-                fin : conflictManagment,
-                disabled: lockedGenerer,
-                student: conflictCase,
-                onFin : actionFinTraitement,
-                load : loadPicture,
-              }),
-              React.createElement('br', null),
-              !conflictManagment && React.createElement('div', null,
-                React.createElement(AddStudentManual,{label: 'Ajouter étudiant manuellement : ',
-                                                        listStudent :listStudent,
-                                                        value: selectedOption,
-                                                        onChange: setSelectedOption,
-                                                        disabled: false}
-                ),
-                React.createElement('br', null),
-                React.createElement(AddStudentButton, {onClick : actionAddStudent}),
-                          
-              ),
-              React.createElement('br', null),
-              React.createElement('br', null),
-              !conflictManagment && React.createElement('div', { className: 'conflict-container-buttons' },
-                React.createElement(AcceptConflictButton, { className: 'classic-button', onClick: acceptConflict }),
-                React.createElement(RefuseConflictButton, { className: 'classic-button', onClick: refuseConflict })
-              ),
-              !conflictManagment && React.createElement('div', { className: 'conflict-container-buttons' },
-                React.createElement(RefuseAllConflictsButton, { className: 'classic-button', onClick: refuseAllConflicts })
-              )
-            ),
-            !conflictManagment && React.createElement('div', { className: 'right-part' },
-              React.createElement(StudentGuestDisplay,{student : conflictCase}),
-            )
-          ),
+            {errorActionResetModal && (
+              <div className="modal-overlay" onClick={closeErrorActionResetModal}>
+                <div className="modal-content">
+                  <p>{errorActionReset}</p>
+                  <button className="modal-close-button" onClick={closeErrorActionResetModal}>
+                    Fermer
+                  </button>
+                </div>
+              </div>
+            )}
 
+            {loadPicture && (
+              <div className="loading-container">
+                <img src="img/loading.gif" alt="Chargement..." className="spinner" />
+                <p>Chargement en cours...</p>
+              </div>
+            )}
+          </div>
+        )}
 
-          finTraitementModalOpen && React.createElement('div', { className: 'modal-overlay', onClick: closeFinTraitementModal },
-            React.createElement('div', { className: 'modal-content' },
-            React.createElement('p', null, 'Fichier intermédiaire généré avec succès à l\'emplacement du fichier initialement importé'),
-            React.createElement('button', { className: 'modal-close-button', onClick: closeFinTraitementModal }, 'Fermer')
-            )
-          ),
+        {conflictStep && (
+          <div className="conflicts-step">
+            <div className="left-part">
+              <br />
+              <ConflictCenter
+                fin={conflictManagment}
+                disabled={lockedGenerer}
+                student={conflictCase}
+                onFin={actionFinTraitement}
+                load={loadPicture}
+              />
+              <br />
+              {!conflictManagment && (
+                <div>
+                  <AddStudentManual
+                    label="Ajouter étudiant manuellement : "
+                    listStudent={listStudent}
+                    value={selectedOption}
+                    onChange={setSelectedOption}
+                    disabled={false}
+                  />
+                  <br />
+                  <AddStudentButton onClick={actionAddStudent} />
+                </div>
+              )}
+              <br />
+              <br />
+              {!conflictManagment && (
+                <div className="conflict-container-buttons">
+                  <AcceptConflictButton className="classic-button" onClick={acceptConflict} />
+                  <RefuseConflictButton className="classic-button" onClick={refuseConflict} />
+                </div>
+              )}
+              {!conflictManagment && (
+                <div className="conflict-container-buttons">
+                  <RefuseAllConflictsButton className="classic-button" onClick={refuseAllConflicts} />
+                </div>
+              )}
+            </div>
 
-          tablePlanStep && React.createElement('div', { className: 'table-plan-step' },
-            React.createElement('div', { className: 'left-part' },
-              React.createElement('h2', null, 'Configurer vos tables :'),
-              React.createElement('div', {className: 'option-choices'},
-                React.createElement('div', { className: 'nb-table' },
-                  React.createElement('p', null, 'Nombre de tables maximum:'),
-                  React.createElement(InputNumber, {value: maxTables, onChange: val => setMaxTables(parseInt(val, 10)) },'Nombre max de tables')
-                ),
-                React.createElement('div', { className: 'nb-guest' },
-                  React.createElement('p', null, 'Nombre de convives maximum/table :'),
-                  React.createElement(InputNumber, {value: maxGuests, onChange: val => setMaxGuests(parseInt(val, 10)) }, 'Nombre max de convives par table' )
-                ), 
-                React.createElement('div', { className: 'radio-button-container' },
-                  React.createElement('h2', 'null', 'Sélectionner le critère de génération du plan de table :'),
-                  React.createElement(ChoiceRadioButton, { onSelectionChange: handleSelectionChange }),
-                ),
-              ),
-              React.createElement('div', { className: 'input-generate-container' },
-                React.createElement('div', { className: 'buttons-row' },
-                    React.createElement(GenerateButton, { onClick: actionGenerer }),
-                    React.createElement(InputPlanButton, { onClick: loadPlanFile, nameFileDraftPlan: nameFileDraftPlan, setName: setName, errorFile: errorFile, setErrorFile: setErrorFile })
-                ),
-                finalAddress && React.createElement('div', {className : 'file-line'},
-                  React.createElement('span', {className: 'label'}, 'Solution :\u00A0'), 
-                  React.createElement('span', {className: 'file-name'}, finalAddress),
-                ),
-                groupTableFinalAddress && React.createElement('div', {className : 'file-line'},
-                  React.createElement('span', {className: 'label'}, 'Groupement des tables :\u00A0'),
-                  React.createElement('span', {className: 'file-name'}, groupTableFinalAddress),
-                ),
-              )
-            ),
-            React.createElement('div', { className: 'right-part' },
-              React.createElement(StatCenter, { nameFileDraftPlan: nameFileDraftPlan, finalAddress: finalAddress, statsJson: statsJson, rapportJson: rapportJson }),
-              React.createElement(ExportSolutionButton, {onClick: actionExporter,errorExportFile : errorExportFile, 
-              nameExportFile : nameExportFile, disabled: !nameFileDraftPlan && !finalAddress} ) 
-            ),
+            {!conflictManagment && (
+              <div className="right-part">
+                <StudentGuestDisplay student={conflictCase} />
+              </div>
+            )}
+          </div>
+        )}
 
-            errorExportFileModal && React.createElement('div', { className: 'modal-overlay', onClick: closeErrorExportFileModal },
-              React.createElement('div', { className: 'modal-content' },
-              React.createElement('p', null, "Erreur lors de l'exportation du fichier CSV : Veuillez vérifier que le fichier n'est pas déjà ouvert."),
-              React.createElement('button', { className: 'modal-close-button', onClick: closeErrorExportFileModal }, 'Fermer')
-              )
-            ),
+        {finTraitementModalOpen && (
+          <div className="modal-overlay" onClick={closeFinTraitementModal}>
+            <div className="modal-content">
+              <p>
+                Fichier intermédiaire généré avec succès à l'emplacement du fichier initialement importé
+              </p>
+              <button className="modal-close-button" onClick={closeFinTraitementModal}>
+                Fermer
+              </button>
+            </div>
+          </div>
+        )}
 
-            rapportModal && React.createElement('div', { className: 'modal-overlay', onClick: closeRapportModal },
-              React.createElement('div', { className: 'modal-content'},
-                React.createElement('h2', null, 'Erreur dans la génération !'),
-                React.createElement('p', null, `Nombre de tables manquantes : ${rapportJson.nb_table_missing}`),
-                React.createElement('p', null, `Nombre d'étudiants sans table : ${rapportJson.nb_student_without_table}`),
-                React.createElement('p', null, `Nombre de tables en trop dans la solution : ${rapportJson.extra_table}`),
-                React.createElement('button', { className: 'modal-close-button', onClick: closeRapportModal }, 'Fermer')
-              )
-            )
-              
-          )
-        )
-      );
+        {tablePlanStep && (
+          <div className="table-plan-step">
+            <div className="left-part">
+              <h2>Configurer vos tables :</h2>
+              <div className="option-choices">
+                <div className="nb-table">
+                  <p>Nombre de tables maximum:</p>
+                  <InputNumber
+                    value={maxTables}
+                    onChange={val => setMaxTables(parseInt(val, 10))}
+                  />
+                </div>
+                <div className="nb-guest">
+                  <p>Nombre de convives maximum/table :</p>
+                  <InputNumber
+                    value={maxGuests}
+                    onChange={val => setMaxGuests(parseInt(val, 10))}
+                  />
+                </div>
+                <div className="radio-button-container">
+                  <h2>Sélectionner le critère de génération du plan de table :</h2>
+                  <ChoiceRadioButton onSelectionChange={handleSelectionChange} />
+                </div>
+              </div>
+
+              <div className="input-generate-container">
+                <div className="buttons-row">
+                  <GenerateButton onClick={actionGenerer} />
+                  <InputPlanButton
+                    onClick={loadPlanFile}
+                    nameFileDraftPlan={nameFileDraftPlan}
+                    setName={setName}
+                    errorFile={errorFile}
+                    setErrorFile={setErrorFile}
+                  />
+                </div>
+
+                {finalAddress && (
+                  <div className="file-line">
+                    <span className="label">Solution :&nbsp;</span>
+                    <span className="file-name">{finalAddress}</span>
+                  </div>
+                )}
+                {groupTableFinalAddress && (
+                  <div className="file-line">
+                    <span className="label">Groupement des tables :&nbsp;</span>
+                    <span className="file-name">{groupTableFinalAddress}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="right-part">
+              <StatCenter
+                nameFileDraftPlan={nameFileDraftPlan}
+                finalAddress={finalAddress}
+                statsJson={statsJson}
+                rapportJson={rapportJson}
+              />
+              <ExportSolutionButton
+                onClick={actionExporter}
+                errorExportFile={errorExportFile}
+                nameExportFile={nameExportFile}
+                disabled={!nameFileDraftPlan && !finalAddress}
+              />
+            </div>
+
+            {errorExportFileModal && (
+              <div className="modal-overlay" onClick={closeErrorExportFileModal}>
+                <div className="modal-content">
+                  <p>
+                    Erreur lors de l'exportation du fichier CSV : Veuillez vérifier que le fichier
+                    n'est pas déjà ouvert.
+                  </p>
+                  <button className="modal-close-button" onClick={closeErrorExportFileModal}>
+                    Fermer
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {rapportModal && (
+              <div className="modal-overlay" onClick={closeRapportModal}>
+                <div className="modal-content">
+                  <h2>Erreur dans la génération !</h2>
+                  <p>Nombre de tables manquantes : {rapportJson.nb_table_missing}</p>
+                  <p>Nombre d'étudiants sans table : {rapportJson.nb_student_without_table}</p>
+                  <p>Nombre de tables en trop dans la solution : {rapportJson.extra_table}</p>
+                  <button className="modal-close-button" onClick={closeRapportModal}>
+                    Fermer
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
