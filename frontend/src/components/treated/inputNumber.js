@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import '../App.css';
+import '../../styles/App.css'
 
 
 
@@ -11,5 +10,6 @@ export function InputNumber({ value, onChange, disabled }) {
       onChange: (e) => onChange(e.target.value),
       className: 'glass-number',
       placeholder: '0',
+      disabled: disabled
     });
   }

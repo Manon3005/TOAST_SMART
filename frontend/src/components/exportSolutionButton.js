@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import '../styles/App.css';
 
 export function ExportSolutionButton({ onClick, disabled, nameExportFile, errorExportFile }) {
   return React.createElement(

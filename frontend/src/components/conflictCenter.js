@@ -1,6 +1,6 @@
-import { FinTraitementButton } from "./finTraitementButton";
+import { FinTraitementButton } from "./treated/finTraitementButton";
 import React from 'react';
-import '../App.css';
+import '../styles/App.css';
 
 export function ConflictCenter({ student, disabled, fin, onFin, load }) {
     if (load) {

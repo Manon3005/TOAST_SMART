@@ -54,7 +54,7 @@ async function createWindow() {
   win.maximize();
   win.setResizable(true);
   win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
-  // win.webContents.openDevTools();  // pour debogage
+  win.webContents.openDevTools();  // pour debogage
 }
 
 app.whenReady().then(() => {
@@ -110,10 +110,7 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
     return {error : error.message};
   }
   // Return the first conflict
-  return {
-    conflictInformations: await ConflictHandler.getNextConflict(allGraduatedStudents),
-    listStudents: await JsonExporter.getListStudents(allGraduatedStudents),
-  };
+  return {};
 }); 
 
 ipcMain.handle('dialog:getNextConflict', async (event, jsonSolution) => {

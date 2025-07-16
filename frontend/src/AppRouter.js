@@ -1,12 +1,12 @@
 
-import './styles/AppRouter.css';
-import React from 'react';
+import './styles/App.css';
 import { HashRouter as Router, Routes, Route} from 'react-router-dom';
 import { Start } from './pages/start';
-import { Home } from './pages/home';
 import { Explanation } from './pages/explanation';
 import { Support } from './pages/support';
-import { NavBar } from './components/navBar';
+import { NavBar } from './components/molecules/NavBar';
+import Preprocessing from './pages/preprocessing';
+import End from './pages/end'
 
 
 function AppRouter() {
@@ -16,7 +16,8 @@ function AppRouter() {
       <NavBar/>
       <Routes>
         <Route path='/' element={<Start />}/>
-        <Route path='/home' element={<Home />}/>
+        <Route path='/end' element={<End />}/>
+        <Route path='/preprocessing' element={<Preprocessing />}/>
         <Route path='/explanation' element={<Explanation />}/>
         <Route path='/support' element={<Support />}/>
       </Routes>

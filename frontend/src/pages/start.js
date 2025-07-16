@@ -1,6 +1,5 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { StartButton } from "../components/startButton";
+import { StartButton } from "../components/treated/startButton";
 
 export function Start() {
   const navigate = useNavigate();
@@ -16,7 +15,7 @@ export function Start() {
       <h3>Réalisez votre plan de table en quelques clics !</h3>
     </div>
 
-    <StartButton onClick={() => navigate('/home')} disabled={false} />
+    <StartButton onClick={() => navigate('/preprocessing')} disabled={false} />
   </div>
 );
 }

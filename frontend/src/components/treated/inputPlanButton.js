@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import '../App.css';
-
+import '../../styles/App.css'
 
 
 export function InputPlanButton({disabled, nameFile, setName, errorFile, setErrorFile, onClick}) {

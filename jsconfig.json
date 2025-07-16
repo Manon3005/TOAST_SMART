@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+      "checkJs": true,
+      "allowJs": true,
+      "jsx": "react-jsx"
+  },
+  "exclude": ["node_modules", "**/node_modules/*"],
+  "include": ["frontend/src/*", "preload.d.ts"]
+}
