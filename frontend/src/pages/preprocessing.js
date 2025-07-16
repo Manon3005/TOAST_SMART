@@ -56,7 +56,7 @@ export default function Preprocessing () {
     const handleFileProcessing = async () => {
         const result = await generateCSVColumn();
         if (result) {
-            navigate('/end')
+            navigate('/conflicts')
         } else {
             console.log("erreur dans generateCSVColumn");
         }

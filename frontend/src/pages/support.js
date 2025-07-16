@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-
+import { Button } from '../components/atoms/Button';
 export function Support() {
 
     const [isModalOpen, setModalOpen] = useState(false);
-
     const openModal = () => setModalOpen(true);
-
     const closeModal = () => setModalOpen(false);
 
     return (
@@ -40,7 +38,7 @@ export function Support() {
                 <div className="modal-content">
                 <h2>Félicitations !</h2>
                 <p>Notre algorithme de placement est maintenant 235% plus performant !</p>
-                <button className="modal-close-button" onClick={closeModal}>Fermer</button>
+                <Button className="modal-close-button" onClick={closeModal} disabled={false} text='Fermer'/>
                 </div>
             </div>
             )}

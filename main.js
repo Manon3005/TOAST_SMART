@@ -221,3 +221,13 @@ ipcMain.handle('dialog:exportTablesCsv', async () => {
   await shell.openPath(outputPath);
   return outputPath;
 });
+
+ipcMain.handle('dialog:getAllStudent', async () => {
+  return await JsonExporter.getListStudents(allGraduatedStudents);
+});
+
+ipcMain.handle('dialog:getStudentWithConflicts', async (event, jsonSolution) => {
+  const id_student = jsonSolution.id_student;
+  const student = allGraduatedStudents.find((student) => student.id == id_student);
+  return await ConflictHandler.getStudentWithConflicts(student);
+});

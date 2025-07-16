@@ -12,6 +12,8 @@ declare global {
       generateTablePlan: (jsonData: any) => Promise<any>;
       getStatistics: () => Promise<any>;
       exportTablesCsv: () => Promise<any>;
+      getAllStudent: () => Promise<any>;
+      getStudentWithConflicts: (jsonSolution: any) => Promise<any>;
     };
   }
 }

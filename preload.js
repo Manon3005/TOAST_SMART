@@ -11,4 +11,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   generateTablePlan: (jsonData) => ipcRenderer.invoke('dialog:generateTablePlan', jsonData),
   getStatistics: () => ipcRenderer.invoke('dialog:getStatistics'),
   exportTablesCsv: () => ipcRenderer.invoke('dialog:exportTablesCsv'),
+  getAllStudent: () => ipcRenderer.invoke('dialog:getAllStudent'),
+  getStudentWithConflicts: (jsonSolution) => ipcRenderer.invoke('dialog:getStudentWithConflicts', jsonSolution)
 });

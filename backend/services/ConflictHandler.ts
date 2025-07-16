@@ -2,6 +2,40 @@ import { allowedNodeEnvironmentFlags } from "process";
 import { GraduatedStudent } from "../business/GraduatedStudent";
 
 export class ConflictHandler {
+    static async getStudentWithConflicts(student: GraduatedStudent) {
+        const potentialNeighbours = student.getPotentialNeighbours();
+        let conflicts : any[] = [];
+        for (const potentialNeighbour of potentialNeighbours) {
+            const conflict = {
+                id: potentialNeighbour.getId(),
+                lastName: potentialNeighbour.getLastName(),
+                firstName: potentialNeighbour.getFirstName(),
+                guests: potentialNeighbour.getGuests().map(guest => ({
+                    guestLastName: guest.getLastName(),
+                    guestFirstName: guest.getFirstName(),
+                }))
+            }
+            conflicts.push(conflict);
+        }
+        const jsonStudent = {
+            idStudent: student.getId(),
+            lastName: student.getLastName(),
+            firstName: student.getFirstName(),
+            neighboursEntry: student.getNeighboursString(),
+            conflict: conflicts,
+            processedNeighbours: student.getNeighbours().map(neighbour => ({
+                neighbourId: neighbour.getId(),
+                neighbourFirstName: neighbour.getFirstName(),
+                neighbourLastName: neighbour.getLastName()
+            })),
+            guests: student.getGuests().map(guest => ({
+                guestFirstName: guest.getFirstName(),
+                guestLastName: guest.getLastName(),
+            }))
+        };
+        return { jsonContent : jsonStudent }
+    }
+
     static async getNextConflict(allGraduatedStudents: GraduatedStudent[]): Promise<any> {
         let conflictNumber = 0;
         let find = false;

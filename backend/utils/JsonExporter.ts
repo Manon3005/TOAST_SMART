@@ -26,6 +26,7 @@ export class JsonExporter {
             id: student.getId(),
             lastName: student.getLastName(),
             firstName: student.getFirstName(),
+            conflictCount: student.getPotentialNeighbours().length
         })) 
     }
 }
