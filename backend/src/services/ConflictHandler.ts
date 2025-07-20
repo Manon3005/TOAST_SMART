@@ -4,7 +4,7 @@ import { GraduatedStudent } from "../business/GraduatedStudent";
 export class ConflictHandler {
     static async getStudentWithConflicts(student: GraduatedStudent) {
         const potentialNeighbours = student.getPotentialNeighbours();
-        let conflicts : any[] = [];
+        const conflicts : any[] = [];
         for (const potentialNeighbour of potentialNeighbours) {
             const conflict = {
                 id: potentialNeighbour.getId(),
@@ -47,7 +47,7 @@ export class ConflictHandler {
                 find = true;
                 const firstConflict = potentialNeighbours[0];
                 jsonContent = {
-                    idStudent: student.getId(),
+                    id: student.getId(),
                     lastName: student.getLastName(),
                     firstName: student.getFirstName(),
                     neighboursEntry: student.getNeighboursString(),

@@ -1,13 +1,13 @@
 
 import './styles/App.css';
 import { HashRouter as Router, Routes, Route} from 'react-router-dom';
-import { Start } from './pages/start';
-import { Explanation } from './pages/explanation';
-import { Support } from './pages/support';
+import { Start } from './pages/Start';
+import { Explanation } from './pages/Explanation';
+import { Support } from './pages/Support';
 import { NavBar } from './components/molecules/NavBar';
-import Preprocessing from './pages/preprocessing';
-import End from './pages/end'
-import Conflicts from './pages/conflicts'
+import Preprocessing from './pages/Preprocessing';
+import End from './pages/End'
+import Conflicts from './pages/Conflicts'
 
 
 function AppRouter() {

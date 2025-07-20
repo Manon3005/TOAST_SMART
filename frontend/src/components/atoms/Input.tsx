@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import '../../styles/App.css';
 
 export const Input = ({
@@ -6,6 +7,14 @@ export const Input = ({
     disabled,
     min,
     type,
+    text
+}: {
+    value: string,
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void,
+    disabled: boolean,
+    min: number,
+    type: React.HTMLInputTypeAttribute,
+    text: string
 }) => {
   return (
     <input 

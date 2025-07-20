@@ -54,7 +54,7 @@ export class ParserService {
 
   static async readRawFileCSV(csvFilePath: string): Promise<GraduatedStudent[]> {
     const absolutePath = path.resolve(csvFilePath);
-    let homonymStudents: GraduatedStudent[] = [];
+    const homonymStudents: GraduatedStudent[] = [];
     return new Promise((resolve, reject) => {
       fs.createReadStream(absolutePath)
         .pipe(parse({ delimiter: ";", columns: true, trim: true, bom: true }))
@@ -132,7 +132,7 @@ export class ParserService {
           this.allGraduatedStudents = Array.from(this.graduatedStudents.values());
           // Check if there are missing information = failing of finding during the parsing a student for a group
           const incompleteStudents = this.allGraduatedStudents.filter(student => !student.hasAllInformation());
-          let errorMessages = [];
+          const errorMessages = [];
           if(incompleteStudents.length > 0) {
             const fullNames = incompleteStudents.map(s => `${s.getLastName()} ${s.getFirstName()}`).join(", ");
             errorMessages.push(`Les étudiants suivants ne sont pas identifiés correctement (probablement une erreur dans le remplissage des noms et prénoms : ` +

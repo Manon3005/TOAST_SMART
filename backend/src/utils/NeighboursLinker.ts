@@ -1,5 +1,5 @@
 import { GraduatedStudent } from "../business/GraduatedStudent";
-import { StringNormalizer } from "../utils/StringNormalizer";
+import { StringNormalizer } from "./StringNormalizer";
 import { get as levenshtein } from 'fast-levenshtein';
 
 export class NeighboursLinker {
@@ -14,7 +14,7 @@ export class NeighboursLinker {
           
           // Case 1 : Matching on fullname with max 2 errors in the combination
           type firstCaseCandidateWithDistance = { candidate: GraduatedStudent; distance: number };
-          let firstCaseCandidates: firstCaseCandidateWithDistance[] = [];
+          const firstCaseCandidates: firstCaseCandidateWithDistance[] = [];
           let firstCaseBestDistance = Infinity;
           for (let i = 0; i < normalizedNeighbourWords.length - 1; i++) {
             const combinedNormalizedWords = StringNormalizer.normalizeString(normalizedNeighbourWords[i] + ' ' + normalizedNeighbourWords[i+1]);
@@ -51,7 +51,7 @@ export class NeighboursLinker {
     
           // Case 2 : Matching on name with max 1 error
           type secondCaseCandidateWithDistance = { candidate: GraduatedStudent; distance: number };
-          let secondCaseCandidates: secondCaseCandidateWithDistance[] = [];
+          const secondCaseCandidates: secondCaseCandidateWithDistance[] = [];
           let secondCaseBestDistance = Infinity;
           for (let i = 0; i < normalizedNeighbourWords.length; i++) {
             for (const candidate of allGraduatedStudents) {

@@ -6,8 +6,28 @@ import { defineConfig } from "eslint/config";
 
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"], plugins: { js }, extends: ["js/recommended"] },
-  { files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"], languageOptions: { globals: globals.browser } },
+  // ⛔ Ignorer tous les fichiers .js
+  {
+    ignores: ["dist/**"]
+  },
+
+  // ✔️ Appliquer les règles aux fichiers supportés
+  {
+    files: ["**/*.{mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    plugins: { js },
+    extends: ["js/recommended"]
+  },
+  {
+    files: ["**/*.{mjs,cjs,ts,mts,cts,jsx,tsx}"],
+    languageOptions: {
+      globals: globals.browser
+    }
+  },
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
+  {
+    rules: {
+      "import/first": "off"
+    }
+  }
 ]);

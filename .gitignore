@@ -139,3 +139,6 @@ dist
 *.o
 .vscode
 main
+
+# frontend
+frontend/build

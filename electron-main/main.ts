@@ -1,12 +1,12 @@
-const { ParserService } = require("./backend/dist/backend/services/ParserService.js");
-const { ComputeStatistics } = require("./backend/dist/backend/services/ComputeStatistics.js");
-const { GraduatedStudent } = require("./backend/dist/backend/business/GraduatedStudent.js");
-const { JsonExporter } = require("./backend/dist/backend/utils/JsonExporter.js")
-const { CsvExporter } = require("./backend/dist/backend/utils/CsvExporter.js")
+const { ParserService } = require("../backend/services/ParserService.js");
+const { ComputeStatistics } = require("../backend/services/ComputeStatistics.js");
+const { GraduatedStudent } = require("../backend/business/GraduatedStudent.js");
+const { JsonExporter } = require("../backend/utils/JsonExporter.js")
+const { CsvExporter } = require("../backend/utils/CsvExporter.js")
 
-const { ConflictHandler } = require("./backend/dist/backend/services/ConflictHandler.js")
+const { ConflictHandler } = require("../backend/services/ConflictHandler.js")
 const path = require('path')
-const { app, BrowserWindow, screen } = require('electron/main');
+const { app, BrowserWindow, screen: electronScreen } = require('electron/main');
 const { Parser } = require("csv-parse");
 const fs = require("fs");
 const os = require("os");
@@ -19,19 +19,19 @@ const { shell } = require('electron');
 // Create the express server in order to use the static files in the frontend public folder
 const express = require('express');
 const { json } = require("stream/consumers");
-const { NeighboursLinker } = require("./backend/dist/backend/utils/NeighboursLinker.js");
+const { NeighboursLinker } = require("../backend/utils/NeighboursLinker.js");
 const appServer = express();
 appServer.use(express.static(path.join(__dirname, 'frontend', 'public')));
 
 
 let globalFilePath = "";
-let allGraduatedStudents;
-let maxTables;
-let allTables;
+let allGraduatedStudents: any;
+let maxTables: any;
+let allTables: any;
 
 async function createWindow() {
 
-  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+  const { width, height } = electronScreen.getPrimaryDisplay().workAreaSize;
 
   
   const win = new BrowserWindow({
@@ -39,13 +39,9 @@ async function createWindow() {
     height: Math.floor(height),    
     minWidth: Math.floor(width),                       
     minHeight: Math.floor(height),
-    width: Math.floor(width),    
-    height: Math.floor(height),    
-    minWidth: Math.floor(width),                       
-    minHeight: Math.floor(height),
     webPreferences: {
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, '../preload/preload.js'),
     },
     
   })
@@ -53,7 +49,7 @@ async function createWindow() {
   win.setMenu(null);
   win.maximize();
   win.setResizable(true);
-  win.loadFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
+  win.loadFile(path.join(__dirname, '../../frontend', 'build', 'index.html'));
   win.webContents.openDevTools();  // pour debogage
 }
 
@@ -90,7 +86,7 @@ ipcMain.handle('dialog:openFile', async () => {
   }
 });
 
-ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
+ipcMain.handle('dialog:beginCsvParsing', async (event: any, jsonColumnNames: any) => {
   // Set the column names
   ParserService.setInputColumnsNames({
     ticket: jsonColumnNames.ticket,
@@ -106,14 +102,14 @@ ipcMain.handle('dialog:beginCsvParsing', async (event, jsonColumnNames) => {
   try {
     ParserService.reinitialize();
     allGraduatedStudents = await ParserService.readRawFileCSV(globalFilePath);
-  } catch (error) {
+  } catch (error: any) {
     return {error : error.message};
   }
   // Return the first conflict
   return {};
 }); 
 
-ipcMain.handle('dialog:getNextConflict', async (event, jsonSolution) => {
+ipcMain.handle('dialog:getNextConflict', async (event: any, jsonSolution: any) => {
   const id_student = jsonSolution.id_student;
   const id_neighbour = jsonSolution.id_neighbour;
   const result = jsonSolution.result;
@@ -126,7 +122,7 @@ ipcMain.handle('dialog:deleteAllConflicts', async () => {
   return await ConflictHandler.getNextConflict(allGraduatedStudents);
 })
 
-ipcMain.handle('dialog:addNeighbour', async (event, jsonInfo) => {
+ipcMain.handle('dialog:addNeighbour', async (event: any, jsonInfo: any) => {
   const id_student = jsonInfo.id_student;
   const id_neighbour = jsonInfo.id_neighbour; 
   await NeighboursLinker.addNeighbour(allGraduatedStudents, id_student, id_neighbour);
@@ -142,7 +138,7 @@ ipcMain.handle('dialog:generateIntermediateCsv', async () => {
   return filePath;
 });
 
-ipcMain.handle('dialog:generateTablePlan', async (event, jsonData) => {
+ipcMain.handle('dialog:generateTablePlan', async (event: any, jsonData: any) => {
   // Get the json from the front
   maxTables = jsonData.max_number_tables;
   const maxByTables = jsonData.max_number_by_tables;
@@ -226,8 +222,8 @@ ipcMain.handle('dialog:getAllStudent', async () => {
   return await JsonExporter.getListStudents(allGraduatedStudents);
 });
 
-ipcMain.handle('dialog:getStudentWithConflicts', async (event, jsonSolution) => {
+ipcMain.handle('dialog:getStudentWithConflicts', async (event: any, jsonSolution: any) => {
   const id_student = jsonSolution.id_student;
-  const student = allGraduatedStudents.find((student) => student.id == id_student);
+  const student = allGraduatedStudents.find((student: any) => student.id == id_student);
   return await ConflictHandler.getStudentWithConflicts(student);
 });

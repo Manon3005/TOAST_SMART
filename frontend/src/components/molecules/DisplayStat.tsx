@@ -1,10 +1,14 @@
-import React from 'react';
 import '../../styles/App.css';
+import { StatsJson } from '../../types/StatsJson';
 
 export const DisplayStat = ({
   nameFile, 
   finalAddress, 
-  statsJson, 
+  statsJson,
+} : {
+  nameFile: string,
+  finalAddress: string,
+  statsJson: StatsJson
 }) => {
   const shouldDisplayMessage = !nameFile && !finalAddress;
 

@@ -1,6 +1,16 @@
 import '../../styles/App.css';
 
-const StudentConflictItem = ({ name, surname, conflictCount, onClick }) => {
+const StudentConflictItem = ({ 
+  name, 
+  surname, 
+  conflictCount, 
+  onClick 
+} : {
+  name: string,
+  surname: string,
+  conflictCount: number,
+  onClick: () => void
+}) => {
   return (
     <div className="item" onClick={onClick}>
       <div className="item-name">

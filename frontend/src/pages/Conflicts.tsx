@@ -1,12 +1,13 @@
-import StudentConflictList from "../components/organisms/StudentConflictList";
-import { StudentCard } from "../components/molecules/StudentCard"
 import { useState, useEffect } from "react";
+import StudentConflictList from "../components/organisms/StudentConflictList";
+import { StudentCard } from "../components/molecules/StudentCard";
+import { StudentConflictCount } from "../types/StudentConflictCount";
 
 export default function Conflicts () {
     //const navigate = useNavigate();
     const [selectedStudent, setSelectedStudent] = useState(null);
     const isStudentCardVisible = selectedStudent !== null;
-    const [students, setStudents] = useState([]);
+    const [students, setStudents] = useState<StudentConflictCount[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -19,13 +20,13 @@ export default function Conflicts () {
         setIsLoading(false);
     },[])
 
-    const handleItemClick = async (student) => {
+    const handleItemClick = async (student: StudentConflictCount) => {
         const result = await window.electronAPI.getStudentWithConflicts({id_student: student.id})
         setSelectedStudent(result);
     };
 
     if (isLoading) {
-        return <div>Récupération des étudiants...</div>
+        return <div>Récupération des étudiants...</div>;
     }
 
     return (
@@ -37,7 +38,7 @@ export default function Conflicts () {
                 transition: 'width 0.3s ease',
             }}
         >
-            <StudentConflictList items={students} onItemClick={handleItemClick} />
+            <StudentConflictList students={students} onItemClick={handleItemClick} />
         </div>
 
         {isStudentCardVisible && (

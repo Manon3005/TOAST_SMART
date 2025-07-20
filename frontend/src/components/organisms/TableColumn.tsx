@@ -5,6 +5,11 @@ export const TableColumn = ({
   setTableData, 
   disabled, 
   headersCSV 
+} : {
+  tableData: string[],
+  setTableData: (tableData: string[]) => void,
+  disabled: boolean,
+  headersCSV: string[]
 }) => {
   const headers = [
     'Numéro billet', 'Nom', 'Prénom', 'Nom acheteur',

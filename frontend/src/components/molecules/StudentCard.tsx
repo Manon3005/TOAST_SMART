@@ -1,6 +1,7 @@
 import '../../styles/App.css';
+import { Student } from '../../types/Student';
 
-export const StudentCard = ({student}) => {
+export const StudentCard = ({student} : {student: Student}) => {
   if (!student || Object.keys(student).length === 0) {
     return null; // ou un message du type "Aucune donnée"
   }
@@ -43,7 +44,7 @@ export const StudentCard = ({student}) => {
         </ul>
       ) : (
         <p className="empty-msg">Aucun voisin.</p>
-      )}
+      )}     
     </div>
   );
 }

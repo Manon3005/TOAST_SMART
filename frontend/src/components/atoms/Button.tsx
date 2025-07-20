@@ -5,6 +5,11 @@ export const Button = ({
   text, 
   onClick,
   disabled = false,
+} : {
+  className?: string,
+  text: string,
+  onClick: () => void,
+  disabled?: boolean
 }) => {
   return (
     <button 

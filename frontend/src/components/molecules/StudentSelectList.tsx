@@ -1,4 +1,5 @@
 import '../../styles/App.css';
+import { StudentConflictCount } from '../../types/StudentConflictCount';
 
 export const StudentSelectList = ({
   label, 
@@ -6,6 +7,12 @@ export const StudentSelectList = ({
   value, 
   onChange, 
   disabled 
+}: {
+  label: string,
+  listStudent: StudentConflictCount[],
+  value: string,
+  onChange: (value: string) => void,
+  disabled: boolean
 }) => {
  const sortedStudents = [...listStudent].sort((a, b) =>
     a.lastName.localeCompare(b.lastName)

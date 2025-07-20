@@ -33,11 +33,15 @@ export default function Preprocessing () {
     };
 
     const generateCSVColumn = async () => {
-        // setLoadPicture(true);
-        const jsonColumnNames = headers.reduce((acc, name, index) => {
-            acc[name] = tableData[index];
-            return acc;
-        }, {});
+            // setLoadPicture(true);
+        const jsonColumnNames: Record<string, string> = headers.reduce(
+            (acc, name, index) => {
+                acc[name] = tableData[index];
+                return acc;
+            },
+            {} as Record<string, string>
+        );
+
         try {
           const jsonConflict = await window.electronAPI.parseCsvFile(jsonColumnNames);
           // setLoadPicture(false);
