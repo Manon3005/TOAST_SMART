@@ -1,5 +1,5 @@
-import { GraduatedStudent } from "../business/GraduatedStudent";
-import { Table } from "../business/Table";
+import { GraduatedStudent } from "../domain/GraduatedStudent";
+import { Table } from "../domain/Table";
 
 export class ComputeStatistics {
     private static allGraduatedStudents : GraduatedStudent[] = [];

@@ -1,6 +1,6 @@
-import { GraduatedStudent } from "../business/GraduatedStudent";
-import { Guest } from "../business/Guest";
-import { Table } from "../business/Table";
+import { GraduatedStudent } from "../domain/GraduatedStudent";
+import { Guest } from "../domain/Guest";
+import { Table } from "../domain/Table";
 import { StringNormalizer } from "../utils/StringNormalizer";
 import * as fs from "fs";
 import * as fsPromises from "fs/promises";
@@ -13,8 +13,8 @@ export type InputColumnsNames = {
   ticket: string;
   firstName: string;
   lastName: string;
-  buyerfirstName: string;
-  buyerlastName: string;
+  buyerFirstName: string;
+  buyerLastName: string;
   buyerEmail: string;
   diet: string;
   wantedTableMates: string;
@@ -63,8 +63,8 @@ export class ParserService {
             ticket,
             firstName,
             lastName,
-            buyerfirstName,
-            buyerlastName,
+            buyerFirstName,
+            buyerLastName,
             buyerEmail,
             diet,
             wantedTableMates,
@@ -73,8 +73,8 @@ export class ParserService {
           const ticketNumber = row[ticket]?.trim();
           const guestFirstName = row[firstName]?.trim();
           const guestLastName = row[lastName]?.trim();
-          const gradFirstName = row[buyerfirstName]?.trim();
-          const gradLastName = row[buyerlastName]?.trim();
+          const gradFirstName = row[buyerFirstName]?.trim();
+          const gradLastName = row[buyerLastName]?.trim();
           const gradEmail = row[buyerEmail]?.trim();
           const tableMates = row[wantedTableMates];
           const specifiedDiet = row[diet]?.trim();
@@ -89,7 +89,7 @@ export class ParserService {
             specifiedDiet === undefined ||
             tableMates === undefined
           ) {
-            return reject(new Error("Le fichier CSV est invalide : une ou plusieurs colonnes attendues sont mal spécifiées."));
+            return reject(new Error(`Le fichier CSV est invalide : une ou plusieurs colonnes attendues sont mal spécifiées. \n ${ParserService.columns.ticket} ${ParserService.columns.buyerEmail} ${ParserService.columns.buyerFirstName} ${ParserService.columns.buyerLastName} ${ParserService.columns.diet} ${ParserService.columns.wantedTableMates} ${ParserService.columns.firstName} ${ParserService.columns.lastName}\n ${Object.keys(row)}`));
           }
 
           const gradKey = StringNormalizer.createKeyWithNames(gradFirstName, gradLastName);

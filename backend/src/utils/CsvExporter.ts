@@ -1,6 +1,6 @@
-import { GraduatedStudent } from "../business/GraduatedStudent";
-import { Guest } from "../business/Guest";
-import { Table } from "../business/Table";
+import { GraduatedStudent } from "../domain/GraduatedStudent";
+import { Guest } from "../domain/Guest";
+import { Table } from "../domain/Table";
 import { InputColumnsNames } from "../services/ParserService";
 import * as fs from 'fs';
 import * as path from 'path';
@@ -11,8 +11,8 @@ export class CsvExporter {
             ticket,
             firstName,
             lastName,
-            buyerfirstName,
-            buyerlastName,
+            buyerFirstName,
+            buyerLastName,
             buyerEmail,
             diet,
             wantedTableMates,
@@ -21,8 +21,8 @@ export class CsvExporter {
             ticket,
             lastName,
             firstName,
-            buyerlastName,
-            buyerfirstName,
+            buyerLastName,
+            buyerFirstName,
             buyerEmail,
             diet,
             wantedTableMates,

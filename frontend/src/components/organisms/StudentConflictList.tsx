@@ -10,7 +10,7 @@ const StudentConflictList = (
     onItemClick: (student: StudentConflictCount) => Promise<void>
   }) => {
   return (
-    <div className="student-list-container">
+    <div className="item-list-container">
       {students.map((student, index) => (
         <StudentConflictItem
           key={student.id}

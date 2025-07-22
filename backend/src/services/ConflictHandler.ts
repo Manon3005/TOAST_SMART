@@ -1,5 +1,5 @@
 import { allowedNodeEnvironmentFlags } from "process";
-import { GraduatedStudent } from "../business/GraduatedStudent";
+import { GraduatedStudent } from "../domain/GraduatedStudent";
 
 export class ConflictHandler {
     static async getStudentWithConflicts(student: GraduatedStudent) {
@@ -18,7 +18,7 @@ export class ConflictHandler {
             conflicts.push(conflict);
         }
         const jsonStudent = {
-            idStudent: student.getId(),
+            id: student.getId(),
             lastName: student.getLastName(),
             firstName: student.getFirstName(),
             neighboursEntry: student.getNeighboursString(),
@@ -33,7 +33,7 @@ export class ConflictHandler {
                 guestLastName: guest.getLastName(),
             }))
         };
-        return { jsonContent : jsonStudent }
+        return jsonStudent;
     }
 
     static async getNextConflict(allGraduatedStudents: GraduatedStudent[]): Promise<any> {
@@ -80,7 +80,7 @@ export class ConflictHandler {
             if (student.getId() === id_student) {
                 for (const neighbour of student.getPotentialNeighbours()) {
                     if (neighbour.getId() === id_neighbour) {
-                        if (result === "valid") {
+                        if (result === "accepted") {
                             student.addNeighbour(neighbour);
                         }
                         student.removePotentialNeighbour(id_neighbour);

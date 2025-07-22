@@ -1,19 +1,25 @@
 export {};
+import { AddNeighbour } from "./AddNeighbour";
+import { ColumnsCSV } from "./ColumnsCSV";
+import { StatsJson } from "./StatsJson";
+import { TablePlan } from "./TablePlan";
+import { Student } from "./Student";
+import { ResolveConflict } from "./ResolveConflict";
 
 declare global {
   interface Window {
     electronAPI: {
-      pickFile: () => Promise<any>;
-      parseCsvFile: (jsonColumnNames: any) => Promise<any>;
-      getNextConflict: (jsonSolution: any) => Promise<any>;
-      deleteAllConflicts: () => Promise<any>;
-      addNeighbour: (jsonInfo: any) => Promise<any>;
-      generateIntermediateCsv: () => Promise<any>;
-      generateTablePlan: (jsonData: any) => Promise<any>;
-      getStatistics: () => Promise<any>;
-      exportTablesCsv: () => Promise<any>;
-      getAllStudent: () => Promise<any>;
-      getStudentWithConflicts: (jsonSolution: any) => Promise<any>;
+      pickFile: () => Promise<FileCsv>;
+      parseCsvFile: (jsonColumnNames: ColumnsCSV) => Promise<any>;
+      resolveConflict: (jsonSolution: ResolveConflict) => Promise<Student>;
+      deleteAllConflicts: () => Promise<void>;
+      addNeighbour: (jsonInfo: AddNeighbour) => Promise<void>;
+      generateIntermediateCsv: () => Promise<string>;
+      generateTablePlan: (jsonData: GenerateTablePlan) => Promise<TablePlan>;
+      getStatistics: () => Promise<StatsJson>;
+      exportTablesCsv: () => Promise<string>;
+      getAllStudent: () => Promise<StudentConflictCount[]>;
+      getStudentWithConflicts: (jsonSolution: {id_student: number}) => Promise<Student>;
     };
   }
 }

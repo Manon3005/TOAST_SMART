@@ -1,5 +1,5 @@
 export interface StudentConflictCount {
-    id: string,
+    id: number,
     firstName: string,
     lastName: string,
     conflictCount: number

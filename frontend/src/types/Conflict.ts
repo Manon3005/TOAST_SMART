@@ -1,7 +1,7 @@
 import { Guest } from "./Guest"
 
 export interface Conflict {
-    idNeighbour: string,
+    id: number,
     lastName: string,
     firstName: string,
     guests: Guest[]

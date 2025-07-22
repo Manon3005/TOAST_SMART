@@ -3,7 +3,7 @@ import { Conflict } from "./Conflict"
 import { Neighbour } from "./Neighbour";
 
 export interface Student {
-    idStudent: string,
+    id: number,
     lastName: string,
     firstName: string,
     neighboursEntry: string,

@@ -1,4 +1,4 @@
-import { GraduatedStudent } from "../business/GraduatedStudent";
+import { GraduatedStudent } from "../domain/GraduatedStudent";
 import { StringNormalizer } from "./StringNormalizer";
 import { get as levenshtein } from 'fast-levenshtein';
 

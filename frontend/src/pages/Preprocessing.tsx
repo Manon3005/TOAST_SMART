@@ -2,6 +2,7 @@ import { Button } from "../components/atoms/Button";
 import { TableColumn } from "../components/organisms/TableColumn";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ColumnsCSV } from "../types/ColumnsCSV";
 
 export default function Preprocessing () {
 
@@ -24,7 +25,7 @@ export default function Preprocessing () {
             }
             setHeadersCSV(jsonFile.headersCSV);
             const name = jsonFile.filePath.split(/[/\\]/).pop();
-            setNameFile(name);
+            setNameFile(name!);
         } catch (err) {
             setErrorMessage('Erreur chargement du fichier');
             setNameFile('');
@@ -33,17 +34,14 @@ export default function Preprocessing () {
     };
 
     const generateCSVColumn = async () => {
-            // setLoadPicture(true);
-        const jsonColumnNames: Record<string, string> = headers.reduce(
-            (acc, name, index) => {
-                acc[name] = tableData[index];
-                return acc;
-            },
-            {} as Record<string, string>
-        );
+        // setLoadPicture(true);
+        const columns = headers.reduce((acc, header, index) => {
+            acc[header as keyof ColumnsCSV] = tableData[index];
+            return acc;
+        }, {} as ColumnsCSV);
 
         try {
-          const jsonConflict = await window.electronAPI.parseCsvFile(jsonColumnNames);
+          const jsonConflict = await window.electronAPI.parseCsvFile(columns);
           // setLoadPicture(false);
           if (jsonConflict.error){
             actionReset();

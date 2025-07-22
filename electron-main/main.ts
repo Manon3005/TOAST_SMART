@@ -1,10 +1,9 @@
 const { ParserService } = require("../backend/services/ParserService.js");
 const { ComputeStatistics } = require("../backend/services/ComputeStatistics.js");
-const { GraduatedStudent } = require("../backend/business/GraduatedStudent.js");
 const { JsonExporter } = require("../backend/utils/JsonExporter.js")
 const { CsvExporter } = require("../backend/utils/CsvExporter.js")
-
 const { ConflictHandler } = require("../backend/services/ConflictHandler.js")
+
 const path = require('path')
 const { app, BrowserWindow, screen: electronScreen } = require('electron/main');
 const { Parser } = require("csv-parse");
@@ -23,11 +22,50 @@ const { NeighboursLinker } = require("../backend/utils/NeighboursLinker.js");
 const appServer = express();
 appServer.use(express.static(path.join(__dirname, 'frontend', 'public')));
 
+enum Diet {
+  NoSpecificDiet = "pas de régime spécifique-",
+  NoPork = "sans porc-",
+  Vegetarian = "végétarien-",
+  GlutenFree = "sans gluten-",
+  Vegan = "vegan-",
+  Unrecognized = "non reconnu-"
+}
+interface Guest {
+  id: number,
+  ticket: string,
+  lastName: string,
+  firstName: string,
+  diet: Diet
+}
+interface Table {
+  id: string,
+  nbMaxStudent: number,
+  studentList: GraduatedStudent[],
+  nbStudent: number,
+  nbFilledSeat: number
+}
+interface GraduatedStudent {
+  id: number,
+  ticket: string,
+  lastName: string,
+  firstName: string,
+  email: string,
+  nbGuests: number,
+  nbNeighbours: number,
+  guests: Guest[],
+  neighbours: GraduatedStudent[],
+  potentialNeighbours: GraduatedStudent[],
+  neighboursString: string,
+  diet: Diet,
+  doubleEmailCatched: boolean,
+  table: Table
+}
+
 
 let globalFilePath = "";
-let allGraduatedStudents: any;
-let maxTables: any;
-let allTables: any;
+let allGraduatedStudents: GraduatedStudent[];
+let maxTables: number;
+let allTables: Table[];
 
 async function createWindow() {
 
@@ -86,47 +124,54 @@ ipcMain.handle('dialog:openFile', async () => {
   }
 });
 
-ipcMain.handle('dialog:beginCsvParsing', async (event: any, jsonColumnNames: any) => {
+ipcMain.handle('dialog:beginCsvParsing', async (
+  event: Event,
+  jsonColumnNames: any
+) => {
   // Set the column names
-  ParserService.setInputColumnsNames({
-    ticket: jsonColumnNames.ticket,
-    firstName: jsonColumnNames.firstName,
-    lastName: jsonColumnNames.lastName,
-    buyerfirstName: jsonColumnNames.buyerFirstName,
-    buyerlastName: jsonColumnNames.buyerLastName,
-    buyerEmail: jsonColumnNames.buyerEmail,
-    diet: jsonColumnNames.diet,
-    wantedTableMates: jsonColumnNames.wantedTableMates,
-  });
+  ParserService.setInputColumnsNames(jsonColumnNames);
   // Call the csv treatment
   try {
     ParserService.reinitialize();
     allGraduatedStudents = await ParserService.readRawFileCSV(globalFilePath);
   } catch (error: any) {
-    return {error : error.message};
+    return {error : jsonColumnNames.ticket};
   }
   // Return the first conflict
   return {};
 }); 
 
-ipcMain.handle('dialog:getNextConflict', async (event: any, jsonSolution: any) => {
+ipcMain.handle('dialog:resolveConflict', async (
+  event: Event,
+  jsonSolution: {
+    id_student: number,
+    id_neighbour: number,
+    result: 'accepted' | 'refused'
+  }
+) => {
   const id_student = jsonSolution.id_student;
   const id_neighbour = jsonSolution.id_neighbour;
   const result = jsonSolution.result;
   await ConflictHandler.resolveConflict(id_student, id_neighbour, result, allGraduatedStudents);
-  return await ConflictHandler.getNextConflict(allGraduatedStudents);
+  const student = allGraduatedStudents.find((student) => student.id == id_student);
+  return await ConflictHandler.getStudentWithConflicts(student);
 });
 
 ipcMain.handle('dialog:deleteAllConflicts', async () => {
   await ConflictHandler.deleteAllConflicts(allGraduatedStudents);
-  return await ConflictHandler.getNextConflict(allGraduatedStudents);
+  //gérer erreur
 })
 
-ipcMain.handle('dialog:addNeighbour', async (event: any, jsonInfo: any) => {
+ipcMain.handle('dialog:addNeighbour', async (
+  event: Event,
+  jsonInfo: {
+    id_student: number,
+    id_neighbour: number
+  }) => {
   const id_student = jsonInfo.id_student;
   const id_neighbour = jsonInfo.id_neighbour; 
   await NeighboursLinker.addNeighbour(allGraduatedStudents, id_student, id_neighbour);
-  return await ConflictHandler.getNextConflict(allGraduatedStudents);
+  //gérer erreur
 });
 
 ipcMain.handle('dialog:generateIntermediateCsv', async () => {
@@ -138,7 +183,14 @@ ipcMain.handle('dialog:generateIntermediateCsv', async () => {
   return filePath;
 });
 
-ipcMain.handle('dialog:generateTablePlan', async (event: any, jsonData: any) => {
+ipcMain.handle('dialog:generateTablePlan', async (
+  event: Event,
+  jsonData: {
+    max_number_tables: number,
+    max_number_by_tables: number,
+    selected_choice: string
+  } 
+) => {
   // Get the json from the front
   maxTables = jsonData.max_number_tables;
   const maxByTables = jsonData.max_number_by_tables;
@@ -222,8 +274,10 @@ ipcMain.handle('dialog:getAllStudent', async () => {
   return await JsonExporter.getListStudents(allGraduatedStudents);
 });
 
-ipcMain.handle('dialog:getStudentWithConflicts', async (event: any, jsonSolution: any) => {
-  const id_student = jsonSolution.id_student;
-  const student = allGraduatedStudents.find((student: any) => student.id == id_student);
-  return await ConflictHandler.getStudentWithConflicts(student);
+ipcMain.handle('dialog:getStudentWithConflicts', async (
+  event: Event,
+  jsonSolution: { id_student: number }) => {
+    const id_student = jsonSolution.id_student;
+    const student = allGraduatedStudents.find((student) => student.id == id_student);
+    return await ConflictHandler.getStudentWithConflicts(student);
 });

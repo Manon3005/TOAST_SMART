@@ -1,5 +1,5 @@
 import { writeFile } from 'fs/promises';
-import { GraduatedStudent } from '../business/GraduatedStudent';
+import { GraduatedStudent } from '../domain/GraduatedStudent';
 
 export class JsonExporter {
     static async createJsonFileForAlgorithm(filepath: string, nbMaxTables: number, nbMaxByTables: number, selectedChoice: string, allGraduatedStudents : GraduatedStudent[]): Promise<void> {
