@@ -8,6 +8,7 @@ import { NavBar } from './components/molecules/NavBar';
 import Preprocessing from './pages/Preprocessing';
 import End from './pages/End'
 import Conflicts from './pages/Conflicts'
+import Solution from './pages/Solution';
 
 
 function AppRouter() {
@@ -22,6 +23,7 @@ function AppRouter() {
         <Route path='/preprocessing' element={<Preprocessing />}/>
         <Route path='/explanation' element={<Explanation />}/>
         <Route path='/support' element={<Support />}/>
+        <Route path='/solution' element= {<Solution />}/>
       </Routes>
     </Router>
   );

@@ -9,7 +9,8 @@
    "build:frontend": "npx tsc -p frontend",
    "build:main": "npx tsc -p electron-main",
    "build": "npm run build:backend && npm run build:frontend && npm run build:main && npm run build:preload",
-   "start": "cd frontend && npm run build && cd .. && npm run build && electron ."
+   "start": "cd frontend && npm run build && cd .. && npm run build && electron .",
+   "electron": "electron ."
   },
   "author": "",
   "license": "MIT",

@@ -4,7 +4,6 @@ import React from 'react';
 
 export function Explanation() {
 
-
     return (
         <div className="explanation-container">
             <div className="explanation-header">

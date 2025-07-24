@@ -6,26 +6,24 @@ export const Input = ({
     onChange,
     disabled,
     min,
-    type,
-    text
+    type
 }: {
-    value: string,
+    value: number,
     onChange: (event: ChangeEvent<HTMLInputElement>) => void,
     disabled: boolean,
-    min: number,
+    min: string,
     type: React.HTMLInputTypeAttribute,
-    text: string
 }) => {
   return (
     <input 
-        className='glass-number' 
+        className='glass-number'
+        placeholder='0' 
         onChange={onChange} 
         disabled={disabled}
         value={value}
         min={min}
         type={type}
     >
-        {text}
     </input>
     );
 }
