@@ -57,7 +57,9 @@ export default function Conflicts () {
         setSelectedStudent(null);
     }
 
-    const handleContinue = () => {
+    const handleContinue = async () => {
+        const filePath = await window.electronAPI.generateIntermediateCsv();
+        console.log(filePath);
         navigate('/solution')
     }
 
@@ -67,7 +69,7 @@ export default function Conflicts () {
 
     return (
         <div style={{ padding: '20px', display: 'flex', flexDirection: 'column'}}>
-            <Button className='classic-button' onClick={handleContinue} text='Continuer' disabled={remainingConflictNumber.valueOf() != 0}></Button>
+            <Button className='classic-button' onClick={handleContinue} text='Continuer et générer le fichier intermédiaire' disabled={remainingConflictNumber.valueOf() != 0}></Button>
             <div style={{ padding: '20px', display: 'flex', gap: '20px' }}>
                 <div
                     style={{

@@ -6,16 +6,19 @@ import { Button } from "../components/atoms/Button";
 import { StatsCenter } from "../components/molecules/StatsCenter";
 import { ExportSolutionGroup } from "../components/molecules/ExportSolutionGroup";
 import { Rapport } from "../types/Rapport";
+import { GenerateTablePlan } from "../types/GenerateTablePlan";
+import { TablePlan } from "../types/TablePlan";
+import { StatsJson } from "../types/StatsJson";
 
 export default function Solution () {
 
     const [maxTables, setMaxTables] = useState(1);
     const [maxGuests, setMaxGuests] = useState(1);
     const [selectedChoice, setSelectedChoice] = useState('min_table');
-    const [outputFilePath, setOutputFilePath] = useState(null);
-    const [tableGroupFilePath, setTableGroupFilePath] = useState(null);
-    const [exportFilePath, setExportFilePath] = useState('');
-    const [stats, setStats] = useState(null);
+    const [outputFilePath, setOutputFilePath] = useState<string | undefined>(undefined);
+    const [tableGroupFilePath, setTableGroupFilePath] = useState<string | undefined>(undefined);
+    const [exportFilePath, setExportFilePath] = useState<string | undefined>(undefined);
+    const [stats, setStats] = useState<StatsJson | null>(null);
     const [rapport, setRapport] = useState<Rapport | null>(null);
 
 
@@ -32,11 +35,21 @@ export default function Solution () {
     };
 
     const handleOnClickGenerate = async () => {
-
+        const exportJson : GenerateTablePlan = {
+            max_number_tables: maxTables,
+            max_number_by_tables: maxGuests,
+            selected_choice: selectedChoice,
+        };
+        
+        const result : TablePlan = await window.electronAPI.generateTablePlan(exportJson);
+        setOutputFilePath(result.addressPlanTable.split(/[/\\]/).pop());
+        setTableGroupFilePath(result.addressGroupTable.split(/[/\\]/).pop());
+        setStats(result.statsJson);
+        setRapport(result.rapportJson);
     }
 
     const handleOnClickImport = async () => {
-
+        
     }
 
     const handleOnClickExport = async () => {
@@ -124,17 +137,15 @@ export default function Solution () {
                     isError={false} //à corriger
                 ></ExportSolutionGroup>
             </div>
-            <div className='modal-overlay' onClick={handleOnClickCloseModal}>
+            {rapport && <div className='modal-overlay' onClick={handleOnClickCloseModal}>
                 <div className='modal-content'>
-                        <h2>Erreur dans la génération !</h2>
-                        {rapport && <div>
-                            <p>{`Nombre de tables manquantes : ${rapport.nb_table_missing}`}</p>
-                            <p>{`Nombre d'étudiants sans table : ${rapport.nb_student_without_table}`}</p>
-                            <p>{`Nombre de tables en trop dans la solution : ${rapport.extra_table}`}</p>
-                            <Button className='modal-close-button' onClick={handleOnClickCloseModal} text='Fermer'></Button>
-                        </div>}
+                    <h2>Erreur dans la génération !</h2>
+                    <p>{`Nombre de tables manquantes : ${rapport.nb_table_missing}`}</p>
+                    <p>{`Nombre d'étudiants sans table : ${rapport.nb_student_without_table}`}</p>
+                    <p>{`Nombre de tables en trop dans la solution : ${rapport.extra_table}`}</p>
+                    <Button className='modal-close-button' onClick={handleOnClickCloseModal} text='Fermer'></Button>
                 </div>
-            </div>
+            </div>}
         </div>
     );
 }

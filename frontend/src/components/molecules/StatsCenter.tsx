@@ -1,4 +1,4 @@
-import '../App.css';
+import '../../styles/App.css';
 import { StatsJson } from '../../types/StatsJson';
 
 export const StatsCenter = ({ 

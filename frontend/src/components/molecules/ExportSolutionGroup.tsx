@@ -1,5 +1,4 @@
-import React from 'react';
-import '../styles/App.css';
+import '../../styles/App.css';
 import { Button } from '../atoms/Button';
 
 export const ExportSolutionGroup = ({ 
