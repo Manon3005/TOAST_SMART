@@ -212,7 +212,7 @@ ipcMain.handle('dialog:generateTablePlan', async (
   // Launch the generation of the table plan
   const isWindows = os.platform() === 'win32';
   const executableName = isWindows ? 'main.exe' : 'main';
-  const executablePath = path.resolve(__dirname, 'backend', 'algorithm', executableName);
+  const executablePath = path.resolve(__dirname, '..', '..', 'backend', 'src', 'algorithm', executableName);
   const fileName = "planTable_" + dateStr;
   const outputPath = path.join(path.dirname(globalFilePath), fileName + ".csv");
   const rapportPath = path.join(path.dirname(globalFilePath), fileName + "_rapport_json.json");

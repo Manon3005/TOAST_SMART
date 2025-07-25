@@ -3,6 +3,7 @@ import { TableColumn } from "../components/organisms/TableColumn";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ColumnsCSV } from "../types/ColumnsCSV";
+import { AppHeader } from "../components/molecules/AppHeader";
 
 export default function Preprocessing () {
 
@@ -72,36 +73,39 @@ export default function Preprocessing () {
     }
 
     return (
-        <div className="app-content">
-            <div className="preprocessing-step">
-                <h2>Prétraitement des données</h2>
-                <div className="file-button-container">
-                    <Button onClick={loadFile} text='📁 Charger un fichier'/>
-                    {(errorMessage != "" &&
-                        <p style={{color: 'red'}}>{errorMessage}</p>
-                    )}
-                    {(nameFile != "" &&
-                        <p style={{color: 'green'}}>{nameFile}</p>
-                    )}
-                </div>
-                <TableColumn
-                    tableData={tableData}
-                    setTableData={setTableData}
-                    disabled={false}
-                    headersCSV={headersCSV}
-                />
-                <div className="continue-reset-buttons">
-                    <Button 
-                        disabled={nameFile == '' || tableData.some(value => value === '')}
-                        text="Traiter le CSV"
-                        className="continue-button"
-                        onClick={handleFileProcessing}
+        <div className='app-container'>
+            <AppHeader />
+            <div className="app-content">
+                <div className="preprocessing-step">
+                    <h2>Prétraitement des données</h2>
+                    <div className="file-button-container">
+                        <Button onClick={loadFile} text='📁 Charger un fichier'/>
+                        {(errorMessage != "" &&
+                            <p style={{color: 'red'}}>{errorMessage}</p>
+                        )}
+                        {(nameFile != "" &&
+                            <p style={{color: 'green'}}>{nameFile}</p>
+                        )}
+                    </div>
+                    <TableColumn
+                        tableData={tableData}
+                        setTableData={setTableData}
+                        disabled={false}
+                        headersCSV={headersCSV}
                     />
-                    <Button 
-                        onClick={actionReset} 
-                        text="Annuler"
-                        className='reset-button'
-                    />
+                    <div className="continue-reset-buttons">
+                        <Button 
+                            disabled={nameFile == '' || tableData.some(value => value === '')}
+                            text="Traiter le CSV"
+                            className="continue-button"
+                            onClick={handleFileProcessing}
+                        />
+                        <Button 
+                            onClick={actionReset} 
+                            text="Annuler"
+                            className='reset-button'
+                        />
+                    </div>
                 </div>
             </div>
         </div>

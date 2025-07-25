@@ -11,9 +11,6 @@ export function Explanation() {
             </div>
             <div className="explanation-content">
             <div className="explanation-step">
-                <div className="image-container">
-                <img src="img/explanation.png" className="step-image1" />
-                </div>
                 <div className="step-text">
                 <p>
                     Afin d'entamer la création de votre plan de table, il vous faut
@@ -72,15 +69,9 @@ export function Explanation() {
                     à gérer).
                 </p>
                 </div>
-                <div className="image-container">
-                <img src="img/explanation.png" className="step-image2" />
-                </div>
             </div>
 
             <div className="explanation-step">
-                <div className="image-container">
-                <img src="img/explanation.png" className="step-image1" />
-                </div>
                 <div className="step-text">
                 <p>
                     Vous pouvez à présent générer automatiquement un plan de table,

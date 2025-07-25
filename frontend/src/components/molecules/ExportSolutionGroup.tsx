@@ -9,7 +9,7 @@ export const ExportSolutionGroup = ({
 } : {
     onClick: () => void,
     disabled: boolean,
-    fileName: string,
+    fileName?: string,
     isError: boolean
 }) => {
   return (
@@ -20,10 +20,10 @@ export const ExportSolutionGroup = ({
         disabled={disabled}
         text='Exporter le plan de table'
       />
-      <div className="file-message-text">
+      {fileName && <div className="file-message-text">
         {isError && <p style={{ color: 'red' }}>{fileName}</p>}
         {!isError && <p>📄 {fileName}</p>}
-      </div>
+      </div>}
     </div>
   );
 }

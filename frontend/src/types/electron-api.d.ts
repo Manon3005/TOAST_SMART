@@ -16,7 +16,7 @@ declare global {
       addNeighbour: (jsonInfo: AddNeighbour) => Promise<void>;
       generateIntermediateCsv: () => Promise<string>;
       generateTablePlan: (jsonData: GenerateTablePlan) => Promise<TablePlan>;
-      getStatistics: () => Promise<StatsJson>;
+      getStatistics: () => Promise<StatsJsonAddress>;
       exportTablesCsv: () => Promise<string>;
       getAllStudent: () => Promise<StudentConflictCount[]>;
       getStudentWithConflicts: (jsonSolution: {id_student: number}) => Promise<Student>;

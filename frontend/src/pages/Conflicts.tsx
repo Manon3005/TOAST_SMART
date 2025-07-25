@@ -6,6 +6,7 @@ import { Student } from "../types/Student";
 import { ResolveConflict } from "../types/ResolveConflict";
 import { Button } from "../components/atoms/Button";
 import { useNavigate } from "react-router-dom";
+import { AppHeader } from "../components/molecules/AppHeader";
 
 export default function Conflicts () {
     const navigate = useNavigate();
@@ -14,18 +15,20 @@ export default function Conflicts () {
     const [students, setStudents] = useState<StudentConflictCount[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [remainingConflictNumber, setRemainingConflictNumber] = useState<number>(0);
+    const [shouldFetch, setShouldFetch] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchStudents = async () => {
             const studentList = await window.electronAPI.getAllStudent();
             setStudents(studentList);
-            setRemainingConflictNumber(0);
-            studentList.forEach((student) => { setRemainingConflictNumber(remainingConflictNumber + student.conflictCount); })
+            let total = 0;
+            studentList.forEach((student) => { total = total + student.conflictCount; })
+            setRemainingConflictNumber(total);
         }
 
         fetchStudents();
         setIsLoading(false);
-    },[selectedStudent])
+    },[selectedStudent, shouldFetch])
 
     const handleItemClick = async (student: StudentConflictCount) => {
         const result = await window.electronAPI.getStudentWithConflicts({id_student: student.id})
@@ -54,7 +57,8 @@ export default function Conflicts () {
 
     const handleRefuseAllConflicts = async () => {
         await window.electronAPI.deleteAllConflicts();
-        setSelectedStudent(null);
+        setShouldFetch(!shouldFetch);
+        setRemainingConflictNumber(0);
     }
 
     const handleContinue = async () => {
@@ -68,30 +72,66 @@ export default function Conflicts () {
     }
 
     return (
-        <div style={{ padding: '20px', display: 'flex', flexDirection: 'column'}}>
-            <Button className='classic-button' onClick={handleContinue} text='Continuer et générer le fichier intermédiaire' disabled={remainingConflictNumber.valueOf() != 0}></Button>
-            <div style={{ padding: '20px', display: 'flex', gap: '20px' }}>
-                <div
-                    style={{
-                        flex: isStudentCardVisible ? 1 : 'auto',
-                        width: isStudentCardVisible ? '50%' : '100%',
-                        transition: 'width 0.3s ease',
-                    }}
-                >
-                    <StudentConflictList students={students} onItemClick={handleItemClick} />
-                </div>
+        <div className='app-container'>
+            <AppHeader />
+            <div className='app-content'>
+                <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', height: '100vh', boxSizing: 'border-box' }}>
+                    <Button
+                        className="classic-button"
+                        onClick={handleContinue}
+                        text="Continuer et générer le fichier intermédiaire"
+                        disabled={remainingConflictNumber.valueOf() !== 0}
+                    />
+                    <div style={{
+                        flex: 1,
+                        display: 'flex',
+                        gap: '20px',
+                        overflow: 'hidden',
+                        margin: '20px 0'
+                    }}>
+                        <div
+                            className="item-list-container"
+                            style={{
+                                flexShrink: 1,
+                                flexGrow: 1,
+                                flexBasis: isStudentCardVisible ? '50%' : '100%',
+                                minWidth: '300px',
+                                overflowY: 'auto',
+                                transition: 'flex-basis 0.3s ease',
+                                maxHeight: '80vh'
+                            }}
+                        >
+                            <StudentConflictList students={students} onItemClick={handleItemClick} />
+                        </div>
 
-                {isStudentCardVisible && (
-                    <div style={{ flex: 1 }}>
-                        <StudentCard //à modifier et mixer avec ConflictCenter
-                            student={selectedStudent}
-                            onClickAccept={handleAcceptConflict}
-                            onClickRefuse={handleRefuseConflict}
-                        />
+                        {isStudentCardVisible && (
+                            <div
+                                className="student-container"
+                                style={{
+                                flexShrink: 0,
+                                flexGrow: 0,
+                                flexBasis: '50%',
+                                overflowY: 'auto',
+                                maxHeight: '80vh'
+                                }}
+                            >
+                                <StudentCard
+                                    student={selectedStudent}
+                                    onClickAccept={handleAcceptConflict}
+                                    onClickRefuse={handleRefuseConflict}
+                                />
+                            </div>
+                        )}
                     </div>
-                )}
+
+                    {(remainingConflictNumber > 0) && 
+                    <Button
+                        className="classic-button"
+                        onClick={handleRefuseAllConflicts}
+                        text="⛔ Passer tous les conflits restants"
+                    />}
+                </div>
             </div>
-            <Button className='classic-button' onClick={handleRefuseAllConflicts} text='⛔ Passer tous les conflits restants'></Button>
         </div>
     );
 }
