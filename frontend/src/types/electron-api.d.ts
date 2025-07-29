@@ -1,5 +1,5 @@
 export {};
-import { AddNeighbour } from "./AddNeighbour";
+import { AddOrRemoveNeighbour } from "./AddOrRemoveNeighbour";
 import { ColumnsCSV } from "./ColumnsCSV";
 import { StatsJson } from "./StatsJson";
 import { TablePlan } from "./TablePlan";
@@ -13,13 +13,16 @@ declare global {
       parseCsvFile: (jsonColumnNames: ColumnsCSV) => Promise<any>;
       resolveConflict: (jsonSolution: ResolveConflict) => Promise<Student>;
       deleteAllConflicts: () => Promise<void>;
-      addNeighbour: (jsonInfo: AddNeighbour) => Promise<void>;
+      addNeighbour: (jsonInfo: AddOrRemoveNeighbour) => Promise<Student>;
+      removeNeighbour: (jsonInfo: AddOrRemoveNeighbour) => Promise<Student>;
       generateIntermediateCsv: () => Promise<string>;
       generateTablePlan: (jsonData: GenerateTablePlan) => Promise<TablePlan>;
       getStatistics: () => Promise<StatsJsonAddress>;
       exportTablesCsv: () => Promise<string>;
       getAllStudent: () => Promise<StudentConflictCount[]>;
-      getStudentWithConflicts: (jsonSolution: {id_student: number}) => Promise<Student>;
+      getStudentWithConflicts: (jsonSolution: {
+        id_student: number;
+      }) => Promise<Student>;
     };
   }
 }

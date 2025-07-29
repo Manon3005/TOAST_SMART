@@ -41,11 +41,10 @@ body {
   }
 }
 
-
 .app-container {
   text-align: center;
   padding: 20px;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   background: #e9e9e9;
   color: white;
   display: flex;
@@ -62,20 +61,19 @@ h1 {
 
 h2 {
   font-size: 18px;
-  margin-top: -10px;
-  margin-bottom: 10px;
+  margin: 0;
   color: #000000;
 }
 
 h3 {
   font-size: 1.2rem;
-  margin-bottom: 30px;
+  margin: 0;
   color: black;
 }
 
 p {
   font-size: 1rem;
-  margin-bottom: 20px;
+  margin: 0;
   color: black;
 }
 
@@ -120,13 +118,13 @@ p {
   text-align: center;
   min-width: 69px;
   max-width: 188px;
-  transition: transform 0.1s ease, font-weight 0.1s ease; 
+  transition: transform 0.1s ease, font-weight 0.1s ease;
 }
 
 .nav-link:hover {
-  font-weight: bold;  
+  font-weight: bold;
   text-decoration: none;
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 .logo-inline {
@@ -135,7 +133,7 @@ p {
 }
 
 .app-content {
-  flex: 1; 
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -146,12 +144,12 @@ p {
 .preprocessing-step {
   width: 90%;
   height: 100%;
-  flex : 1;
+  flex: 1;
   background-color: white;
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-  margin : 0 auto;
+  margin: 0 auto;
 }
 
 .file-button-container {
@@ -159,7 +157,7 @@ p {
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  gap : 20px;
+  gap: 20px;
   height: 100%;
 }
 
@@ -181,7 +179,15 @@ p {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, transform 0.2s;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
+  white-space: nowrap;
+}
+
+.remove-neighbour-button:hover {
+  background-color: #000000;
+  color: #ffffff;
+  outline: 1px solid #ffffff;
+  transform: translateY(-1px);
 }
 
 .classic-button:hover {
@@ -191,10 +197,28 @@ p {
   transform: translateY(-1px);
 }
 
-.classic-button{
+.remove-neighbour-button {
+  background-color: #ffffff;
+  color: #000000;
+  outline: 1px solid #000000;
+}
+
+.classic-button {
   background-color: #ffffff;
   color: #000000;
   outline: 2px solid #000000;
+}
+
+.remove-neighbour-button {
+  height: 100%;
+  width: fit-content;
+  margin: 0;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+  font-family: "Segoe UI", sans-serif;
 }
 
 .continue-button {
@@ -256,7 +280,7 @@ p {
 .right-part {
   flex: 1 1 48%;
   position: relative;
-  min-height: 300px;;
+  min-height: 300px;
   background-color: white;
   padding: 20px;
   border-radius: 20px;
@@ -267,8 +291,8 @@ p {
 .conflict-container-buttons {
   display: flex;
   justify-content: center;
-  gap: 50px; 
-  margin-top: 20px;
+  gap: 50px;
+  margin: 0;
 }
 
 .nb-table,
@@ -283,16 +307,16 @@ p {
 
 .nb-table p,
 .nb-guest p {
-  width: 300px; 
+  width: 300px;
   margin: 0;
-  text-align: left; 
+  text-align: left;
 }
 
 .radio-group {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap : 10px;
+  gap: 10px;
   margin-top: 10px;
 }
 
@@ -317,14 +341,14 @@ p {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 40px; 
+  margin-top: 40px;
 }
 
 .input-generate-container p {
-  margin : 0;
+  margin: 0;
   padding: 0;
   text-align: center;
-  color: black
+  color: black;
 }
 
 .buttons-row {
@@ -354,14 +378,14 @@ p {
 .stats-center {
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
 }
 
 .stats-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
-  gap: 10px; 
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .stats-container p {
@@ -369,22 +393,22 @@ p {
   padding: 0;
 }
 
-.export-button-container{
+.export-button-container {
   position: absolute;
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  gap: 20px; 
+  gap: 20px;
 }
 
-.export-button-container .file-message-text{
+.export-button-container .file-message-text {
   margin-top: 20px;
 }
 
 .continue-reset-buttons {
   display: flex;
   justify-content: center;
-  gap: 50px; 
+  gap: 50px;
   margin-top: 20px;
 }
 
@@ -392,7 +416,7 @@ p {
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 10px;
-  margin: 0 auto; 
+  margin: 0 auto;
   padding: 15px;
 }
 
@@ -401,7 +425,7 @@ p {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  gap : 5px;
+  gap: 5px;
 }
 
 .select-row label {
@@ -409,13 +433,13 @@ p {
 }
 
 .select-row select {
-  width: 70%;         
+  width: 70%;
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  white-space: nowrap;  
-  overflow: hidden;     
-  text-overflow: ellipsis; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Explanation section styles */
@@ -449,35 +473,35 @@ img {
   align-items: center;
   justify-content: center;
   background-color: white;
-  padding : 50px;
+  padding: 50px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .image-container {
-  position: relative; 
-  width: 40%;  
-  height: 100%; 
-  background-color: white; 
+  position: relative;
+  width: 40%;
+  height: 100%;
+  background-color: white;
   display: flex;
-  justify-content: center; 
-  align-items: center; 
+  justify-content: center;
+  align-items: center;
 }
 
 .step-image1 {
-  position: relative; 
-  z-index: 1; 
-  filter : drop-shadow(20px 20px 0 #000000);
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(20px 20px 0 #000000);
 }
 
 .step-image2 {
-  position: absolute; 
-  z-index: 1; 
-  filter : drop-shadow(-20px 20px 0 #000000);
+  position: absolute;
+  z-index: 1;
+  filter: drop-shadow(-20px 20px 0 #000000);
 }
 
-.step-text{
-  width: 70%; 
+.step-text {
+  width: 70%;
   margin: 0;
   text-align: justify;
 }
@@ -487,7 +511,7 @@ img {
 .support-page {
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
 }
 
 .support-container {
@@ -498,14 +522,14 @@ img {
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   border-radius: 12px;
-} 
+}
 
 .support-title {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 20px; 
+  gap: 20px;
   margin-top: 20px;
 }
 
@@ -513,7 +537,6 @@ img {
   display: flex;
   margin-top: 20px;
   margin-left: 5%;
-  
 }
 
 .support-image {
@@ -548,7 +571,7 @@ img {
   border-radius: 50px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s, transform 0.2s;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   font-size: 50px;
   font-weight: bold;
   background-color: #ffffff;
@@ -579,7 +602,11 @@ img {
 }
 
 .modal-content {
-  background-color: rgba(255, 255, 255); /* Fond clair avec un peu de transparence */
+  background-color: rgba(
+    255,
+    255,
+    255
+  ); /* Fond clair avec un peu de transparence */
   border-radius: 15px; /* Bords arrondis */
   padding: 30px;
   text-align: center;
@@ -599,7 +626,7 @@ img {
 }
 
 .modal-close-button {
-  background-color: #4CAF50; /* Couleur verte */
+  background-color: #4caf50; /* Couleur verte */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -614,6 +641,9 @@ img {
 }
 
 .student-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
   background-color: white;
   border-radius: 1rem;
   padding: 20px;
@@ -621,19 +651,18 @@ img {
   height: 100%;
   overflow-y: auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  gap: 1rem;
 }
 
 .student-title {
   font-size: 1.8rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin: 0;
 }
 
 .section-title {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
 }
 
 .info-line {
@@ -641,14 +670,17 @@ img {
 }
 
 .list {
+  display: flex;
+  flex-direction: column;
   list-style-type: none;
   padding-left: 1.2rem;
-  margin-bottom: 1rem;
+  margin: 0;
+  gap: 0.25rem;
 }
 
 .list-item {
-  margin: 0.2rem 0;
   color: black;
+  margin: 0;
 }
 
 .empty-msg {
@@ -665,8 +697,12 @@ img {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-container {
