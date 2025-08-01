@@ -1,5 +1,3 @@
-import "../../styles/App.css";
-
 const StudentConflictItem = ({
   name,
   surname,

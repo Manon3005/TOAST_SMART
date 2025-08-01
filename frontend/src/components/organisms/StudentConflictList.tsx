@@ -1,4 +1,3 @@
-import "../../styles/App.css";
 import { StudentConflictCount } from "../../types/StudentConflictCount";
 import StudentConflictItem from "../molecules/StudentConflictItem";
 
