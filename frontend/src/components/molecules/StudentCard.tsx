@@ -1,5 +1,4 @@
 import { ChangeEvent, useState } from "react";
-import "../../styles/App.css";
 import { Student } from "../../types/Student";
 import { Button } from "../atoms/Button";
 import { Input } from "../atoms/Input";

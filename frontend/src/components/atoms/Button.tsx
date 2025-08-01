@@ -1,5 +1,3 @@
-import "../../styles/App.css";
-
 export const Button = ({
   className = "classic-button",
   text,

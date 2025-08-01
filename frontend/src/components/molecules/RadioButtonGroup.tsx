@@ -1,26 +1,25 @@
-import { ChangeEvent, useState } from 'react';
-import '../../styles/App.css';
-import { RadioOption } from '../../types/RadioOption';
+import { ChangeEvent, useState } from "react";
+import { RadioOption } from "../../types/RadioOption";
 
 export const RadioButtonGroup = ({
-    onSelectionChange,
-    radioOptions,
-    defaultValue,
-  } : {
-    onSelectionChange: (value: string) => void,
-    radioOptions: RadioOption[],
-    defaultValue: string
-  }) => {
-    const [selectedValue, setSelectedValue] = useState(defaultValue);
+  onSelectionChange,
+  radioOptions,
+  defaultValue,
+}: {
+  onSelectionChange: (value: string) => void;
+  radioOptions: RadioOption[];
+  defaultValue: string;
+}) => {
+  const [selectedValue, setSelectedValue] = useState(defaultValue);
 
-    const handleChange = (event : ChangeEvent<HTMLInputElement>) => {
-      setSelectedValue(event.target.value);
-      if (onSelectionChange) {
-        onSelectionChange(event.target.value);
-      }
-    };
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSelectedValue(event.target.value);
+    if (onSelectionChange) {
+      onSelectionChange(event.target.value);
+    }
+  };
 
-    return (
+  return (
     <div className="radio-group">
       {radioOptions.map(({ value, label }) => (
         <div key={value} className="radio-option">
@@ -35,5 +34,5 @@ export const RadioButtonGroup = ({
         </div>
       ))}
     </div>
-    );
-}
+  );
+};

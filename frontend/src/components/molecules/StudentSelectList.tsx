@@ -1,4 +1,3 @@
-import "../../styles/App.css";
 import { StudentConflictCount } from "../../types/StudentConflictCount";
 
 export const StudentSelectList = ({
