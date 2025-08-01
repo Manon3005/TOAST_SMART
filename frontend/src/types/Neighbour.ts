@@ -1,5 +1,5 @@
 export interface Neighbour {
-    neighbourId: string,
-    neighbourFirstName: string,
-    neighbourLastName: string
+  neighbourId: number;
+  neighbourFirstName: string;
+  neighbourLastName: string;
 }
