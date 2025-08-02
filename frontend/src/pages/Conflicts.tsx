@@ -101,81 +101,46 @@ export default function Conflicts() {
   }
 
   return (
-    <div className="app-container">
+    <div className="h-full flex flex-col items-center bg-[#E9E9E9] font-['Segoe_UI'] text-white px-[20px] gap-[20px]">
       <AppHeader />
-      <div className="app-content">
+      {remainingConflictNumber === 0 ? (
+        <Button
+          onClick={handleContinue}
+          text="Continuer et générer le fichier intermédiaire"
+        />
+      ) : (
+        <Button
+          onClick={handleRefuseAllConflicts}
+          text="⛔ Passer tous les conflits restants"
+        />
+      )}
+      <div className="w-full flex flex-row items-center justify-around px-[20px] pb-[10px] overflow-hidden">
         <div
-          style={{
-            padding: "20px",
-            display: "flex",
-            flexDirection: "column",
-            height: "100vh",
-            boxSizing: "border-box",
-          }}
+          style={{ height: "calc(100vh - 270px)" }}
+          className={`h-full ${
+            isStudentCardVisible ? "w-[45%]" : "w-full"
+          } p-[20px] bg-[#f9f9f9] rounded-[12px] custom-shadow`}
         >
-          {remainingConflictNumber === 0 ? (
-            <Button
-              className="classic-button"
-              onClick={handleContinue}
-              text="Continuer et générer le fichier intermédiaire"
-            />
-          ) : (
-            <Button
-              className="classic-button"
-              onClick={handleRefuseAllConflicts}
-              text="⛔ Passer tous les conflits restants"
-            />
-          )}
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              gap: "20px",
-              overflow: "hidden",
-              margin: "20px 0",
-            }}
-          >
-            <div
-              className="item-list-container"
-              style={{
-                flexShrink: 1,
-                flexGrow: 1,
-                flexBasis: isStudentCardVisible ? "50%" : "100%",
-                minWidth: "300px",
-                overflowY: "auto",
-                transition: "flex-basis 0.3s ease",
-                maxHeight: "80vh",
-              }}
-            >
-              <StudentConflictList
-                students={students}
-                onItemClick={handleItemClick}
-              />
-            </div>
-
-            {isStudentCardVisible && (
-              <div
-                className="student-container"
-                style={{
-                  flexShrink: 0,
-                  flexGrow: 0,
-                  flexBasis: "50%",
-                  overflowY: "auto",
-                  maxHeight: "80vh",
-                }}
-              >
-                <StudentCard
-                  student={selectedStudent}
-                  students={students}
-                  onClickAccept={handleAcceptConflict}
-                  onClickRefuse={handleRefuseConflict}
-                  onNeighbourManuallyAdded={handleNeighbourManuallyAdded}
-                  onNeighbourRemoved={handleNeighbourRemoved}
-                />
-              </div>
-            )}
-          </div>
+          <StudentConflictList
+            students={students}
+            onItemClick={handleItemClick}
+          />
         </div>
+        {isStudentCardVisible && (
+          <div
+            style={{ height: "calc(100vh - 270px)" }}
+            className="h-full w-[45%] flex flex-col justify-start bg-white rounded-[1rem] p-[20px] gap-[1rem] overflow-y-auto custom-shadow"
+          >
+            <StudentCard
+              student={selectedStudent}
+              students={students}
+              onClickAccept={handleAcceptConflict}
+              onClickRefuse={handleRefuseConflict}
+              onNeighbourManuallyAdded={handleNeighbourManuallyAdded}
+              onNeighbourRemoved={handleNeighbourRemoved}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
