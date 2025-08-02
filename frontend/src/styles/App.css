@@ -227,17 +227,6 @@ p {
   font-family: "Segoe UI", sans-serif;
 }
 
-.reset-button {
-  background-color: #fa5c5c;
-  color: #000000;
-  outline: 2px solid #000000;
-}
-
-.reset-button:hover {
-  background-color: #ff0000;
-  transform: translateY(-1px);
-}
-
 .glass-number {
   background: #ffffff;
   backdrop-filter: blur(10px);
@@ -445,13 +434,7 @@ p {
   border-radius: 12px;
 }*/
 
-.explanation-header {
-  justify-content: center;
-  display: flex;
-  margin-top: 30px;
-}
-
-.explanation-content {
+/*.explanation-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -459,9 +442,9 @@ p {
   gap: 100px;
   margin-top: 50px;
   margin-bottom: 50px;
-}
+}*/
 
-.explanation-step {
+/*.explanation-step {
   width: 80%;
   display: flex;
   flex-direction: row;
@@ -471,7 +454,7 @@ p {
   padding: 50px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
+}*/
 
 .image-container {
   position: relative;
@@ -495,11 +478,11 @@ p {
   filter: drop-shadow(-20px 20px 0 #000000);
 }
 
-.step-text {
+/*.step-text {
   width: 70%;
   margin: 0;
   text-align: justify;
-}
+}*/
 
 /* Support section styles */
 
