@@ -15,6 +15,10 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
+.custom-shadow-2 {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .App {
   text-align: center;
 }
@@ -643,7 +647,7 @@ p {
   overflow-y: auto;
 }*/
 
-.item {
+/*.item {
   color: #000000;
   display: flex;
   justify-content: space-between;
@@ -658,13 +662,13 @@ p {
 
 .item:hover {
   background-color: #eef1f5;
-}
+}*/
 
-.item-name {
+/*.item-name {
   font-weight: bold;
   font-size: 16px;
 }
 
 .item-conflicts {
   font-weight: 500;
-}
+}*/

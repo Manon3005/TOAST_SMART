@@ -14,10 +14,7 @@ const StudentConflictList = ({
   onItemClick: (student: StudentConflictCount) => Promise<void>;
 }) => {
   return (
-    <div
-      className="item-list-container"
-      style={{ overflowY: "auto", height: "100%" }}
-    >
+    <div className="flex flex-col h-full bg-[#f9f9f9] rounded-[12px] p-[20px] custom-shadow-2 gap-[10px] overflow-y-auto">
       {students.sort(compareConflictCount).map((student) => (
         <StudentConflictItem
           key={student.id}
