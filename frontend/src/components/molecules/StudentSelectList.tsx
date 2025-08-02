@@ -16,17 +16,18 @@ export const StudentSelectList = ({
   );
 
   return (
-    <div className="select-row">
+    <div className="w-full flex flex-col items-center gap-[5px]">
       <select
+        className="w-[70%] p-[5px] text-black border border-[#ccc] rounded-[10px] truncate"
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         disabled={disabled}
       >
-        <option key={-1} value={-1}>
+        <option className="text-black" key={-1} value={-1}>
           --Sélectionnez--
         </option>
         {sortedStudents.map((student) => (
-          <option key={student.id} value={student.id}>
+          <option className="text-black" key={student.id} value={student.id}>
             {student.lastName} {student.firstName}
           </option>
         ))}

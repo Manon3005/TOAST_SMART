@@ -228,9 +228,6 @@
   .inline {
     display: inline;
   }
-  .list-item {
-    display: list-item;
-  }
   .table {
     display: table;
   }
@@ -261,6 +258,9 @@
   .w-\[200px\] {
     width: 200px;
   }
+  .w-fit {
+    width: fit-content;
+  }
   .w-full {
     width: 100%;
   }
@@ -281,6 +281,9 @@
   }
   .list-disc {
     list-style-type: disc;
+  }
+  .list-none {
+    list-style-type: none;
   }
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -305,6 +308,12 @@
   }
   .justify-start {
     justify-content: flex-start;
+  }
+  .gap-\[0\.25rem\] {
+    gap: 0.25rem;
+  }
+  .gap-\[0\.75rem\] {
+    gap: 0.75rem;
   }
   .gap-\[1rem\] {
     gap: 1rem;
@@ -432,17 +441,26 @@
   .pb-\[10px\] {
     padding-bottom: 10px;
   }
+  .pl-\[1\.2rem\] {
+    padding-left: 1.2rem;
+  }
   .text-center {
     text-align: center;
   }
   .text-justify {
     text-align: justify;
   }
+  .text-left {
+    text-align: left;
+  }
   .font-\[\'Segoe_UI\'\] {
     font-family: 'Segoe UI';
   }
   .text-\[1\.2rem\] {
     font-size: 1.2rem;
+  }
+  .text-\[1\.8rem\] {
+    font-size: 1.8rem;
   }
   .text-\[1rem\] {
     font-size: 1rem;
@@ -480,6 +498,9 @@
   .text-\[\#06ad2a\] {
     color: #06ad2a;
   }
+  .text-\[\#888\] {
+    color: #888;
+  }
   .text-\[\#d33\] {
     color: #d33;
   }
@@ -492,7 +513,14 @@
   .uppercase {
     text-transform: uppercase;
   }
+  .italic {
+    font-style: italic;
+  }
   .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
+  }
+  .outline-1 {
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
   }
@@ -702,28 +730,6 @@ p {
   justify-content: center;
   overflow: hidden;
 }
-.remove-neighbour-button:hover {
-  background-color: #000000;
-  color: #ffffff;
-  outline: 1px solid #ffffff;
-  transform: translateY(-1px);
-}
-.remove-neighbour-button {
-  background-color: #ffffff;
-  color: #000000;
-  outline: 1px solid #000000;
-}
-.remove-neighbour-button {
-  height: 100%;
-  width: fit-content;
-  margin: 0;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s, transform 0.2s;
-  font-family: "Segoe UI", sans-serif;
-}
 .glass-number {
   background: #ffffff;
   backdrop-filter: blur(10px);
@@ -761,12 +767,6 @@ p {
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
-}
-.conflict-container-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  margin: 0;
 }
 .nb-table, .nb-guest {
   display: flex;
@@ -878,46 +878,8 @@ p {
   z-index: 1;
   filter: drop-shadow(-20px 20px 0 #000000);
 }
-.student-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  background-color: white;
-  border-radius: 1rem;
-  padding: 20px;
-  box-sizing: border-box;
-  height: 100%;
-  overflow-y: auto;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  gap: 1rem;
-}
-.student-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 0;
-}
-.section-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
 .info-line {
   margin: 0.3rem 0;
-}
-.list {
-  display: flex;
-  flex-direction: column;
-  list-style-type: none;
-  padding-left: 1.2rem;
-  margin: 0;
-  gap: 0.25rem;
-}
-.list-item {
-  color: black;
-  margin: 0;
-}
-.empty-msg {
-  color: #888;
-  font-style: italic;
 }
 .spinner {
   width: 50px;
