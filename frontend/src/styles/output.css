@@ -193,11 +193,20 @@
       max-width: 96rem;
     }
   }
+  .my-\[20px\] {
+    margin-block: 20px;
+  }
   .mt-0 {
     margin-top: calc(var(--spacing) * 0);
   }
   .mt-\[20px\] {
     margin-top: 20px;
+  }
+  .ml-6 {
+    margin-left: calc(var(--spacing) * 6);
+  }
+  .ml-8 {
+    margin-left: calc(var(--spacing) * 8);
   }
   .contents {
     display: contents;
@@ -232,6 +241,9 @@
   .w-\[70\%\] {
     width: 70%;
   }
+  .w-\[80\%\] {
+    width: 80%;
+  }
   .w-\[90\%\] {
     width: 90%;
   }
@@ -252,6 +264,9 @@
   }
   .resize {
     resize: both;
+  }
+  .list-disc {
+    list-style-type: disc;
   }
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -331,11 +346,17 @@
   .p-\[20px\] {
     padding: 20px;
   }
+  .p-\[50px\] {
+    padding: 50px;
+  }
   .px-\[24px\] {
     padding-inline: 24px;
   }
   .px-\[100px\] {
     padding-inline: 100px;
+  }
+  .py-\[10px\] {
+    padding-block: 10px;
   }
   .py-\[12px\] {
     padding-block: 12px;
@@ -346,11 +367,11 @@
   .pt-0 {
     padding-top: calc(var(--spacing) * 0);
   }
-  .pt-\[10px\] {
-    padding-top: 10px;
-  }
   .text-center {
     text-align: center;
+  }
+  .text-justify {
+    text-align: justify;
   }
   .font-\[\'Segoe_UI\'\] {
     font-family: 'Segoe UI';
@@ -629,15 +650,6 @@ p {
   transition: background-color 0.3s, color 0.3s, transform 0.2s;
   font-family: "Segoe UI", sans-serif;
 }
-.reset-button {
-  background-color: #fa5c5c;
-  color: #000000;
-  outline: 2px solid #000000;
-}
-.reset-button:hover {
-  background-color: #ff0000;
-  transform: translateY(-1px);
-}
 .glass-number {
   background: #ffffff;
   backdrop-filter: blur(10px);
@@ -773,31 +785,6 @@ p {
 .export-button-container .file-message-text {
   margin-top: 20px;
 }
-.explanation-header {
-  justify-content: center;
-  display: flex;
-  margin-top: 30px;
-}
-.explanation-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 100px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-.explanation-step {
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-  padding: 50px;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
 .image-container {
   position: relative;
   width: 40%;
@@ -816,11 +803,6 @@ p {
   position: absolute;
   z-index: 1;
   filter: drop-shadow(-20px 20px 0 #000000);
-}
-.step-text {
-  width: 70%;
-  margin: 0;
-  text-align: justify;
 }
 .support-page {
   display: flex;
