@@ -20,9 +20,9 @@ export const RadioButtonGroup = ({
   };
 
   return (
-    <div className="radio-group">
+    <div className="w-full flex flex-col items-start gap-[10px]">
       {radioOptions.map(({ value, label }) => (
-        <div key={value} className="radio-option">
+        <div key={value} className="flex w-full text-black gap-[5px]">
           <input
             type="radio"
             id={value}
@@ -30,7 +30,9 @@ export const RadioButtonGroup = ({
             checked={selectedValue === value}
             onChange={handleChange}
           />
-          <label htmlFor={value}>{label}</label>
+          <label className="text-black" htmlFor={value}>
+            {label}
+          </label>
         </div>
       ))}
     </div>

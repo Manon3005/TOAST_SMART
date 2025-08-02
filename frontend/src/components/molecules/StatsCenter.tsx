@@ -1,30 +1,35 @@
 import { StatsJson } from "../../types/StatsJson";
+import { Paragraph } from "../atoms/Paragraph";
 
 export const StatsCenter = ({ data }: { data: StatsJson | null }) => {
-  if (!data) {
-    return (
-      <div className="stats-center">
-        <p>Aucune stat disponible pour le moment</p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="stats-center">
-      <h3>Statistiques</h3>
-      <div className="stats-container">
-        <p>
+  return data ? (
+    <div className="flex flex-col items-center">
+      <h2 className="w-full text-center text-black text-[18px] font-bold">
+        Statistiques
+      </h2>
+      <div className="flex flex-col items-start gap-[10px]">
+        <Paragraph>
           Pourcentage d'étudiants satisfaits :{" "}
           {Number(data.percentage_student_satisfied).toFixed(2)} %
-        </p>
-        <p>Nombre de demandes possibles : {data.nb_possible_demand}</p>
-        <p>Nombre de demandes satisfaites : {data.nb_satisfied_demand}</p>
-        <p>Nombre de tables utilisées : {data.nb_used_tables}</p>
-        <p>
+        </Paragraph>
+        <Paragraph>
+          Nombre de demandes possibles : {data.nb_possible_demand}
+        </Paragraph>
+        <Paragraph>
+          Nombre de demandes satisfaites : {data.nb_satisfied_demand}
+        </Paragraph>
+        <Paragraph>
+          Nombre de tables utilisées : {data.nb_used_tables}
+        </Paragraph>
+        <Paragraph>
           Nombre moyen de convives par table :{" "}
           {Number(data.mean_guest_by_table).toFixed(2)}
-        </p>
+        </Paragraph>
       </div>
+    </div>
+  ) : (
+    <div className="flex flex-col items-center">
+      <Paragraph>Aucune stat disponible pour le moment</Paragraph>
     </div>
   );
 };
