@@ -115,7 +115,9 @@ export default function Solution() {
                 Configuration de tables :
               </h2>
               <div className="w-full flex flex-row items-center justify-between gap-[20px]">
-                <p className="w-fit text-left">Nombre de tables maximum :</p>
+                <p className="w-fit text-black text-left">
+                  Nombre de tables maximum :
+                </p>
                 <Input
                   type="number"
                   value={maxTables}
@@ -125,7 +127,7 @@ export default function Solution() {
                 ></Input>
               </div>
               <div className="w-full flex flex-row items-center justify-between gap-[20px]">
-                <p className="w-fit text-left">
+                <p className="w-fit text-black text-left">
                   Nombre de convives maximum/table :
                 </p>
                 <Input
