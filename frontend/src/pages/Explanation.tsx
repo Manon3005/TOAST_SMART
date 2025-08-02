@@ -4,7 +4,7 @@ import { Paragraph } from "../components/atoms/Paragraph";
 
 export function Explanation() {
   return (
-    <div className="flex flex-col gap-[50px] my-[20px]">
+    <div className="flex flex-col gap-[20px] my-[20px]">
       <div className="flex flex-col items-center justify-start">
         <h1 className="text-[40px] font-bold text-black">
           Comment TOAST fonctionne ?
