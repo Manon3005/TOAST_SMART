@@ -21,11 +21,12 @@ export const TableColumn = ({
   ];
 
   return (
-    <div className="two-column-select">
+    <div className="grid grid-cols-2 gap-y-[10px]">
       {headers.map((label, i) => (
-        <div className="select-row" key={i}>
-          <label>{label}</label>
+        <div className="flex flex-col items-center w-full gap-[5px]" key={i}>
+          <label className="text-black">{label}</label>
           <select
+            className="w-[70%] border border-[#ccc] rounded-[10px] p-[5px] text-black truncate"
             value={tableData[i]}
             disabled={disabled}
             onChange={(e) => {
@@ -34,13 +35,20 @@ export const TableColumn = ({
               setTableData(newData);
             }}
           >
-            <option value="">-- Sélectionnez --</option>
+            <option className="text-black" key={"default"} value="default">
+              -- Sélectionnez --
+            </option>
             {headersCSV.map((opt, j) => {
               const isSelectedElsewhere =
                 tableData.includes(opt) && tableData[i] !== opt;
               return (
                 opt && (
-                  <option key={j} value={opt} disabled={isSelectedElsewhere}>
+                  <option
+                    className="text-black"
+                    key={opt}
+                    value={opt}
+                    disabled={isSelectedElsewhere}
+                  >
                     {opt}
                   </option>
                 )
