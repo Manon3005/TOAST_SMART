@@ -83,7 +83,7 @@ export default function Preprocessing() {
   };
 
   return (
-    <div className="flex flex-col items-center bg-[#E9E9E9] font-['Segoe_UI'] text-white p-[20px] pt-0 gap-[10px]">
+    <div className="flex flex-col items-center bg-[#E9E9E9] font-['Segoe_UI'] text-white p-[20px] pt-0 gap-[20px]">
       <AppHeader />
       <div className="w-full flex flex-1 flex-col items-center justify-start">
         <div className="h-full w-[90%] flex flex-col bg-white p-[20px] rounded-[20px] gap-[20px] custom-shadow">
