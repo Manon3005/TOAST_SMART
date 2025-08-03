@@ -1,7 +1,7 @@
 import { StatsJson } from "../../types/StatsJson";
 import { Paragraph } from "../atoms/Paragraph";
 
-export const StatsCenter = ({ data }: { data: StatsJson | null }) => {
+export const SolutionStatsCenter = ({ data }: { data: StatsJson | null }) => {
   return data ? (
     <div className="flex flex-col items-center">
       <h2 className="w-full text-center text-black text-[18px] font-bold">
