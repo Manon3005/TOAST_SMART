@@ -3,7 +3,7 @@ import { PreprocessingTableColumn } from "../components/organisms/PreprocessingT
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ColumnsCSV } from "../types/ColumnsCSV";
-import { AppHeader } from "../components/molecules/AppHeader";
+import { AppHeader } from "../components/organisms/AppHeader";
 import { SubTitle } from "../components/atoms/SubTitle";
 import { PreprocessingLoaderGroup } from "../components/molecules/PreprocessingLoaderGroup";
 import { PreprocessingButtonsGroup } from "../components/molecules/PreprocessingButtonsGroup";

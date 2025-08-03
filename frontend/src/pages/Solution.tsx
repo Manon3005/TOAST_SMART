@@ -9,7 +9,7 @@ import { Rapport } from "../types/Rapport";
 import { GenerateTablePlan } from "../types/GenerateTablePlan";
 import { TablePlan } from "../types/TablePlan";
 import { StatsJson } from "../types/StatsJson";
-import { AppHeader } from "../components/molecules/AppHeader";
+import { AppHeader } from "../components/organisms/AppHeader";
 import { SolutionConfiguration } from "../components/organisms/SolutionConfiguration";
 import { SolutionCriteria } from "../components/organisms/SolutionCriteria";
 import { SolutionGeneration } from "../components/organisms/SolutionGeneration";

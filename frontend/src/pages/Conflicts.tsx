@@ -6,7 +6,7 @@ import { Student } from "../types/Student";
 import { ResolveConflict } from "../types/ResolveConflict";
 import { Button } from "../components/atoms/Button";
 import { useNavigate } from "react-router-dom";
-import { AppHeader } from "../components/molecules/AppHeader";
+import { AppHeader } from "../components/organisms/AppHeader";
 import { AddOrRemoveNeighbour } from "../types/AddOrRemoveNeighbour";
 import { ConflictsHeaderButton } from "../components/molecules/ConflictsHeaderButton";
 
