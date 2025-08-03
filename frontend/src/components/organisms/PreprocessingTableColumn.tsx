@@ -1,4 +1,4 @@
-export const TableColumn = ({
+export const PreprocessingTableColumn = ({
   tableData,
   setTableData,
   disabled,
