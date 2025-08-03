@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import StudentConflictList from "../components/organisms/StudentConflictList";
-import { StudentCard } from "../components/molecules/StudentCard";
+import ConflictsStudentsList from "../components/organisms/ConflictsStudentsList";
+import { ConflictsStudentCard } from "../components/molecules/ConflictsStudentCard";
 import { StudentConflictCount } from "../types/StudentConflictCount";
 import { Student } from "../types/Student";
 import { ResolveConflict } from "../types/ResolveConflict";
@@ -8,6 +8,7 @@ import { Button } from "../components/atoms/Button";
 import { useNavigate } from "react-router-dom";
 import { AppHeader } from "../components/molecules/AppHeader";
 import { AddOrRemoveNeighbour } from "../types/AddOrRemoveNeighbour";
+import { ConflictsHeaderButton } from "../components/molecules/ConflictsHeaderButton";
 
 export default function Conflicts() {
   const navigate = useNavigate();
@@ -103,17 +104,11 @@ export default function Conflicts() {
   return (
     <div className="h-full flex flex-col items-center bg-[#E9E9E9] font-['Segoe_UI'] text-white px-[20px] gap-[20px]">
       <AppHeader />
-      {remainingConflictNumber === 0 ? (
-        <Button
-          onClick={handleContinue}
-          text="Continuer et générer le fichier intermédiaire"
-        />
-      ) : (
-        <Button
-          onClick={handleRefuseAllConflicts}
-          text="⛔ Passer tous les conflits restants"
-        />
-      )}
+      <ConflictsHeaderButton
+        remainingConflictNumber={remainingConflictNumber}
+        handleContinue={handleContinue}
+        handleRefuseAllConflicts={handleRefuseAllConflicts}
+      />
       <div className="w-full flex flex-row items-center justify-around px-[20px] pb-[10px] overflow-hidden">
         <div
           style={{ height: "calc(100vh - 270px)" }}
@@ -121,7 +116,7 @@ export default function Conflicts() {
             isStudentCardVisible ? "w-[45%]" : "w-full"
           } p-[20px] bg-[#f9f9f9] rounded-[12px] custom-shadow`}
         >
-          <StudentConflictList
+          <ConflictsStudentsList
             students={students}
             onItemClick={handleItemClick}
           />
@@ -131,7 +126,7 @@ export default function Conflicts() {
             style={{ height: "calc(100vh - 270px)" }}
             className="h-full w-[45%] flex flex-col justify-start bg-white rounded-[1rem] p-[20px] gap-[1rem] overflow-y-auto custom-shadow"
           >
-            <StudentCard
+            <ConflictsStudentCard
               student={selectedStudent}
               students={students}
               onClickAccept={handleAcceptConflict}

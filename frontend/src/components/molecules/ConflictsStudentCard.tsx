@@ -6,7 +6,7 @@ import { StudentConflictCount } from "../../types/StudentConflictCount";
 import { StudentSelectList } from "./StudentSelectList";
 import { Paragraph } from "../atoms/Paragraph";
 
-export const StudentCard = ({
+export const ConflictsStudentCard = ({
   student,
   students,
   onClickAccept,
