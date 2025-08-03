@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ConflictsStudentsList from "../components/organisms/ConflictsStudentsList";
-import { ConflictsStudentCard } from "../components/molecules/ConflictsStudentCard";
+import { ConflictsStudentCard } from "../components/organisms/ConflictsStudentCard";
 import { StudentConflictCount } from "../types/StudentConflictCount";
 import { Student } from "../types/Student";
 import { ResolveConflict } from "../types/ResolveConflict";

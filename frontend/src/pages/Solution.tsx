@@ -104,6 +104,7 @@ export default function Solution() {
             <SolutionCriteria handleSelectionChange={handleSelectionChange} />
             <SolutionGeneration
               handleOnClickGenerate={handleOnClickGenerate}
+              handleOnClickImport={handleOnClickImport}
               outputFilePath={outputFilePath}
               tableGroupFilePath={tableGroupFilePath}
             />

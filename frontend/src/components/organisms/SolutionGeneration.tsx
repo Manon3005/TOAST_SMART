@@ -2,10 +2,12 @@ import { Button } from "../atoms/Button";
 
 export const SolutionGeneration = ({
   handleOnClickGenerate,
+  handleOnClickImport,
   outputFilePath,
   tableGroupFilePath,
 }: {
   handleOnClickGenerate: () => void;
+  handleOnClickImport: () => void;
   outputFilePath: string | undefined;
   tableGroupFilePath: string | undefined;
 }) => {
@@ -17,7 +19,7 @@ export const SolutionGeneration = ({
           text="Générer la solution"
         ></Button>
         <Button
-          onClick={handleOnClickGenerate}
+          onClick={handleOnClickImport}
           text="📁 Importer une solution"
         ></Button>
       </div>

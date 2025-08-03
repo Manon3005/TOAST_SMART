@@ -1,3 +1,6 @@
+import { Option } from "../atoms/Option";
+import { Select } from "../atoms/Select";
+
 export const PreprocessingTableColumn = ({
   tableData,
   setTableData,
@@ -25,8 +28,7 @@ export const PreprocessingTableColumn = ({
       {headers.map((label, i) => (
         <div className="flex flex-col items-center w-full gap-[5px]" key={i}>
           <label className="text-black">{label}</label>
-          <select
-            className="w-[70%] border border-[#ccc] rounded-[10px] p-[5px] text-black truncate"
+          <Select
             value={tableData[i]}
             disabled={disabled}
             onChange={(e) => {
@@ -35,26 +37,21 @@ export const PreprocessingTableColumn = ({
               setTableData(newData);
             }}
           >
-            <option className="text-black" key={"default"} value="default">
+            <Option key={"default"} value="default">
               -- Sélectionnez --
-            </option>
+            </Option>
             {headersCSV.map((opt, j) => {
               const isSelectedElsewhere =
                 tableData.includes(opt) && tableData[i] !== opt;
               return (
                 opt && (
-                  <option
-                    className="text-black"
-                    key={opt}
-                    value={opt}
-                    disabled={isSelectedElsewhere}
-                  >
+                  <Option key={opt} value={opt} disabled={isSelectedElsewhere}>
                     {opt}
-                  </option>
+                  </Option>
                 )
               );
             })}
-          </select>
+          </Select>
         </div>
       ))}
     </div>

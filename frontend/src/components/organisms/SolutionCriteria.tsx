@@ -1,4 +1,5 @@
 import { RadioOption } from "../../types/RadioOption";
+import { SubTitle } from "../atoms/SubTitle";
 import { RadioButtonGroup } from "../molecules/RadioButtonGroup";
 
 export const SolutionCriteria = ({
@@ -27,9 +28,7 @@ export const SolutionCriteria = ({
 
   return (
     <div className="w-full flex flex-col items-center justify-start gap-[10px]">
-      <h2 className="text-center font-bold text-[18px] text-black">
-        Critère de génération du plan de table :
-      </h2>
+      <SubTitle>Critère de génération du plan de table :</SubTitle>
       <RadioButtonGroup
         radioOptions={radioOptions}
         defaultValue="min_table"

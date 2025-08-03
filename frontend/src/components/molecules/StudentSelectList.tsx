@@ -1,4 +1,6 @@
 import { StudentConflictCount } from "../../types/StudentConflictCount";
+import { Select } from "../atoms/Select";
+import { Option } from "../atoms/Option";
 
 export const StudentSelectList = ({
   listStudent,
@@ -17,21 +19,20 @@ export const StudentSelectList = ({
 
   return (
     <div className="w-full flex flex-col items-center gap-[5px]">
-      <select
-        className="w-[70%] p-[5px] text-black border border-[#ccc] rounded-[10px] truncate"
+      <Select
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         disabled={disabled}
       >
-        <option className="text-black" key={-1} value={-1}>
+        <Option key={-1} value={-1}>
           --Sélectionnez--
-        </option>
+        </Option>
         {sortedStudents.map((student) => (
-          <option className="text-black" key={student.id} value={student.id}>
+          <Option key={student.id} value={student.id}>
             {student.lastName} {student.firstName}
-          </option>
+          </Option>
         ))}
-      </select>
+      </Select>
     </div>
   );
 };
