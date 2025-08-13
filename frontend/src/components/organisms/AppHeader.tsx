@@ -1,3 +1,5 @@
+import { SubSubTitle } from "../atoms/SubSubTitle";
+
 export const AppHeader = ({}) => {
   return (
     <div className="w-full flex flex-col items-center mt-[20px] gap-[10px]">
@@ -14,9 +16,9 @@ export const AppHeader = ({}) => {
           className="w-[50px] h-[50px]"
         />
       </div>
-      <h3 className="text-[1.2rem] text-black font-bold">
+      <SubSubTitle>
         Réalisez votre plan de table en quelques clics !
-      </h3>
+      </SubSubTitle>
     </div>
   );
 };

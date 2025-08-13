@@ -1,12 +1,11 @@
 import { StatsJson } from "../../types/StatsJson";
 import { Paragraph } from "../atoms/Paragraph";
+import { SubTitle } from "../atoms/SubTitle";
 
-export const StatsCenter = ({ data }: { data: StatsJson | null }) => {
+export const SolutionStatsCenter = ({ data }: { data: StatsJson | null }) => {
   return data ? (
     <div className="flex flex-col items-center">
-      <h2 className="w-full text-center text-black text-[18px] font-bold">
-        Statistiques
-      </h2>
+      <SubTitle>Statistiques</SubTitle>
       <div className="flex flex-col items-start gap-[10px]">
         <Paragraph>
           Pourcentage d'étudiants satisfaits :{" "}

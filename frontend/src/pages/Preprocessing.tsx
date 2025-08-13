@@ -1,9 +1,12 @@
 import { Button } from "../components/atoms/Button";
-import { TableColumn } from "../components/organisms/TableColumn";
+import { PreprocessingTableColumn } from "../components/organisms/PreprocessingTableColumn";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ColumnsCSV } from "../types/ColumnsCSV";
-import { AppHeader } from "../components/molecules/AppHeader";
+import { AppHeader } from "../components/organisms/AppHeader";
+import { SubTitle } from "../components/atoms/SubTitle";
+import { PreprocessingLoaderGroup } from "../components/molecules/PreprocessingLoaderGroup";
+import { PreprocessingButtonsGroup } from "../components/molecules/PreprocessingButtonsGroup";
 
 export default function Preprocessing() {
   const navigate = useNavigate();
@@ -87,37 +90,24 @@ export default function Preprocessing() {
       <AppHeader />
       <div className="w-full flex flex-1 flex-col items-center justify-start">
         <div className="h-full w-[90%] flex flex-col bg-white p-[20px] rounded-[20px] gap-[20px] custom-shadow">
-          <h2 className="w-full text-black text-[18px] text-center font-bold">
-            Prétraitement des données
-          </h2>
-          <div className="flex justify-center items-center gap-[20px]">
-            <Button onClick={loadFile} text="📁 Charger un fichier" />
-            {errorMessage != "" && (
-              <p style={{ color: "red" }}>{errorMessage}</p>
-            )}
-            {nameFile != "" && <p style={{ color: "green" }}>{nameFile}</p>}
-          </div>
-          <TableColumn
+          <SubTitle>Prétraitement des données</SubTitle>
+          <PreprocessingLoaderGroup
+            loadFile={loadFile}
+            errorMessage={errorMessage}
+            nameFile={nameFile}
+          />
+          <PreprocessingTableColumn
             tableData={tableData}
             setTableData={setTableData}
             disabled={false}
             headersCSV={headersCSV}
           />
-          <div className="flex flex-row justify-center gap-[50px]">
-            <Button
-              disabled={
-                nameFile == "" || tableData.some((value) => value === "")
-              }
-              text="Traiter le CSV"
-              className="py-[12px] px-[24px] bg-[#00c21a] hover:bg-[#00ff00] outline-2 outline-black text-black text-[1rem] rounded-[8px] cursor-pointer whitespace-nowrap	transition-colors transition-transform duration-300 transform hover:-translate-y-[1px]"
-              onClick={handleFileProcessing}
-            />
-            <Button
-              onClick={actionReset}
-              text="Annuler"
-              className="py-[12px] px-[24px] bg-[#fa5c5c] hover:bg-[#ff0000] outline-2 outline-black text-black text-[1rem] rounded-[8px] cursor-pointer whitespace-nowrap	transition-colors transition-transform duration-300 transform hover:-translate-y-[1px]"
-            />
-          </div>
+          <PreprocessingButtonsGroup
+            nameFile={nameFile}
+            tableData={tableData}
+            handleFileProcessing={handleFileProcessing}
+            actionReset={actionReset}
+          />
         </div>
       </div>
     </div>

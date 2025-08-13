@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/atoms/Button";
-import { AppHeader } from "../components/molecules/AppHeader";
+import { AppHeader } from "../components/organisms/AppHeader";
 
 export function Start() {
   const navigate = useNavigate();

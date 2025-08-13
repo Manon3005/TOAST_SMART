@@ -1,6 +1,6 @@
 import { Button } from "../atoms/Button";
 
-export const ExportSolutionGroup = ({
+export const SolutionExportGroup = ({
   onClick,
   disabled,
   fileName,

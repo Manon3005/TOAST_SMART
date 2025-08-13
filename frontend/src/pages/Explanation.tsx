@@ -1,17 +1,13 @@
-import React from "react";
-import { ExplainText } from "../components/molecules/ExplainText";
 import { Paragraph } from "../components/atoms/Paragraph";
+import { Title } from "../components/atoms/Title";
+import { ExplanationContainer } from "../components/molecules/ExplanationContainer";
 
 export function Explanation() {
   return (
     <div className="flex flex-col gap-[20px] my-[20px]">
-      <div className="flex flex-col items-center justify-start">
-        <h1 className="text-[40px] font-bold text-black">
-          Comment TOAST fonctionne ?
-        </h1>
-      </div>
+      <Title>Comment TOAST fonctionne ?</Title>
       <div className="flex flex-col items-center justify-center gap-[50px]">
-        <ExplainText>
+        <ExplanationContainer>
           <Paragraph>
             Afin d'entamer la création de votre plan de table, il vous faut
             importer un fichier .csv correspondant à la liste des participants
@@ -42,9 +38,9 @@ export function Explanation() {
             nom et prénom du participant sont égaux à ceux de l'acheteur). Pour
             y remédier, il vous faudra modifier manuellement le fichier.
           </Paragraph>
-        </ExplainText>
+        </ExplanationContainer>
 
-        <ExplainText>
+        <ExplanationContainer>
           <Paragraph>
             Si le fichier est correct, vous accédez à la deuxième étape de
             l'analyse : la gestion des conflits. Notre application va analyser
@@ -71,9 +67,9 @@ export function Explanation() {
             reprendre votre démarche plus tard (il n'y aura donc plus de conflit
             à gérer).
           </Paragraph>
-        </ExplainText>
+        </ExplanationContainer>
 
-        <ExplainText>
+        <ExplanationContainer>
           <Paragraph>
             Vous pouvez à présent générer automatiquement un plan de table,
             après avoir rempli le nombre de tables maximum dont vous disposez
@@ -108,7 +104,7 @@ export function Explanation() {
             .csv où figurent une liste de chaque table avec les participants qui
             y mangent.
           </Paragraph>
-        </ExplainText>
+        </ExplanationContainer>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-const StudentConflictItem = ({
+const ConflictsStudentItem = ({
   name,
   surname,
   conflictCount,
@@ -28,4 +28,4 @@ const StudentConflictItem = ({
   );
 };
 
-export default StudentConflictItem;
+export default ConflictsStudentItem;
