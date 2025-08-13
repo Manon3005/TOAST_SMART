@@ -21,7 +21,7 @@ export function Support() {
       <map name="toastmap">
         <area shape="rect" coords="150,110,180,130" onClick={openModal} />
       </map>
-      <SupportSecretModal isModalOpen={isModalOpen} closeModal={closeModal} />
+      {isModalOpen && <SupportSecretModal closeModal={closeModal} />}
     </div>
   );
 }

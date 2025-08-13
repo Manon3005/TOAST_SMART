@@ -1,4 +1,3 @@
-import "./styles/output.css";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { Start } from "./pages/Start";
 import { Explanation } from "./pages/Explanation";
