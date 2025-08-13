@@ -13,7 +13,7 @@ export const SolutionGeneration = ({
 }) => {
   return (
     <div className="w-full flex flex-col justify-start gap-[5px]">
-      <div className="w-full flex flex-row justify-between gap-[25px]">
+      <div className="w-full flex flex-row justify-between">
         <Button
           onClick={handleOnClickGenerate}
           text="Générer la solution"
