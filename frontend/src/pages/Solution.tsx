@@ -32,6 +32,7 @@ export default function Solution() {
   const [rapport, setRapport] = useState<Rapport | null>(null);
   const [isRapportModalVisible, setIsRapportModalVisible] =
     useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const handleMaxTablesInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -69,6 +70,9 @@ export default function Solution() {
       result.rapportJson.extra_table > 0
     ) {
       setIsRapportModalVisible(true);
+      setIsError(true);
+    } else {
+      setIsError(false);
     }
   };
 
@@ -114,8 +118,8 @@ export default function Solution() {
             <SolutionExportGroup
               onClick={handleOnClickExport}
               fileName={exportFilePath}
-              disabled={false} //à corriger
-              isError={false} //à corriger
+              disabled={stats === null}
+              isError={isError}
             />
           </div>
           {rapport && isRapportModalVisible && (
