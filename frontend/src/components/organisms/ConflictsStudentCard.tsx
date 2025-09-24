@@ -1,11 +1,5 @@
-import { ChangeEvent, useState } from "react";
 import { Student } from "../../types/Student";
-import { Button } from "../atoms/Button";
-import { Input } from "../atoms/Input";
 import { StudentConflictCount } from "../../types/StudentConflictCount";
-import { StudentSelectList } from "../molecules/StudentSelectList";
-import { Paragraph } from "../atoms/Paragraph";
-import { SubSubTitle } from "../atoms/SubSubTitle";
 import { ConflictsGuestsList } from "../molecules/ConflictsGuestsList";
 import { ConflictsNeighboursList } from "../molecules/ConflictsNeighboursList";
 import { ConflictsConflictDisplay } from "../molecules/ConflictsConflictDisplay";

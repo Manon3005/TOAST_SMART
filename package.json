@@ -1,7 +1,10 @@
 {
   "name": "toast",
+  "productName": "TOAST",
   "version": "1.0.0",
   "description": "Application de répartitions de tables",
+  "author": "Pitard-Bouet Aodren, Getenet Mathis, Bertrand Manon, Roche Aubin, Brunet Armand, Dai Qinshu, Doan Adrien",
+  "license": "MIT",
   "main": "dist/electron-main/main.js",
   "scripts": {
     "build:backend": "npx tsc -p backend",
@@ -9,12 +12,20 @@
     "build:frontend": "npx tsc -p frontend",
     "build:main": "npx tsc -p electron-main",
     "build": "npm run build:backend && npm run build:frontend && npm run build:main && npm run build:preload",
-    "start": "cd frontend && npm run build && cd .. && npm run build && electron .",
-    "electron": "electron ."
+    "start": "electron-forge start",
+    "electron": "electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
+    "@electron-forge/cli": "^7.9.0",
+    "@electron-forge/maker-deb": "^7.9.0",
+    "@electron-forge/maker-rpm": "^7.9.0",
+    "@electron-forge/maker-squirrel": "^7.9.0",
+    "@electron-forge/maker-zip": "^7.9.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.9.0",
+    "@electron-forge/plugin-fuses": "^7.9.0",
+    "@electron/fuses": "^1.8.0",
     "@eslint/js": "^9.31.0",
     "@types/csv-parse": "^1.1.12",
     "@types/fast-levenshtein": "^0.0.4",
@@ -29,6 +40,7 @@
   "dependencies": {
     "@tailwindcss/cli": "^4.1.11",
     "csv-parse": "^5.6.0",
+    "electron-squirrel-startup": "^1.0.1",
     "express": "^5.1.0",
     "fast-levenshtein": "^3.0.0",
     "react": "^18.3.1",

@@ -4,7 +4,6 @@ import { ConflictsStudentCard } from "../components/organisms/ConflictsStudentCa
 import { StudentConflictCount } from "../types/StudentConflictCount";
 import { Student } from "../types/Student";
 import { ResolveConflict } from "../types/ResolveConflict";
-import { Button } from "../components/atoms/Button";
 import { useNavigate } from "react-router-dom";
 import { AppHeader } from "../components/organisms/AppHeader";
 import { AddOrRemoveNeighbour } from "../types/AddOrRemoveNeighbour";

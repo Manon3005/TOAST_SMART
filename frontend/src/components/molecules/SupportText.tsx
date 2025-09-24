@@ -1,6 +1,6 @@
 import { Paragraph } from "../atoms/Paragraph";
 
-export const SupportText = ({}: {}) => {
+export const SupportText = () => {
   return (
     <div className="w-[80%] flex flex-col justify-start items-center p-[20px] gap-[10px] bg-white rounded-[12px] custom-shadow">
       <div className="w-full flex flex-col justify-center gap-[10px]">

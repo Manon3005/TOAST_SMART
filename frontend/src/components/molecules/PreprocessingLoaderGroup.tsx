@@ -12,8 +12,8 @@ export const PreprocessingLoaderGroup = ({
   return (
     <div className="flex justify-center items-center gap-[20px]">
       <Button onClick={loadFile} text="📁 Charger un fichier" />
-      {errorMessage != "" && <p style={{ color: "red" }}>{errorMessage}</p>}
-      {nameFile != "" && <p style={{ color: "green" }}>{nameFile}</p>}
+      {errorMessage !== "" && <p style={{ color: "red" }}>{errorMessage}</p>}
+      {nameFile !== "" && <p style={{ color: "green" }}>{nameFile}</p>}
     </div>
   );
 };

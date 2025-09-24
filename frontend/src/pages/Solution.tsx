@@ -1,8 +1,4 @@
 import { useState } from "react";
-import { Input } from "../components/atoms/Input";
-import { RadioOption } from "../types/RadioOption";
-import { RadioButtonGroup } from "../components/molecules/RadioButtonGroup";
-import { Button } from "../components/atoms/Button";
 import { SolutionStatsCenter } from "../components/organisms/SolutionStatsCenter";
 import { SolutionExportGroup } from "../components/molecules/SolutionExportGroup";
 import { Rapport } from "../types/Rapport";
@@ -57,9 +53,8 @@ export default function Solution() {
       selected_choice: selectedChoice,
     };
 
-    const result: TablePlan = await window.electronAPI.generateTablePlan(
-      exportJson
-    );
+    const result: TablePlan =
+      await window.electronAPI.generateTablePlan(exportJson);
     setOutputFilePath(result.addressPlanTable.split(/[/\\]/).pop());
     setTableGroupFilePath(result.addressGroupTable.split(/[/\\]/).pop());
     setStats(result.statsJson);
