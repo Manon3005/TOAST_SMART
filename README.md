@@ -1,11 +1,22 @@
 ## Get the App
 
+### Windows
+
 On the GitHub page, go to `Actions` tab.  
 Click on the last workflow run.  
-In the `Artifacts`, download the windows, linux or mac package.  
+In the `Artifacts`, download the windows package.  
 Unzip the package.  
 Enter the unzipped package and go to `TOAST.../Toast.exe`.  
 Because of the Antivirus, you may need to indicate that it is a safe program (the way of doing depends on your antivirus).
+
+### Linux
+
+On the GitHub page, go to `Actions` tab.  
+Click on the last workflow run.  
+In the `Artifacts`, download the linux package.  
+Unzip the package.  
+Enter the unzipped package and go to `TOAST.../toast` (Can take few seconds to open).  
+Maybe you should execute `chmod +x toast` before.
 
 ## Dev SetUp
 

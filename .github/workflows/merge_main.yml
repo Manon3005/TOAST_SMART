@@ -32,3 +32,36 @@ jobs:
         with:
           name: windows-build
           path: out/**/*
+
+  create_linux_bundle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: npm ci && cd frontend && npm ci && cd ..
+
+      - name: Build production
+        run: npm run build && cd frontend && npm run build && cd ..
+
+      - name: Package App (Linux)
+        run: npm run package
+
+      - name: Ensure executable
+        run: chmod +x out/TOAST-linux-x64/toast
+
+      - name: Bundle App
+        run: npm run make
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: out/**/*
