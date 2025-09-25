@@ -18,6 +18,13 @@ Unzip the package.
 Enter the unzipped package and go to `TOAST.../toast` (Can take few seconds to open).  
 Maybe you should execute `chmod +x toast` before.
 
+### MacOS
+
+On the GitHub page, go to `Actions` tab.  
+Click on the last workflow run.  
+In the `Artifacts`, download the macos package.  
+Unzip the package and execute toast.
+
 ## Dev SetUp
 
 In order to launch the REACT frontend :
