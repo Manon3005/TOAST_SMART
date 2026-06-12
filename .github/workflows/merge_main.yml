@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+      - Debug-GitHub-Pipeline
 
 jobs:
   create_windows_bundle:
