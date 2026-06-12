@@ -6,6 +6,9 @@ module.exports = {
     asar: true,
     executableName: "toast",
     overwrite: true,
+    extraResource: [
+      "./backend/src/algorithm" 
+    ]
   },
   rebuildConfig: {},
   makers: [

@@ -286,15 +286,31 @@ ipcMain.handle(
     // Launch the generation of the table plan
     const isWindows = os.platform() === "win32";
     const executableName = isWindows ? "main.exe" : "main";
-    const executablePath = path.resolve(
-      __dirname,
-      "..",
-      "..",
-      "backend",
-      "src",
-      "algorithm",
-      executableName
-    );
+    
+    let executablePath;
+    
+    if (app.isPackaged) {
+      // Production path: the executable is located in the resources folder of the packaged app
+      executablePath = path.join(
+        process.resourcesPath, 
+        "backend", 
+        "src", 
+        "algorithm", 
+        executableName
+      );
+    } else {
+      // Development path: the executable is located in the backend/src/algorithm folder
+      executablePath = path.resolve(
+        __dirname,
+        "..",
+        "..",
+        "backend",
+        "src",
+        "algorithm",
+        executableName
+      );
+    }
+
     const fileName = "planTable_" + dateStr;
     const outputPath = path.join(
       path.dirname(globalFilePath),
