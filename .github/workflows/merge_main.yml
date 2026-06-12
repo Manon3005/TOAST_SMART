@@ -6,6 +6,9 @@ on:
       - main
       - Debug-GitHub-Pipeline
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   create_windows_bundle:
     runs-on: windows-2022
