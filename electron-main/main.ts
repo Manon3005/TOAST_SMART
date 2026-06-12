@@ -292,7 +292,7 @@ ipcMain.handle(
     if (app.isPackaged) {
       // Production path: the executable is located in the resources folder of the packaged app
       executablePath = path.join(
-        process.resourcesPath, 
+        (process as any).resourcesPath, 
         "backend", 
         "src", 
         "algorithm", 
