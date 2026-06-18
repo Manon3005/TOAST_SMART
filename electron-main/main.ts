@@ -328,10 +328,9 @@ ipcMain.handle(
       ]);
       fs.unlinkSync(inputPath);
     } catch (error: any) {
-      // Affiche une popup avec le chemin tenté et l'erreur exacte renvoyée par Windows
       dialog.showErrorBox(
         "Crash de l'algorithme", 
-        `Chemin testé :\n${executablePath}\n\nDétail de l'erreur :\n${error.toString()}`
+        `L'exécutable a été trouvé mais a planté en cours de route.\n\nCode de crash : ${error.code}\n\nMessage : ${error.message}\n\nConsole (stderr) : ${error.stderr ? error.stderr : "Rien"}`
       );
       throw error;
     }
