@@ -290,16 +290,12 @@ ipcMain.handle(
     let executablePath;
     
     if (app.isPackaged) {
-      // Production path: the executable is located in the resources folder of the packaged app
       executablePath = path.join(
         (process as any).resourcesPath, 
-        "backend", 
-        "src", 
-        "algorithm", 
+        "algorithm",
         executableName
       );
     } else {
-      // Development path: the executable is located in the backend/src/algorithm folder
       executablePath = path.resolve(
         __dirname,
         "..",
