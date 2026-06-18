@@ -6,7 +6,13 @@ COMP = g++
 #Nom de l'EDL
 EDL = g++
 #Options de compilation
-CCFLAGS = -std=c++11 #-Wall -ansi -pedantic -DMAP -g -D -W -I
+CCFLAGS = -std=c++11
+
+# Détection de l'OS pour forcer l'intégration des DLLs sous Windows
+ifeq ($(OS),Windows_NT)
+    CCFLAGS += -static -static-libgcc -static-libstdc++
+endif
+
 LIBS = # -lm
 
 EXE = exe 
