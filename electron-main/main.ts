@@ -86,7 +86,7 @@ async function createWindow() {
   win.maximize();
   win.setResizable(true);
   win.loadFile(path.join(__dirname, "../../frontend", "build", "index.html"));
-  //win.webContents.openDevTools(); // pour debogage
+  win.webContents.openDevTools(); // pour debogage
 }
 
 app.whenReady().then(() => {
@@ -331,7 +331,12 @@ ipcMain.handle(
         outputPath,
       ]);
       fs.unlinkSync(inputPath);
-    } catch (error) {
+    } catch (error: any) {
+      // Affiche une popup avec le chemin tenté et l'erreur exacte renvoyée par Windows
+      dialog.showErrorBox(
+        "Crash de l'algorithme", 
+        `Chemin testé :\n${executablePath}\n\nDétail de l'erreur :\n${error.toString()}`
+      );
       throw error;
     }
     // Return the address of the generated csv
